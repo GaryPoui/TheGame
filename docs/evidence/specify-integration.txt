@@ -1,0 +1,9 @@
+Integration status: OK
+Default integration: codex
+Installed integrations: codex
+Multi-install safe: yes
+Shared templates target alignment: codex
+Modified managed files: 0
+Missing managed files: 0
+Invalid manifest paths: 0
+Unchecked manifests: 0

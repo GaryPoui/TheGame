@@ -1,0 +1,60 @@
+{
+  "scope": "fresh local git clone with core.autocrlf=true; local feature pointer created per instructions",
+  "content_commit": "2e9ea08adba152c547e59ff9ad3078a96d1ec834",
+  "result": "PASS",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "scripts/skills.py",
+        "verify"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"files_checked\": 92,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "scripts/verify-math.py"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: 64 checks; C:\\Users\\TomyG\\AppData\\Local\\Temp\\thegame-portability-w0rz_a9g\\repo\\docs\\evidence\\math-verification.json\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "scripts/verify-docs.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"scope\": \"structural documentation only; not game runtime or semantic proof\",\n  \"result\": \"PASS\",\n  \"features\": 10,\n  \"requirements\": 50,\n  \"pending_tasks\": 91,\n  \"local_links_checked\": 183,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\TomyG\\.local\\bin\\specify.exe",
+        "integration",
+        "status"
+      ],
+      "exit_code": 0,
+      "stdout": "Integration status: OK\nDefault integration: codex\nInstalled integrations: codex\nMulti-install safe: yes\nShared templates target alignment: codex\nModified managed files: 0\nMissing managed files: 0\nInvalid manifest paths: 0\nUnchecked manifests: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-File",
+        ".specify/scripts/powershell/check-prerequisites.ps1",
+        "-Json",
+        "-RequireSpec",
+        "-RequireTasks",
+        "-IncludeTasks"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"FEATURE_DIR\":\"C:\\\\Users\\\\TomyG\\\\AppData\\\\Local\\\\Temp\\\\thegame-portability-w0rz_a9g\\\\repo\\\\specs\\\\001-web-foundation\",\"AVAILABLE_DOCS\":[\"research.md\",\"data-model.md\",\"contracts/\",\"quickstart.md\",\"tasks.md\"]}\n",
+      "stderr": ""
+    }
+  ]
+}

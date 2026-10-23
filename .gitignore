@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.venv/
+__pycache__/
+.env
+.env.*
+!.env.example
+.codex/auth.json
+.codex/history.jsonl
+.codex/sessions/
+.tools/
+test-results/
+playwright-report/
