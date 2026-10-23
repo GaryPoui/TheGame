@@ -1,0 +1,1 @@
+export{t as defaultVertexShader}from"./default.vertex-D13mUuHB.js";

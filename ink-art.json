@@ -1,0 +1,85 @@
+{
+  "release": "urns-mvp-ink-v3",
+  "date": "2026-10-23",
+  "assets": [
+    {
+      "id": "captor-v3",
+      "path": "public/art/captor-v3.png",
+      "bytes": 2333928,
+      "sha256": "a7ab582b04e5dfaaed58013235095c2b72010c226d2d8034cea5972046ddaabe",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alphaRequired": true,
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "OpenAI built-in image_gen.imagegen",
+      "model": "tool default; model identifier not exposed",
+      "generated": "2026-10-23",
+      "prompt": "Use case: stylized-concept. Production game character sprite, single full body captor dealer facing viewer, isolated transparent background. Use attached Gambit references as character inspiration: swept brown hair, long brown trench coat with exaggerated curved lapels, muted plum waistcoat, fingerless gloves, one glowing violet playing card in raised hand. Adapt Gambit as a charming sinister casino captor in 1930s rubber-hose hand-inked animation similar to Cuphead, but calm subdued atmosphere. Thick warm black ink contours, hand-painted watercolor fill, cream pie-cut eyes with tiny purple pupils, contained knowing smile, elongated elegant silhouette and flexible curved arms, large readable hands, adult cartoon proportions. Original costume design, no X symbols or Marvel logos. Entire head, coat tails and feet inside frame with padding, front three-quarter pose facing camera, standing, no floor or scenery, no text, no watermark. Muted ochre brown, plum, charcoal, ivory palette, small violet glow confined to card. Transparent alpha background.",
+      "edits": "Copied generated PNG byte-for-byte, no pixel edits; content credentials preserved.",
+      "references": [
+        "User attached Gambit images 1, 2, 3"
+      ],
+      "rights": "AI-generated illustration; not CC0. Captor is a user-requested Gambit adaptation; underlying Marvel character rights are not granted or claimed.",
+      "review": "Source image, alpha and final in-game native-scale captures inspected; no clipped character limbs. Static illustrations with composition motion only.",
+      "collision": "none; decorative",
+      "anchor": "bottom center"
+    },
+    {
+      "id": "parlour-v3",
+      "path": "public/art/parlour-v3.png",
+      "bytes": 2577150,
+      "sha256": "9613d65b9992f48a5149c4f29c1a5752d926f9117ae1e0f01a9d7afdab6ac3ea",
+      "dimensions": [
+        1672,
+        940
+      ],
+      "mode": "RGB",
+      "alphaRequired": false,
+      "alphaExtrema": null,
+      "tool": "OpenAI built-in image_gen.imagegen",
+      "model": "tool default; model identifier not exposed",
+      "generated": "2026-10-23",
+      "prompt": "Use case: stylized-concept. Production background illustration for browser game La Casa del Azar. Wide landscape 16:9, empty underground gambling parlour viewed straight on, welcoming but subtly eerie. 1930s rubber-hose animation background like Cuphead with softer calm muted palette and hand-painted watercolor on aged paper, bold organic ink contours. Curved arch proscenium framing, dusty burgundy velvet curtains at left and right, desaturated sage wall, dark oak wainscot, two tall arched midnight blue windows, a small antique hanging lamp centered at upper third, oval framed playing-card suit emblem on back wall. Warm ochre lamp light, subdued plum shadows, ivory highlights. Lower third clear wooden floor, center empty for runtime game table and dealer, no furniture in center, no table, no characters. Painted theatrical depth rather than photoreal 3D. Quiet mystery, no gore, no exaggerated sinister faces. No text, no logos, no watermark. Crisp readable composition with charming slightly crooked architecture. Single background, edge to edge.",
+      "edits": "Copied generated PNG byte-for-byte, no pixel edits; content credentials preserved.",
+      "references": [],
+      "rights": "AI-generated illustration; not CC0; no general project redistribution license selected.",
+      "review": "Source image, alpha and final in-game native-scale captures inspected; no clipped character limbs. Static illustrations with composition motion only.",
+      "collision": "none; decorative",
+      "anchor": "center cover"
+    },
+    {
+      "id": "vera-v3",
+      "path": "public/art/vera-v3.png",
+      "bytes": 2218851,
+      "sha256": "2d368d6bd0acdb9b39f0a862d050a13403ae205e4c754b04a55c20e468e093d4",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "alphaRequired": true,
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "tool": "OpenAI built-in image_gen.imagegen",
+      "model": "tool default; model identifier not exposed",
+      "generated": "2026-10-23",
+      "prompt": "Use case: stylized-concept. Production game sprite isolated on transparent alpha background, single female casino accountant Vera, waist up behind a table (do not draw the table). 1930s hand-inked rubber-hose animation like Cuphead, soft calm muted watercolor fills, warm dark bold outlines. Adult elegant reserved woman with short dark finger-waved hair, narrow oval face, ivory pie-cut eyes, arched brow and wry small smile; muted sage shirt, charcoal plum waistcoat, small brass pocket-watch chain. Rounded flexible arms, both large cream gloved hands resting flat at bottom of frame, shoulders square facing player. Restrained theatrical expression, mysterious but approachable. No photoreal skin, no 3D render, no text, no logos, no watermarks, no scenery, no table, no floating props. Whole head, hair, arms and hands visible with generous transparent padding. Silhouette wider at elbows, suitable for game portrait 2:3. Palette ivory, charcoal, sage, muted plum, ochre brass. A polished cel character painting with subtle paper texture, not a concept sheet.",
+      "edits": "Copied generated PNG byte-for-byte, no pixel edits; content credentials preserved.",
+      "references": [],
+      "rights": "AI-generated illustration; not CC0; no general project redistribution license selected.",
+      "review": "Source image, alpha and final in-game native-scale captures inspected; no clipped character limbs. Static illustrations with composition motion only.",
+      "collision": "none; decorative",
+      "anchor": "bottom center"
+    }
+  ],
+  "styleReference": "https://cupheadgame.com/",
+  "note": "Illustrated stills with composition motion, not frame-by-frame cel animation. User references are not redistributed."
+}
