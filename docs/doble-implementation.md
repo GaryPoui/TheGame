@@ -2,7 +2,7 @@
 
 Fecha: 23/10/2026. Rama de trabajo: `codex/doble-contracts`.
 Extensión de la mesa de Vera; conserva Babylon.js, el teatro de tinta y la tipografía
-Arial/Helvetica/sans-serif. Publicación de este corte todavía no registrada aquí.
+Arial/Helvetica/sans-serif. Publicación de este corte registrada al final de este documento.
 
 ## Alcance entregado
 
@@ -106,3 +106,21 @@ Revisó código y capturas; no ejecutó suites ni certificó accesibilidad integ
 
 La ilustración SVG de Doble se registra en `public/asset-manifest.json`, con SHA-256 y origen
 propio. Los PNG de esta carpeta son capturas de evidencia, no arte del juego nuevo.
+
+## Publicación verificada de Doble — 23/10/2026
+
+- Fuente: `0c039791eb9e07840cf57584ed803239db0d71c7`, rama `codex/doble-contracts`.
+- Revisión abierta: https://github.com/GaryPoui/TheGame/pull/5, base `codex/ink-theatre`, sin merge automático.
+- Build estática: `a5a1977f5125f0e213aaf6a43dc28620735497b1`, rama `gh-pages`, versión `urns-contracts-v1`.
+- GitHub Pages terminó con éxito: https://github.com/GaryPoui/TheGame/actions/runs/39951468045.
+- Juego: https://garypoui.github.io/TheGame/.
+
+Comprobación pública: el guardado anterior abrió Vera completada con 8/8 y 5 fichas; el botón
+«Llevar el sello a Doble» habilitó presentación y primera mesa. Contratos S/C/J, dados y personaje
+cargaron, sin aviso de guardado y sin errores de consola capturados. No se reinició Vera ni se
+confirmó una tirada nueva en el perfil público. Fuentes computadas Arial/Helvetica/sans-serif.
+Captura: `docs/evidence/doble/public-table.png`. La partida completa y la ayuda se recorrieron
+localmente; esta comprobación pública cubre migración, acceso y carga, no todo el recorrido.
+
+La rama de fuente vigente para continuar esta entrega es `codex/doble-contracts`; la rama
+`codex/ink-theatre` conserva la versión previa. El sitio sigue publicando sólo desde `gh-pages`.

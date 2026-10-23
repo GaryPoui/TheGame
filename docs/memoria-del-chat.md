@@ -281,3 +281,21 @@ implementados por este pedido. Evidencia y límites en [doble-implementation](do
 recorridos manuales, build/typecheck, sin nuevas suites automatizadas ni afirmación de aprendizaje
 validado. T007/T008 de 006 quedan pendientes. El estado de publicación y sus hashes se agregan
 únicamente después de confirmar el push y el despliegue; no inferirlos de esta nota.
+
+## Publicación verificada de Doble — 23/10/2026
+
+- Fuente: `0c039791eb9e07840cf57584ed803239db0d71c7`, rama `codex/doble-contracts`.
+- Revisión abierta: https://github.com/GaryPoui/TheGame/pull/5, base `codex/ink-theatre`, sin merge automático.
+- Build estática: `a5a1977f5125f0e213aaf6a43dc28620735497b1`, rama `gh-pages`, versión `urns-contracts-v1`.
+- GitHub Pages terminó con éxito: https://github.com/GaryPoui/TheGame/actions/runs/39951468045.
+- Juego: https://garypoui.github.io/TheGame/.
+
+Comprobación pública: el guardado anterior abrió Vera completada con 8/8 y 5 fichas; el botón
+«Llevar el sello a Doble» habilitó presentación y primera mesa. Contratos S/C/J, dados y personaje
+cargaron, sin aviso de guardado y sin errores de consola capturados. No se reinició Vera ni se
+confirmó una tirada nueva en el perfil público. Fuentes computadas Arial/Helvetica/sans-serif.
+Captura: `docs/evidence/doble/public-table.png`. La partida completa y la ayuda se recorrieron
+localmente; esta comprobación pública cubre migración, acceso y carga, no todo el recorrido.
+
+La rama de fuente vigente para continuar esta entrega es `codex/doble-contracts`; la rama
+`codex/ink-theatre` conserva la versión previa. El sitio sigue publicando sólo desde `gh-pages`.

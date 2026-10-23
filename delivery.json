@@ -81,5 +81,31 @@
     },
     "deployment_commit": "bc12a176676eea0339510c03bac520e2bf204be0",
     "build_source_commit": "79b1c246078f147cf574784fb899740455850932"
+  },
+  "latest_delivery": {
+    "phase": "doble-contracts",
+    "branch": "codex/doble-contracts",
+    "content_commit": "0c039791eb9e07840cf57584ed803239db0d71c7",
+    "deployment_branch": "gh-pages",
+    "deployment_commit": "a5a1977f5125f0e213aaf6a43dc28620735497b1",
+    "release": "urns-contracts-v1",
+    "pull_request": "https://github.com/GaryPoui/TheGame/pull/5",
+    "site_url": "https://garypoui.github.io/TheGame/",
+    "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39951468045",
+    "documentation": "docs/doble-implementation.md",
+    "validation": {
+      "build_typecheck": "PASS",
+      "document_links": 232,
+      "design_math_checks": 64,
+      "manual_local": "Vera unlock, contracts, optimal loss, reload, simulation, completion and guided route; final visual confirmation",
+      "independent_review": "ship for reviewed source and screenshot scope",
+      "viewports": [
+        "desktop",
+        "390px",
+        "200 percent text"
+      ],
+      "public": "legacy Vera save preserved; Doble tutorial and offers loaded; no captured console error or save warning",
+      "automated_gameplay_suites": "Not added or run in this task; T007/T008 pending"
+    }
   }
 }
