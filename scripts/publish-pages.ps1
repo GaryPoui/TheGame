@@ -24,7 +24,7 @@ Get-ChildItem -LiteralPath $distribution -Force | Copy-Item -Destination $stagin
 '* -text' | Set-Content -LiteralPath (Join-Path $staging '.gitattributes') -Encoding ascii
 New-Item -ItemType File -Path (Join-Path $staging '.nojekyll') -Force | Out-Null
 $sourceCommit = git -C $workspace rev-parse HEAD
-[ordered]@{sourceCommit=$sourceCommit;publishedAt=[DateTime]::UtcNow.ToString('o');version='urns-mvp-v1'} |
+[ordered]@{sourceCommit=$sourceCommit;publishedAt=[DateTime]::UtcNow.ToString('o');version='urns-mvp-realistic-v2'} |
   ConvertTo-Json | Set-Content -LiteralPath (Join-Path $staging 'build-info.json') -Encoding utf8
 git -C $staging add --all
 git -C $staging commit --quiet -m "Publish urns MVP from $sourceCommit"
@@ -34,3 +34,4 @@ if ($LASTEXITCODE -ne 0) { throw 'Could not push deployment branch; no forced up
 $deploymentCommit = git -C $staging rev-parse HEAD
 Write-Output "Deployment branch: $deploymentCommit"
 Write-Output 'Configure/check Pages and verify the public HTTPS game before reporting completion.'
+
