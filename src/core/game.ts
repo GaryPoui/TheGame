@@ -1,10 +1,11 @@
+import { validContractsState, type ContractsState } from './tables/contracts';
 export type Color = 'red' | 'blue';
 export interface Urn { red: number; blue: number }
 export interface Fraction { numerator: number; denominator: number }
 export interface RoundConfig { id: string; urns: [Urn, Urn]; event: Color; replacement: boolean }
 export interface Settings { reducedMotion: boolean; volume: number; textScale: number; sensitivity: number; keys: { forward: string; backward: string; left: string; right: string; interact: string } }
 export interface Decision { urn: 0 | 1; color: Color; correct: boolean; optimal: number[]; beforeProbability: Fraction; round: number; step: number; assisted: boolean }
-export interface GameState { phase: 'choose' | 'revealed' | 'roundEnd' | 'complete' | 'guided'; round: number; step: number; urns: [Urn, Urn]; event: Color; replacement: boolean; merit: number; tokens: number; last: Decision | null; history: Decision[]; rng: { algorithm: 'xorshift32-v1'; state: number; count: number }; assisted: boolean; settings: Settings }
+export interface GameState { contracts?: ContractsState; activeTable?: 'urns' | 'contracts'; seals?: { urns: boolean; contracts: boolean; urnsMethod?: 'independent' | 'assisted'; contractsMethod?: 'independent' | 'assisted' }; phase: 'choose' | 'revealed' | 'roundEnd' | 'complete' | 'guided'; round: number; step: number; urns: [Urn, Urn]; event: Color; replacement: boolean; merit: number; tokens: number; last: Decision | null; history: Decision[]; rng: { algorithm: 'xorshift32-v1'; state: number; count: number }; assisted: boolean; settings: Settings }
 export const defaultSettings: Settings = { reducedMotion: false, volume: 0.35, textScale: 1, sensitivity: 1, keys: {forward:'KeyW',backward:'KeyS',left:'KeyA',right:'KeyD',interact:'KeyE'} };
 const rounds: RoundConfig[] = [
   {id:'U1',urns:[{red:3,blue:2},{red:1,blue:1}],event:'red',replacement:false},
@@ -48,11 +49,18 @@ const key='thegame.save.v1'; const maxSize=262144;
 function storageOrDefault(storage?:SaveStorage):SaveStorage {return storage??globalThis.localStorage;}
 function parse(raw:string|null): {state:GameState|null;future:boolean} {
   if(!raw||raw.length>maxSize)return {state:null,future:false};
-  try {const d=JSON.parse(raw) as {schemaVersion?:number;contentVersion?:string;state?:GameState};if(typeof d.schemaVersion==='number'&&d.schemaVersion>1)return {state:null,future:true};if(d.schemaVersion!==1||d.contentVersion!=='urns-mvp-v1'||!validState(d.state))return {state:null,future:false};return {state:d.state!,future:false};}catch{return {state:null,future:false};}
+  try {const d=JSON.parse(raw) as {schemaVersion?:number;contentVersion?:string;state?:GameState};if(typeof d.schemaVersion==='number'&&d.schemaVersion>2)return {state:null,future:true};if(!((d.schemaVersion===1&&d.contentVersion==='urns-mvp-v1')||(d.schemaVersion===2&&d.contentVersion==='urns-contracts-v2'))||!validState(d.state))return {state:null,future:false};return {state:d.state!,future:false};}catch{return {state:null,future:false};}
 }
 const integer=(n:unknown,min:number,max:number)=>typeof n==='number'&&Number.isInteger(n)&&n>=min&&n<=max;
 export function validState(value:unknown):value is GameState {
   if(!value||typeof value!=='object')return false; const s=value as GameState;
+  if(s.contracts!==undefined&&!validContractsState(s.contracts))return false;
+  if(s.activeTable!==undefined&&!['urns','contracts'].includes(s.activeTable))return false;
+  if(s.seals!==undefined&&(!s.seals||typeof s.seals.urns!=='boolean'||typeof s.seals.contracts!=='boolean'))return false;
+  if(s.seals?.urnsMethod!==undefined&&!['independent','assisted'].includes(s.seals.urnsMethod))return false;
+  if(s.seals?.contractsMethod!==undefined&&!['independent','assisted'].includes(s.seals.contractsMethod))return false;
+  if(s.contracts&&!(s.seals?.urns||s.phase==='complete'))return false;
+  if(s.activeTable==='contracts'&&!s.contracts)return false;
   if(!['choose','revealed','roundEnd','complete','guided'].includes(s.phase)||!integer(s.round,0,s.assisted?1:3)||!integer(s.step,0,1)||typeof s.assisted!=='boolean'||!integer(s.merit,0,8)||!integer(s.tokens,0,8))return false;
   if(!Array.isArray(s.urns)||s.urns.length!==2||!s.urns.every(u=>u&&integer(u.red,0,5)&&integer(u.blue,0,5)&&(u.red+u.blue>0||(s.step===1&&['revealed','roundEnd','complete'].includes(s.phase))))||!['red','blue'].includes(s.event)||typeof s.replacement!=='boolean')return false;
   if(!s.rng||s.rng.algorithm!=='xorshift32-v1'||!integer(s.rng.state,1,0xffffffff)||!integer(s.rng.count,0,1000000))return false;
@@ -85,5 +93,5 @@ export function validState(value:unknown):value is GameState {
 }
 function validDecision(d:Decision):boolean {return !!d&&(d.urn===0||d.urn===1)&&['red','blue'].includes(d.color)&&typeof d.correct==='boolean'&&typeof d.assisted==='boolean'&&integer(d.round,0,3)&&integer(d.step,0,1)&&Array.isArray(d.optimal)&&d.optimal.length>0&&d.optimal.length<=2&&d.optimal.every(n=>n===0||n===1)&&!!d.beforeProbability&&integer(d.beforeProbability.numerator,0,10)&&integer(d.beforeProbability.denominator,1,10)&&d.beforeProbability.numerator<=d.beforeProbability.denominator;}
 export function loadGame(storage?:SaveStorage):{state:GameState|null;warning:string|null} {try{const store=storageOrDefault(storage),current=parse(store.getItem(key+'.current'));if(current.future)return {state:null,warning:'Este guardado pertenece a una versión futura. Se conserva sin modificar.'};if(current.state)return {state:current.state,warning:null};const backup=parse(store.getItem(key+'.backup'));if(backup.future)return {state:null,warning:'La copia guardada pertenece a una versión futura y se conserva.'};if(backup.state)return {state:backup.state,warning:'Se recuperó la copia de seguridad del progreso.'};return {state:null,warning:store.getItem(key+'.current')||store.getItem(key+'.backup')?'El guardado no es válido. Podés iniciar una práctica nueva.':null};}catch{return {state:null,warning:'El navegador no permite leer el progreso guardado.'};}}
-export function saveGame(state:GameState,storage?:SaveStorage):string|null {try {const store=storageOrDefault(storage),old=store.getItem(key+'.current');if(parse(old).future||parse(store.getItem(key+'.backup')).future)return 'El guardado de una versión futura se conserva. La partida continúa en memoria.';if(!validState(state))return 'El estado no es válido y no se guardó.';const raw=JSON.stringify({schemaVersion:1,contentVersion:'urns-mvp-v1',state});store.setItem(key+'.pending',raw);if(!parse(store.getItem(key+'.pending')).state)throw new Error('Save verification');if(parse(old).state)store.setItem(key+'.backup',old!);store.setItem(key+'.current',raw);store.removeItem(key+'.pending');return null;}catch{return 'No se pudo guardar. Tu partida continúa en memoria; no cierres esta pestaña.';}}
+export function saveGame(state:GameState,storage?:SaveStorage):string|null {try {const store=storageOrDefault(storage),old=store.getItem(key+'.current');if(parse(old).future||parse(store.getItem(key+'.backup')).future)return 'El guardado de una versión futura se conserva. La partida continúa en memoria.';if(!validState(state))return 'El estado no es válido y no se guardó.';const raw=JSON.stringify({schemaVersion:2,contentVersion:'urns-contracts-v2',state});store.setItem(key+'.pending',raw);if(!parse(store.getItem(key+'.pending')).state)throw new Error('Save verification');if(parse(old).state)store.setItem(key+'.backup',old!);store.setItem(key+'.current',raw);store.removeItem(key+'.pending');return null;}catch{return 'No se pudo guardar. Tu partida continúa en memoria; no cierres esta pestaña.';}}
 export function clearGame(storage?:SaveStorage):void {try {const store=storageOrDefault(storage);for(const suffix of ['.current','.backup','.pending'])store.removeItem(key+suffix);}catch{/* Caller can still start an in-memory practice. */}}

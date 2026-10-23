@@ -265,3 +265,103 @@ con el progreso existente (8/8 decisiones y 5 fichas), sin reiniciarlo. Consola 
 capturados. Captura pública: `docs/evidence/sans/public-menu.png` desde la raíz del repo.
 La revisión local previa cubrió tutorial y mesa, incluyendo los rótulos canvas.
 No se repitieron las suites automatizadas de gameplay en esta publicación tipográfica.
+
+## 12. Implementación de Doble — 23/10/2026
+
+Pedido directo: «implementa la mesa doble». Rama del corte `codex/doble-contracts` sobre la
+fuente de tinta. Doble ya tiene tutorial preparado, personaje SVG original, dados 3D, contratos
+S/C/J, cuatro rondas con dos decisiones, segunda orden hipotética sin tirada, cuadrícula de
+36 pares y simulación separada de 1/100 tiradas. El sello se obtiene con 6/8 o completando dos
+microescenarios guiados; saldo negativo no bloquea ni quita méritos. Repetición cambia el
+umbral de transferencia a 20 y conserva sellos y su método. El guardado compartido usa esquema
+2 con aceptación del esquema legado 1; el resultado revelado no se vuelve a sortear al cargar.
+
+Se conserva el teatro de tinta y toda la tipografía sans vigente. Ada y anfitrión/final no están
+implementados por este pedido. Evidencia y límites en [doble-implementation](doble-implementation.md):
+recorridos manuales, build/typecheck, sin nuevas suites automatizadas ni afirmación de aprendizaje
+validado. T007/T008 de 006 quedan pendientes. El estado de publicación y sus hashes se agregan
+únicamente después de confirmar el push y el despliegue; no inferirlos de esta nota.
+
+## Publicación verificada de Doble — 23/10/2026
+
+- Fuente: `0c039791eb9e07840cf57584ed803239db0d71c7`, rama `codex/doble-contracts`.
+- Revisión abierta: https://github.com/GaryPoui/TheGame/pull/5, base `codex/ink-theatre`, sin merge automático.
+- Build estática: `a5a1977f5125f0e213aaf6a43dc28620735497b1`, rama `gh-pages`, versión `urns-contracts-v1`.
+- GitHub Pages terminó con éxito: https://github.com/GaryPoui/TheGame/actions/runs/39951468045.
+- Juego: https://garypoui.github.io/TheGame/.
+
+Comprobación pública: el guardado anterior abrió Vera completada con 8/8 y 5 fichas; el botón
+«Llevar el sello a Doble» habilitó presentación y primera mesa. Contratos S/C/J, dados y personaje
+cargaron, sin aviso de guardado y sin errores de consola capturados. No se reinició Vera ni se
+confirmó una tirada nueva en el perfil público. Fuentes computadas Arial/Helvetica/sans-serif.
+Captura: `docs/evidence/doble/public-table.png`. La partida completa y la ayuda se recorrieron
+localmente; esta comprobación pública cubre migración, acceso y carga, no todo el recorrido.
+
+La rama de fuente vigente para continuar esta entrega es `codex/doble-contracts`; la rama
+`codex/ink-theatre` conserva la versión previa. El sitio sigue publicando sólo desde `gh-pages`.
+
+## Retrato de Doble, revisión v2 — 23/10/2026
+
+El usuario pidió que el crupier coincidiera con los demás personajes. Se sustituyó el SVG activo
+por `public/art/doble-v2.png`, generado con imagegen usando Vera como referencia principal de
+estilo, el anfitrión como referencia secundaria de acabado/paleta y una captura del Doble previo
+para conservar identidad. Tinta de grosor variable, textura pictórica, ojos expresivos, traje
+ciruela, solapas desiguales y sombrero. El encuadre hasta la cadera permite leer cara y manos
+sobre la mesa. La imagen se comparte entre presentación HTML y plano de Babylon.
+
+PNG 1024×1536 RGBA, 2.236.166 bytes, alfa 0..254 y esquinas transparentes. Copia byte a byte de
+la salida de imagegen, sin edición de píxeles; el SVG anterior permanece histórico. Prompt exacto,
+referencias, hash, herramienta y derechos en `public/doble-art-v2.json` y `docs/doble-art-v2.json`.
+La generación no implica animación nueva. Reglas, puntuación y guardado siguen iguales.
+
+Compilación/typecheck aprobadas; inspección del retrato y de la mesa en escritorio, sin errores
+de consola capturados. Captura en `docs/evidence/doble-art-v2/table-desktop.png`. No se ejecutaron
+suites de tests ni se repitió el recorrido de juego para esta sustitución de arte.
+
+### Publicación de la revisión artística
+
+Fuente `61268d31e1b01e1f284b076126ea79c4b1ce3dfb`, despliegue `80100dc3562495397dffe3f75784762999455665`,
+versión `urns-contracts-doble-art-v2`. GitHub Pages finalizó con éxito:
+https://github.com/GaryPoui/TheGame/actions/runs/39953002366.
+Se abrió el juego público, se retomó el progreso existente y se inspeccionó el nuevo retrato
+detrás de la mesa sin errores de consola capturados. Captura:
+`docs/evidence/doble-art-v2/public-table.png`. PR #5 conserva los cambios sin merge automático.
+
+
+## Jugabilidad más práctica — 2026-10-23 · sólo local
+
+Pedido: mejorar las dos mesas, explicar mientras se juega y hacerlas más atractivas.
+Restricción posterior explícita: **no pushes al repo**. No commit, push ni despliegue en este corte.
+
+Vera: inventarios con fichas contables en el paño; tutorial de tres momentos con elección real,
+extracción roja preparada y comparación de fracciones equivalentes; explicación según urna elegida;
+antes/después de la fracción y manejo de urna vacía. El cierre de ronda se integra en Continuar,
+sin saltar decisiones. Repetir Vera conserva sellos y entra a jugar sin repetir la apertura.
+Doble: distribuciones de 36 casos en cada contrato, cálculo contextual del elegido y ensayo manual
+de dos dados (2,2 inicial; cada botón cambia un dado entre 1 y 6). El ensayo es estado de interfaz,
+no llama al RNG, no modifica campaña/saldo y no se guarda. Recibo visual del mismo par mantiene
+señalado el contrato firmado original, incluso después de la orden hipotética.
+
+Diseño: teatro de tinta, arte existente y textos sans; progreso de decisiones, controles sobre el
+paño, acción principal fija y objetivo visible en celular. Feedback breve después del resultado,
+sin bloqueo de controles y respetando movimiento reducido; las acciones de teclado no lo animan.
+Build/typecheck completadas; inspección visual de escritorio y celular y manipulación del ensayo.
+Sin suites de pruebas automatizadas nuevas ni ejecutadas; diversión y aprendizaje no medidos.
+Detalle y capturas locales: docs/playability-local.md y docs/evidence/playability/.
+
+
+### Autorización posterior de publicación
+
+El usuario pidió «PUSHEA TODO PARA QUE ESTE EN EL PAGES». Esta instrucción reemplaza la
+restricción de no hacer push para el corte de jugabilidad. Se prepara la subida de fuente y build
+a gh-pages; los identificadores finales se registran tras la publicación efectiva.
+
+
+### Publicación efectiva de jugabilidad
+
+Fuente `7b463b0f3c04a73b26dff0020fc94d3d861c0e9e`, despliegue
+`8e64958f8c2c35d8b40666b963dca42731b893ec`, versión `urns-contracts-playability-v1`.
+Workflow https://github.com/GaryPoui/TheGame/actions/runs/39956779863 completado con éxito.
+Se comprobó HTTP 200 del sitio, build-info con fuente/versión correctas y coincidencia del
+bundle público con dist local (incluye rehearse-die-). No se ejecutaron suites de gameplay.
+PR #5 actualizado; sin merge automático. Este registro reemplaza el estado local anterior.

@@ -2,7 +2,7 @@
 
 Leer README, docs/memoria-del-chat.md, docs/continuity.md, docs/original-prompt.md y la constitución antes de trabajar.
 El contexto vigente es TheGame / La Casa del Azar, no el proyecto anterior JuegoFiore.
-La fuente vigente está en codex/ink-theatre; la build pública se sirve desde gh-pages.
+La fuente vigente de Vera y Doble está en codex/doble-contracts (PR #5); codex/ink-theatre conserva la base visual previa. La build pública se sirve desde gh-pages.
 Pedido vigente del 2026-10-23: todos los textos sin serifa, incluidos créditos y etiquetas 3D.
 El prompt explícito del usuario tiene prioridad. La fase documental está completada; el 2026-10-23
 el usuario autorizó continuar hasta un MVP y hostearlo. Ver docs/mvp-scope.md y mvp-validation.md.

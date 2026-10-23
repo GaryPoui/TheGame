@@ -1,5 +1,34 @@
 # Continuidad del proyecto
 
+## Publicación autorizada de jugabilidad — 2026-10-23
+
+El usuario cambió la restricción anterior y pidió «PUSHEA TODO PARA QUE ESTE EN EL PAGES».
+Se autoriza subir el corte de jugabilidad y actualizar gh-pages, conservando PR #5 sin merge
+automático. La sección de corte local siguiente documenta el estado previo a esta autorización.
+Publicado: fuente `7b463b0`, despliegue `8e64958`, versión `urns-contracts-playability-v1`.
+Pages finalizó con éxito; HTTP 200, build-info correcto y bundle público igual al compilado local.
+
+## Jugabilidad local — 2026-10-23
+
+El usuario pidió mejorar ritmo, explicación práctica y diseño de Vera y Doble; luego indicó
+**no hacer push**. Este corte permanece local, sin commit ni publicación. Incluye fichas
+contables sobre el paño, tutorial interactivo de Vera, mentor contextual, comparación antes/después,
+ensayo manual de dos dados para Doble, vista de 36 casos al seleccionar y acciones móviles fijas.
+Se conserva el núcleo matemático, RNG y guardado. Detalle: [jugabilidad local](playability-local.md).
+La publicación anterior de Doble sigue siendo la versión pública.
+
+## Mesa de Doble — 2026-10-23
+
+El usuario pidió «implementa la mesa doble». El corte vigente se desarrolla en
+`codex/doble-contracts`, derivado de `codex/ink-theatre`; la build pública sigue usando `gh-pages`.
+Vera habilita contratos S/C/J con cuatro rondas y ocho decisiones, dados 3D, comparación opcional
+1/100, ayuda finita y guardado esquema 2 compatible con urnas legado. Sellos y métodos se conservan
+al practicar. El teatro de tinta y Arial sans siguen vigentes. Ada y el final están pendientes.
+Detalle y evidencia: [Doble](doble-implementation.md). Se realizaron recorridos manuales y
+build/typecheck; no se añadieron ni ejecutaron suites nuevas y T007/T008 siguen pendientes.
+El hash de publicación se registra sólo después de subir y publicar realmente este corte.
+Las secciones siguientes de entregas previas quedan como historial, no como estado vigente.
+
 ## Teatro de tinta — 2026-10-23
 
 El usuario corrigió la dirección: referencia Cuphead más tranquila, oscuridad inicial y captor

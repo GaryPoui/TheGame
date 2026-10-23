@@ -81,5 +81,59 @@
     },
     "deployment_commit": "bc12a176676eea0339510c03bac520e2bf204be0",
     "build_source_commit": "79b1c246078f147cf574784fb899740455850932"
+  },
+  "latest_delivery": {
+    "phase": "doble-contracts",
+    "branch": "codex/doble-contracts",
+    "content_commit": "0c039791eb9e07840cf57584ed803239db0d71c7",
+    "deployment_branch": "gh-pages",
+    "deployment_commit": "a5a1977f5125f0e213aaf6a43dc28620735497b1",
+    "release": "urns-contracts-v1",
+    "pull_request": "https://github.com/GaryPoui/TheGame/pull/5",
+    "site_url": "https://garypoui.github.io/TheGame/",
+    "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39951468045",
+    "documentation": "docs/doble-implementation.md",
+    "validation": {
+      "build_typecheck": "PASS",
+      "document_links": 232,
+      "design_math_checks": 64,
+      "manual_local": "Vera unlock, contracts, optimal loss, reload, simulation, completion and guided route; final visual confirmation",
+      "independent_review": "ship for reviewed source and screenshot scope",
+      "viewports": [
+        "desktop",
+        "390px",
+        "200 percent text"
+      ],
+      "public": "legacy Vera save preserved; Doble tutorial and offers loaded; no captured console error or save warning",
+      "automated_gameplay_suites": "Not added or run in this task; T007/T008 pending"
+    }
+  },
+  "latest_visual_update": {
+    "phase": "doble-art-v2",
+    "branch": "codex/doble-contracts",
+    "content_commit": "61268d31e1b01e1f284b076126ea79c4b1ce3dfb",
+    "deployment_commit": "80100dc3562495397dffe3f75784762999455665",
+    "release": "urns-contracts-doble-art-v2",
+    "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39953002366",
+    "asset_manifest": "public/doble-art-v2.json",
+    "public_capture": "docs/evidence/doble-art-v2/public-table.png",
+    "validation": "Build/typecheck and local/public visual inspection; no new gameplay tests"
+  },
+  "latest_playability_update": {
+    "phase": "table-playability-v1",
+    "branch": "codex/doble-contracts",
+    "content_commit": "7b463b0f3c04a73b26dff0020fc94d3d861c0e9e",
+    "deployment_commit": "8e64958f8c2c35d8b40666b963dca42731b893ec",
+    "release": "urns-contracts-playability-v1",
+    "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39956779863",
+    "site_url": "https://garypoui.github.io/TheGame/",
+    "documentation": "docs/playability-local.md",
+    "validation": {
+      "build_typecheck": "PASS",
+      "document_links": 240,
+      "design_math_checks": 64,
+      "public": "HTTP 200; build-info matches source; public entry bundle matches local build",
+      "automated_gameplay_suites": "Not added or run"
+    }
   }
 }
