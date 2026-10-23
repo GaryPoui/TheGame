@@ -16,6 +16,9 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 
 ## Mapa de lectura
 
+[Memoria compartible del chat y del proyecto](docs/memoria-del-chat.md), con decisiones,
+entregas, validación y contexto para continuar en otra conversación.
+
 | Para conocer… | Leer |
 | --- | --- |
 | Qué se hizo y cómo continuar | [Continuidad](docs/continuity.md) |
