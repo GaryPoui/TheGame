@@ -105,3 +105,10 @@ No se verificó su contenido y no se usa como autoridad. Se generó una instant�
 https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9, también en delivery.json. Es una captura
 durante el cierre, no un enlace que se actualiza solo con mensajes posteriores. La continuidad
 completa y las decisiones posteriores a Babylon.js están en este repositorio.
+## Cierre de la revisión de tinta
+
+Publicación v3 comprobada: fuente `4ec4109`, deployment `ff872d5`, PR
+https://github.com/GaryPoui/TheGame/pull/4. 11/11 pruebas públicas y 123/123 archivos por hash.
+El usuario pidió subir el avance y el cierre al repositorio: avance en `ba95833` y registro
+final en el commit siguiente. Fuente y documentación en `codex/ink-theatre`. Próximo trabajo:
+revisión humana de la dirección visual y actuaciones por estados antes de ampliar campaña.

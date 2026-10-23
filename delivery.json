@@ -25,7 +25,7 @@
     "art_provenance": "docs/ink-assets.json; generated with built-in imagegen; adapted captor not claimed CC0",
     "narrow_viewport": "390 px without horizontal overflow",
     "text_scale": "200 percent screenshot inspected; urn choice and extraction remain operable",
-    "local_markdown_links": 207
+    "local_markdown_links": 209
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",

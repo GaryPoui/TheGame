@@ -81,3 +81,18 @@ movimiento) aprobadas tras los ajustes. Captura sin errores JS, requests fallida
 erróneos ni recursos externos; ancho de documento 390 en viewport de 390. Revisión de
 capturas de mesa, introducción, texto al 200 % y pantalla angosta. PNG originales suman
 7.129.929 bytes; los recursos históricos se conservan pero no se solicitan al jugar.
+## Publicación y cierre de revisión v3
+
+Sitio: https://garypoui.github.io/TheGame/. Fuente de build:
+`4ec4109a4a173e3935d955e740ddd78b66904a5e`; despliegue:
+`ff872d5b12bca0f2e757e46d68c11711e95ee2fd`, versión `urns-mvp-ink-v3`.
+GitHub Pages informó built. Se verificaron 123/123 archivos servidos por SHA-256.
+Las 11/11 pruebas del navegador aprobaron sobre el sitio público: oscuridad completa,
+aparición, movimiento reducido, salto sin callbacks tardíos, partida completa, guardado,
+ayuda, atajos, ajustes y fallback sin WebGL. Evidencia:
+[pruebas públicas](evidence/ink/public-browser.json) e
+[integridad pública](evidence/ink/public-integrity.json).
+
+PR de esta revisión: https://github.com/GaryPoui/TheGame/pull/4, sin merge automático.
+Los commits posteriores de documentación no cambian los bytes del juego desplegado.
+Para ver la aparición desde el comienzo, elegir Nueva partida; Retomar conserva el guardado.
