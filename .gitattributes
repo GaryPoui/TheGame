@@ -11,3 +11,4 @@
 *.txt text eol=lf
 .agents/skills/** -text
 .specify/** -text
+third-party/makehuman/base.obj -text

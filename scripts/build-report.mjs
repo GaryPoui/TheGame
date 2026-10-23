@@ -19,6 +19,7 @@ const report = {
   totalGzipBytes: files.reduce((n, f) => n + f.gzipBytes, 0),
   externalRuntimeAssets: false,
 };
-await mkdir('docs/evidence/runtime', { recursive: true });
-await writeFile('docs/evidence/runtime/build-report.json', JSON.stringify(report, null, 2) + '\n');
+const destination = process.argv[2] ?? 'docs/evidence/runtime/build-report.json';
+await mkdir(path.dirname(destination), { recursive: true });
+await writeFile(destination, JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify({ files: files.length, totalBytes: report.totalBytes, totalGzipBytes: report.totalGzipBytes }));

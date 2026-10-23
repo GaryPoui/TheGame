@@ -5,7 +5,7 @@ import {
 } from './core/game';
 import type { GameScene } from './presentation/scene';
 
-declare global { interface Window { __THEGAME_READY__: boolean } }
+declare global { interface Window { __THEGAME_READY__: boolean; __THEGAME_METRICS__?: () => unknown } }
 type Screen = 'menu' | 'intro' | 'room' | 'tutorial' | 'table' | 'complete';
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const overlay = document.querySelector<HTMLDivElement>('#overlay')!;
@@ -167,7 +167,7 @@ app.addEventListener('click', event => {
   if (id === 'settings-button') { showSettings(); return; }
   if (target.dataset.action === 'home') { event.preventDefault(); setScreen('menu'); return; }
   if (target.dataset.action === 'credits') {
-    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Este MVP incluye la mesa de urnas de Vera; la campaña completa sigue en desarrollo.</p><p>Escenario, personajes y objetos construidos para este proyecto con geometría original. Sonidos sintetizados. Babylon.js bajo Apache 2.0; interfaz sin recursos externos.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
+    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Este MVP incluye la mesa de urnas de Vera; la campaña completa sigue en desarrollo.</p><p>Escenario y vestuario propios, cabeza anatómica basada en MakeHuman y materiales fotográficos de Poly Haven, ambos CC0. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
   }
   if (id === 'new-game' || id === 'practice-again') {
     if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p>${btn('confirm-new-game','Empezar de nuevo','primary full')}`); return; }
@@ -241,6 +241,8 @@ async function initScene(): Promise<void> {
     scene?.dispose(); scene = null;
     const module = await import('./presentation/scene');
     scene = new module.GameScene(document.querySelector<HTMLCanvasElement>('#scene')!, commitSelection);
+    await scene.ready;
+    window.__THEGAME_METRICS__ = () => scene?.metrics();
     sceneWarning = ''; applySettings();
     scene.setMode(screen === 'menu' || screen === 'intro' ? 'menu' : screen === 'room' || screen === 'complete' ? 'room' : 'table', true);
     updateVisual(); render();

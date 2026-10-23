@@ -1,5 +1,14 @@
 # Continuidad del proyecto
 
+## Actualización visual — 2026-10-23
+
+El usuario pidió mayor realismo visual. Rama de trabajo `codex/realistic-visuals` derivada de la
+fuente MVP. La sala ahora usa materiales PBR y HDR locales CC0; Vera tiene cabeza anatómica,
+textura facial CC0, cabello, escala y apoyo de manos revisados en cámara. Se corrigió el winding
+Babylon LH que mostraba interior de rostro. Build validado y pruebas browser del MVP siguen
+aprobadas; evidencia específica, procedencia y límites en [mejora visual](visual-upgrade.md).
+Publicar esta versión una vez cerrados los controles de release y verificar la URL pública.
+
 ## Actualización MVP — 2026-10-23
 
 El usuario autorizó continuar hasta un MVP y hostearlo. Se implementó la mesa de urnas completa,

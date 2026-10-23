@@ -1,0 +1,563 @@
+{
+  "date": "2026-10-23",
+  "baseURL": "http://127.0.0.1:4173/",
+  "browser": "156.0.8078.4",
+  "viewport": [
+    1440,
+    900
+  ],
+  "mode": "headless software SwiftShader; no hardware GPU performance claim",
+  "rendered": {
+    "width": 1440,
+    "height": 900,
+    "context": "WebGL2RenderingContext",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "warning": null
+  },
+  "metrics": {
+    "meshCount": 133,
+    "activeMeshCount": 130,
+    "geometryTriangles": 56824,
+    "fps": 2.1471514457486407,
+    "renderWidth": 1440,
+    "renderHeight": 900,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "errors": [],
+  "failures": [],
+  "badResponses": [],
+  "external": [],
+  "legibility": [
+    {
+      "text": "Extracción 1 de 2",
+      "fontPx": "10.4px",
+      "color": "rgb(75, 94, 77)",
+      "background": "rgb(238, 229, 209)",
+      "contrast": 5.574166538054988,
+      "disabled": false
+    },
+    {
+      "text": "Buscá una ficha roja ▲",
+      "fontPx": "28.8px",
+      "color": "rgb(28, 48, 46)",
+      "background": "rgb(238, 229, 209)",
+      "contrast": 11.090075952392326,
+      "disabled": false
+    },
+    {
+      "text": "↗ Sin reposición La ficha extraída queda afuera.",
+      "fontPx": "11.2px",
+      "color": "rgb(28, 48, 46)",
+      "background": "rgb(217, 223, 207)",
+      "contrast": 10.19207106696708,
+      "disabled": false
+    },
+    {
+      "text": "Mirá las proporciones. ¿De cuál preferís sacar?",
+      "fontPx": "12.16px",
+      "color": "rgb(28, 48, 46)",
+      "background": "rgb(238, 229, 209)",
+      "contrast": 11.090075952392326,
+      "disabled": false
+    },
+    {
+      "text": "▲ 3 rojas ● 2 azules",
+      "fontPx": "10.24px",
+      "color": "rgb(28, 48, 46)",
+      "background": "rgb(244, 239, 223)",
+      "contrast": 12.07903611992955,
+      "disabled": false
+    },
+    {
+      "text": "60 % de roja",
+      "fontPx": "9.6px",
+      "color": "rgb(74, 102, 88)",
+      "background": "rgb(244, 239, 223)",
+      "contrast": 5.478778628577832,
+      "disabled": false
+    },
+    {
+      "text": "▲ 1 rojas ● 1 azules",
+      "fontPx": "10.24px",
+      "color": "rgb(28, 48, 46)",
+      "background": "rgb(244, 239, 223)",
+      "contrast": 12.07903611992955,
+      "disabled": false
+    },
+    {
+      "text": "50 % de roja",
+      "fontPx": "9.6px",
+      "color": "rgb(74, 102, 88)",
+      "background": "rgb(244, 239, 223)",
+      "contrast": 5.478778628577832,
+      "disabled": false
+    },
+    {
+      "text": "Elegí una urna para continuar",
+      "fontPx": "12.16px",
+      "color": "rgb(62, 81, 68)",
+      "background": "rgb(183, 191, 169)",
+      "contrast": 4.477681341046211,
+      "disabled": true
+    },
+    {
+      "text": "El mérito depende de tu elección; las fichas, del azar.",
+      "fontPx": "10.4px",
+      "color": "rgb(75, 94, 77)",
+      "background": "rgb(238, 229, 209)",
+      "contrast": 5.574166538054988,
+      "disabled": false
+    }
+  ],
+  "resourceBytes": 11485438,
+  "resources": [
+    {
+      "name": "http://127.0.0.1:4173/assets/index-DOjlZTs3.js",
+      "encodedBodySize": 11783,
+      "decodedBodySize": 30307,
+      "transferSize": 12083,
+      "duration": 15.699999928474426
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/preload-helper-CRzLMJPS.js",
+      "encodedBodySize": 798,
+      "decodedBodySize": 1534,
+      "transferSize": 1098,
+      "duration": 15.100000023841858
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/index-DQiloZX1.css",
+      "encodedBodySize": 4853,
+      "decodedBodySize": 17428,
+      "transferSize": 5153,
+      "duration": 17
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/scene-CLKtzMiR.js",
+      "encodedBodySize": 363366,
+      "decodedBodySize": 1344758,
+      "transferSize": 363666,
+      "duration": 191.29999995231628
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/engineStore-Bn2tApal.js",
+      "encodedBodySize": 1209,
+      "decodedBodySize": 3512,
+      "transferSize": 1509,
+      "duration": 9.100000023841858
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/logger-CuBYPcDK.js",
+      "encodedBodySize": 826,
+      "decodedBodySize": 1881,
+      "transferSize": 1126,
+      "duration": 9.200000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/shaderStore-D-XQlhUT.js",
+      "encodedBodySize": 469,
+      "decodedBodySize": 469,
+      "transferSize": 769,
+      "duration": 8.699999928474426
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/precisionDate-DgO8bWsc.js",
+      "encodedBodySize": 4873,
+      "decodedBodySize": 13862,
+      "transferSize": 5173,
+      "duration": 16.700000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/thinEngine.pure-BUxQJ2GD.js",
+      "encodedBodySize": 30814,
+      "decodedBodySize": 127909,
+      "transferSize": 31114,
+      "duration": 52.10000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/performanceConfigurator-UtxC_Odd.js",
+      "encodedBodySize": 500,
+      "decodedBodySize": 500,
+      "transferSize": 800,
+      "duration": 14.100000023841858
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/internalTexture-B3djGrls.js",
+      "encodedBodySize": 2046,
+      "decodedBodySize": 7879,
+      "transferSize": 2346,
+      "duration": 16.59999990463257
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/tools.pure-gSJc_WNG.js",
+      "encodedBodySize": 9849,
+      "decodedBodySize": 29814,
+      "transferSize": 10149,
+      "duration": 16.700000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/halfFloat-Ce77JD5z.js",
+      "encodedBodySize": 603,
+      "decodedBodySize": 1290,
+      "transferSize": 903,
+      "duration": 22.800000071525574
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/typeStore-Cu_sj2zM.js",
+      "encodedBodySize": 80,
+      "decodedBodySize": 80,
+      "transferSize": 380,
+      "duration": 23.399999976158142
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/decorators-BY9lG0Ko.js",
+      "encodedBodySize": 1531,
+      "decodedBodySize": 3607,
+      "transferSize": 1831,
+      "duration": 51.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/math.vector.pure-DMb_rCLJ.js",
+      "encodedBodySize": 15973,
+      "decodedBodySize": 64612,
+      "transferSize": 16273,
+      "duration": 52.5
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/math.scalar.functions-Bg-lysIT.js",
+      "encodedBodySize": 597,
+      "decodedBodySize": 597,
+      "transferSize": 897,
+      "duration": 52
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/baseTexture.pure-BM4wQrS6.js",
+      "encodedBodySize": 5641,
+      "decodedBodySize": 20544,
+      "transferSize": 5941,
+      "duration": 52.5
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/math.color.pure-CC7x7-CQ.js",
+      "encodedBodySize": 2957,
+      "decodedBodySize": 12506,
+      "transferSize": 3257,
+      "duration": 113.70000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/texture.pure-tkl1w1bF.js",
+      "encodedBodySize": 5992,
+      "decodedBodySize": 21177,
+      "transferSize": 6292,
+      "duration": 113.20000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/effectRenderer.pure-Bbdia06V.js",
+      "encodedBodySize": 4862,
+      "decodedBodySize": 16318,
+      "transferSize": 5162,
+      "duration": 113.40000009536743
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/cubemapToSphericalPolynomial-DToUXl2T.js",
+      "encodedBodySize": 2782,
+      "decodedBodySize": 9324,
+      "transferSize": 3082,
+      "duration": 113
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/postProcess.pure-Dnykf633.js",
+      "encodedBodySize": 5374,
+      "decodedBodySize": 19524,
+      "transferSize": 5674,
+      "duration": 113.60000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/hdr-DG1S3IUz.js",
+      "encodedBodySize": 1684,
+      "decodedBodySize": 3975,
+      "transferSize": 1984,
+      "duration": 132.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/default.fragment-DnUviXSj.js",
+      "encodedBodySize": 5898,
+      "decodedBodySize": 25161,
+      "transferSize": 6198,
+      "duration": 132.70000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/meshUboDeclaration-DYEo1Glw.js",
+      "encodedBodySize": 651,
+      "decodedBodySize": 651,
+      "transferSize": 951,
+      "duration": 129.79999995231628
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/oitFragment-NMD8MAKW.js",
+      "encodedBodySize": 17457,
+      "decodedBodySize": 86765,
+      "transferSize": 17757,
+      "duration": 134.89999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/defaultUboDeclaration-DjVzEbLK.js",
+      "encodedBodySize": 541,
+      "decodedBodySize": 1220,
+      "transferSize": 841,
+      "duration": 134.10000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/logDepthDeclaration-D_lEqJ0h.js",
+      "encodedBodySize": 446,
+      "decodedBodySize": 446,
+      "transferSize": 746,
+      "duration": 134.10000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/helperFunctions-gEnZbjN3.js",
+      "encodedBodySize": 2302,
+      "decodedBodySize": 6815,
+      "transferSize": 2602,
+      "duration": 141.20000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/clipPlaneFragment-DVK0wgyZ.js",
+      "encodedBodySize": 359,
+      "decodedBodySize": 1174,
+      "transferSize": 659,
+      "duration": 140.89999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/default.vertex-BBa3-p97.js",
+      "encodedBodySize": 2189,
+      "decodedBodySize": 7824,
+      "transferSize": 2489,
+      "duration": 141
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/logDepthVertex-DwMacBUy.js",
+      "encodedBodySize": 2328,
+      "decodedBodySize": 9416,
+      "transferSize": 2628,
+      "duration": 141.20000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/clipPlaneVertex-D0NeDy6h.js",
+      "encodedBodySize": 2556,
+      "decodedBodySize": 13146,
+      "transferSize": 2856,
+      "duration": 141.10000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/pbr.fragment-M4MorYrS.js",
+      "encodedBodySize": 23884,
+      "decodedBodySize": 128818,
+      "transferSize": 24184,
+      "duration": 149.10000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/hdrFilteringFunctions-Dw0rQ8Bu.js",
+      "encodedBodySize": 2547,
+      "decodedBodySize": 8635,
+      "transferSize": 2847,
+      "duration": 147.5
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/pbrBRDFFunctions-BCNINF-p.js",
+      "encodedBodySize": 4124,
+      "decodedBodySize": 11931,
+      "transferSize": 4424,
+      "duration": 147.90000009536743
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/harmonicsFunctions-TkZT6SOz.js",
+      "encodedBodySize": 1031,
+      "decodedBodySize": 2827,
+      "transferSize": 1331,
+      "duration": 146.89999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/pbr.vertex-B5IbSBgB.js",
+      "encodedBodySize": 3490,
+      "decodedBodySize": 16651,
+      "transferSize": 3790,
+      "duration": 147.5
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/studio.hdr",
+      "encodedBodySize": 1187556,
+      "decodedBodySize": 1615248,
+      "transferSize": 1187856,
+      "duration": 464.8000000715256
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/shadowMap.fragment-DX4Yo1bp.js",
+      "encodedBodySize": 1165,
+      "decodedBodySize": 3306,
+      "transferSize": 1465,
+      "duration": 36.300000071525574
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/packingFunctions-DpGwbupU.js",
+      "encodedBodySize": 529,
+      "decodedBodySize": 529,
+      "transferSize": 829,
+      "duration": 35.699999928474426
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/shadowMap.vertex-B6-W_3yx.js",
+      "encodedBodySize": 1614,
+      "decodedBodySize": 4840,
+      "transferSize": 1914,
+      "duration": 35.89999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/depthBoxBlur.fragment-CLEAG5DG.js",
+      "encodedBodySize": 534,
+      "decodedBodySize": 534,
+      "transferSize": 834,
+      "duration": 35.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/shadowMapFragmentSoftTransparentShadow-R_iOKnyx.js",
+      "encodedBodySize": 370,
+      "decodedBodySize": 370,
+      "transferSize": 670,
+      "duration": 34.700000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/default.vertex-75s0AlL0.js",
+      "encodedBodySize": 67,
+      "decodedBodySize": 67,
+      "transferSize": 367,
+      "duration": 4.700000047683716
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/default.fragment-ClklTmyJ.js",
+      "encodedBodySize": 68,
+      "decodedBodySize": 68,
+      "transferSize": 368,
+      "duration": 4.399999976158142
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/dark_wood/albedo.jpg",
+      "encodedBodySize": 754754,
+      "decodedBodySize": 754754,
+      "transferSize": 755054,
+      "duration": 156.70000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/dark_wood/arm.jpg",
+      "encodedBodySize": 618801,
+      "decodedBodySize": 618801,
+      "transferSize": 619101,
+      "duration": 121.79999995231628
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/dark_wood/normal.jpg",
+      "encodedBodySize": 344338,
+      "decodedBodySize": 344338,
+      "transferSize": 344638,
+      "duration": 51.5
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/plastered_wall_02/albedo.jpg",
+      "encodedBodySize": 436395,
+      "decodedBodySize": 436395,
+      "transferSize": 436695,
+      "duration": 67.5
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/fabric_pattern_07/normal.jpg",
+      "encodedBodySize": 828071,
+      "decodedBodySize": 828071,
+      "transferSize": 828371,
+      "duration": 124.10000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/plastered_wall_02/normal.jpg",
+      "encodedBodySize": 960241,
+      "decodedBodySize": 960241,
+      "transferSize": 960541,
+      "duration": 153.59999990463257
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/plastered_wall_02/arm.jpg",
+      "encodedBodySize": 548372,
+      "decodedBodySize": 548372,
+      "transferSize": 548672,
+      "duration": 150.40000009536743
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/wood_floor/albedo.jpg",
+      "encodedBodySize": 734493,
+      "decodedBodySize": 734493,
+      "transferSize": 734793,
+      "duration": 155.60000002384186
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/wood_floor/normal.jpg",
+      "encodedBodySize": 423303,
+      "decodedBodySize": 423303,
+      "transferSize": 423603,
+      "duration": 150
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/wood_floor/arm.jpg",
+      "encodedBodySize": 447855,
+      "decodedBodySize": 447855,
+      "transferSize": 448155,
+      "duration": 156.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/textures/dealer-skin.png",
+      "encodedBodySize": 3645237,
+      "decodedBodySize": 3645237,
+      "transferSize": 3645537,
+      "duration": 331.2999999523163
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/rgbdDecode.fragment-Cdz2Tveq.js",
+      "encodedBodySize": 520,
+      "decodedBodySize": 520,
+      "transferSize": 820,
+      "duration": 87.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/hdrFiltering.vertex-D0M3wH6A.js",
+      "encodedBodySize": 507,
+      "decodedBodySize": 507,
+      "transferSize": 807,
+      "duration": 41.5
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/hdrFiltering.fragment-DlsUmjtG.js",
+      "encodedBodySize": 804,
+      "decodedBodySize": 804,
+      "transferSize": 1104,
+      "duration": 41.39999997615814
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/postprocess.vertex-DJCmMhI8.js",
+      "encodedBodySize": 460,
+      "decodedBodySize": 460,
+      "transferSize": 760,
+      "duration": 22.5
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/pbr.vertex--eDNwGFx.js",
+      "encodedBodySize": 59,
+      "decodedBodySize": 59,
+      "transferSize": 359,
+      "duration": 145.20000004768372
+    },
+    {
+      "name": "http://127.0.0.1:4173/assets/pbr.fragment--MKQTp3-.js",
+      "encodedBodySize": 60,
+      "decodedBodySize": 60,
+      "transferSize": 360,
+      "duration": 143.20000004768372
+    }
+  ]
+}

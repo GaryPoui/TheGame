@@ -1,6 +1,6 @@
 {
   "scope": "MVP staged files, common token/private key patterns, not exhaustive",
-  "files": 52,
+  "files": 53,
   "findings": [],
   "result": "PASS"
 }
