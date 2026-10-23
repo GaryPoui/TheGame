@@ -1,5 +1,20 @@
 # Continuidad del proyecto
 
+## Publicación autorizada de jugabilidad — 2026-10-23
+
+El usuario cambió la restricción anterior y pidió «PUSHEA TODO PARA QUE ESTE EN EL PAGES».
+Se autoriza subir el corte de jugabilidad y actualizar gh-pages, conservando PR #5 sin merge
+automático. La sección de corte local siguiente documenta el estado previo a esta autorización.
+
+## Jugabilidad local — 2026-10-23
+
+El usuario pidió mejorar ritmo, explicación práctica y diseño de Vera y Doble; luego indicó
+**no hacer push**. Este corte permanece local, sin commit ni publicación. Incluye fichas
+contables sobre el paño, tutorial interactivo de Vera, mentor contextual, comparación antes/después,
+ensayo manual de dos dados para Doble, vista de 36 casos al seleccionar y acciones móviles fijas.
+Se conserva el núcleo matemático, RNG y guardado. Detalle: [jugabilidad local](playability-local.md).
+La publicación anterior de Doble sigue siendo la versión pública.
+
 ## Mesa de Doble — 2026-10-23
 
 El usuario pidió «implementa la mesa doble». El corte vigente se desarrolla en

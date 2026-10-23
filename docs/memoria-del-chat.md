@@ -326,3 +326,32 @@ https://github.com/GaryPoui/TheGame/actions/runs/39953002366.
 Se abrió el juego público, se retomó el progreso existente y se inspeccionó el nuevo retrato
 detrás de la mesa sin errores de consola capturados. Captura:
 `docs/evidence/doble-art-v2/public-table.png`. PR #5 conserva los cambios sin merge automático.
+
+
+## Jugabilidad más práctica — 2026-10-23 · sólo local
+
+Pedido: mejorar las dos mesas, explicar mientras se juega y hacerlas más atractivas.
+Restricción posterior explícita: **no pushes al repo**. No commit, push ni despliegue en este corte.
+
+Vera: inventarios con fichas contables en el paño; tutorial de tres momentos con elección real,
+extracción roja preparada y comparación de fracciones equivalentes; explicación según urna elegida;
+antes/después de la fracción y manejo de urna vacía. El cierre de ronda se integra en Continuar,
+sin saltar decisiones. Repetir Vera conserva sellos y entra a jugar sin repetir la apertura.
+Doble: distribuciones de 36 casos en cada contrato, cálculo contextual del elegido y ensayo manual
+de dos dados (2,2 inicial; cada botón cambia un dado entre 1 y 6). El ensayo es estado de interfaz,
+no llama al RNG, no modifica campaña/saldo y no se guarda. Recibo visual del mismo par mantiene
+señalado el contrato firmado original, incluso después de la orden hipotética.
+
+Diseño: teatro de tinta, arte existente y textos sans; progreso de decisiones, controles sobre el
+paño, acción principal fija y objetivo visible en celular. Feedback breve después del resultado,
+sin bloqueo de controles y respetando movimiento reducido; las acciones de teclado no lo animan.
+Build/typecheck completadas; inspección visual de escritorio y celular y manipulación del ensayo.
+Sin suites de pruebas automatizadas nuevas ni ejecutadas; diversión y aprendizaje no medidos.
+Detalle y capturas locales: docs/playability-local.md y docs/evidence/playability/.
+
+
+### Autorización posterior de publicación
+
+El usuario pidió «PUSHEA TODO PARA QUE ESTE EN EL PAGES». Esta instrucción reemplaza la
+restricción de no hacer push para el corte de jugabilidad. Se prepara la subida de fuente y build
+a gh-pages; los identificadores finales se registran tras la publicación efectiva.
