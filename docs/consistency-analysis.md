@@ -1,5 +1,9 @@
 # Análisis de consistencia previo a implementación
 
+Registro de la fase documental original. Desde 2026-10-23 se implementó el corte MVP de 001/005
+y partes de infraestructura compartida; el estado vigente se registra en docs/mvp-validation.md
+y en las tareas. Las cifras de tareas pendientes de este análisis eran previas a esa ejecución.
+
 Revisión de agente sobre spec/plan/tasks de las diez features, constitución y GDD.
 Se ejecutaron los prerequisitos de `speckit-analyze` para cada feature y se realizó una revisión
 independiente. El análisis fue de sólo lectura; las correcciones se efectuaron después, como parte

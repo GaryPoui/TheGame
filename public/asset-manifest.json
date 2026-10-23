@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "release": "urns-mvp-v1",
+  "assets": [
+    {
+      "id": "room-vera-table-urns",
+      "source": "src/presentation/scene.ts",
+      "origin": "Original procedural geometry authored for this project",
+      "format": "Babylon.js procedural meshes and local canvas texture",
+      "thirdPartyArt": false,
+      "license": "Project owner's rights; no general redistribution license granted",
+      "notes": "Editable source is the TypeScript mesh builder. No external model, texture or GLB is used in this MVP."
+    },
+    {
+      "id": "confirmation-tones",
+      "source": "src/main.ts chime",
+      "origin": "Original sine synthesis via Web Audio",
+      "thirdPartyArt": false,
+      "license": "Project owner's rights",
+      "notes": "No sampled recordings or remote music."
+    },
+    {
+      "id": "interface-typefaces",
+      "origin": "Installed system fonts: Georgia/Times New Roman and Arial/Helvetica with generic fallbacks",
+      "distributedFontFiles": false,
+      "notes": "No font binaries copied or redistributed."
+    },
+    {
+      "id": "favicon",
+      "source": "public/favicon.svg",
+      "origin": "Original geometric emblem",
+      "license": "Project owner's rights"
+    }
+  ],
+  "engine": {
+    "name": "Babylon.js",
+    "version": "9.32.0",
+    "license": "Apache-2.0",
+    "source": "https://github.com/BabylonJS/Babylon.js"
+  }
+}

@@ -2,7 +2,7 @@
 
 **Feature Branch**: `codex/research-specs-skills` (entrega documental; spec independiente de rama)
 **Created**: 2026-10-22
-**Status**: Especificada; implementación pendiente de instrucción posterior
+**Status**: Implementada en corte MVP; validación funcional en docs/mvp-validation.md
 **Input**: Apartado 001 del prompt original y decisiones versionadas.
 
 ## Objetivo y dependencias
