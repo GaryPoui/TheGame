@@ -1,10 +1,11 @@
 # Publicación estática del MVP
 
 Autorización: el usuario pidió «hasta llegar a un mvp y luego hostealo», 2026-10-23.
-Destino: GitHub Pages del mismo repositorio público, sin servicios pagos ni backend.
+Destino: GitHub Pages del mismo repositorio público, sin servicios pagos ni backend. La versión
+visual del MVP se trabaja en `codex/realistic-visuals`, con PR sobre `codex/playable-mvp`.
 
 La build se valida localmente antes de copiarla a una rama `gh-pages` independiente. Pages sirve
-esa rama desde `/`. El código fuente y documentación se conservan en `codex/playable-mvp` y un PR;
+esa rama desde `/`. El código fuente y documentación se conservan en la rama de trabajo y su PR;
 no hace falta fusionar main para alojar una build revisada. No se fuerza historia.
 
 ## Preparar y verificar

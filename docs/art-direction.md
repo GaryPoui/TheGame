@@ -1,10 +1,10 @@
 # Dirección visual y sonora
 
-Estado: propuesta para «La Casa del Azar» (título provisional). Fase documental: no se han producido modelos, capturas, audio ni escenas. Investigación consultada el 2026-10-22, salvo futuras verificaciones que registren su propia fecha. Alcance: experiencia de 30–45 minutos, calle breve y sala compacta; Babylon.js + TypeScript, WebGL base.
+Estado: dirección actualizada el 2026-10-23 por pedido explícito del usuario de mayor realismo. El MVP de urnas está implementado y publicado. La campaña de 30–45 minutos sigue siendo un objetivo futuro. Ver [mejora visual y evidencia](visual-upgrade.md).
 
 ## Intención y lenguaje de formas
 
-Una casa clandestina de juegos que parece un pequeño teatro administrativo: madera oscura, fieltro, latón y expedientes usados. Misterio y humor oscuro moderado mediante objetos y gestos; evitar sangre, violencia gráfica y decoración que distraiga del problema. El entorno tiene proporciones creíbles y materiales PBR; los personajes usan cabezas y manos ligeramente exageradas, contornos simples y poses legibles. No se busca detalle AAA.
+Una casa clandestina de juegos que parece un pequeño teatro administrativo: madera oscura, fieltro, latón y expedientes usados. Misterio y humor oscuro moderado mediante objetos y gestos; evitar sangre, violencia gráfica y decoración que distraiga del problema. El entorno usa superficies fotografiadas, proporciones creíbles y materiales PBR. Los personajes deben tener anatomía adulta, rostro proporcionado, piel y ropa diferenciadas; se descarta la exageración caricaturesca del primer MVP. El personaje actual es estático y no representa todavía una producción fotorrealista terminada.
 
 La mesa, el rostro y la información relevante forman la jerarquía de cada plano. Muebles rectangulares estables; urnas redondeadas; dados con aristas suavizadas; registros con retícula ordenada. El desgaste se concentra en cantos y zonas de contacto, nunca sobre símbolos, puntos de dados o números. Dos o tres materiales principales por familia, sin ruido visual uniforme.
 
@@ -12,9 +12,9 @@ Paleta ambiental propuesta: carbón #181D20, madera #49362B, fieltro #254C46, la
 
 ## Iluminación y materiales
 
-Una luz principal cálida sobre la mesa y relleno ambiental frío tenue separan figura y fondo. Preparar iluminación estática/bake cuando el pipeline lo permita, con un máximo inicial de dos luces dinámicas y una sola sombra dinámica. Sin niebla volumétrica, SSR ni shaders propios como requisito. El reflejo no debe ocultar las caras del dado. Evitar transparencias para urnas: usar recipiente abierto u opaco con inventario visible en HTML, reduciendo problemas de orden y rendimiento.
+Una luz principal cálida sobre la mesa, relleno direccional y entorno HDR separan figura y fondo. La escena actual usa dos luces, una sombra dinámica de 1024 y exposición con tone mapping ACES. Sin niebla volumétrica ni SSR. Las urnas actuales son mallas huecas de vidrio transparente con borde e inventario equivalente en HTML; revisar transparencia y conteos desde la cámara jugable en cada cambio.
 
-Babylon documenta materiales PBR y el flujo metallic–roughness; esta es la base técnica, no una garantía automática de realismo. El estilo se valida desde cámara de juego. Referencia técnica primaria: [PBR de Babylon.js](https://doc.babylonjs.com/features/featuresDeepDive/materials/using/introToPBR). Referencias materiales candidatas: biblioteca [Poly Haven](https://polyhaven.com/license), cuyos assets se publican CC0; todavía no se seleccionó ni incorporó ninguno.
+Babylon documenta materiales PBR y el flujo metallic–roughness; esta es la base técnica, no una garantía automática de realismo. El estilo se valida desde cámara de juego. Referencia técnica primaria: [PBR de Babylon.js](https://doc.babylonjs.com/features/featuresDeepDive/materials/using/introToPBR). Se integraron materiales y HDR de [Poly Haven](https://polyhaven.com/license), geometría y piel CC0 de MakeHuman; fuentes, autores y hashes en [el manifiesto](realistic-assets.json).
 
 ## Personajes y actuación
 

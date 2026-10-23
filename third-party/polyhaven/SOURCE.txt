@@ -1,0 +1,3 @@
+Poly Haven CC0 assets. License verified 2026-10-23 at https://polyhaven.com/license
+Asset records and author credits: docs/realistic-assets.json
+CC0 license permits modification, redistribution and self-hosting. No runtime API use.

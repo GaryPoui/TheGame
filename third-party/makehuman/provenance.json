@@ -1,0 +1,9 @@
+{
+  "author": "MakeHuman Team",
+  "license": "CC0-1.0 (base mesh; software AGPL separately)",
+  "source": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/3dobjs/base.obj",
+  "commit": "a8bc2d54ff0ac92e78ff71431b1023eda42bf482",
+  "sha256": "8e761e6624b8f54536409135d1636da63b32486a90d4897f84e121d144f6fb4c",
+  "consulted": "2026-10-23",
+  "usage": "Offline anatomical reference for head/hands; no runtime software reuse."
+}

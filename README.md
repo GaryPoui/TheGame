@@ -7,6 +7,9 @@ de escritorio. Babylon.js + TypeScript estricto + Vite. Título provisional.
 ayuda guiada, guardado local y ajustes. [Jugar por HTTPS](https://garypoui.github.io/TheGame/).
 La campaña de tres asistentes y final sigue en desarrollo; el MVP no dura todavía 30–45 minutos.
 
+La [revisión visual](docs/visual-upgrade.md) incorpora materiales fotografiados, iluminación HDR,
+vidrio y un rostro anatómico con piel CC0 para avanzar hacia una presentación más realista.
+
 Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs/mvp-scope.md),
 [validación real](docs/mvp-validation.md) y [publicación reproducible](docs/deployment.md).
 

@@ -1,0 +1,7 @@
+Source: https://static.makehumancommunity.org/assets/assetpacks/skins01.html
+Consulted 2026-10-23. Official table: onlytheghosts_middle_aged_eurasian_female | OnlyTheGhosts | CC0.
+Archive: https://files.makehumancommunity.org/asset_packs/skins01/skins01_cc0.zip
+Entry: skins/onlytheghosts_middle_aged_eurasian_female/middleage_eurasian_female_diffuse.png
+Downloaded using HTTP Range from ZIP central directory. Original PNG unmodified, renamed dealer-skin.png.
+License CC0-1.0 text: LICENSE.ASSETS.md (CC0 applies to this pack according to official table).
+Material file preserved as dealer-skin.mhmat for original texture association.
