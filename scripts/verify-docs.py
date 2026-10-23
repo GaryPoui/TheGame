@@ -19,7 +19,7 @@ for filename in required:
  if not (ROOT/filename).is_file(): errors.append(f'missing {filename}')
 features = sorted((ROOT/'specs').glob('[0-9][0-9][0-9]-*'))
 if len(features) != 10: errors.append(f'expected 10 specs, got {len(features)}')
-requirements = tasks = 0
+requirements = tasks = completed = 0
 for feature in features:
  for f in ['spec.md','plan.md','tasks.md','research.md','data-model.md','quickstart.md',
            'contracts/ui-state.md','checklists/requirements.md']:
@@ -33,8 +33,9 @@ for feature in features:
  requirements += len(ids)
  task_lines=[x for x in task.splitlines() if x.startswith('- [')]
  tasks+=len(task_lines)
+ completed+=sum(bool(re.match(r'- \[[xX]\]',x)) for x in task_lines)
  for line in task_lines:
-  if not re.match(r'- \[ \] T\d{3} ',line): errors.append(f'{feature.name}: bad/premature task checkbox')
+  if not re.match(r'- \[[ xX]\] T\d{3} ',line): errors.append(f'{feature.name}: invalid task checkbox')
   if not re.search(r'(src/|tests/|specs/|docs/|assets/|\.github/|package\.json|vite\.config\.ts)',line):
    errors.append(f'{feature.name}: task lacks path')
  for x in ['[NEEDS CLARIFICATION:', '[FEATURE NAME]', '$ARGUMENTS']:
@@ -65,7 +66,7 @@ constitution=(ROOT/'.specify/memory/constitution.md').read_text(encoding='utf-8'
 if re.search(r'\[[A-Z][A-Z_]+\]',constitution): errors.append('constitution placeholder')
 report={'scope':'structural documentation only; not game runtime or semantic proof',
  'result':'PASS' if not errors else 'FAIL','features':len(features),'requirements':requirements,
- 'pending_tasks':tasks,'local_links_checked':link_count,'errors':errors}
+ 'pending_tasks':tasks-completed,'completed_tasks':completed,'total_tasks':tasks,'local_links_checked':link_count,'errors':errors}
 (ROOT/'docs/evidence/docs-verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(report,ensure_ascii=False,indent=2))
 sys.exit(bool(errors))

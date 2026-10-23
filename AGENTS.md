@@ -1,8 +1,9 @@
 # Instrucciones del proyecto
 
 Leer README, docs/continuity.md, docs/original-prompt.md y la constitución antes de trabajar.
-El prompt explícito del usuario tiene prioridad. Primera fase: investigación, skills y documentos;
-no desarrollar el juego sin instrucción posterior. No perder archivos existentes ni forzar Git.
+El prompt explícito del usuario tiene prioridad. La fase documental está completada; el 2026-10-23
+el usuario autorizó continuar hasta un MVP y hostearlo. Ver docs/mvp-scope.md y mvp-validation.md.
+No perder archivos existentes ni forzar Git.
 
 ## Fuentes de verdad
 

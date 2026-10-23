@@ -3,8 +3,12 @@
 Videojuego educativo de probabilidad **y** estadística, de 30–45 minutos objetivo, en navegador
 de escritorio. Babylon.js + TypeScript estricto + Vite. Título provisional.
 
-**Estado de esta entrega:** investigación, instalación portable de skills, Spec Kit y documentación.
-El juego todavía no está implementado. La siguiente fase requiere una instrucción posterior.
+**Estado actual:** MVP jugable de la primera mesa, con sala 3D, Vera, tutorial, cuatro rondas,
+ayuda guiada, guardado local y ajustes. [Jugar por HTTPS](https://garypoui.github.io/TheGame/).
+La campaña de tres asistentes y final sigue en desarrollo; el MVP no dura todavía 30–45 minutos.
+
+Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs/mvp-scope.md),
+[validación real](docs/mvp-validation.md) y [publicación reproducible](docs/deployment.md).
 
 ## Mapa de lectura
 
@@ -39,6 +43,7 @@ Hay 17 skills gamedev/diseño instaladas más 10 skills generadas por Spec Kit. 
 están disponibles como archivos locales; el catálogo del agente puede requerir próximo turno o
 nueva sesión. Se distinguen instalación, lectura y aplicación en la auditoría.
 
-Las versiones propuestas están fijadas en package.json y package-lock.json. Se generó el lockfile
-sin ejecutar scripts de dependencias. No hay aún `src`, servidor, build ni comandos de juego.
-El futuro prototipo debe probar **una mesa completa en una sala simple** antes de producir campaña.
+Las versiones están fijadas en package.json y package-lock.json. Para ejecutar: `npm ci`,
+`npm run dev`. Validación: `npm test`, `npm run build`, `npm run preview` y, con preview activo,
+`npm run test:browser`. Se implementó **una mesa completa en una sala simple** antes de producir
+el resto de la campaña. Capturas, pruebas y limitaciones se registran en docs/mvp-validation.md.

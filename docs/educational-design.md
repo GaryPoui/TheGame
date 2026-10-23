@@ -1,6 +1,7 @@
 # Diseño educativo y reglas implementables
 
-Estado: propuesta normativa; matemática exacta derivada aquí, pendiente de pruebas automatizadas de implementación. Consultar [fuentes](research-education.md). Todas las cantidades son enteros o racionales; la UI puede redondear porcentajes a una cifra decimal conservando fracción exacta. No comparar decisiones por valores redondeados.
+Estado: reglas normativas de campaña. Mesa de urnas implementada y verificada en MVP; restantes mesas
+son propuestas pendientes de implementación. Evidencias actuales en docs/mvp-validation.md. Consultar [fuentes](research-education.md). Todas las cantidades son enteros o racionales; la UI puede redondear porcentajes a una cifra decimal conservando fracción exacta. No comparar decisiones por valores redondeados.
 
 ## Contrato común a todas las mesas
 

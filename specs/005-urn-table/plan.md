@@ -45,3 +45,8 @@ Validación E2E: [quickstart.md](quickstart.md). La estrategia de construcción 
 ## Complexity Tracking
 
 Sin violaciones justificadas. Cualquier dependencia nueva requiere necesidad concreta y licencia.
+
+## Ejecución MVP — 2026-10-23
+
+Autorizado por usuario. Archivos consolidados reales y evidencia se detallan en tasks.md.
+No se implementa campaña completa por considerar esta feature finalizada.

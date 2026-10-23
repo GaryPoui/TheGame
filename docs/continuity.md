@@ -1,4 +1,14 @@
-# Continuidad de la entrega documental
+# Continuidad del proyecto
+
+## Actualización MVP — 2026-10-23
+
+El usuario autorizó continuar hasta un MVP y hostearlo. Se implementó la mesa de urnas completa,
+con sala Babylon.js, Vera, tutorial preparado, cuatro rondas, ayuda finita, guardado validado y
+ajustes/atajos reasignables. Código en `codex/playable-mvp`; sitio https://garypoui.github.io/TheGame/.
+PR del MVP: https://github.com/GaryPoui/TheGame/pull/2, sin merge. Fuente `52bc021`, despliegue `c1db9d9`.
+Ver [alcance](mvp-scope.md), [validación](mvp-validation.md), [despliegue](deployment.md) y delivery.json.
+El objetivo siguiente es prueba humana de esta mesa antes de desarrollar contratos/registros/final.
+Los apartados siguientes conservan la entrega documental inicial y sus evidencias históricas.
 
 Proyecto: [GaryPoui/TheGame](https://github.com/GaryPoui/TheGame).
 Rama de entrega: `codex/research-specs-skills`. Base: `main` con README mínimo al comenzar.
@@ -55,9 +65,9 @@ compatible con auxiliares raster. No bloquean lectura de skills ni documentació
 significa cargada: catálogo puede requerir próximo turno/nueva sesión; archivos fueron leídos
 directamente para aplicar instrucciones. Detalles y riesgos de scripts en docs/skills.md.
 
-## Siguiente paso preciso
+## Siguiente paso original de la fase documental (ya autorizado y ejecutado en el MVP)
 
-Esperar instrucción posterior de implementación. Empezar por 001, luego cámara 002, runner 004,
+La instrucción posterior de implementación llegó el 2026-10-23. El plan original era: Empezar por 001, luego cámara 002, runner 004,
 contratos/checkpoints mínimos de 009 y tokens/presupuestos de 010; construir 005 completa en sala
 simple con un asistente. Revisar legibilidad, matemáticas, reanudación y experiencia antes de
 003/006/007/008 y arte de campaña. No empezar produciendo todos los personajes.

@@ -37,8 +37,8 @@ framework UI, motor físico o shaders propios sin necesidad y decisión registra
 ## Flujo de desarrollo y revisión
 
 Constitución → especificación → aclaraciones → plan → tareas → análisis de consistencia.
-La fase actual termina con documentación e instalación publicadas. La implementación necesita
-una instrucción posterior. El primer prototipo futuro es una mesa completa en una sala simple;
+La fase documental está completada. Desde el 2026-10-23, el usuario autorizó un MVP y su hosting.
+El primer corte es una mesa completa en una sala simple;
 el resto de la campaña depende de validar ese corte. Revisar secretos, licencias y cambios antes
 de cada push; nunca forzar historia ni sobrescribir trabajo ajeno.
 
@@ -49,4 +49,4 @@ impacto en specs y validación; prevalecen instrucciones explícitas del usuario
 major cambia principios incompatibles, minor agrega reglas, patch aclara. Toda revisión
 debe comprobar los cinco principios y registrar excepciones justificadas en el plan.
 
-**Version**: 1.0.0 | **Ratified**: 2026-10-22 | **Last Amended**: 2026-10-22
+**Version**: 1.0.1 | **Ratified**: 2026-10-22 | **Last Amended**: 2026-10-23
