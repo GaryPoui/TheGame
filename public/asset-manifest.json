@@ -1,7 +1,48 @@
 {
-  "version": 2,
-  "release": "urns-mvp-realistic-v2",
+  "version": 3,
+  "release": "urns-mvp-ink-v3",
   "assets": [
+    {
+      "id": "ink-art-family",
+      "source": "art/",
+      "origin": "Three AI-generated illustrations via built-in imagegen; user references for Gambit adaptation",
+      "license": "Not CC0; see ink-art.json",
+      "manifest": "ink-art.json"
+    },
+    {
+      "id": "interactive-table",
+      "source": "src/presentation/scene.ts",
+      "origin": "Project procedural outlined meshes and canvas labels"
+    },
+    {
+      "id": "confirmation-tones",
+      "source": "src/main.ts chime",
+      "origin": "Original sine synthesis via Web Audio",
+      "thirdPartyArt": false,
+      "license": "Project owner's rights",
+      "notes": "No sampled recordings or remote music."
+    },
+    {
+      "id": "interface-typefaces",
+      "origin": "Installed system fonts: Georgia/Times New Roman and Arial/Helvetica with generic fallbacks",
+      "distributedFontFiles": false,
+      "notes": "No font binaries copied or redistributed."
+    },
+    {
+      "id": "favicon",
+      "source": "public/favicon.svg",
+      "origin": "Original geometric emblem",
+      "license": "Project owner's rights"
+    }
+  ],
+  "engine": {
+    "name": "Babylon.js",
+    "version": "9.32.0",
+    "license": "Apache-2.0",
+    "source": "https://github.com/BabylonJS/Babylon.js"
+  },
+  "provenance": "visual-provenance.json",
+  "historical_assets": [
     {
       "id": "room-vera-table-urns",
       "source": "src/presentation/scene.ts",
@@ -32,11 +73,5 @@
       "license": "Project owner's rights"
     }
   ],
-  "engine": {
-    "name": "Babylon.js",
-    "version": "9.32.0",
-    "license": "Apache-2.0",
-    "source": "https://github.com/BabylonJS/Babylon.js"
-  },
-  "provenance": "visual-provenance.json"
+  "historical_note": "Photographic materials and anatomical head remain archived with prior attribution, no longer loaded by the current renderer."
 }

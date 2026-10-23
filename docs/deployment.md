@@ -49,3 +49,8 @@ Evidencia: docs/evidence/runtime/public-browser.json, public-smoke.json y public
 La licencia copiada del paquete tenía CRLF; Git conserva LF en el repositorio. Se normalizó la
 copia local de licencia a LF antes de cotejar los hashes; el texto es idéntico. Para publicaciones
 futuras el script conserva bytes compilados con .gitattributes -text en rama estática.
+## Revisión de tinta v3
+
+La dirección vigente está en docs/ink-theatre.md. Fuente en `codex/ink-theatre`, derivada
+de la revisión realista sin modificar su historia. El script admite `-Version`; esta
+entrega usa `urns-mvp-ink-v3`. Se publica en el mismo destino HTTPS del MVP.

@@ -1,18 +1,19 @@
 import { expect, test, type Page } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 
+const evidence = process.env.EVIDENCE_DIR ?? 'docs/evidence/runtime';
 const saved = (page: Page) => page.evaluate(() => {
   const raw = localStorage.getItem('thegame.save.v1.current');
   return raw ? JSON.parse(raw).state : null;
 });
 
 async function start(page: Page) {
-  await mkdir('docs/evidence/runtime', { recursive: true });
+  await mkdir(evidence, { recursive: true });
   await page.goto('./');
   await page.waitForLoadState('networkidle');
   await page.waitForFunction(() => (window as Window & { __THEGAME_READY__?: boolean }).__THEGAME_READY__);
   await expect(page.locator('.graphics-warning')).toHaveCount(0);
-  await page.screenshot({ path: 'docs/evidence/runtime/mvp-menu.png' });
+  await page.screenshot({ path: `${evidence}/mvp-menu.png` });
   await page.getByTestId('new-game').click();
   await page.getByTestId('skip-intro').click();
   await page.getByTestId('enter-urns').click();
@@ -25,7 +26,7 @@ test('complete urn table with decisions, canvas, and no page errors', async ({ p
   page.on('pageerror', error => errors.push(error.message));
   await start(page);
   await expect(page.locator('#scene')).toBeVisible();
-  await page.screenshot({ path: 'docs/evidence/runtime/mvp-table.png' });
+  await page.screenshot({ path: `${evidence}/mvp-table.png` });
   for (let action = 0; action < 40; action++) {
     const state = await saved(page);
     if (state.phase === 'complete') break;
@@ -43,7 +44,7 @@ test('complete urn table with decisions, canvas, and no page errors', async ({ p
   const state = await saved(page);
   expect(state.merit).toBe(8);
   expect(state.history).toHaveLength(8);
-  await page.screenshot({ path: 'docs/evidence/runtime/mvp-complete.png' });
+  await page.screenshot({ path: `${evidence}/mvp-complete.png` });
   expect(errors).toEqual([]);
 });
 
@@ -78,7 +79,7 @@ test('settings allow reduced motion and text scaling', async ({ page }) => {
   await page.getByTestId('confirm-choice').focus();
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('result-feedback')).toBeVisible();
-  await page.screenshot({ path: 'docs/evidence/runtime/mvp-text-200-percent.png', fullPage: true });
+  await page.screenshot({ path: `${evidence}/mvp-text-200-percent.png`, fullPage: true });
 });
 
 test('weak decisions reach a finite guided completion', async ({ page }) => {
@@ -104,7 +105,7 @@ test('weak decisions reach a finite guided completion', async ({ page }) => {
   expect(state.assisted).toBe(true);
   expect(state.history).toHaveLength(12);
   expect(state.merit).toBeLessThan(6);
-  await page.screenshot({ path: 'docs/evidence/runtime/mvp-assisted-complete.png' });
+  await page.screenshot({ path: `${evidence}/mvp-assisted-complete.png` });
 });
 
 test('remapped shortcuts work and conflicting bindings are rejected', async ({ page }) => {

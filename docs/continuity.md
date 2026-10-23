@@ -1,5 +1,14 @@
 # Continuidad del proyecto
 
+## Teatro de tinta — 2026-10-23
+
+El usuario corrigió la dirección: referencia Cuphead más tranquila, oscuridad inicial y captor
+adaptado de Gambito. Nueva rama `codex/ink-theatre`, derivada de la revisión v2. Tres assets
+generados con herramienta integrada, escena híbrida pintada/3D y apertura con salto/reducción
+de movimiento. Ver [dirección y validación](ink-theatre.md). La sección realista siguiente es
+histórica y no define el arte vigente. Campaña posterior pendiente.
+
+
 ## Actualización visual — 2026-10-23
 
 El usuario pidió mayor realismo visual. Rama de trabajo `codex/realistic-visuals` derivada de la

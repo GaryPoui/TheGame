@@ -1,3 +1,5 @@
+> Registro histórico de v2. Dirección vigente: [Teatro de tinta](ink-theatre.md), por instrucción posterior del usuario.
+
 # Mejora visual hacia el realismo — 2026-10-23
 
 El usuario pidió continuar el MVP y superar su aspecto caricaturesco. Esta revisión cambia la
