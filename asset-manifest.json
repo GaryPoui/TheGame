@@ -1,15 +1,15 @@
 {
-  "version": 1,
-  "release": "urns-mvp-v1",
+  "version": 2,
+  "release": "urns-mvp-realistic-v2",
   "assets": [
     {
       "id": "room-vera-table-urns",
       "source": "src/presentation/scene.ts",
-      "origin": "Original procedural geometry authored for this project",
+      "origin": "Original procedural environment and tailoring; anatomical head derived from MakeHuman CC0; scanned PBR materials and HDRI from Poly Haven CC0",
       "format": "Babylon.js procedural meshes and local canvas texture",
-      "thirdPartyArt": false,
-      "license": "Project owner's rights; no general redistribution license granted",
-      "notes": "Editable source is the TypeScript mesh builder. No external model, texture or GLB is used in this MVP."
+      "thirdPartyArt": true,
+      "license": "Mixed: project-authored geometry and code; CC0 MakeHuman geometry/skin and Poly Haven textures/HDRI",
+      "notes": "See visual-provenance.json for file-level attribution, authors and hashes. Static source is editable in scene.ts/dealer.ts; source head and extraction are preserved."
     },
     {
       "id": "confirmation-tones",
@@ -37,5 +37,6 @@
     "version": "9.32.0",
     "license": "Apache-2.0",
     "source": "https://github.com/BabylonJS/Babylon.js"
-  }
+  },
+  "provenance": "visual-provenance.json"
 }
