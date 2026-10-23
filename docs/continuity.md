@@ -32,6 +32,8 @@ implementación está marcada como terminada.
 - `docs/evidence/math-verification.json`: comprobaciones exactas del diseño, no del runtime.
 - `docs/evidence/npm-versions.json`: versiones, licencias e integridad consultadas.
 - `docs/evidence/docs-verification.json`: estructura, enlaces locales y pins/lock.
+- `docs/evidence/clone-verification.json`: cinco verificaciones aprobadas desde clon limpio con
+  autocrlf de Windows, incluyendo integridad Spec Kit y selección de feature local.
 - [Análisis](consistency-analysis.md): revisión semántica, hallazgos y correcciones.
 
 ## Preparar otro equipo
@@ -42,7 +44,8 @@ implementación está marcada como terminada.
    si faltan carpetas usar `python scripts/skills.py install` y verificar de nuevo.
 4. Para CLI Spec Kit: `python -m pip install --user uv`, luego
    `python -m uv tool install specify-cli==1.2.3`; agregar su bin a PATH o usar ruta devuelta.
-   No volver a inicializar encima de documentos existentes. Leer [procedimiento](spec-kit.md).
+   No volver a inicializar encima de documentos existentes. Seleccionar 001 creando el puntero
+   local .specify/feature.json con el comando de [procedimiento](spec-kit.md).
 5. Ejecutar `python scripts/verify-math.py` y `python scripts/verify-docs.py`.
 6. Node >=22.12: cuando se autorice implementar, `npm ci`; preparar scripts y tsconfig en 001.
    Instalar browser de Playwright sólo al comenzar pruebas reales; no afirmar cobertura ahora.
@@ -61,12 +64,15 @@ simple con un asistente. Revisar legibilidad, matemáticas, reanudación y exper
 
 ## Publicación y enlaces de entrega
 
-El commit y PR definitivos se registran en `delivery.json` en la raíz una vez publicados.
+Commit de contenido: `2e9ea08adba152c547e59ff9ad3078a96d1ec834`.
+PR publicado: https://github.com/GaryPoui/TheGame/pull/1 (sin merge).
+El commit y enlaces definitivos están registrados en `delivery.json` en la raíz.
 Ese registro identifica el commit de contenido; su propio commit de registro será posterior
 para evitar una referencia de hash a sí mismo. El historial Git y el PR permiten recuperar ambos.
 No hay deployment ni juego público en esta fase. Nunca hacer force push ni merge no solicitado.
 
 Instantánea antigua: [chat compartido previo](https://chatgpt.com/s/cx_6adacb1e19ec8191882cff4f7533f6db).
-No se verificó su contenido y no se usa como autoridad. Un enlace nuevo, si la app permite
-generarlo, se registrará en delivery.json; si no, se conservará la limitación exacta. La continuidad
+No se verificó su contenido y no se usa como autoridad. Se generó una instantánea nueva pública:
+https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9, también en delivery.json. Es una captura
+durante el cierre, no un enlace que se actualiza solo con mensajes posteriores. La continuidad
 completa y las decisiones posteriores a Babylon.js están en este repositorio.

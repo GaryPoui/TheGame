@@ -63,8 +63,12 @@ es alternativa explícita para aplicar el procedimiento sin afirmar recarga auto
 Para una revisión de 001:
 
 ```powershell
+'{"feature_directory":"specs/001-web-foundation"}' | Set-Content -Encoding utf8 .specify/feature.json
 ./.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireSpec -RequireTasks -IncludeTasks
 ```
+
+El puntero feature.json es local por diseño de Spec Kit y está ignorado; después de clonar hay
+que crearlo con la primera línea. No contiene rutas absolutas ni requiere cambiar rama.
 
 No ejecutar setup-plan sobre un plan completado para regenerar todo: revisarlo incrementalmente.
 Ante una nueva versión de Spec Kit verificar instrucciones y comparar cambios en una rama.
