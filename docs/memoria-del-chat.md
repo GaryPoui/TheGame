@@ -299,3 +299,21 @@ localmente; esta comprobación pública cubre migración, acceso y carga, no tod
 
 La rama de fuente vigente para continuar esta entrega es `codex/doble-contracts`; la rama
 `codex/ink-theatre` conserva la versión previa. El sitio sigue publicando sólo desde `gh-pages`.
+
+## Retrato de Doble, revisión v2 — 23/10/2026
+
+El usuario pidió que el crupier coincidiera con los demás personajes. Se sustituyó el SVG activo
+por `public/art/doble-v2.png`, generado con imagegen usando Vera como referencia principal de
+estilo, el anfitrión como referencia secundaria de acabado/paleta y una captura del Doble previo
+para conservar identidad. Tinta de grosor variable, textura pictórica, ojos expresivos, traje
+ciruela, solapas desiguales y sombrero. El encuadre hasta la cadera permite leer cara y manos
+sobre la mesa. La imagen se comparte entre presentación HTML y plano de Babylon.
+
+PNG 1024×1536 RGBA, 2.236.166 bytes, alfa 0..254 y esquinas transparentes. Copia byte a byte de
+la salida de imagegen, sin edición de píxeles; el SVG anterior permanece histórico. Prompt exacto,
+referencias, hash, herramienta y derechos en `public/doble-art-v2.json` y `docs/doble-art-v2.json`.
+La generación no implica animación nueva. Reglas, puntuación y guardado siguen iguales.
+
+Compilación/typecheck aprobadas; inspección del retrato y de la mesa en escritorio, sin errores
+de consola capturados. Captura en `docs/evidence/doble-art-v2/table-desktop.png`. No se ejecutaron
+suites de tests ni se repitió el recorrido de juego para esta sustitución de arte.
