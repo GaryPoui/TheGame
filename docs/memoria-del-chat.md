@@ -265,3 +265,19 @@ con el progreso existente (8/8 decisiones y 5 fichas), sin reiniciarlo. Consola 
 capturados. Captura pública: `docs/evidence/sans/public-menu.png` desde la raíz del repo.
 La revisión local previa cubrió tutorial y mesa, incluyendo los rótulos canvas.
 No se repitieron las suites automatizadas de gameplay en esta publicación tipográfica.
+
+## 12. Implementación de Doble — 23/10/2026
+
+Pedido directo: «implementa la mesa doble». Rama del corte `codex/doble-contracts` sobre la
+fuente de tinta. Doble ya tiene tutorial preparado, personaje SVG original, dados 3D, contratos
+S/C/J, cuatro rondas con dos decisiones, segunda orden hipotética sin tirada, cuadrícula de
+36 pares y simulación separada de 1/100 tiradas. El sello se obtiene con 6/8 o completando dos
+microescenarios guiados; saldo negativo no bloquea ni quita méritos. Repetición cambia el
+umbral de transferencia a 20 y conserva sellos y su método. El guardado compartido usa esquema
+2 con aceptación del esquema legado 1; el resultado revelado no se vuelve a sortear al cargar.
+
+Se conserva el teatro de tinta y toda la tipografía sans vigente. Ada y anfitrión/final no están
+implementados por este pedido. Evidencia y límites en [doble-implementation](doble-implementation.md):
+recorridos manuales, build/typecheck, sin nuevas suites automatizadas ni afirmación de aprendizaje
+validado. T007/T008 de 006 quedan pendientes. El estado de publicación y sus hashes se agregan
+únicamente después de confirmar el push y el despliegue; no inferirlos de esta nota.

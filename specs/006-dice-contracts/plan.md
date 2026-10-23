@@ -1,10 +1,12 @@
 # Implementation Plan: Dados y contratos
 
-**Branch**: `codex/research-specs-skills` | **Date**: 2026-10-22 | **Spec**: [spec.md](spec.md)
+**Branch**: `codex/doble-contracts` | **Date**: 2026-10-23 | **Spec**: [spec.md](spec.md)
 
 ## Summary
 
-Elegir contratos según promedio, umbral y variabilidad. Implementación futura incremental, dependencias: 005; reutiliza 004 y 009.
+Elegir contratos según promedio, umbral y variabilidad. Implementación incremental completada
+en este corte; dependencias: 005; reutiliza tutoriales, ajustes y adaptador de guardado compartidos.
+Tests nuevos pendientes; aceptación manual registrada en [Doble](../../docs/doble-implementation.md).
 
 ## Technical Context
 
@@ -22,13 +24,17 @@ Elegir contratos según promedio, umbral y variabilidad. Implementación futura 
 
 Pre-investigación y post-diseño: PASS documental de cinco principios; matemática pura,
 azar inyectable, ayuda finita, accesibilidad, fuentes/licencias y alcance acotado.
-No hay excepciones ni implementación aprobada por este resultado.
+No hay excepciones. Este PASS describe consistencia documental; la instrucción posterior del
+usuario «implementa la mesa doble» autoriza este corte, no el PASS por sí solo.
 
 ## Project Structure
 
 Documentos: spec.md, plan.md, research.md, data-model.md, contracts/ui-state.md, quickstart.md,
 tasks.md y checklists/requirements.md en esta carpeta.
-Código futuro principal: `src/core/tables/contracts.ts`. Capas y propietarios en docs/architecture.md.
+Código principal: `src/core/tables/contracts.ts`, `src/core/math/dice.ts`,
+`src/core/math/simulation.ts`, `src/ui/contracts.ts` y `src/ui/contracts.css`.
+Integración en `src/main.ts`, escena Babylon y guardado de `src/core/game.ts`.
+Capas y propietarios en docs/architecture.md.
 Tests futuros: `tests/unit/006-dice-contracts.test.ts`, `tests/browser/006-dice-contracts.spec.ts`.
 No crear backend ni duplicar CampaignState, RNG, runner, settings o guardado.
 
@@ -45,3 +51,13 @@ Validación E2E: [quickstart.md](quickstart.md). La estrategia de construcción 
 ## Complexity Tracking
 
 Sin violaciones justificadas. Cualquier dependencia nueva requiere necesidad concreta y licencia.
+
+## Decisiones del corte implementado
+
+Una tirada por ronda; la segunda orden sólo planifica. Comparaciones exactas sobre 36 pares,
+RNG separado para simulaciones y consejo de Doble limitado al objetivo público.
+El reducer registra comandos con ID/revisión y valida snapshots mediante replay.
+Esquema 2 acepta el legado esquema 1 en el mismo slot; conserva resultados y sellos al repetir.
+Arte de Doble SVG original y dados 3D amplían el teatro de tinta con Arial sans existente.
+No se incorporan servicios, motor físico ni dependencias nuevas. T007/T008 quedan pendientes;
+las observaciones manuales se reportan separadas de la cobertura automática.

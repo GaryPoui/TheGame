@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "release": "urns-mvp-ink-v3",
+  "release": "urns-contracts-v1",
   "assets": [
     {
       "id": "ink-art-family",
@@ -33,6 +33,14 @@
       "source": "public/favicon.svg",
       "origin": "Original geometric emblem",
       "license": "Project owner's rights"
+    },
+    {
+      "id": "doble-original-vector",
+      "source": "art/doble.svg",
+      "origin": "Original project-authored SVG illustration: unequal lapels, broker costume and ink palette; no third-party source image",
+      "sha256": "55a472fa297981da1e46bd33ac61ec461be142fff9892c790a7b267b2cedc221",
+      "distributedFontFiles": false,
+      "license": "Project owner's rights; not declared CC0"
     }
   ],
   "engine": {

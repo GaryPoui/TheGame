@@ -3,9 +3,12 @@
 Videojuego educativo de probabilidad **y** estadística, de 30–45 minutos objetivo, en navegador
 de escritorio. Babylon.js + TypeScript estricto + Vite. Título provisional.
 
-**Estado actual:** MVP jugable de la primera mesa, con sala ilustrada, mesa 3D, Vera, tutorial, cuatro rondas,
-ayuda guiada, guardado local y ajustes. [Jugar por HTTPS](https://garypoui.github.io/TheGame/).
-La campaña de tres asistentes y final sigue en desarrollo; el MVP no dura todavía 30–45 minutos.
+**Estado actual:** Vera y Doble implementadas: urnas y contratos con dados, sala ilustrada,
+mesas 3D, tutoriales, ayuda guiada, sellos y guardado local compartido. El nuevo corte de Doble
+se documenta en [implementación y evidencia](docs/doble-implementation.md).
+[Jugar la versión publicada por HTTPS](https://garypoui.github.io/TheGame/); la publicación
+del nuevo corte se identifica en ese registro cuando se complete.
+Ada y el final siguen en desarrollo; la duración objetivo de 30–45 minutos no está validada.
 
 La [dirección visual actual](docs/ink-theatre.md) usa tinta, acuarela y personajes de animación
 de los años treinta, con una apertura a oscuras y captor inspirado en las referencias de Gambito.
@@ -30,7 +33,7 @@ entregas, validación y contexto para continuar en otra conversación.
 | Fuentes verificables | [Investigación técnica](docs/research.md) y [educativa](docs/research-education.md) |
 | Skills instaladas y reinstalación | [Auditoría](docs/skills.md) y [manifiesto](skills-manifest.json) |
 | Integración real de especificaciones | [Spec Kit](docs/spec-kit.md) y [constitución](.specify/memory/constitution.md) |
-| Trabajo futuro dividido en diez cortes | [Índice de specs](specs/README.md) |
+| Entregas y trabajo pendiente en diez cortes | [Índice de specs](specs/README.md) |
 | Arte, interfaz y producción | [Dirección artística](docs/art-direction.md), [guía UI](docs/ui-style-guide.md), [pipeline](docs/asset-pipeline.md) |
 | Cómo comprobar calidad | [Plan de validación](docs/validation-plan.md), [visual](docs/visual-validation.md), [análisis](docs/consistency-analysis.md) |
 | Qué falta decidir | [Riesgos](docs/risks.md) |
@@ -52,5 +55,7 @@ nueva sesión. Se distinguen instalación, lectura y aplicación en la auditorí
 
 Las versiones están fijadas en package.json y package-lock.json. Para ejecutar: `npm ci`,
 `npm run dev`. Validación: `npm test`, `npm run build`, `npm run preview` y, con preview activo,
-`npm run test:browser`. Se implementó **una mesa completa en una sala simple** antes de producir
-el resto de la campaña. Capturas, pruebas y limitaciones se registran en docs/mvp-validation.md.
+`npm run test:browser`. Se implementó una mesa completa antes de ampliar a Doble. La evidencia
+histórica del MVP está en docs/mvp-validation.md; el alcance manual y la cobertura automatizada
+pendiente del nuevo corte están en docs/doble-implementation.md. Enumerar comandos disponibles
+no significa que se hayan ejecutado en esta entrega.

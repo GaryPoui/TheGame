@@ -1,5 +1,17 @@
 # Continuidad del proyecto
 
+## Mesa de Doble — 2026-10-23
+
+El usuario pidió «implementa la mesa doble». El corte vigente se desarrolla en
+`codex/doble-contracts`, derivado de `codex/ink-theatre`; la build pública sigue usando `gh-pages`.
+Vera habilita contratos S/C/J con cuatro rondas y ocho decisiones, dados 3D, comparación opcional
+1/100, ayuda finita y guardado esquema 2 compatible con urnas legado. Sellos y métodos se conservan
+al practicar. El teatro de tinta y Arial sans siguen vigentes. Ada y el final están pendientes.
+Detalle y evidencia: [Doble](doble-implementation.md). Se realizaron recorridos manuales y
+build/typecheck; no se añadieron ni ejecutaron suites nuevas y T007/T008 siguen pendientes.
+El hash de publicación se registra sólo después de subir y publicar realmente este corte.
+Las secciones siguientes de entregas previas quedan como historial, no como estado vigente.
+
 ## Teatro de tinta — 2026-10-23
 
 El usuario corrigió la dirección: referencia Cuphead más tranquila, oscuridad inicial y captor
