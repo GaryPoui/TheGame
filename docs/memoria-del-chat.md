@@ -317,3 +317,12 @@ La generación no implica animación nueva. Reglas, puntuación y guardado sigue
 Compilación/typecheck aprobadas; inspección del retrato y de la mesa en escritorio, sin errores
 de consola capturados. Captura en `docs/evidence/doble-art-v2/table-desktop.png`. No se ejecutaron
 suites de tests ni se repitió el recorrido de juego para esta sustitución de arte.
+
+### Publicación de la revisión artística
+
+Fuente `61268d31e1b01e1f284b076126ea79c4b1ce3dfb`, despliegue `80100dc3562495397dffe3f75784762999455665`,
+versión `urns-contracts-doble-art-v2`. GitHub Pages finalizó con éxito:
+https://github.com/GaryPoui/TheGame/actions/runs/39953002366.
+Se abrió el juego público, se retomó el progreso existente y se inspeccionó el nuevo retrato
+detrás de la mesa sin errores de consola capturados. Captura:
+`docs/evidence/doble-art-v2/public-table.png`. PR #5 conserva los cambios sin merge automático.

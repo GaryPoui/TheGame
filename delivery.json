@@ -107,5 +107,16 @@
       "public": "legacy Vera save preserved; Doble tutorial and offers loaded; no captured console error or save warning",
       "automated_gameplay_suites": "Not added or run in this task; T007/T008 pending"
     }
+  },
+  "latest_visual_update": {
+    "phase": "doble-art-v2",
+    "branch": "codex/doble-contracts",
+    "content_commit": "61268d31e1b01e1f284b076126ea79c4b1ce3dfb",
+    "deployment_commit": "80100dc3562495397dffe3f75784762999455665",
+    "release": "urns-contracts-doble-art-v2",
+    "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39953002366",
+    "asset_manifest": "public/doble-art-v2.json",
+    "public_capture": "docs/evidence/doble-art-v2/public-table.png",
+    "validation": "Build/typecheck and local/public visual inspection; no new gameplay tests"
   }
 }
