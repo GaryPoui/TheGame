@@ -1,0 +1,1 @@
+export{t as defaultPixelShader}from"./default.fragment-Ddf2oh49.js";
