@@ -1,0 +1,62 @@
+[
+  {
+    "name": "@babylonjs/core",
+    "data": {
+      "version": "9.32.0",
+      "license": "Apache-2.0",
+      "dist.integrity": "sha512-mHBsyKJuQHbs97Rb/1qxMRg6Ru79+0BjLhGLTa34s6U/fkBCtOh+xKTQDqFpFtPqgBw9TLFcIEvFHy01vnJxwA=="
+    }
+  },
+  {
+    "name": "@babylonjs/loaders",
+    "data": {
+      "version": "9.32.0",
+      "license": "Apache-2.0",
+      "dist.integrity": "sha512-pHWbOaR34riRNxX0rffPpVcbaAoEXmjtS00A4RO43zoz4EPVg4mESX0EqzaA8yl7FbVk+aYWwyj30uR1OWrl1Q=="
+    }
+  },
+  {
+    "name": "vite",
+    "data": {
+      "version": "8.3.5",
+      "engines": {
+        "node": "^20.19.0 || >=22.12.0"
+      },
+      "license": "MIT",
+      "dist.integrity": "sha512-z1YpjieJ9g0ebTmQpLBv/oq9E3F9EIlOe+7LahW8SrE3LTiG3udBRUXQOlYXP9b+IC2q2phHeVxj9xGlw34OEQ=="
+    }
+  },
+  {
+    "name": "typescript",
+    "data": {
+      "version": "7.0.2",
+      "engines": {
+        "node": ">=16.20.0"
+      },
+      "license": "Apache-2.0",
+      "dist.integrity": "sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA=="
+    }
+  },
+  {
+    "name": "vitest",
+    "data": {
+      "version": "5.0.5",
+      "engines": {
+        "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+      },
+      "license": "MIT",
+      "dist.integrity": "sha512-cPODOMF8YnkiiYtDdHo6n4wWmBrOBBbOIYH2d33M4l3CdNn72h+qMmO6uXffUN6A5AZFXNND/d+krS9mgkXRfg=="
+    }
+  },
+  {
+    "name": "@playwright/test",
+    "data": {
+      "version": "1.64.1",
+      "engines": {
+        "node": ">=20"
+      },
+      "license": "Apache-2.0",
+      "dist.integrity": "sha512-IaYGml/nSOiZWROfPtuIL7neuu9qDOZ3TNvNljUIrhDMxiGTgPjzj/g9p9RxpS2tSepPDRY+UwAaEeiKtUvIAg=="
+    }
+  }
+]

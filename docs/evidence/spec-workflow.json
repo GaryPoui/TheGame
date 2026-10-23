@@ -1,0 +1,362 @@
+[
+  {
+    "feature": "001-web-foundation",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "001-web-foundation",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\001-web-foundation",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\001-web-foundation\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\001-web-foundation\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\001-web-foundation\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\001-web-foundation\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\001-web-foundation\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\001-web-foundation",
+      "BRANCH": "001-web-foundation"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\001-web-foundation",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "002-camera-interaction",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "002-camera-interaction",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\002-camera-interaction",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\002-camera-interaction\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\002-camera-interaction\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\002-camera-interaction\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\002-camera-interaction\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\002-camera-interaction\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\002-camera-interaction",
+      "BRANCH": "002-camera-interaction"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\002-camera-interaction",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "003-intro-room",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "003-intro-room",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\003-intro-room",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\003-intro-room\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\003-intro-room\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\003-intro-room\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\003-intro-room\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\003-intro-room\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\003-intro-room",
+      "BRANCH": "003-intro-room"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\003-intro-room",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "004-dialogue-tutorial",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "004-dialogue-tutorial",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\004-dialogue-tutorial",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\004-dialogue-tutorial\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\004-dialogue-tutorial\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\004-dialogue-tutorial\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\004-dialogue-tutorial\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\004-dialogue-tutorial\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\004-dialogue-tutorial",
+      "BRANCH": "004-dialogue-tutorial"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\004-dialogue-tutorial",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "005-urn-table",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "005-urn-table",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\005-urn-table",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\005-urn-table\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\005-urn-table\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\005-urn-table\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\005-urn-table\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\005-urn-table\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\005-urn-table",
+      "BRANCH": "005-urn-table"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\005-urn-table",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "006-dice-contracts",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "006-dice-contracts",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\006-dice-contracts",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\006-dice-contracts\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\006-dice-contracts\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\006-dice-contracts\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\006-dice-contracts\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\006-dice-contracts\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\006-dice-contracts",
+      "BRANCH": "006-dice-contracts"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\006-dice-contracts",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "007-records-table",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "007-records-table",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\007-records-table",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\007-records-table\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\007-records-table\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\007-records-table\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\007-records-table\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\007-records-table\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\007-records-table",
+      "BRANCH": "007-records-table"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\007-records-table",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "008-host-finale",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "008-host-finale",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\008-host-finale",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\008-host-finale\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\008-host-finale\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\008-host-finale\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\008-host-finale\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\008-host-finale\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\008-host-finale",
+      "BRANCH": "008-host-finale"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\008-host-finale",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "009-progression-save",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "009-progression-save",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\009-progression-save",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\009-progression-save\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\009-progression-save\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\009-progression-save\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\009-progression-save\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\009-progression-save\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\009-progression-save",
+      "BRANCH": "009-progression-save"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\009-progression-save",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  },
+  {
+    "feature": "010-quality-release",
+    "specification": "authored by agent using resolved template",
+    "clarification": {
+      "REPO_ROOT": "C:\\Users\\TomyG\\Downloads\\TheGame",
+      "BRANCH": "010-quality-release",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\010-quality-release",
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\010-quality-release\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\010-quality-release\\plan.md",
+      "TASKS": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\010-quality-release\\tasks.md"
+    },
+    "planSetup": {
+      "FEATURE_SPEC": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\010-quality-release\\spec.md",
+      "IMPL_PLAN": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\010-quality-release\\plan.md",
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\010-quality-release",
+      "BRANCH": "010-quality-release"
+    },
+    "tasksSetup": [
+      "research.md",
+      "data-model.md",
+      "contracts/",
+      "quickstart.md"
+    ],
+    "analysisPrerequisites": {
+      "FEATURE_DIR": "C:\\Users\\TomyG\\Downloads\\TheGame\\specs\\010-quality-release",
+      "AVAILABLE_DOCS": [
+        "research.md",
+        "data-model.md",
+        "contracts/",
+        "quickstart.md",
+        "tasks.md"
+      ]
+    },
+    "hooks": "no extensions.yml",
+    "implementation": "not executed"
+  }
+]

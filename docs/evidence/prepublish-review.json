@@ -1,0 +1,7 @@
+{
+  "scope": "staged files, common token/private-key patterns; not exhaustive security audit",
+  "files": 242,
+  "bytes": 1208860,
+  "findings": [],
+  "result": "PASS"
+}

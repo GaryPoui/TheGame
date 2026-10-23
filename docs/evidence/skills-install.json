@@ -1,0 +1,30 @@
+[
+  {
+    "source": "awesome",
+    "command": "skill-installer --repo gamedev-skills/awesome-gamedev-agent-skills --ref 38a4c2500eeb5ff9ac084336b8f66108069d2f8d --method download --dest .agents/skills --path skills/disciplines/dialogue-systems skills/disciplines/save-systems skills/disciplines/game-ai skills/disciplines/game-ui-ux skills/disciplines/camera-systems skills/disciplines/input-systems skills/disciplines/audio-design skills/disciplines/level-design skills/disciplines/performance-optimization skills/disciplines/create-game-assets skills/workflows/prototype-fast skills/disciplines/game-feel skills/disciplines/shader-programming",
+    "exit_code": 0,
+    "stdout": "Installed dialogue-systems to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\dialogue-systems\nInstalled save-systems to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\save-systems\nInstalled game-ai to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\game-ai\nInstalled game-ui-ux to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\game-ui-ux\nInstalled camera-systems to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\camera-systems\nInstalled input-systems to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\input-systems\nInstalled audio-design to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\audio-design\nInstalled level-design to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\level-design\nInstalled performance-optimization to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\performance-optimization\nInstalled create-game-assets to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\create-game-assets\nInstalled prototype-fast to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\prototype-fast\nInstalled game-feel to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\game-feel\nInstalled shader-programming to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\shader-programming\n",
+    "stderr": ""
+  },
+  {
+    "source": "setcodes",
+    "command": "skill-installer --repo setcodes/gamedev-skills --ref 096c224aa498a789fa99d476583029fcb9f538e1 --method download --dest .agents/skills --path skills/game-designer",
+    "exit_code": 0,
+    "stdout": "Installed game-designer to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\game-designer\n",
+    "stderr": ""
+  },
+  {
+    "source": "anthropics",
+    "command": "skill-installer --repo anthropics/skills --ref dbd4588f9e1033efb41dad4bef2f7947c8993d44 --method download --dest .agents/skills --path skills/frontend-design skills/webapp-testing",
+    "exit_code": 0,
+    "stdout": "Installed frontend-design to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\frontend-design\nInstalled webapp-testing to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\webapp-testing\n",
+    "stderr": ""
+  },
+  {
+    "source": "blender",
+    "command": "skill-installer --repo majidmanzarpour/blender-game-skills --ref f0ef29385a03de139957e6f700b801cdc00b7e29 --method download --dest .agents/skills --path skills/blender-image-to-3d",
+    "exit_code": 0,
+    "stdout": "Installed blender-image-to-3d to C:\\Users\\TomyG\\Downloads\\TheGame\\.agents\\skills\\blender-image-to-3d\n",
+    "stderr": ""
+  }
+]

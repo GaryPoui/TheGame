@@ -1,0 +1,543 @@
+{
+  "status": "passed",
+  "method": "exact rational enumeration and assertions; not gameplay or pedagogical validation",
+  "checks": 64,
+  "assertions": [
+    "36 equiprobable ordered pairs",
+    "sum multiplicities",
+    "P(sum 7)",
+    "entry costs included in EV",
+    "variances",
+    "ranges",
+    "EV winner J",
+    "threshold 1 winner S",
+    "threshold 4 winner C",
+    "threshold 10 winner J",
+    "min range winner S",
+    "no universal dominant contract over announced goals",
+    "threshold 4 probabilities",
+    "U1 legal nonempty pools after 0/0",
+    "U1 complement after 0/0",
+    "U1 legal nonempty pools after 0/1",
+    "U1 complement after 0/1",
+    "U1 legal nonempty pools after 1/0",
+    "U1 complement after 1/0",
+    "U1 legal nonempty pools after 1/1",
+    "U1 complement after 1/1",
+    "U2 legal nonempty pools after 0/0",
+    "U2 complement after 0/0",
+    "U2 legal nonempty pools after 0/1",
+    "U2 complement after 0/1",
+    "U2 legal nonempty pools after 1/0",
+    "U2 complement after 1/0",
+    "U2 legal nonempty pools after 1/1",
+    "U2 complement after 1/1",
+    "U3 legal nonempty pools after 0/0",
+    "U3 complement after 0/0",
+    "U3 legal nonempty pools after 0/1",
+    "U3 complement after 0/1",
+    "U3 legal nonempty pools after 1/0",
+    "U3 complement after 1/0",
+    "U3 legal nonempty pools after 1/1",
+    "U3 complement after 1/1",
+    "U4 legal nonempty pools after 0/0",
+    "U4 complement after 0/0",
+    "U4 legal nonempty pools after 0/1",
+    "U4 complement after 0/1",
+    "U4 legal nonempty pools after 1/0",
+    "U4 complement after 1/0",
+    "U4 legal nonempty pools after 1/1",
+    "U4 complement after 1/1",
+    "urn first winners",
+    "3/5 and red observation 2/4",
+    "urn U1 complete worked path probability",
+    "replacement reference",
+    "urn U3 switch after red",
+    "records worked mean",
+    "records frequency",
+    "records range",
+    "known K and V equal theoretical means",
+    "known V variance",
+    "all successes probabilities",
+    "all 16 blocks legal and n8 closes independent of outcome",
+    "final prepared mean and range",
+    "assistant finite guided completion after every decision pattern",
+    "assistant assisted labels retained",
+    "final finite guided completion after every decision pattern",
+    "final assisted labels retained",
+    "final worked score and balance",
+    "optimal choices progress under worst random payouts"
+  ],
+  "dice_counts": {
+    "2": 1,
+    "3": 2,
+    "4": 3,
+    "5": 4,
+    "6": 5,
+    "7": 6,
+    "8": 5,
+    "9": 4,
+    "10": 3,
+    "11": 2,
+    "12": 1
+  },
+  "expected_net": {
+    "S": "2",
+    "C": "5/3",
+    "J": "3"
+  },
+  "variance": {
+    "S": "0",
+    "C": "80/9",
+    "J": "80"
+  },
+  "objectives": {
+    "EV": {
+      "S": "2",
+      "C": "5/3",
+      "J": "3"
+    },
+    "minRange": {
+      "S": 0,
+      "C": -6,
+      "J": -24
+    },
+    "P_ge_1": {
+      "S": "1",
+      "C": "4/9",
+      "J": "1/6"
+    },
+    "P_ge_4": {
+      "S": "0",
+      "C": "4/9",
+      "J": "1/6"
+    },
+    "P_ge_10": {
+      "S": "0",
+      "C": "0",
+      "J": "1/6"
+    }
+  },
+  "optimal_contracts": {
+    "EV": [
+      "J"
+    ],
+    "minRange": [
+      "S"
+    ],
+    "P_ge_1": [
+      "S"
+    ],
+    "P_ge_4": [
+      "C"
+    ],
+    "P_ge_10": [
+      "J"
+    ]
+  },
+  "urns": [
+    {
+      "id": "U1",
+      "initial": {
+        "0": "3/5",
+        "1": "1/2"
+      },
+      "optimal_first": [
+        "0"
+      ],
+      "all_branches": [
+        {
+          "first": 0,
+          "observed": "R",
+          "state": [
+            [
+              2,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "optimal_second": [
+            "0",
+            "1"
+          ],
+          "probabilities": {
+            "0": "1/2",
+            "1": "1/2"
+          }
+        },
+        {
+          "first": 0,
+          "observed": "A",
+          "state": [
+            [
+              3,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "optimal_second": [
+            "0"
+          ],
+          "probabilities": {
+            "0": "3/4",
+            "1": "1/2"
+          }
+        },
+        {
+          "first": 1,
+          "observed": "R",
+          "state": [
+            [
+              3,
+              2
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "optimal_second": [
+            "0"
+          ],
+          "probabilities": {
+            "0": "3/5",
+            "1": "0"
+          }
+        },
+        {
+          "first": 1,
+          "observed": "A",
+          "state": [
+            [
+              3,
+              2
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "optimal_second": [
+            "1"
+          ],
+          "probabilities": {
+            "0": "3/5",
+            "1": "1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "U2",
+      "initial": {
+        "0": "2/5",
+        "1": "1/2"
+      },
+      "optimal_first": [
+        "1"
+      ],
+      "all_branches": [
+        {
+          "first": 0,
+          "observed": "R",
+          "state": [
+            [
+              3,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "optimal_second": [
+            "1"
+          ],
+          "probabilities": {
+            "0": "2/5",
+            "1": "1/2"
+          }
+        },
+        {
+          "first": 0,
+          "observed": "A",
+          "state": [
+            [
+              3,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "optimal_second": [
+            "1"
+          ],
+          "probabilities": {
+            "0": "2/5",
+            "1": "1/2"
+          }
+        },
+        {
+          "first": 1,
+          "observed": "R",
+          "state": [
+            [
+              3,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "optimal_second": [
+            "1"
+          ],
+          "probabilities": {
+            "0": "2/5",
+            "1": "1/2"
+          }
+        },
+        {
+          "first": 1,
+          "observed": "A",
+          "state": [
+            [
+              3,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "optimal_second": [
+            "1"
+          ],
+          "probabilities": {
+            "0": "2/5",
+            "1": "1/2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "U3",
+      "initial": {
+        "0": "2/3",
+        "1": "3/5"
+      },
+      "optimal_first": [
+        "0"
+      ],
+      "all_branches": [
+        {
+          "first": 0,
+          "observed": "R",
+          "state": [
+            [
+              1,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "optimal_second": [
+            "1"
+          ],
+          "probabilities": {
+            "0": "1/2",
+            "1": "3/5"
+          }
+        },
+        {
+          "first": 0,
+          "observed": "A",
+          "state": [
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "optimal_second": [
+            "0"
+          ],
+          "probabilities": {
+            "0": "1",
+            "1": "3/5"
+          }
+        },
+        {
+          "first": 1,
+          "observed": "R",
+          "state": [
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "optimal_second": [
+            "0"
+          ],
+          "probabilities": {
+            "0": "2/3",
+            "1": "1/2"
+          }
+        },
+        {
+          "first": 1,
+          "observed": "A",
+          "state": [
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          "optimal_second": [
+            "1"
+          ],
+          "probabilities": {
+            "0": "2/3",
+            "1": "3/4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "U4",
+      "initial": {
+        "0": "3/4",
+        "1": "3/5"
+      },
+      "optimal_first": [
+        "0"
+      ],
+      "all_branches": [
+        {
+          "first": 0,
+          "observed": "R",
+          "state": [
+            [
+              0,
+              3
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "optimal_second": [
+            "0"
+          ],
+          "probabilities": {
+            "0": "1",
+            "1": "3/5"
+          }
+        },
+        {
+          "first": 0,
+          "observed": "A",
+          "state": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "optimal_second": [
+            "0"
+          ],
+          "probabilities": {
+            "0": "2/3",
+            "1": "3/5"
+          }
+        },
+        {
+          "first": 1,
+          "observed": "R",
+          "state": [
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "optimal_second": [
+            "0",
+            "1"
+          ],
+          "probabilities": {
+            "0": "3/4",
+            "1": "3/4"
+          }
+        },
+        {
+          "first": 1,
+          "observed": "A",
+          "state": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "optimal_second": [
+            "0"
+          ],
+          "probabilities": {
+            "0": "3/4",
+            "1": "1/2"
+          }
+        }
+      ]
+    }
+  ],
+  "record_block_outcomes_enumerated": 16,
+  "progression": {
+    "assistant": {
+      "decision_patterns": 256,
+      "independent": 37,
+      "assisted": 219,
+      "guided_actions_to_complete": 4,
+      "threshold": 6
+    },
+    "final": {
+      "decision_patterns": 64,
+      "independent": 22,
+      "assisted": 42,
+      "guided_actions_to_complete": 4,
+      "threshold": 4
+    }
+  }
+}
