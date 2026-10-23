@@ -84,3 +84,10 @@ Alternativa con instalador Codex en otro equipo: tomar `repository`, `source_pat
 `.agents/skills` es ubicación portable de proyecto. Al instalar, el catálogo inicial aún no las incluía. En el turno de revisión siguiente se comprobó su aparición en el catálogo bajo la raíz de proyecto `r12`. En otros equipos deberían aparecer en el próximo turno; si no se refresca, abrir una sesión nueva. También se pueden leer directamente los archivos instalados y aplicar las instrucciones pertinentes.
 
 En esta auditoría se leyó `skill-installer`, y se revisaron `game-designer` con sus referencias de diseño y playtests, `frontend-design`, `webapp-testing`, `blender-image-to-3d`, `game-ai`, `router`, `puzzle` y `card-game` para selección. Las demás instrucciones y auxiliares se inspeccionaron para compatibilidad y empaquetado, sin afirmar aplicación de gameplay ni ejecución de producción. La aplicación de diseño por el equipo debe registrarse en su documentación de entrega. Instalar 17 skills no significa cargar todas en cada trabajo.
+
+
+## Aplicación en revisión de tinta v3
+
+create-game-assets: brief, paleta, escala, alpha y procedencia; imagegen de sistema: tres
+assets mediante herramienta integrada, sin CLI ni API key; webapp-testing: recorrido real,
+capturas y regresiones usando Playwright TypeScript ya instalado. Ver docs/ink-theatre.md.

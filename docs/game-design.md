@@ -1,6 +1,11 @@
 # GDD único — La Casa del Azar
 
-Estado: especificación de diseño, sin implementación. Autoridad de reglas: [educational-design.md](educational-design.md). No crear otro GDD divergente. Visión: [vision.md](vision.md).
+Estado: diseño de campaña; primera mesa implementada como MVP y resto pendiente. Autoridad de reglas: [educational-design.md](educational-design.md). No crear otro GDD divergente. Visión: [vision.md](vision.md).
+
+La presentación vigente usa [tinta y acuarela](ink-theatre.md). El MVP tiene estados
+`menu → intro → room → tutorial → table → complete`, sala por selector y una mesa; no incluye
+aún desplazamiento libre, campaña de tres sellos ni final. Las secciones de campaña siguen
+siendo objetivos, no un inventario de funciones ya implementadas.
 
 ## Bucle y controles
 

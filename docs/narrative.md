@@ -1,6 +1,26 @@
 # Narrativa y guion de introducción
 
-Propuesta, no audio/animaciones producidos. Título provisional: La Casa del Azar. Tensión y humor oscuro moderado, sin violencia gráfica. Advertencia inicial: secuestro y restricción de movimiento. «Saltar introducción» lleva al mismo estado jugable y conserva resumen accesible.
+Estado actual: apertura breve implementada en el MVP; la secuencia de calle y el final de
+campaña descritos más abajo siguen propuestos. Título provisional: La Casa del Azar. Tensión
+y humor oscuro moderado, sin violencia gráfica. «Saltar introducción» lleva a la sala, donde
+se recuerda que las manos están libres y la puerta cerrada.
+
+## Apertura vigente del MVP — revisión v3
+
+Por instrucción del usuario, la sala comienza completamente a oscuras. A los 1,8 segundos
+aparece el captor adaptado de las referencias de Gambito; a los 3,3 segundos empieza a
+encenderse la sala. El texto se avanza manualmente. Movimiento reducido abrevia la secuencia.
+Tiempos, retratos y procedencia en [Teatro de tinta](ink-theatre.md).
+
+- El anfitrión: «Ah… por fin. Tu libertad se juega acá. La suerte reparte; vos vas a tener
+  que entender la mano».
+- El anfitrión: «Los grilletes se abren. Podés moverte; la puerta seguirá cerrada. Tres
+  asistentes. Tres sellos. Después, una partida conmigo y la puerta se abre».
+- Vera: «En esta casa una buena decisión puede terminar mal. Eso no la convierte en una
+  mala decisión. Te voy a mostrar por qué».
+
+El MVP presenta liberación e ingreso mediante texto y selector de mesa. No contiene aún
+calle caminable, grilletes modelados, actuaciones por cuadros ni final contra el captor.
 
 ## Premisa y personajes
 
@@ -12,7 +32,7 @@ El anfitrión llama «azar» a todo lo que le conviene, incluso a sus propias de
 - El anfitrión: teatral, convierte incertidumbre en autoridad; al perder, se aferra al reglamento que él mismo firmó. No hace trampas al RNG: su antagonismo es retórico y narrativo.
 - Protagonista: silencioso por defecto; decisiones mediante acciones. No requiere avatar completo ni brazos animados durante exploración.
 
-## Guion temporal de apertura (objetivo 100–130 segundos)
+## Propuesta de apertura ampliada de campaña (objetivo 100–130 segundos)
 
 | Tiempo aproximado | Imagen/acción viable | Texto/subtítulo y sonido | Control |
 |---|---|---|---|

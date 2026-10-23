@@ -1,8 +1,12 @@
 # Feature Specification: Arte, audio, accesibilidad y publicación
 
+> Actualización v3 (2026-10-23): apertura breve a oscuras y arte de tinta integrados en el MVP.
+> Ver [alcance, procedencia y evidencia](../../docs/ink-theatre.md). Esto no completa las
+> tareas de calle/campaña, actuación por estados ni validación humana pendientes.
+
 **Feature Branch**: `codex/research-specs-skills` (entrega documental; spec independiente de rama)
 **Created**: 2026-10-22
-**Status**: Especificada; implementación pendiente de instrucción posterior
+**Status**: Parcialmente implementada en el MVP; alcance de campaña y validación pendientes
 **Input**: Apartado 010 del prompt original y decisiones versionadas.
 
 ## Objetivo y dependencias

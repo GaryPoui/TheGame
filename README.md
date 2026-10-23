@@ -3,17 +3,21 @@
 Videojuego educativo de probabilidad **y** estadística, de 30–45 minutos objetivo, en navegador
 de escritorio. Babylon.js + TypeScript estricto + Vite. Título provisional.
 
-**Estado actual:** MVP jugable de la primera mesa, con sala 3D, Vera, tutorial, cuatro rondas,
+**Estado actual:** MVP jugable de la primera mesa, con sala ilustrada, mesa 3D, Vera, tutorial, cuatro rondas,
 ayuda guiada, guardado local y ajustes. [Jugar por HTTPS](https://garypoui.github.io/TheGame/).
 La campaña de tres asistentes y final sigue en desarrollo; el MVP no dura todavía 30–45 minutos.
 
-La [revisión visual](docs/visual-upgrade.md) incorpora materiales fotografiados, iluminación HDR,
-vidrio y un rostro anatómico con piel CC0 para avanzar hacia una presentación más realista.
+La [dirección visual actual](docs/ink-theatre.md) usa tinta, acuarela y personajes de animación
+de los años treinta, con una apertura a oscuras y captor inspirado en las referencias de Gambito.
+La revisión realista anterior queda documentada como histórica.
 
 Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs/mvp-scope.md),
 [validación real](docs/mvp-validation.md) y [publicación reproducible](docs/deployment.md).
 
 ## Mapa de lectura
+
+[Memoria compartible del chat y del proyecto](docs/memoria-del-chat.md), con decisiones,
+entregas, validación y contexto para continuar en otra conversación.
 
 | Para conocer… | Leer |
 | --- | --- |

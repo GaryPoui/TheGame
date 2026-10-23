@@ -1,6 +1,6 @@
 # Visión y alcance — La Casa del Azar
 
-Estado: diseño propuesto para implementación posterior. Fecha de revisión: 2026-10-23. Esta fase no contiene un videojuego implementado ni demuestra eficacia educativa.
+Estado: primera mesa implementada y publicada; campaña completa todavía propuesta. Fecha de revisión: 2026-10-23. Dirección vigente: [Teatro de tinta](ink-theatre.md). La implementación del MVP no demuestra eficacia educativa.
 
 ## Experiencia
 
@@ -14,7 +14,7 @@ Público provisional: adolescentes mayores y adultos que manejan sumas y divisio
 - Calle de unos 20 segundos y una sala principal compacta con cuatro puestos. Tres asistentes y anfitrión, sin otros NPC necesarios.
 - Introducción 2–3 minutos; urnas 7–9; contratos 7–9; registros 8–10; final 5–7; navegación/epílogo 1–3. Total objetivo 30–41 minutos, margen de lectura hasta 45. Objetivo sujeto a prueba.
 - Una campaña local sin cuentas, backend, multijugador, dinero real ni compras. Persistencia versionada local.
-- Primer prototipo futuro: únicamente primera mesa completa en sala gris, un asistente, diálogo breve, guardado y accesibilidad mínima. No producir campaña completa antes de validarlo.
+- MVP existente: primera mesa completa, sala ilustrada con mesa 3D, Vera, apertura breve, guardado y ajustes. Validarlo con jugadores antes de ampliar la campaña.
 
 ## Experiencia y decisión central
 

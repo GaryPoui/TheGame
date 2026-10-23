@@ -70,3 +70,7 @@ Esquema propuesto de la vista de mesa (a 200 % se apila):
 ```
 
 El gráfico estadístico reemplaza inventario en la tercera mesa pero conserva acciones y ayuda en las mismas posiciones relativas. Elegir filas o símbolos se puede hacer con teclado; el foco del panel identifica también el objeto 3D correspondiente sin mover la cámara.
+
+## Tipografía vigente — 23/10/2026
+
+El usuario pidió retirar todas las serifas. La interfaz implementada usa `--font-ui: Arial, Helvetica, sans-serif` para títulos, diálogos, cifras y controles. Créditos y etiquetas canvas de Babylon usan la misma familia sin serifa. Se conservan los tamaños ajustables, el reflujo y la jerarquía existentes; no se distribuyen archivos de fuentes.

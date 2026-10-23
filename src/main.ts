@@ -17,6 +17,26 @@ let warning = restored.warning;
 let screen: Screen = 'menu';
 let selected: 0 | 1 | null = null;
 let introLine = 0;
+let introPhase: 'dark' | 'reveal' | 'lit' = 'dark';
+let introTimers: ReturnType<typeof setTimeout>[] = [];
+function stopIntro(): void { introTimers.forEach(clearTimeout); introTimers = []; }
+function renderIntroFrame(): void {
+  const focus = document.activeElement?.getAttribute('data-testid') ?? undefined;
+  render(overlay.querySelector('dialog[open]') ? undefined : focus);
+}
+function beginIntro(): void {
+  stopIntro(); introPhase = 'dark';
+  introTimers.push(setTimeout(() => {
+    if(screen !== 'intro') return;
+    introPhase = 'reveal'; renderIntroFrame();
+    // A low card-like tone accompanies the appearance, always respecting mute.
+    chime(false);
+  }, settings.reducedMotion ? 200 : 1800));
+  introTimers.push(setTimeout(() => {
+    if(screen !== 'intro') return;
+    introPhase = 'lit'; renderIntroFrame();
+  }, settings.reducedMotion ? 400 : 3300));
+}
 let tutorialStep = 0;
 let scene: GameScene | null = null;
 let sceneWarning = '';
@@ -57,6 +77,7 @@ function shortcutSelect(id: string, value: string): string {
   return `<select data-testid="${id}">${['KeyA','KeyD','KeyE','Digit1','Digit2','KeyJ','KeyK','KeyL','ArrowLeft','ArrowRight'].map(key => `<option value="${key}" ${key === value ? 'selected' : ''}>${shortcutName(key)}</option>`).join('')}</select>`;
 }
 function setScreen(next: Screen, focus?: string): void {
+  if(next !== 'intro') stopIntro();
   screen = next; selected = null; helpOpen = false;
   scene?.setMode(next === 'menu' || next === 'intro' ? 'menu' : next === 'room' || next === 'complete' ? 'room' : 'table', settings.reducedMotion);
   render(focus);
@@ -71,13 +92,14 @@ function menu(): string {
   return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar<span class="title-period">.</span></h1><p class="menu-tagline">La suerte reparte.<br>Vos decidís qué hacer con ella.</p><p class="menu-description">Una sala cerrada, dos urnas y una anfitriona que lleva todas las cuentas. Tu primera prueba empieza en la mesa.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Retomar mi partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>El inventario de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para teclado y mouse</span></footer>`;
 }
 const intro = [
-  ['El anfitrión', 'Despertás en una sala que definitivamente no es tu casa. Los grilletes de la silla se abren. «La silla era para la presentación. Podés moverte».'],
-  ['El anfitrión', '«Tres asistentes. Tres sellos. Después, una partida conmigo y la puerta se abre. Vera te espera en la primera mesa. Su contabilidad es terrible para las excusas».'],
+  ['El anfitrión', 'Una carta violeta se enciende en la oscuridad. El hombre del abrigo ya está frente a vos. «Ah… por fin. Tu libertad se juega acá. La suerte reparte; vos vas a tener que entender la mano».'],
+  ['El anfitrión', '«Los grilletes se abren. Podés moverte; la puerta seguirá cerrada. Tres asistentes. Tres sellos. Después, una partida conmigo y la puerta se abre. Vera te espera en la primera mesa. Su contabilidad es terrible para las excusas».'],
   ['Vera', '«Acercate. En esta casa una buena decisión puede terminar mal. Eso no la convierte en una mala decisión. Te voy a mostrar por qué».'],
 ];
 function introView(): string {
   const [speaker, line] = intro[introLine]!;
-  return `<main class="intro-layout"><p class="context-note">Un secuestro fuera de escena. Sin violencia gráfica.</p><section class="dialogue-card"><span class="eyebrow">${speaker}</span><h1>Bienvenido a la casa.</h1><p>${line}</p><div class="dialogue-actions">${btn('intro-next', introLine === 2 ? 'Entrar a la sala' : 'Continuar', 'primary')}${btn('skip-intro', 'Saltar introducción', 'quiet')}</div><span class="page-count">${introLine + 1} / 3</span></section></main>`;
+  const dark = introPhase === 'dark';
+  return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><span class="eyebrow">${dark ? 'Un momento antes…' : speaker}</span><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><div class="dialogue-actions">${btn('intro-next', introLine === 2 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}${btn('skip-intro', 'Saltar introducción', 'quiet')}</div><span class="page-count">${introLine + 1} / 3</span></section></main>`;
 }
 function room(): string {
   return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. La puerta, por ahora, no.</p></section><section class="table-directory" aria-label="Mesas de la sala"><button class="table-entry available" data-testid="enter-urns"><span class="table-number">I</span><span><small>Disponible · Vera</small><strong>El inventario</strong><span>Urnas, probabilidades y lo que cambia al elegir.</span></span><span class="entry-arrow" aria-hidden="true">↗</span></button><div class="table-entry locked"><span class="table-number">II</span><span><small>Próximo capítulo · Doble</small><strong>Los contratos</strong><span>Promedios, dados y decisiones con riesgo.</span></span><span aria-hidden="true">◇</span></div><div class="table-entry locked"><span class="table-number">III</span><span><small>Próximo capítulo · Ada</small><strong>El archivo</strong><span>Muestras, registros y preguntas incómodas.</span></span><span aria-hidden="true">◇</span></div><p class="development-note">Este MVP incluye la primera mesa completa. Los otros encuentros y la salida final pertenecen a la campaña en desarrollo.</p></section></main>`;
@@ -119,6 +141,8 @@ function complete(): string {
 }
 function render(focusId?: string): void {
   document.body.dataset.screen = screen;
+  document.body.dataset.introPhase = introPhase;
+  document.body.dataset.speaker = screen === 'intro' && introLine === 2 ? 'vera' : 'captor';
   app.innerHTML = header() + ({ menu, intro: introView, room, tutorial, table, complete }[screen])() +
     (warning ? `<div class="save-warning" role="status">${escapeText(warning)}</div>` : '') +
     (sceneWarning ? `<div class="graphics-warning">${sceneWarning} ${btn('retry-graphics','Reintentar 3D','quiet')}</div>` : '');
@@ -135,7 +159,7 @@ function commitSelection(index: 0 | 1): void {
 }
 function startNew(): void {
   state = createGame(); state.settings = structuredClone(settings); persist(); introLine = 0;
-  setScreen('intro', 'intro-next'); chime();
+  beginIntro(); setScreen('intro', 'skip-intro');
 }
 function enterTable(): void {
   if (state.phase === 'complete') { setScreen('complete', 'practice-again'); return; }
@@ -167,7 +191,7 @@ app.addEventListener('click', event => {
   if (id === 'settings-button') { showSettings(); return; }
   if (target.dataset.action === 'home') { event.preventDefault(); setScreen('menu'); return; }
   if (target.dataset.action === 'credits') {
-    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Este MVP incluye la mesa de urnas de Vera; la campaña completa sigue en desarrollo.</p><p>Escenario y vestuario propios, cabeza anatómica basada en MakeHuman y materiales fotográficos de Poly Haven, ambos CC0. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
+    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Este MVP incluye la mesa de urnas de Vera; la campaña completa sigue en desarrollo.</p><p>Nueva dirección de animación de los años treinta: sala y personajes ilustrados con generación de imágenes. Captor adaptado de las referencias de Gambito aportadas por el usuario; Cuphead es referencia estética. Sin afiliación con Marvel ni Studio MDHR. Mesa y urnas interactivas propias. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
   }
   if (id === 'new-game' || id === 'practice-again') {
     if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p>${btn('confirm-new-game','Empezar de nuevo','primary full')}`); return; }
@@ -175,7 +199,7 @@ app.addEventListener('click', event => {
   }
   if (id === 'continue-game') { setScreen(state.phase === 'complete' ? 'complete' : 'table', state.phase === 'choose' || state.phase === 'guided' ? 'urn-0' : 'next-step'); return; }
   if (id === 'skip-intro' || (id === 'intro-next' && introLine === 2)) { setScreen('room','enter-urns'); return; }
-  if (id === 'intro-next') { introLine++; render('intro-next'); return; }
+  if (id === 'intro-next') { stopIntro(); introPhase = 'lit'; introLine++; render('intro-next'); return; }
   if (id === 'enter-urns') { enterTable(); return; }
   if (id === 'tutorial-next') {
     if (tutorialStep < 2) { tutorialStep++; chime(); render('tutorial-next'); }

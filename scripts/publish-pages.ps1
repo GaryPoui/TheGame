@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$Repository = 'GaryPoui/TheGame')
+param([string]$Repository = 'GaryPoui/TheGame', [string]$Version = 'urns-mvp-ink-v3')
 $ErrorActionPreference = 'Stop'
 $workspace = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 $distribution = (Resolve-Path -LiteralPath (Join-Path $workspace 'dist')).Path
@@ -24,7 +24,7 @@ Get-ChildItem -LiteralPath $distribution -Force | Copy-Item -Destination $stagin
 '* -text' | Set-Content -LiteralPath (Join-Path $staging '.gitattributes') -Encoding ascii
 New-Item -ItemType File -Path (Join-Path $staging '.nojekyll') -Force | Out-Null
 $sourceCommit = git -C $workspace rev-parse HEAD
-[ordered]@{sourceCommit=$sourceCommit;publishedAt=[DateTime]::UtcNow.ToString('o');version='urns-mvp-realistic-v2'} |
+[ordered]@{sourceCommit=$sourceCommit;publishedAt=[DateTime]::UtcNow.ToString('o');version=$Version} |
   ConvertTo-Json | Set-Content -LiteralPath (Join-Path $staging 'build-info.json') -Encoding utf8
 git -C $staging add --all
 git -C $staging commit --quiet -m "Publish urns MVP from $sourceCommit"
