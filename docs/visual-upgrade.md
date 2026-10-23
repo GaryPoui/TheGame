@@ -35,8 +35,10 @@ Las capturas y resultados de esta revisión se guardan separados del primer MVP 
 `docs/evidence/realistic/`. `before-table.png` conserva el sitio anterior y `after-table.png`
 la escena nueva desde la cámara jugable. `after-menu.png` y `after-text-200.png` documentan menú
 y ampliación. La validación incluye recorrido completo, recarga, consola, solicitudes, contraste
-y ampliación de texto. `after-complete.png` se excluye porque pertenece al build previo a corregir
-las normales del rostro. Los resultados finales se registran allí.
+y ampliación de texto. También se completaron **8/8 pruebas contra GitHub Pages**, registradas en
+`browser-public.json`: partida, guardado, ajustes, decisiones guiadas, atajos, guardado inválido,
+fallback de WebGL y regresión de modales. `public-integrity.json` confirma 137/137 recursos con
+hash igual al de la build y `build-info.json` identifica la versión publicada.
 
 Vera sigue siendo una malla estática: faltan rig, actuación facial, cabello por mechones y
 animaciones de reparto. El vestido y parte del mobiliario continúan siendo geometría original
