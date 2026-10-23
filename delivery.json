@@ -118,5 +118,22 @@
     "asset_manifest": "public/doble-art-v2.json",
     "public_capture": "docs/evidence/doble-art-v2/public-table.png",
     "validation": "Build/typecheck and local/public visual inspection; no new gameplay tests"
+  },
+  "latest_playability_update": {
+    "phase": "table-playability-v1",
+    "branch": "codex/doble-contracts",
+    "content_commit": "7b463b0f3c04a73b26dff0020fc94d3d861c0e9e",
+    "deployment_commit": "8e64958f8c2c35d8b40666b963dca42731b893ec",
+    "release": "urns-contracts-playability-v1",
+    "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39956779863",
+    "site_url": "https://garypoui.github.io/TheGame/",
+    "documentation": "docs/playability-local.md",
+    "validation": {
+      "build_typecheck": "PASS",
+      "document_links": 240,
+      "design_math_checks": 64,
+      "public": "HTTP 200; build-info matches source; public entry bundle matches local build",
+      "automated_gameplay_suites": "Not added or run"
+    }
   }
 }

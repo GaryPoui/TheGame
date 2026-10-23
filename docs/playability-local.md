@@ -2,7 +2,7 @@
 
 Fecha: 2026-10-23. Corte local sobre `codex/doble-contracts`.
 Durante la implementación el usuario indicó **no hacer push** y el corte quedó local.
-Después autorizó expresamente subir todo y actualizar Pages. Esta revisión se prepara para publicación.
+Después autorizó expresamente subir todo y actualizar Pages. La revisión fue subida y publicada después de esa autorización.
 
 ## Cambios implementados
 
@@ -49,5 +49,15 @@ Capturas locales: [Vera escritorio](evidence/playability/vera-desktop.png),
 [Vera celular](evidence/playability/vera-mobile.png) y
 [Doble escritorio](evidence/playability/doble-desktop.png).
 
-La compilación mantiene el aviso previo de tamaño del módulo 3D. La versión pública sigue
-siendo el despliegue anterior: este corte se puede abrir en la vista local.
+La compilación mantiene el aviso previo de tamaño del módulo 3D. La versión pública ya incluye este corte.
+
+
+## Publicación confirmada
+
+- Fuente: `7b463b0f3c04a73b26dff0020fc94d3d861c0e9e`.
+- Despliegue: `8e64958f8c2c35d8b40666b963dca42731b893ec`.
+- Versión: `urns-contracts-playability-v1`.
+- [Pages completado con éxito](https://github.com/GaryPoui/TheGame/actions/runs/39956779863).
+- [Juego público](https://garypoui.github.io/TheGame/): HTTP 200; build-info referencia la fuente
+  anterior; el bundle de entrada público coincide con el compilado local e incluye el ensayo.
+- Fuente subida a `codex/doble-contracts`, actualizando PR #5 sin merge automático.

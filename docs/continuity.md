@@ -5,6 +5,8 @@
 El usuario cambió la restricción anterior y pidió «PUSHEA TODO PARA QUE ESTE EN EL PAGES».
 Se autoriza subir el corte de jugabilidad y actualizar gh-pages, conservando PR #5 sin merge
 automático. La sección de corte local siguiente documenta el estado previo a esta autorización.
+Publicado: fuente `7b463b0`, despliegue `8e64958`, versión `urns-contracts-playability-v1`.
+Pages finalizó con éxito; HTTP 200, build-info correcto y bundle público igual al compilado local.
 
 ## Jugabilidad local — 2026-10-23
 

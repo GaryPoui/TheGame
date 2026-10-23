@@ -355,3 +355,13 @@ Detalle y capturas locales: docs/playability-local.md y docs/evidence/playabilit
 El usuario pidió «PUSHEA TODO PARA QUE ESTE EN EL PAGES». Esta instrucción reemplaza la
 restricción de no hacer push para el corte de jugabilidad. Se prepara la subida de fuente y build
 a gh-pages; los identificadores finales se registran tras la publicación efectiva.
+
+
+### Publicación efectiva de jugabilidad
+
+Fuente `7b463b0f3c04a73b26dff0020fc94d3d861c0e9e`, despliegue
+`8e64958f8c2c35d8b40666b963dca42731b893ec`, versión `urns-contracts-playability-v1`.
+Workflow https://github.com/GaryPoui/TheGame/actions/runs/39956779863 completado con éxito.
+Se comprobó HTTP 200 del sitio, build-info con fuente/versión correctas y coincidencia del
+bundle público con dist local (incluye rehearse-die-). No se ejecutaron suites de gameplay.
+PR #5 actualizado; sin merge automático. Este registro reemplaza el estado local anterior.
