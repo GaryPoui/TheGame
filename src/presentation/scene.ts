@@ -142,7 +142,7 @@ export class GameScene {
   private label(text:string,x:number,y:number,z:number,width:number,height:number,ink:string,bg:string):Mesh {
     const single=text.length<=2;
     const texture=new DynamicTexture('type-'+text,{width:single?256:1024,height:256},this.scene,false);
-    texture.drawText(text,null,single?205:155,single?'bold 195px Georgia':'bold 65px Georgia',ink,bg,true,true);
+    texture.drawText(text,null,single?205:155,single?'bold 195px Arial, Helvetica, sans-serif':'bold 65px Arial, Helvetica, sans-serif',ink,bg,true,true);
     const mat=new StandardMaterial('label-'+text,this.scene);mat.diffuseTexture=texture;mat.emissiveColor=Color3.White();mat.disableLighting=true;
     const plane=CreatePlane('label-'+text,{width,height},this.scene);plane.position.set(x,y,z);plane.material=mat;plane.isPickable=false;return plane;
   }

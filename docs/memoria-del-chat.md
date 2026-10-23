@@ -234,3 +234,19 @@ contratos, registros y final siguen pendientes. Respetá las reglas educativas, 
 Hay autorización previa para el MVP, su hosting y subir avances y cierre al repositorio; no
 hagas merge automático ni force push. Distinguí siempre lo implementado de lo propuesto.
 Consultame el objetivo concreto siguiente si no está incluido en mi nuevo mensaje.
+
+## 11. Continuidad en esta máquina y tipografía (23/10/2026)
+
+El usuario confirmó que el repositorio actual es GaryPoui/TheGame. Se descargó la rama
+`codex/ink-theatre` desde `3c5c905`; se leyó esta memoria como contexto vigente, sustituyendo
+las suposiciones del proyecto anterior JuegoFiore. La copia de trabajo está en
+`C:/Users/facub/Documents/JuegoFiore/TheGame`. No se borraron historiales ni bases globales de Codex.
+
+La rama `gh-pages` contiene la build publicada, con `build-info.json` que identifica fuente
+`4ec4109` y versión `urns-mvp-ink-v3`. La fuente vigente y la rama de publicación son distintas;
+`main` conserva el README inicial y no contiene el juego actual.
+
+Pedido actual: quitar la serifa a todos los textos. Se unifica HTML/CSS en Arial/Helvetica/sans-serif
+mediante `--font-ui`, se cambian los rótulos generados en canvas y se actualizan los créditos y
+la procedencia tipográfica actual. Se preservan arte, reglas, RNG y guardados.
+La validación histórica de las secciones anteriores corresponde a su entrega original.

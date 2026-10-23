@@ -24,7 +24,7 @@
     },
     {
       "id": "interface-typefaces",
-      "origin": "Installed system fonts: Georgia/Times New Roman and Arial/Helvetica with generic fallbacks",
+      "origin": "Installed system fonts: Arial/Helvetica with sans-serif fallback for interface and canvas labels",
       "distributedFontFiles": false,
       "notes": "No font binaries copied or redistributed."
     },
