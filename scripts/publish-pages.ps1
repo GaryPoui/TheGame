@@ -21,6 +21,7 @@ if ($exists) {
 }
 # No recursive deletion: old hashed bundles may remain, preserving harmless rollback resources.
 Get-ChildItem -LiteralPath $distribution -Force | Copy-Item -Destination $staging -Recurse -Force
+'* -text' | Set-Content -LiteralPath (Join-Path $staging '.gitattributes') -Encoding ascii
 New-Item -ItemType File -Path (Join-Path $staging '.nojekyll') -Force | Out-Null
 $sourceCommit = git -C $workspace rev-parse HEAD
 [ordered]@{sourceCommit=$sourceCommit;publishedAt=[DateTime]::UtcNow.ToString('o');version='urns-mvp-v1'} |

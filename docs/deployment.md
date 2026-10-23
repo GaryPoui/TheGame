@@ -38,3 +38,13 @@ Ejecutar smoke/playthrough contra URL pública y registrar SHA de build, fuente,
 Rollback: seleccionar commit previo de gh-pages y publicar sus archivos en un commit nuevo.
 No usar force push. El guardado local depende del origen, por lo que preview y URL pública tienen
 progresos separados. No hay analíticas ni tráfico externo requerido para jugar.
+
+## Entrega publicada y comprobada
+
+URL: https://garypoui.github.io/TheGame/ (HTTPS obligatorio). Fuente `52bc021a9f1730de3fa64567c0c3871af604e33e`,
+commit de rama estática `c1db9d9ad2c5e38f6d1084cc9fbdc8c71c09bf61`. Pages informa built y responde 200.
+Se completaron dos pruebas públicas y se cotejaron los 63 archivos con SHA256 de la build.
+Evidencia: docs/evidence/runtime/public-browser.json, public-smoke.json y public-integrity.json.
+La licencia copiada del paquete tenía CRLF; Git conserva LF en el repositorio. Se normalizó la
+copia local de licencia a LF antes de cotejar los hashes; el texto es idéntico. Para publicaciones
+futuras el script conserva bytes compilados con .gitattributes -text en rama estática.

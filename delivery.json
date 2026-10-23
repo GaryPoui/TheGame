@@ -1,12 +1,12 @@
 {
-  "phase": "research-skills-documentation",
+  "phase": "playable-mvp",
   "repository": "https://github.com/GaryPoui/TheGame",
-  "branch": "codex/research-specs-skills",
+  "branch": "codex/playable-mvp",
   "base_commit": "a2c183a59249ac05b8fdb3adaa23264c5b96d54e",
-  "content_commit": "2e9ea08adba152c547e59ff9ad3078a96d1ec834",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/2e9ea08adba152c547e59ff9ad3078a96d1ec834",
-  "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
-  "documentation": "https://github.com/GaryPoui/TheGame/blob/codex/research-specs-skills/README.md",
+  "content_commit": "52bc021a9f1730de3fa64567c0c3871af604e33e",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/52bc021a9f1730de3fa64567c0c3871af604e33e",
+  "pull_request": "https://github.com/GaryPoui/TheGame/pull/2",
+  "documentation": "https://github.com/GaryPoui/TheGame/blob/codex/playable-mvp/README.md",
   "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9",
   "snapshot_note": "Instantánea pública generada durante el cierre; no es sincronización futura ni reemplaza documentación versionada.",
   "validation": {
@@ -16,17 +16,34 @@
     "exact_design_math_checks": 64,
     "specifications": 10,
     "requirements": 50,
-    "pending_implementation_tasks": 91,
-    "local_markdown_links": 183,
-    "clean_clone": "PASS",
-    "common_secret_patterns": "no findings"
+    "pending_implementation_tasks": 73,
+    "local_markdown_links": 196,
+    "clean_clone": "MVP source build, locked npm ci, unit tests and skills PASS",
+    "common_secret_patterns": "no findings",
+    "completed_implementation_tasks": 18,
+    "unit_tests": 15,
+    "local_browser_tests": 8,
+    "public_browser_tests": 2,
+    "public_asset_hashes": 63,
+    "public_http_status": 200,
+    "public_webgl2": true
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
     "isolated Python Playwright environment and browser for webapp-testing",
     "isolated compatible Pillow for optional raster helper scripts"
   ],
-  "game_implemented": false,
-  "deployed": false,
-  "next_step": "Instrucción posterior para implementar 001 y un corte de mesa 005 con infraestructura mínima compartida."
+  "game_implemented": true,
+  "deployed": true,
+  "next_step": "Evaluar esta mesa con jugadores; luego desarrollar contratos, registros y final.",
+  "site_url": "https://garypoui.github.io/TheGame/",
+  "deployment_commit": "c1db9d9ad2c5e38f6d1084cc9fbdc8c71c09bf61",
+  "deployment_branch": "gh-pages",
+  "https_enforced": true,
+  "initial_documentation": {
+    "content_commit": "2e9ea08adba152c547e59ff9ad3078a96d1ec834",
+    "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
+    "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
+  },
+  "scope": "Primer capítulo: cuatro rondas de urnas, tutorial, sala 3D, ayuda y guardado. No campaña completa."
 }

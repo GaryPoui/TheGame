@@ -68,8 +68,31 @@ no se ejecutaron los auxiliares Python ni se agregaron dependencias para duplica
 La consulta de Pages inicial devolvió 404: aún no existía sitio configurado. El repositorio era
 público, el acceso autenticado tenía permisos administrativos y Actions estaba habilitado.
 La ruta seleccionada es build local validado → rama nueva `gh-pages` → GitHub Pages por HTTPS,
-sin fusionar la rama de implementación a `main`. Sólo la publicación comprobada autoriza registrar
-la URL como disponible; la captura local por sí sola no demuestra despliegue.
+sin fusionar la rama de implementación a `main`.
+
+Publicación comprobada: [jugar el MVP](https://garypoui.github.io/TheGame/), respuesta HTTPS 200.
+Se repitieron sobre esa URL pública la partida completa de ocho decisiones y la recarga tras
+revelar; ambas pruebas aprobaron en 39.5 s. Evidencia:
+[reporte Playwright público](evidence/runtime/public-browser.json),
+[recursos y estado gráfico](evidence/runtime/public-smoke.json),
+[menú publicado](evidence/runtime/public-mvp-menu.png) y
+[mesa publicada](evidence/runtime/public-mvp-table.png).
+Los recursos JS/CSS se cargaron desde `/TheGame/assets/`, con WebGL2 activo, sin aviso de fallo
+gráfico, errores de página, peticiones fallidas, respuestas HTTP de error ni solicitudes externas.
+El despliegue verificado corresponde al commit de Pages `c1db9d9ad2c5e38f6d1084cc9fbdc8c71c09bf61`
+y fuente `52bc021`; la evidencia documental posterior puede tener un commit distinto.
 
 Fuentes verificadas: [API de Pages](https://docs.github.com/en/rest/pages/pages) y
 [configuración del origen](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+
+Comprobación adicional de distribución: 63 archivos públicos cotejados contra SHA256 de build,
+resultado PASS en public-integrity.json. Tamaño total emitido aproximado 2.05 MB, suma de gzip
+aproximada 0.50 MB (no equivale a medición de transferencia real ni tiempo de carga).
+
+Limitación de práctica: repetir crea un intento nuevo y reemplaza el checkpoint de ese intento.
+Un historial persistente de sellos entre múltiples intentos pertenece a la progresión de campaña
+pendiente; el sello y etiqueta de ayuda actuales sí se conservan al retomar el mismo intento.
+
+Reproducibilidad adicional: un clon limpio del commit de fuente, con autocrlf de Windows,
+aprobó npm ci del lockfile, build estricto, las 15 pruebas unitarias y los 92 hashes de skills.
+Registro: docs/evidence/runtime/mvp-clone-verification.json.

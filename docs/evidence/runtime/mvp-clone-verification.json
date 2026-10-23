@@ -1,0 +1,51 @@
+{
+  "source_commit": "52bc021a9f1730de3fa64567c0c3871af604e33e",
+  "scope": "Fresh Windows clone with autocrlf, locked dependencies, strict build, unit tests and skill hashes",
+  "result": "PASS",
+  "checks": [
+    {
+      "command": [
+        "node",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "stdout": "\nadded 43 packages in 28s\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "stdout": "69 kB \u2502 gzip:   4.98 kB\ndist/assets/ktxTextureLoader-CWRDfVyc.js               16.37 kB \u2502 gzip:   4.79 kB\ndist/assets/pbrBRDFFunctions-CfZAdMUN.js               16.41 kB \u2502 gzip:   5.17 kB\ndist/assets/pbr.vertex-Wnye1WGD.js                     16.51 kB \u2502 gzip:   3.46 kB\ndist/assets/guid-ChQ53_RR.js                           18.32 kB \u2502 gzip:   6.35 kB\ndist/assets/texture.pure-CphqcuUL.js                   21.00 kB \u2502 gzip:   5.93 kB\ndist/assets/logDepthVertex-HzmaGPfd.js                 22.57 kB \u2502 gzip:   4.53 kB\ndist/assets/default.fragment-Ddf2oh49.js               25.06 kB \u2502 gzip:   5.90 kB\ndist/assets/tools.pure-hQEEbpHt.js                     25.37 kB \u2502 gzip:   8.52 kB\ndist/assets/default.fragment-BPWjnc5p.js               26.04 kB \u2502 gzip:   5.82 kB\ndist/assets/index-ConlgmwI.js                          29.69 kB \u2502 gzip:  11.49 kB\ndist/assets/baseTexture.pure-IENsimm5.js               31.76 kB \u2502 gzip:   8.66 kB\ndist/assets/logDepthVertex-C3Yd1T1a.js                 40.99 kB \u2502 gzip:   6.44 kB\ndist/assets/math.color.pure-BW83kBav.js                77.33 kB \u2502 gzip:  18.34 kB\ndist/assets/postProcess.pure-D922l-I8.js               85.99 kB \u2502 gzip:  21.09 kB\ndist/assets/oitFragment-eh-guEfi.js                    87.89 kB \u2502 gzip:  17.82 kB\ndist/assets/oitFragment-B3j1bXaz.js                    91.91 kB \u2502 gzip:  17.92 kB\ndist/assets/pbr.fragment-W6O_rAd8.js                  137.19 kB \u2502 gzip:  26.18 kB\ndist/assets/pbr.fragment-CVDVhtN9.js                  140.84 kB \u2502 gzip:  26.14 kB\ndist/assets/scene-DsxULF70.js                         978.50 kB \u2502 gzip: 239.24 kB\n\n\u2713 built in 453ms\n",
+      "stderr": "[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 900 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "command": [
+        "node",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "test"
+      ],
+      "exit_code": 0,
+      "stdout": "\n> thegame@0.0.0 test\n> vitest run\n\n\n RUN  v5.0.5 C:/Users/TomyG/AppData/Local/Temp/thegame-mvp-clone-66awd1r6/repo\n\n\n Test Files  1 passed (1)\n      Tests  15 passed (15)\n   Start at  00:39:58\n   Duration  368ms (tests 53%, transform 32%, import 11%, worker 3%)\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "scripts/skills.py",
+        "verify"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"files_checked\": 92,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    }
+  ]
+}

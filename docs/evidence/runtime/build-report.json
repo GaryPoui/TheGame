@@ -351,9 +351,9 @@
     },
     {
       "path": "dist/babylon-LICENSE.txt",
-      "bytes": 9226,
-      "gzipBytes": 3297,
-      "sha256": "9362ea9ea17cb221a20cbbd63f404710834cc273d2a9a7b60314fd68ab702cd6"
+      "bytes": 9155,
+      "gzipBytes": 3289,
+      "sha256": "3a1160f88f3ffdafee129832f8bf5806073f77a43962f15a13ab63f1a5047372"
     },
     {
       "path": "dist/babylon-NOTICE.txt",
@@ -380,7 +380,7 @@
       "sha256": "99a4db3a851cb3f86c991178be1c3d7e65c5ae56709cb442ed5432e7408fcc0c"
     }
   ],
-  "totalBytes": 2053853,
-  "totalGzipBytes": 499386,
+  "totalBytes": 2053782,
+  "totalGzipBytes": 499378,
   "externalRuntimeAssets": false
 }

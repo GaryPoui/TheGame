@@ -5,6 +5,7 @@
 El usuario autorizó continuar hasta un MVP y hostearlo. Se implementó la mesa de urnas completa,
 con sala Babylon.js, Vera, tutorial preparado, cuatro rondas, ayuda finita, guardado validado y
 ajustes/atajos reasignables. Código en `codex/playable-mvp`; sitio https://garypoui.github.io/TheGame/.
+PR del MVP: https://github.com/GaryPoui/TheGame/pull/2, sin merge. Fuente `52bc021`, despliegue `c1db9d9`.
 Ver [alcance](mvp-scope.md), [validación](mvp-validation.md), [despliegue](deployment.md) y delivery.json.
 El objetivo siguiente es prueba humana de esta mesa antes de desarrollar contratos/registros/final.
 Los apartados siguientes conservan la entrega documental inicial y sus evidencias históricas.
