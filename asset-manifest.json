@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "release": "urns-mvp-feedback-v4",
+  "release": "campaign-v3",
   "assets": [
     {
       "id": "ink-art-family",
@@ -12,15 +12,16 @@
     {
       "id": "interactive-table",
       "source": "src/presentation/scene.ts",
-      "origin": "Project procedural outlined meshes and canvas labels"
+      "origin": "Project procedural outlined meshes and canvas labels",
+      "license": "Project owner's rights"
     },
     {
       "id": "confirmation-tones",
-      "source": "src/main.ts chime",
+      "source": "src/platform/audio.ts",
       "origin": "Original sine synthesis via Web Audio",
       "thirdPartyArt": false,
       "license": "Project owner's rights",
-      "notes": "No sampled recordings or remote music."
+      "notes": "Original sine synthesis, separate UI and ambience buses, master headroom. No recordings or remote music."
     },
     {
       "id": "interface-typefaces",
@@ -32,6 +33,30 @@
       "id": "favicon",
       "source": "public/favicon.svg",
       "origin": "Original geometric emblem",
+      "license": "Project owner's rights"
+    },
+    {
+      "id": "doble-v2",
+      "source": "art/doble-v2.png",
+      "origin": "OpenAI built-in imagegen, matching the existing Vera and captor illustration family",
+      "sha256": "be22b8710a008686d545d5f23de4643d098b5a00d45d1dbd841cf894a3b83c12",
+      "bytes": 2236166,
+      "manifest": "doble-art-v2.json",
+      "license": "AI-generated illustration; not CC0; see provenance manifest"
+    },
+    {
+      "id": "ada-v1",
+      "source": "art/ada-v1.png",
+      "origin": "OpenAI built-in imagegen; existing Vera reference for visual family",
+      "sha256": "97045becbb4df13bb85305a25fa465bfab2229e3ede98c96bbc92cc2f30d1317",
+      "bytes": 2475174,
+      "manifest": "ada-art-v1.json",
+      "license": "AI-generated illustration; not CC0; project use, no general redistribution license declared"
+    },
+    {
+      "id": "street-memory-and-room-plan",
+      "source": "src/ui/exploration.css",
+      "origin": "Original code-authored silhouettes, street blockout and room floor plan; no external image",
       "license": "Project owner's rights"
     }
   ],
@@ -71,6 +96,14 @@
       "source": "public/favicon.svg",
       "origin": "Original geometric emblem",
       "license": "Project owner's rights"
+    },
+    {
+      "id": "doble-original-vector",
+      "source": "art/doble.svg",
+      "origin": "Original project-authored SVG illustration: unequal lapels, broker costume and ink palette; no third-party source image",
+      "sha256": "55a472fa297981da1e46bd33ac61ec461be142fff9892c790a7b267b2cedc221",
+      "distributedFontFiles": false,
+      "license": "Project owner's rights; not declared CC0"
     }
   ],
   "historical_note": "Photographic materials and anatomical head remain archived with prior attribution, no longer loaded by the current renderer."
