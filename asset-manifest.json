@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "release": "urns-contracts-doble-art-v2",
+  "release": "urns-mvp-feedback-v4",
   "assets": [
     {
       "id": "ink-art-family",
@@ -33,15 +33,6 @@
       "source": "public/favicon.svg",
       "origin": "Original geometric emblem",
       "license": "Project owner's rights"
-    },
-    {
-      "id": "doble-v2",
-      "source": "art/doble-v2.png",
-      "origin": "OpenAI built-in imagegen, matching the existing Vera and captor illustration family",
-      "sha256": "be22b8710a008686d545d5f23de4643d098b5a00d45d1dbd841cf894a3b83c12",
-      "bytes": 2236166,
-      "manifest": "doble-art-v2.json",
-      "license": "AI-generated illustration; not CC0; see provenance manifest"
     }
   ],
   "engine": {
@@ -80,14 +71,6 @@
       "source": "public/favicon.svg",
       "origin": "Original geometric emblem",
       "license": "Project owner's rights"
-    },
-    {
-      "id": "doble-original-vector",
-      "source": "art/doble.svg",
-      "origin": "Original project-authored SVG illustration: unequal lapels, broker costume and ink palette; no third-party source image",
-      "sha256": "55a472fa297981da1e46bd33ac61ec461be142fff9892c790a7b267b2cedc221",
-      "distributedFontFiles": false,
-      "license": "Project owner's rights; not declared CC0"
     }
   ],
   "historical_note": "Photographic materials and anatomical head remain archived with prior attribution, no longer loaded by the current renderer."
