@@ -3,12 +3,12 @@
 Videojuego educativo de probabilidad **y** estadística, de 30–45 minutos objetivo, en navegador
 de escritorio. Babylon.js + TypeScript estricto + Vite. Título provisional.
 
-**Estado actual:** Vera y Doble implementadas: urnas y contratos con dados, sala ilustrada,
-mesas 3D, tutoriales, ayuda guiada, sellos y guardado local compartido. El nuevo corte de Doble
-se documenta en [implementación y evidencia](docs/doble-implementation.md).
-[Jugar la versión publicada por HTTPS](https://garypoui.github.io/TheGame/); la publicación
-del nuevo corte se identifica en ese registro cuando se complete.
-Ada y el final siguen en desarrollo; la duración objetivo de 30–45 minutos no está validada.
+**Estado actual:** campaña jugable de tres asistentes y final: Las urnas de Vera,
+Los contratos de Doble, El archivo de Ada y El contrato de salida. Ayuda guiada finita,
+progreso conservado al practicar, epílogo y guardado compatible con versiones anteriores.
+[Jugar por HTTPS](https://garypoui.github.io/TheGame/).
+[Implementación, pruebas y límites](docs/campaign-implementation.md).
+El objetivo de 30–45 minutos y la eficacia educativa siguen pendientes de pruebas con personas.
 
 La [dirección visual actual](docs/ink-theatre.md) usa tinta, acuarela y personajes de animación
 de los años treinta, con una apertura a oscuras y captor inspirado en las referencias de Gambito.

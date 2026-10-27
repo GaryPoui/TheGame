@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { createGame, choose, advance, type GameState } from '../../src/core/game';
 import { mkdir } from 'node:fs/promises';
 
-const evidence = 'docs/evidence/urn-feedback';
+const evidence = process.env.EVIDENCE_DIR ?? 'docs/evidence/urn-feedback';
 async function load(page: Page, state?: GameState) {
   if(state) await page.addInitScript(raw => localStorage.setItem('thegame.save.v1.current', raw), JSON.stringify({schemaVersion:1,contentVersion:'urns-mvp-v1',state}));
   await page.goto('./');

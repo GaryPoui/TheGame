@@ -1,5 +1,14 @@
 # Continuidad del proyecto
 
+## Campaña y final — 2026-10-26
+
+Pedido vigente: completar specs restantes, preservar diseño y publicar avances por commits.
+Se integró la rama Doble con las mejoras recientes de urnas, luego Ada y el anfitrión.
+Rama `codex/complete-campaign`; ver [implementación y validación](campaign-implementation.md).
+Esta autorización supera las restricciones históricas de una sola mesa. Las secciones
+siguientes son registros de sus entregas, no el estado actual.
+
+
 ## Ajustes del primer juego — 2026-10-26
 
 El usuario pidió centrarse en urnas antes de otra spec. Ver [selección y feedback](urn-feedback.md):

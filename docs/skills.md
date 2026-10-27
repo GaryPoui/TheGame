@@ -95,3 +95,5 @@ capturas y regresiones usando Playwright TypeScript ya instalado. Ver docs/ink-t
 
 Revisión 2026-10-26: game-ui-ux, frontend-design y webapp-testing aplicadas a
 selección, cartas y feedback del primer juego. Ver [evidencia](urn-feedback.md).
+
+Campaña 2026-10-26: speckit-implement, game-designer, save-systems, game-ui-ux, frontend-design, webapp-testing; después dialogue-systems, camera-systems, input-systems y audio-design. create-game-assets + imagegen para Ada. performance-optimization se aplica sólo a medición, sin prometer rendimiento físico. Evidencia: [campaña](campaign-implementation.md).

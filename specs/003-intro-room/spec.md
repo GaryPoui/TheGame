@@ -50,7 +50,7 @@ Como jugador quiero omitir la intro y recibir control de sala consistente para c
 
 ### Functional Requirements
 
-- **FR-003-01**: Reproducir planos controlados de calle, sonido y apagón sin combate.
+- **FR-003-01**: Conservar el comienzo a oscuras solicitado por el usuario y ofrecer la calle como recuerdo opcional con planos controlados, sonido y apagón sin combate.
 - **FR-003-02**: Mostrar subtítulos de todas las líneas según guion versionado.
 - **FR-003-03**: Liberar manos al terminar explicación antes de permitir circular.
 - **FR-003-04**: Permitir omitir hacia estado released una sola vez con resumen.

@@ -116,7 +116,7 @@ test('remapped shortcuts work and conflicting bindings are rejected', async ({ p
   const before = await saved(page);
   await page.getByTestId('help-button').click();
   await page.getByTestId('help-button').click();
-  expect(await saved(page)).toEqual(before);
+  expect(await saved(page)).toEqual({ ...before, helpHistory: ['urns-0-0'] });
   await page.getByTestId('settings-button').click();
   await page.getByTestId('bind-urn-u').selectOption('KeyD');
   await expect(page.getByTestId('binding-warning')).not.toBeEmpty();

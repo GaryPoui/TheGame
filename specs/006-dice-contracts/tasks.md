@@ -19,8 +19,8 @@ Prueba independiente: Enumerar 36 resultados por contrato, jugar pérdida óptim
 
 ## Phase 4: User Story 2 (P2)
 
-- [ ] T007 [US2] Cubrir recuperación, ayuda, teclado y casos límite de FR-006-01..05 en tests/browser/006-dice-contracts.spec.ts y UI correspondiente.
-- [ ] T008 [P] [US2] Añadir pruebas de reglas/estado, entradas inválidas e idempotencia en tests/unit/006-dice-contracts.test.ts, usando fixtures independientes.
+- [x] T007 [US2] Cubrir recuperación, ayuda, teclado y casos límite de FR-006-01..05 en tests/browser/campaign.spec.ts y UI correspondiente.
+- [x] T008 [P] [US2] Añadir pruebas de reglas/estado, entradas inválidas e idempotencia en tests/unit/campaign.test.ts, usando fixtures independientes.
 
 ## Phase 5: Polish & cross-cutting
 
@@ -34,5 +34,6 @@ Dependencias externas: 005; reutiliza 004 y 009. T001→T002→US1→US2→cierr
 ## Implementation strategy
 
 Entrega autorizada por «implementa la mesa doble»: reglas, interfaz, recuperación y persistencia
-implementadas. T007/T008 siguen pendientes: no se añadieron ni ejecutaron tests automatizados
-en este corte. Los recorridos manuales y la compilación/typecheck se registran por separado.
+implementadas. T007/T008 eran pendientes en ese corte y se cerraron en la integración de campaña; ver el registro posterior. Los recorridos manuales y la compilación/typecheck se registran por separado.
+
+Cierre automatizado 2026-10-26: pruebas de contratos y recuperación en tests/unit/campaign.test.ts; pérdida óptima, simulador sin efectos y recarga en tests/browser/campaign.spec.ts. Ver docs/campaign-implementation.md.

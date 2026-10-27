@@ -3,13 +3,14 @@ export type RecordsChoice = 'archive' | 'album' | 'observe' | 'close' | 'K' | 'V
 export interface RecordsCommand { commandId: string; expectedRevision: number; type: 'begin' | 'choose' | 'next'; choice?: RecordsChoice }
 export interface RecordsDecision { round: number; step: number; choice: RecordsChoice; optimal: RecordsChoice[]; correct: boolean; assisted: boolean }
 export interface RecordsState {
+  variant?:'repeat';
   seed: number; rng: GameState['rng']; phase: 'tutorial' | 'choose' | 'feedback' | 'complete';
   round: number; step: number; assisted: boolean; merit: number; source: 'album' | 'complete';
   observations: number[]; audit: number; history: RecordsDecision[]; revision: number; journal: RecordsCommand[];
 }
-export function createRecords(seed = Date.now()): RecordsState {
+export function createRecords(seed = Date.now(),repeat=false): RecordsState {
   const value = (seed>>>0)||0x9e3779b9;
-  return {seed:value,rng:{algorithm:'xorshift32-v1',state:value,count:0},phase:'tutorial',round:0,step:0,assisted:false,merit:0,source:'album',observations:[4,4,4,4],audit:2,history:[],revision:0,journal:[]};
+  return {...(repeat?{variant:'repeat' as const}:{}),seed:value,rng:{algorithm:'xorshift32-v1',state:value,count:0},phase:'tutorial',round:0,step:0,assisted:false,merit:0,source:'album',observations:[4,4,4,4],audit:2,history:[],revision:0,journal:[]};
 }
 export function recordsChoices(s: RecordsState): RecordsChoice[] {
   const round=s.assisted ? s.round===0?0:1 : s.round;
@@ -27,7 +28,7 @@ export function bestRecords(s: RecordsState): RecordsChoice[] {
 function prepareRound(s: RecordsState): void {
   const round=s.assisted?s.round===0?0:1:s.round;
   s.source=round===0?'album':'complete'; s.audit=2;
-  s.observations=round===3?[0,0,0,0]:round===2?[0,4,0,4,0,4,0,4]:[4,4,4,4];
+  s.observations=round===3?s.variant==='repeat'?[4,0,4,4]:[0,0,0,0]:round===2?[0,4,0,4,0,4,0,4]:[4,4,4,4];
 }
 export function applyRecordsCommand(s: RecordsState, c: RecordsCommand): RecordsState {
   if(!c || typeof c.commandId!=='string' || !c.commandId.length || c.commandId.length>80 || c.expectedRevision!==s.revision || s.journal.some(x=>x.commandId===c.commandId)) return s;
@@ -64,5 +65,6 @@ export function validRecordsState(value: unknown): value is RecordsState {
   if(!value||typeof value!=='object') return false;
   const s=value as RecordsState;
   if(!Number.isInteger(s.seed)||s.seed<1||s.seed>0xffffffff||!Array.isArray(s.journal)||s.journal.length>26) return false;
-  try {let replay=createRecords(s.seed);for(const c of s.journal){const next=applyRecordsCommand(replay,c);if(next===replay)return false;replay=next;}return JSON.stringify(replay)===JSON.stringify(s);}catch{return false;}
+  if(s.variant!==undefined&&s.variant!=='repeat')return false;
+  try {let replay=createRecords(s.seed,s.variant==='repeat');for(const c of s.journal){const next=applyRecordsCommand(replay,c);if(next===replay)return false;replay=next;}return JSON.stringify(replay)===JSON.stringify(s);}catch{return false;}
 }

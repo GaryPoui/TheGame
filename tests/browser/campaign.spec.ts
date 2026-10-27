@@ -68,3 +68,22 @@ test('another tab changes the save without silently overwriting its progress',as
  await open(page,checkpoint());const raw=JSON.stringify({schemaVersion:99});await page.evaluate(raw=>{localStorage.setItem('thegame.save.v1.current',raw);window.dispatchEvent(new StorageEvent('storage',{key:'thegame.save.v1.current',newValue:raw,oldValue:'previous'}));},raw);
  await page.getByTestId('records-begin').click();await expect(page.locator('.save-warning')).toContainText('Otra pestaña');expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(raw);
 });
+test('Doble preserves a good decision through a lost roll, reload and an independent simulation',async({page})=>{
+ const s=checkpoint();delete s.records;s.contracts=createContracts(1);s.activeTable='contracts';s.seals!.contracts=false;await open(page,s);
+ await page.getByTestId('doble-begin').click();await page.getByTestId('contract-J').click();await page.keyboard.press('KeyE');
+ await expect(page.getByTestId('doble-balance')).toHaveText('-1');await expect(page.locator('.contract-verdict')).toContainText('Buena decisión');
+ const prior=(await saved(page)).contracts;await page.reload();await page.getByTestId('continue-game').click();expect((await saved(page)).contracts).toEqual(prior);
+ await page.locator('.contract-lab summary').click();await page.getByTestId('simulate-100').click();expect((await saved(page)).contracts).toEqual(prior);
+ await page.screenshot({path:`${evidence}/doble-good-unlucky.png`});
+ for(let i=0;i<36;i++){const c=(await saved(page)).contracts!;if(c.phase==='complete')break;if(c.phase==='offer'||c.phase==='order'){await page.getByTestId('contract-'+bestContracts(currentObjective(c))[0]).click();await page.getByTestId('doble-sign').click();}else await page.getByTestId('doble-next').click();}
+ await expect(page.getByTestId('doble-completion')).toBeVisible();await page.getByTestId('enter-records').click();await expect(page.getByTestId('records-begin')).toBeVisible();
+});
+test('all campaign panels remain usable at 200 percent text in a narrow window',async({page})=>{
+ test.setTimeout(120_000);
+ const s=checkpoint();s.seals!.records=true;s.finale=createFinale(1);s.settings.textScale=2;s.settings.volume=0;s.settings.reducedMotion=true;await page.setViewportSize({width:390,height:844});await open(page,s);
+ const check=async(name:string)=>{expect(await page.evaluate(()=>document.documentElement.scrollWidth),name).toBeLessThanOrEqual(390);expect(await page.locator('.topbar').evaluate(el=>Math.max(...Array.from(el.children).map(child=>child.getBoundingClientRect().bottom))-el.getBoundingClientRect().bottom),name+' header overlap').toBeLessThanOrEqual(1);await page.screenshot({path:`${evidence}/${name}-200.png`,fullPage:true});};
+ await check('ada-tutorial');await page.getByTestId('records-begin').click();await check('ada');await page.getByTestId('back-room').click();await check('room');
+ await page.getByTestId('enter-urns').click();await check('vera-complete');await page.getByTestId('practice-again').click();await page.getByTestId('toggle-cards').click();await check('vera');await page.getByTestId('back-room').click();
+ await page.getByTestId('enter-contracts').click();await page.getByTestId('doble-replay').click();await page.getByTestId('doble-begin').click();await check('doble');await page.getByTestId('back-room').click();
+ await page.getByTestId('enter-finale').click();await check('host');await page.getByTestId('finale-U').click();await page.getByTestId('finale-confirm').click();await expect(page.getByTestId('finale-feedback')).toBeVisible();
+});

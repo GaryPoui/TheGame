@@ -1,13 +1,15 @@
 import { validContractsState, type ContractsState } from './tables/contracts';
 import { validRecordsState, type RecordsState } from './tables/records';
 import { validFinaleState, type FinaleState } from './tables/finale';
+import {validDialogue,type DialogueState} from './dialogue/runner';
+import {INTRO} from '../content/intro';
 export type Color = 'red' | 'blue';
 export interface Urn { red: number; blue: number }
 export interface Fraction { numerator: number; denominator: number }
 export interface RoundConfig { id: string; urns: [Urn, Urn]; event: Color; replacement: boolean }
 export interface Settings { reducedMotion: boolean; volume: number; textScale: number; sensitivity: number; keys: { forward: string; backward: string; left: string; right: string; interact: string } }
 export interface Decision { urn: 0 | 1; color: Color; correct: boolean; optimal: number[]; beforeProbability: Fraction; round: number; step: number; assisted: boolean }
-export interface GameState { records?: RecordsState; finale?: FinaleState; freed?: boolean; freedomMethod?: 'independent'|'assisted'; contracts?: ContractsState; activeTable?: 'urns' | 'contracts' | 'records' | 'finale' | 'outside'; seals?: { urns: boolean; contracts: boolean; records?: boolean; urnsMethod?: 'independent' | 'assisted'; contractsMethod?: 'independent' | 'assisted'; recordsMethod?: 'independent'|'assisted' }; phase: 'choose' | 'revealed' | 'roundEnd' | 'complete' | 'guided'; round: number; step: number; urns: [Urn, Urn]; event: Color; replacement: boolean; merit: number; tokens: number; last: Decision | null; history: Decision[]; rng: { algorithm: 'xorshift32-v1'; state: number; count: number }; assisted: boolean; settings: Settings }
+export interface GameState { urnVariant?:'repeat'; intro?:DialogueState; roomPosition?:{x:number;z:number}; streetPosition?:number; helpHistory?:string[]; records?: RecordsState; finale?: FinaleState; freed?: boolean; freedomMethod?: 'independent'|'assisted'; contracts?: ContractsState; activeTable?: 'urns' | 'contracts' | 'records' | 'finale' | 'outside'; seals?: { urns: boolean; contracts: boolean; records?: boolean; urnsMethod?: 'independent' | 'assisted'; contractsMethod?: 'independent' | 'assisted'; recordsMethod?: 'independent'|'assisted' }; phase: 'choose' | 'revealed' | 'roundEnd' | 'complete' | 'guided'; round: number; step: number; urns: [Urn, Urn]; event: Color; replacement: boolean; merit: number; tokens: number; last: Decision | null; history: Decision[]; rng: { algorithm: 'xorshift32-v1'; state: number; count: number }; assisted: boolean; settings: Settings }
 export const defaultSettings: Settings = { reducedMotion: false, volume: 0.35, textScale: 1, sensitivity: 1, keys: {forward:'KeyW',backward:'KeyS',left:'KeyA',right:'KeyD',interact:'KeyE'} };
 const rounds: RoundConfig[] = [
   {id:'U1',urns:[{red:3,blue:2},{red:1,blue:1}],event:'red',replacement:false},
@@ -15,7 +17,11 @@ const rounds: RoundConfig[] = [
   {id:'U3',urns:[{red:2,blue:1},{red:3,blue:2}],event:'red',replacement:false},
   {id:'U4',urns:[{red:1,blue:3},{red:2,blue:3}],event:'blue',replacement:false},
 ];
-export function configFor(state: GameState): RoundConfig { return structuredClone(rounds[state.assisted ? (state.round === 0 ? 0 : 2) : state.round]!); }
+function roundFor(round:number,assisted:boolean,variant?:'repeat'):RoundConfig {
+  if(!assisted&&variant==='repeat'&&round===3)return {id:'U4-repeat',urns:[{red:4,blue:2},{red:2,blue:2}],event:'blue',replacement:false};
+  return rounds[assisted?(round===0?0:2):round]!;
+}
+export function configFor(state: GameState): RoundConfig { return structuredClone(roundFor(state.round,state.assisted,state.urnVariant)); }
 export function probability(urn: Urn, event: Color): Fraction { return {numerator:urn[event],denominator:urn.red+urn.blue}; }
 export function bestChoices(state: GameState): number[] { const [a,b] = state.urns.map(u=>probability(u,state.event)) as [Fraction,Fraction]; const d=a.numerator*b.denominator-b.numerator*a.denominator; return d===0 ? [0,1] : d>0 ? [0] : [1]; }
 export function createGame(seed = Date.now()): GameState { const r=rounds[0]!; return {phase:'choose',round:0,step:0,urns:structuredClone(r.urns),event:r.event,replacement:r.replacement,merit:0,tokens:0,last:null,history:[],rng:{algorithm:'xorshift32-v1',state:(seed>>>0)||0x9e3779b9,count:0},assisted:false,settings:structuredClone(defaultSettings)}; }
@@ -51,11 +57,16 @@ const key='thegame.save.v1'; const maxSize=262144;
 function storageOrDefault(storage?:SaveStorage):SaveStorage {return storage??globalThis.localStorage;}
 function parse(raw:string|null): {state:GameState|null;future:boolean} {
   if(!raw||raw.length>maxSize)return {state:null,future:false};
-  try {const d=JSON.parse(raw) as {schemaVersion?:number;contentVersion?:string;state?:GameState};if(typeof d.schemaVersion==='number'&&d.schemaVersion>3)return {state:null,future:true};if(!((d.schemaVersion===1&&d.contentVersion==='urns-mvp-v1')||(d.schemaVersion===2&&d.contentVersion==='urns-contracts-v2')||(d.schemaVersion===3&&d.contentVersion==='campaign-v3'))||!validState(d.state))return {state:null,future:false};return {state:d.state!,future:false};}catch{return {state:null,future:false};}
+  try {const d=JSON.parse(raw) as {schemaVersion?:number;contentVersion?:string;state?:GameState};if(typeof d.schemaVersion==='number'&&d.schemaVersion>3||d.schemaVersion===3&&typeof d.contentVersion==='string'&&d.contentVersion!=='campaign-v3')return {state:null,future:true};if(!((d.schemaVersion===1&&d.contentVersion==='urns-mvp-v1')||(d.schemaVersion===2&&d.contentVersion==='urns-contracts-v2')||(d.schemaVersion===3&&d.contentVersion==='campaign-v3'))||!validState(d.state))return {state:null,future:false};return {state:d.state!,future:false};}catch{return {state:null,future:false};}
 }
 const integer=(n:unknown,min:number,max:number)=>typeof n==='number'&&Number.isInteger(n)&&n>=min&&n<=max;
 export function validState(value:unknown):value is GameState {
   if(!value||typeof value!=='object')return false; const s=value as GameState;
+  if(s.urnVariant!==undefined&&s.urnVariant!=='repeat')return false;
+  if(s.intro!==undefined&&!validDialogue(INTRO,s.intro))return false;
+  if(s.streetPosition!==undefined&&(!Number.isFinite(s.streetPosition)||s.streetPosition<0||s.streetPosition>8))return false;
+  if(s.roomPosition!==undefined&&(!s.roomPosition||!Number.isFinite(s.roomPosition.x)||!Number.isFinite(s.roomPosition.z)||Math.abs(s.roomPosition.x)>3||Math.abs(s.roomPosition.z)>3))return false;
+  if(s.helpHistory!==undefined&&(!Array.isArray(s.helpHistory)||s.helpHistory.length>128||s.helpHistory.some(id=>typeof id!=='string'||id.length>80)))return false;
   if(s.contracts!==undefined&&!validContractsState(s.contracts))return false;
   if(s.records!==undefined&&!validRecordsState(s.records))return false;
   if(s.finale!==undefined&&!validFinaleState(s.finale))return false;
@@ -90,7 +101,7 @@ export function validState(value:unknown):value is GameState {
   for(let i=0;i<s.history.length;i++){
     const d=s.history[i]!,assisted=i>=8,round=assisted?Math.floor((i-8)/2):Math.floor(i/2),step=i%2;
     if(d.round!==round||d.step!==step||d.assisted!==assisted)return false;
-    const c=rounds[assisted?(round===0?0:2):round]!;
+    const c=roundFor(round,assisted,s.urnVariant);
     const urns=structuredClone(c.urns);
     if(step===1){const prev=s.history[i-1]!;if(!c.replacement)urns[prev.urn][prev.color]--;}
     const publicState={...s,urns,event:c.event};const optimal=bestChoices(publicState),p=probability(urns[d.urn],c.event);

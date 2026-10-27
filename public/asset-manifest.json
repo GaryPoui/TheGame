@@ -12,15 +12,16 @@
     {
       "id": "interactive-table",
       "source": "src/presentation/scene.ts",
-      "origin": "Project procedural outlined meshes and canvas labels"
+      "origin": "Project procedural outlined meshes and canvas labels",
+      "license": "Project owner's rights"
     },
     {
       "id": "confirmation-tones",
-      "source": "src/main.ts chime",
+      "source": "src/platform/audio.ts",
       "origin": "Original sine synthesis via Web Audio",
       "thirdPartyArt": false,
       "license": "Project owner's rights",
-      "notes": "No sampled recordings or remote music."
+      "notes": "Original sine synthesis, separate UI and ambience buses, master headroom. No recordings or remote music."
     },
     {
       "id": "interface-typefaces",
@@ -51,6 +52,12 @@
       "bytes": 2475174,
       "manifest": "ada-art-v1.json",
       "license": "AI-generated illustration; not CC0; project use, no general redistribution license declared"
+    },
+    {
+      "id": "street-memory-and-room-plan",
+      "source": "src/ui/exploration.css",
+      "origin": "Original code-authored silhouettes, street blockout and room floor plan; no external image",
+      "license": "Project owner's rights"
     }
   ],
   "engine": {

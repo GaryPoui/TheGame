@@ -1,6 +1,7 @@
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Scene } from '@babylonjs/core/scene';
-import { FreeCamera } from '@babylonjs/core/Cameras/freeCamera';
+import {SceneInstrumentation} from '@babylonjs/core/Instrumentation/sceneInstrumentation';
+import { UniversalCamera } from '@babylonjs/core/Cameras/universalCamera';
 import { Vector3, Matrix } from '@babylonjs/core/Maths/math.vector';
 import { HighlightLayer } from '@babylonjs/core/Layers/highlightLayer';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
@@ -34,7 +35,8 @@ export class GameScene {
   readonly ready: Promise<void>;
   private engine: Engine;
   private scene: Scene;
-  private camera: FreeCamera;
+  private instrumentation:SceneInstrumentation;
+  private camera: UniversalCamera;
   private shadows: ShadowGenerator;
   private mode: 'menu' | 'room' | 'table' = 'menu';
   private reduced = false;
@@ -55,6 +57,7 @@ export class GameScene {
   private diceProps: Mesh[] = [];
   private contractsMode = false;
   private diceKey = '';
+  private rendering=true;
   private diceInk!: PBRMaterial;
   private dobleTexture: Texture | null = null;
   private veraTexture: Texture | null = null;
@@ -64,6 +67,9 @@ export class GameScene {
     this.engine = new Engine(canvas, true, { stencil: true, preserveDrawingBuffer: true, antialias: true });
     this.engine.setHardwareScalingLevel(Math.max(1, window.devicePixelRatio / 1.5));
     this.scene = new Scene(this.engine);
+    this.instrumentation=new SceneInstrumentation(this.scene);
+    this.instrumentation.captureFrameTime=true;
+    this.instrumentation.captureRenderTime=true;
     this.selectionGlow = new HighlightLayer('selected-urn-glow', this.scene, { mainTextureRatio: .5 });
     this.selectionGlow.innerGlow = false;
     this.selectionGlow.blurHorizontalSize = 1.2;
@@ -76,7 +82,7 @@ export class GameScene {
     this.scene.imageProcessingConfiguration.toneMappingType = ImageProcessingConfiguration.TONEMAPPING_ACES;
 
     this.scene.environmentIntensity = .3;
-    this.camera = new FreeCamera('controlled-camera', this.destination.clone(), this.scene);
+    this.camera = new UniversalCamera('controlled-camera', this.destination.clone(), this.scene);
     this.camera.minZ = .1;
     this.camera.maxZ = 50;
     this.camera.fov = .7;
@@ -125,7 +131,7 @@ export class GameScene {
     portraitMaterial.emissiveColor=Color3.White();portraitMaterial.disableLighting=true;
     portraitMaterial.backFaceCulling=false;portrait.material=portraitMaterial;portrait.isPickable=false;
     for(const mesh of this.scene.meshes) {
-      if(mesh instanceof Mesh && mesh!==portrait && mesh.name!=='thick-glass-urn' && !mesh.name.startsWith('label-')) {
+      if(mesh instanceof Mesh && mesh!==portrait && mesh.name!=='thick-glass-urn' && !mesh.name.startsWith('label-') && !['die-pip','table-pedestal','pedestal-foot','felt-inlay','table-felt'].includes(mesh.name)) {
         mesh.renderOutline=true;mesh.outlineWidth=.016;mesh.outlineColor=Color3.FromHexString('#241D26');
       }
     }
@@ -145,7 +151,7 @@ export class GameScene {
       this.camera.position=Vector3.Lerp(this.camera.position,this.destination,t);
       this.currentFocus=Vector3.Lerp(this.currentFocus,this.focus,t);
       this.camera.setTarget(this.currentFocus);
-      this.scene.render();
+      if(this.rendering)this.scene.render();
     });
     this.ready=new Promise(resolve=>this.scene.executeWhenReady(resolve));
     window.addEventListener('resize',this.resize);
@@ -198,6 +204,7 @@ export class GameScene {
     this.destination=mode==='menu'?new Vector3(7,5.5,-10):mode==='room'?new Vector3(0,4.6,-9):new Vector3(1.1,5.2,-7.8);
     this.focus=mode==='table'?new Vector3(1.1,2.3,.1):new Vector3(0,2.4,1.2);
   }
+  setRendering(active:boolean):void {this.rendering=active;}
   setContractMode(enabled: boolean, pair: readonly [number, number] | null): void {
     const changed = enabled !== this.contractsMode;
     this.contractsMode = enabled;
@@ -269,7 +276,11 @@ export class GameScene {
       selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
       geometryTriangles:this.scene.meshes.reduce((total,mesh)=>total+mesh.getTotalIndices()/3,0),
       fps:this.engine.getFps(),renderWidth:this.engine.getRenderWidth(),renderHeight:this.engine.getRenderHeight(),
-      renderer:this.engine.getGlInfo().renderer};
+      renderer:this.engine.getGlInfo().renderer,rendering:this.rendering,
+      drawCalls:this.instrumentation.drawCallsCounter.current,
+      frameTimeMs:this.instrumentation.frameTimeCounter.current,
+      renderTimeMs:this.instrumentation.renderTimeCounter.current,
+      estimatedTextureBytes:this.scene.textures.reduce((total,texture)=>{const size=texture.getSize();return total+size.width*size.height*4*(texture.isCube?6:1)*4/3;},0)};
   }
-  dispose():void {window.removeEventListener('resize',this.resize);this.scene.dispose();this.engine.dispose();}
+  dispose():void {window.removeEventListener('resize',this.resize);this.instrumentation.dispose();this.scene.dispose();this.engine.dispose();}
 }

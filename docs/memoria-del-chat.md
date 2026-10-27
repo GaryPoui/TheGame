@@ -375,3 +375,11 @@ Workflow https://github.com/GaryPoui/TheGame/actions/runs/39956779863 completado
 Se comprobó HTTP 200 del sitio, build-info con fuente/versión correctas y coincidencia del
 bundle público con dist local (incluye rehearse-die-). No se ejecutaron suites de gameplay.
 PR #5 actualizado; sin merge automático. Este registro reemplaza el estado local anterior.
+
+## 14. Campaña completa — 26/10/2026
+
+El usuario autorizó completar todas las specs posibles, integrar el final, mantener diseño y subir avances por commits. Se integró Doble con las mejoras de urnas y después se implementaron Ada y el anfitrión. Rama `codex/complete-campaign`, PR [7](https://github.com/GaryPoui/TheGame/pull/7), sin merge automático. Commits iniciales 4b18e56, 478723b y 0f4bd7a; el historial contiene los siguientes bloques.
+
+Hay tres sellos, final de seis decisiones, ayuda finita y epílogo; practicar conserva libertad. Guardado v3 compatible con v1/v2, detección de otra pestaña, diálogos con IDs y checkpoints, controles reasignables y plano de sala, recuerdo opcional de calle que conserva la apertura a oscuras. Ada tiene arte nuevo con Vera como referencia de familia y manifiesto propio.
+
+La validación de reglas y recorridos no demuestra aprendizaje ni duración. La medición de render se hizo con SwiftShader, no GPU física. Documentación actual, pruebas, perfiles, límites y estado de publicación: [campaña](campaign-implementation.md). Este apartado supera las instrucciones históricas de detenerse en una sola mesa.
