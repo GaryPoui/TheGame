@@ -19,6 +19,7 @@ async function start(page: Page) {
   await page.getByTestId('enter-urns').click();
   await page.getByTestId('skip-tutorial').click();
   await expect(page.locator('body')).toHaveAttribute('data-screen', 'table');
+  await page.getByTestId('toggle-cards').click();
 }
 
 test('complete urn table with decisions, canvas, and no page errors', async ({ page }) => {
@@ -31,6 +32,7 @@ test('complete urn table with decisions, canvas, and no page errors', async ({ p
     const state = await saved(page);
     if (state.phase === 'complete') break;
     if (state.phase === 'choose' || state.phase === 'guided') {
+      if(await page.getByTestId('urn-0').isHidden()) await page.getByTestId('toggle-cards').click();
       const [a, b] = state.urns;
       const choice = a[state.event] * (b.red + b.blue) >= b[state.event] * (a.red + a.blue) ? 0 : 1;
       await page.getByTestId(`urn-${choice}`).click();
@@ -88,6 +90,7 @@ test('weak decisions reach a finite guided completion', async ({ page }) => {
     const state = await saved(page);
     if (state.phase === 'complete') break;
     if (state.phase === 'choose' || state.phase === 'guided') {
+      if(await page.getByTestId('urn-0').isHidden()) await page.getByTestId('toggle-cards').click();
       const [a, b] = state.urns;
       const aBest = a[state.event] * (b.red + b.blue) >= b[state.event] * (a.red + a.blue);
       const choice = state.assisted ? (aBest ? 0 : 1) : (aBest ? 1 : 0);
@@ -153,6 +156,7 @@ test('unavailable WebGL preserves playable controls and a retry action', async (
   await page.getByTestId('skip-intro').click();
   await page.getByTestId('enter-urns').click();
   await page.getByTestId('skip-tutorial').click();
+  await page.getByTestId('toggle-cards').click();
   await page.getByTestId('urn-0').click();
   await page.getByTestId('confirm-choice').click();
   await expect(page.getByTestId('result-feedback')).toBeVisible();

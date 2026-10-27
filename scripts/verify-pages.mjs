@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-const baseURL = 'https://garypoui.github.io/TheGame/';
-const report = JSON.parse(await readFile('docs/evidence/ink/build-report.json', 'utf8'));
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'https://garypoui.github.io/TheGame/';
+const report = JSON.parse(await readFile(process.argv[2] ?? 'docs/evidence/ink/build-report.json', 'utf8'));
 const pending = [...report.files], checked = [], errors = [];
 await Promise.all(Array.from({ length: 6 }, async () => {
   while (pending.length) {
@@ -15,6 +15,6 @@ await Promise.all(Array.from({ length: 6 }, async () => {
   }
 }));
 const result = { baseURL, date: new Date().toISOString(), filesChecked: report.files.length, matches: checked.length, errors };
-await writeFile('docs/evidence/ink/public-integrity.json', JSON.stringify(result, null, 2) + '\n');
+await writeFile(process.argv[3] ?? 'docs/evidence/ink/public-integrity.json', JSON.stringify(result, null, 2) + '\n');
 console.log(JSON.stringify(result));
 if (errors.length) process.exitCode = 1;

@@ -1,5 +1,13 @@
 # Continuidad del proyecto
 
+## Ajustes del primer juego — 2026-10-26
+
+El usuario pidió centrarse en urnas antes de otra spec. Ver [selección y feedback](urn-feedback.md):
+título Las urnas, cartas plegables, brillo sincronizado tarjeta/urna y corrección verde/roja
+según la decisión anterior a extraer. Se incorporó la tipografía sin serifa del remoto
+fac1368 antes de crear codex/urn-feedback. Sin cambios al RNG, reglas o esquema de guardado.
+
+
 ## Teatro de tinta — 2026-10-23
 
 El usuario corrigió la dirección: referencia Cuphead más tranquila, oscuridad inicial y captor

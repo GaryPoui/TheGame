@@ -91,3 +91,7 @@ En esta auditoría se leyó `skill-installer`, y se revisaron `game-designer` co
 create-game-assets: brief, paleta, escala, alpha y procedencia; imagegen de sistema: tres
 assets mediante herramienta integrada, sin CLI ni API key; webapp-testing: recorrido real,
 capturas y regresiones usando Playwright TypeScript ya instalado. Ver docs/ink-theatre.md.
+
+
+Revisión 2026-10-26: game-ui-ux, frontend-design y webapp-testing aplicadas a
+selección, cartas y feedback del primer juego. Ver [evidencia](urn-feedback.md).
