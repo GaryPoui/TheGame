@@ -59,3 +59,15 @@ Antes: 115 llamadas de dibujo; mediana de presentación 83,3 ms, p95 116,7–150
 Escena: 36.372 triángulos, heap observado ~19,3 MB, estimación de texturas ~17,2 MB; heap y estimación de texturas se reportan separados. Los contadores de CPU de Babylon no representan tiempo GPU. El tiempo local hasta controles no es una carga fría a 20 Mbps/100 ms. Falta medir con GPU física, red controlada y jugadores.
 
 El render 3D deja de dibujarse cuando la pantalla usa sólo ilustraciones/HTML. Las vistas de mesa conservan render y picking. Se añade recuperación visible de contexto WebGL; los controles HTML y el estado matemático siguen disponibles.
+
+## Cierre funcional y trabajo externo
+
+La suite unitaria completa alcanza 32 pruebas. Los checklists documentales de las diez specs estaban aprobados antes de implementar. La suite de navegador amplía el corte a 24 casos: campaña independiente y guiada, actualización de probabilidades y feedback previo al sorteo, pérdida óptima en dados, simulador independiente, compatibilidad de saves, diálogos/relectura, pausa y remapeo, calle opcional, pérdida/restauración real de contexto mediante WEBGL_lose_context y pantallas con texto al 200 % en 390 px. La ejecución final y pública se registra al publicar.
+
+Durante la revisión visual se corrigieron encabezados de altura fija que superponían Ajustes, cartas apretadas, confirmación flotante que tapaba contratos y etiquetas del archivo demasiado angostas. Las capturas funcionales finales están en `docs/evidence/campaign/release-local/`; las anteriores conservan trazabilidad, sin usarse como imagen de la versión final. Las muestras alternativas de repetición siguen el pool documentado: urnas 4R/2A frente a 2R/2A y Ada [4,0,4,4].
+
+La tarea externa T011 de 010 queda abierta: pruebas con personas, lector de pantalla, GPU física y red controlada. No se sustituye con checks automáticos. No se cambia la meta temporal a una duración inventada ni se afirma aprendizaje por tener sellos.
+
+## Validación local final — 2026-10-27
+
+32/32 pruebas unitarias y 24/24 pruebas de navegador aprobaron en Windows/Chromium SwiftShader. Después se ajustaron únicamente dos detalles de composición móvil (columnas de ensayos y ancho del directorio) y se repitió su caso de 200 %. Las correcciones no cambian reglas, puntos ni azar. Validaciones: 64 referencias matemáticas, 92 archivos de skills y enlaces documentales sin errores. La publicación y su comprobación HTTPS se registran a continuación al completarse.

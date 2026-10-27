@@ -283,7 +283,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
    if(['records-begin','records-confirm','records-next'].includes(id??'')){
      const command:RecordsCommand={type:id==='records-begin'?'begin':id==='records-confirm'?'choose':'next',...(selectedRecord?{choice:selectedRecord}:{}),expectedRevision:Number(target.dataset.revision),commandId:'ada-'+target.dataset.revision+'-'+id};
      const next=applyRecordsCommand(current,command);if(next===current){announce('Seguí la opción indicada por la ayuda.');return true;}
-     state.records=next;selectedRecord=null;persist();render(next.phase==='feedback'?'records-next':next.phase==='complete'?'enter-finale':'records-'+recordsChoices(next)[0]);chime(next.history.at(-1)?.correct);return true;
+     state.records=next;selectedRecord=null;persist();render(next.phase==='feedback'?'records-next':next.phase==='complete'?'enter-finale':'records-'+recordsChoices(next)[0]);if(current.phase==='tutorial'||next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
    }
  }
  if(screen==='finale'&&state.finale){
@@ -292,7 +292,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
    if(id==='finale-confirm'||id==='finale-next'){
      const command:FinaleCommand={type:id==='finale-confirm'?'choose':'next',...(selectedFinale?{choice:selectedFinale}:{}),expectedRevision:Number(target.dataset.revision),commandId:'host-'+target.dataset.revision+'-'+id};
      const next=applyFinaleCommand(current,command);if(next===current){announce('Seguí la opción indicada por la ayuda.');return true;}
-     state.finale=next;selectedFinale=null;persist();render(next.phase==='feedback'?'finale-next':next.phase==='complete'?'exit-house':'finale-'+finaleChoices(next)[0]);chime(next.history.at(-1)?.correct);return true;
+     state.finale=next;selectedFinale=null;persist();render(next.phase==='feedback'?'finale-next':next.phase==='complete'?'exit-house':'finale-'+finaleChoices(next)[0]);if(next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
    }
  }
  return false;
@@ -333,6 +333,7 @@ function commandDoble(type: ContractCommand['type'], revision: number, pointerFe
   if(next === state.contracts) { announce('Elegí el contrato indicado por la ayuda o revisá el encargo actual.'); return; }
   state.contracts = next; selectedContract = null; persist(); chime(next.history.at(-1)?.correct ?? true);
   render(next.phase === 'offer' || next.phase === 'order' ? 'contract-S' : next.phase === 'complete' ? 'back-room' : 'doble-next');
+  if(type==='begin'||next.phase==='offer'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});
   if(pointerFeedback && next.phase === 'result') revealFeedback('.dice-readout');
   announce(next.phase === 'result' ? `Dados ${next.pair![0]} y ${next.pair![1]}. Saldo ${next.balance}.` : next.phase === 'order' ? 'Nuevo encargo hipotético. Sin otra tirada.' : next.phase === 'complete' ? 'Sello de Doble obtenido.' : 'Encargo actualizado.');
 }

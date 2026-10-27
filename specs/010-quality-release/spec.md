@@ -6,7 +6,7 @@
 
 **Feature Branch**: `codex/research-specs-skills` (entrega documental; spec independiente de rama)
 **Created**: 2026-10-22
-**Status**: Parcialmente implementada en el MVP; alcance de campaña y validación pendientes
+**Status**: Campaña, audio e interfaz implementados; cierre de publicación y validación externa distinguidos en [evidencia](../../docs/campaign-implementation.md).
 **Input**: Apartado 010 del prompt original y decisiones versionadas.
 
 ## Objetivo y dependencias
