@@ -1,5 +1,9 @@
 # Implementation Plan: Dados y contratos
 
+> Ejecución 2026-10-26/27: implementación y correspondencia de módulos en
+> [campaña](../../docs/campaign-implementation.md). Este documento conserva el plan inicial;
+> las tareas y la evidencia distinguen implementación de validación externa pendiente.
+
 **Branch**: `codex/doble-contracts` | **Date**: 2026-10-23 | **Spec**: [spec.md](spec.md)
 
 ## Summary
@@ -59,5 +63,5 @@ RNG separado para simulaciones y consejo de Doble limitado al objetivo público.
 El reducer registra comandos con ID/revisión y valida snapshots mediante replay.
 Esquema 2 acepta el legado esquema 1 en el mismo slot; conserva resultados y sellos al repetir.
 Arte de Doble SVG original y dados 3D amplían el teatro de tinta con Arial sans existente.
-No se incorporan servicios, motor físico ni dependencias nuevas. T007/T008 quedan pendientes;
-las observaciones manuales se reportan separadas de la cobertura automática.
+No se incorporan servicios, motor físico ni dependencias nuevas. T007/T008 se cerraron con
+las pruebas de campaña; la aceptación manual original permanece documentada por separado.

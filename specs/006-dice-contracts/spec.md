@@ -2,7 +2,7 @@
 
 **Feature Branch**: `codex/doble-contracts` (implementación; selección de spec independiente de rama)
 **Created**: 2026-10-22
-**Status**: Implementada con aceptación manual; cobertura automatizada nueva pendiente
+**Status**: Implementada con aceptación manual y automatizada; ver [campaña](../../docs/campaign-implementation.md).
 **Input**: Apartado 006 del prompt original y decisiones versionadas.
 
 ## Objetivo y dependencias

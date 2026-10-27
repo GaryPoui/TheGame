@@ -71,3 +71,7 @@ La tarea externa T011 de 010 queda abierta: pruebas con personas, lector de pant
 ## Validación local final — 2026-10-27
 
 32/32 pruebas unitarias y 24/24 pruebas de navegador aprobaron en Windows/Chromium SwiftShader. Después se ajustaron únicamente dos detalles de composición móvil (columnas de ensayos y ancho del directorio) y se repitió su caso de 200 %. Las correcciones no cambian reglas, puntos ni azar. Validaciones: 64 referencias matemáticas, 92 archivos de skills y enlaces documentales sin errores. La publicación y su comprobación HTTPS se registran a continuación al completarse.
+
+Epílogo final: se reutiliza el escenario de calle al amanecer, con las mismas siluetas y paleta. Se recorrió Ada→anfitrión→salida nuevamente sobre build de producción. Se conserva libertad y posición al volver a practicar.
+
+La primera comprobación pública verificó 143/143 archivos y los 24 casos funcionales. Un error de trazas al cerrar un contexto se debió a dos ejecuciones locales que compartieron output; la repetición aislada del caso aprobó. La pasada final usa carpeta de resultados independiente para evitar esa interferencia.

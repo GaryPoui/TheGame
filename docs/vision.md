@@ -1,6 +1,6 @@
 # Visión y alcance — La Casa del Azar
 
-Estado: primera mesa implementada y publicada; campaña completa todavía propuesta. Fecha de revisión: 2026-10-23. Dirección vigente: [Teatro de tinta](ink-theatre.md). La implementación del MVP no demuestra eficacia educativa.
+Estado: campaña de tres asistentes y final implementada y publicada. Fecha de revisión: 2026-10-27. Validación funcional y límites en [campaña](campaign-implementation.md). Dirección vigente: [Teatro de tinta](ink-theatre.md). La implementación del MVP no demuestra eficacia educativa.
 
 ## Experiencia
 

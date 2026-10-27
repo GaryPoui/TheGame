@@ -255,12 +255,15 @@ function moveRoom(action:InputAction):void {
  const [dx,dz]=action==='left'?[-.5,0]:action==='right'?[.5,0]:action==='forward'?[0,-.5]:[0,.5];
  cameraController.move(dx!,dz!);state.roomPosition={...cameraController.position};persist();render('walk-'+action);
 }
+function streetScenery(dawn:boolean):string {
+ return `<div class="street-set ${dawn?'street-dawn':''}" aria-hidden="true"><div class="street-houses"></div><div class="street-lamp">✧</div><div class="street-road"></div></div>`;
+}
 function streetView():string {
  const position=state.streetPosition??0;
- return `<main class="street-layout"><div class="street-set" aria-hidden="true"><div class="street-houses"></div><div class="street-lamp">✧</div><div class="street-road"></div></div><section class="dialogue-card"><p class="eyebrow">Un recuerdo · un momento antes</p><h1>${position<8?'Sólo faltaba una cuadra.':'Un paso detrás. Después, oscuridad.'}</h1><p>${position<8?'Una calle tranquila. La lámpara titila. Podés avanzar unos pasos; alguien camina detrás de vos.':'No hubo una pelea. Un roce de cartas, la luz se apaga y despertás en la casa. El recuerdo termina acá.'}</p><p>Camino ${position} de 8 · ${shortcutName(settings.keys.forward)} para avanzar</p>${btn('street-forward','Dar un paso','primary',position>=8)}${btn('street-return',position>=8?'Volver al despertar':'Saltar el recuerdo','quiet')}</section></main>`;
+ return `<main class="street-layout">${streetScenery(false)}<section class="dialogue-card"><p class="eyebrow">Un recuerdo · un momento antes</p><h1>${position<8?'Sólo faltaba una cuadra.':'Un paso detrás. Después, oscuridad.'}</h1><p>${position<8?'Una calle tranquila. La lámpara titila. Podés avanzar unos pasos; alguien camina detrás de vos.':'No hubo una pelea. Un roce de cartas, la luz se apaga y despertás en la casa. El recuerdo termina acá.'}</p><p>Camino ${position} de 8 · ${shortcutName(settings.keys.forward)} para avanzar</p>${btn('street-forward','Dar un paso','primary',position>=8)}${btn('street-return',position>=8?'Volver al despertar':'Saltar el recuerdo','quiet')}</section></main>`;
 }
 function outsideView():string {
- return `<main class="outside-layout"><section class="completion-card"><p class="eyebrow">La calle · amanecer</p><h1>Esta vez, vos elegís.</h1><p>La puerta se cierra a tus espaldas. Llevás tres sellos, un contrato cumplido y una idea: una buena decisión no necesita que la suerte le dé la razón.</p><p>Tu libertad queda guardada. Podés visitar las mesas otra vez sin perderla.</p>${btn('back-room','Volver a practicar en la casa','primary full')}</section></main>`;
+ return `<main class="outside-layout">${streetScenery(true)}<section class="completion-card"><p class="eyebrow">La calle · amanecer</p><h1>Esta vez, vos elegís.</h1><p>La puerta se cierra a tus espaldas. Llevás tres sellos, un contrato cumplido y una idea: una buena decisión no necesita que la suerte le dé la razón.</p><p>Tu libertad queda guardada. Podés visitar las mesas otra vez sin perderla.</p>${btn('back-room','Volver a practicar en la casa','primary full')}</section></main>`;
 }
 function enterRecords():void {
  if(!tableUnlocked(state,'records'))return;
