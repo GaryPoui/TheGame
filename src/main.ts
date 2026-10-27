@@ -1,3 +1,9 @@
+import './ui/campaign.css';
+import {createRecords,applyRecordsCommand,recordsChoices,type RecordsChoice,type RecordsCommand} from './core/tables/records';
+import {createFinale,applyFinaleCommand,finaleChoices,type FinaleChoice,type FinaleCommand} from './core/tables/finale';
+import {tableUnlocked,checkpointCampaign} from './core/campaign/progression';
+import {recordsView} from './ui/records';
+import {endingView} from './ui/ending';
 import './style.css';
 import './ui/contracts.css';
 import './ui/table-experience.css';
@@ -13,7 +19,7 @@ import {
 import type { GameScene } from './presentation/scene';
 
 declare global { interface Window { __THEGAME_READY__: boolean; __THEGAME_METRICS__?: () => unknown } }
-type Screen = 'menu' | 'intro' | 'room' | 'tutorial' | 'table' | 'complete' | 'contracts';
+type Screen = 'menu' | 'intro' | 'room' | 'tutorial' | 'table' | 'complete' | 'contracts' | 'records' | 'finale' | 'outside';
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const overlay = document.querySelector<HTMLDivElement>('#overlay')!;
 const announcer = document.querySelector<HTMLDivElement>('#announcer')!;
@@ -24,6 +30,9 @@ let warning = restored.warning;
 let screen: Screen = 'menu';
 let selected: 0 | 1 | null = null;
 let cardsVisible = false;
+let selectedRecord: RecordsChoice|null=null;
+let selectedFinale: FinaleChoice|null=null;
+let storageConflict=false;
 let introLine = 0;
 let introPhase: 'dark' | 'reveal' | 'lit' = 'dark';
 let introTimers: ReturnType<typeof setTimeout>[] = [];
@@ -75,9 +84,8 @@ function chime(correct = true): void {
 }
 function urnsSealed(): boolean { return state.seals?.urns === true || state.phase === 'complete'; }
 function persist(): void {
-  state.seals = { ...state.seals, urns: urnsSealed(), contracts: state.seals?.contracts === true || state.contracts?.phase === 'complete' };
-  if(state.phase === 'complete' && state.seals.urnsMethod !== 'independent') state.seals.urnsMethod = state.assisted ? 'assisted' : 'independent';
-  if(state.contracts?.phase === 'complete' && state.seals.contractsMethod !== 'independent') state.seals.contractsMethod = state.contracts.assisted ? 'assisted' : 'independent';
+  state=checkpointCampaign(state);
+  if(storageConflict) {warning='Otra pestaña cambió el progreso. Esta partida sigue en memoria. Recargá para retomar el guardado más reciente.';return;}
   state.settings = structuredClone(settings);
   const failure = saveGame(state);
   if (failure) warning = failure;
@@ -95,19 +103,19 @@ function shortcutSelect(id: string, value: string): string {
 }
 function setScreen(next: Screen, focus?: string): void {
   if(next !== 'intro') stopIntro();
-  screen = next; selected = null; selectedContract = null; helpOpen = false; cardsVisible = false;
+  screen = next; selected = null; selectedContract = null; selectedRecord=null; selectedFinale=null; helpOpen = false; cardsVisible = false;
   scene?.setMode(next === 'menu' || next === 'intro' ? 'menu' : next === 'room' || next === 'complete' ? 'room' : 'table', settings.reducedMotion);
   render(focus);
   window.scrollTo({top:0,left:0,behavior:'instant'});
 }
 function header(): string {
-  return `<header class="topbar"><a href="#" class="brand" data-action="home" aria-label="Volver al inicio"><span class="brand-emblem" aria-hidden="true">◆</span><span>La Casa del Azar</span></a><span class="edition">${screen === 'contracts' ? 'La correduría de Doble' : 'La Casa del Azar'} <span class="edition-dot">/</span> Dos mesas disponibles</span>${btn('settings-button', '<span aria-hidden="true">☷</span> Ajustes', 'quiet')}</header>`;
+  return `<header class="topbar"><a href="#" class="brand" data-action="home" aria-label="Volver al inicio"><span class="brand-emblem" aria-hidden="true">◆</span><span>La Casa del Azar</span></a><span class="edition">${screen === 'contracts' ? 'La correduría de Doble' : 'La Casa del Azar'} <span class="edition-dot">/</span> Tres asistentes y una salida</span>${btn('settings-button', '<span aria-hidden="true">☷</span> Ajustes', 'quiet')}</header>`;
 }
 function badges(): string {
   return `<div class="scoreboard"><span><i aria-hidden="true">✧</i> Decisiones <strong data-testid="merit">${state.merit}/8</strong></span><span><i aria-hidden="true">◈</i> Fichas ganadas <strong data-testid="chance-tokens">${state.tokens}</strong></span></div>`;
 }
 function menu(): string {
-  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar<span class="title-period">.</span></h1><p class="menu-tagline">La suerte reparte.<br>Vos decidís qué hacer con ella.</p><p class="menu-description">Una sala cerrada. Vera cuenta las fichas; Doble ofrece contratos. Dos sellos para acercarte a la puerta. Tu primera prueba empieza con las urnas.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Retomar mi partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>Las urnas de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para teclado y mouse</span></footer>`;
+  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar<span class="title-period">.</span></h1><p class="menu-tagline">La suerte reparte.<br>Vos decidís qué hacer con ella.</p><p class="menu-description">Vera cuenta fichas. Doble vende contratos. Ada guarda los registros. Tres sellos y una última mesa para volver a la calle.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Retomar mi partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>Las urnas de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para teclado y mouse</span></footer>`;
 }
 const intro = [
   ['El anfitrión', 'Una carta violeta se enciende en la oscuridad. El hombre del abrigo ya está frente a vos. «Ah… por fin. Tu libertad se juega acá. La suerte reparte; vos vas a tener que entender la mano».'],
@@ -120,7 +128,16 @@ function introView(): string {
   return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><span class="eyebrow">${dark ? 'Un momento antes…' : speaker}</span><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><div class="dialogue-actions">${btn('intro-next', introLine === 2 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}${btn('skip-intro', 'Saltar introducción', 'quiet')}</div><span class="page-count">${introLine + 1} / 3</span></section></main>`;
 }
 function room(): string {
-  return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. La puerta, por ahora, no.</p></section><section class="table-directory" aria-label="Mesas de la sala"><button class="table-entry available" data-testid="enter-urns"><span class="table-number">I</span><span><small>Disponible · Vera</small><strong>Las urnas</strong><span>Urnas, probabilidades y lo que cambia al elegir.</span></span><span class="entry-arrow" aria-hidden="true">↗</span></button><button class="table-entry ${urnsSealed() ? 'available' : 'locked'}" data-testid="enter-contracts" ${urnsSealed() ? '' : 'disabled'}><span class="table-number">II</span><span><small>${urnsSealed() ? state.seals?.contracts ? state.seals.contractsMethod === 'assisted' ? 'Sello con ayuda · Doble' : 'Sello independiente · Doble' : 'Disponible · Doble' : 'Completá Vera para entrar'}</small><strong>Los contratos</strong><span>Promedios, dados y decisiones con riesgo.</span></span><span aria-hidden="true">${urnsSealed() ? '↗' : '◇'}</span></button><div class="table-entry locked"><span class="table-number">III</span><span><small>Próximo capítulo · Ada</small><strong>El archivo</strong><span>Muestras, registros y preguntas incómodas.</span></span><span aria-hidden="true">◇</span></div><p class="development-note">Vera y Doble ya tienen sus mesas completas. El archivo de Ada y el enfrentamiento final siguen en desarrollo.</p></section></main>`;
+  const entries = [
+    ['urns','I','Vera','Las urnas','Contá las chances y mirá qué cambia.','Disponible'],
+    ['contracts','II','Doble','Los contratos','Elegí entre promedio, garantía y riesgo.','Necesitás el sello de Vera'],
+    ['records','III','Ada','El archivo','Pedí datos completos y describí lo observado.','Necesitás el sello de Doble'],
+    ['finale','IV','El anfitrión','El contrato de salida','Usá lo aprendido para abrir la puerta.','Necesitás los tres sellos'],
+  ] as const;
+  return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. ${state.freed?'La puerta también. Podés volver a practicar.':'Tres sellos y una última partida te separan de la salida.'}</p>${state.freed?btn('exit-house','Volver a la calle','primary'):''}</section><section class="table-directory" aria-label="Mesas de la sala">${entries.map(([id,n,name,title,description,requirement])=>{
+    const unlocked=tableUnlocked(state,id),sealed=id==='finale'?state.freed:id==='urns'?urnsSealed():state.seals?.[id];
+    return `<button class="table-entry ${unlocked?'available':'locked'}" data-testid="enter-${id}" ${unlocked?'':'disabled'}><span class="table-number">${n}</span><span><small>${unlocked?sealed?'Completada · '+name:'Disponible · '+name:requirement}</small><strong>${title}</strong><span>${description}</span></span><span aria-hidden="true">${unlocked?'↗':'◇'}</span></button>`;
+  }).join('')}</section></main>`;
 }
 function tutorial(): string {
   const demoUrns: [Urn,Urn] = [{red:tutorialStep===0?3:2,blue:2},{red:1,blue:1}];
@@ -180,7 +197,7 @@ function render(focusId?: string): void {
   document.body.dataset.doblePhase = state.contracts?.phase ?? 'tutorial';
   document.body.dataset.introPhase = introPhase;
   document.body.dataset.speaker = screen === 'intro' && introLine === 2 ? 'vera' : 'captor';
-  app.innerHTML = header() + ({ menu, intro: introView, room, tutorial, table, complete, contracts: dobleScreen }[screen])() +
+  app.innerHTML = header() + ({ menu, intro: introView, room, tutorial, table, complete, contracts: dobleScreen, records:()=>state.records?recordsView(state.records,selectedRecord):room(), finale:()=>state.finale?endingView(state.finale,selectedFinale,state.freed===true):room(), outside:outsideView }[screen])() +
     (warning ? `<div class="save-warning" role="status">${escapeText(warning)}</div>` : '') +
     (sceneWarning ? `<div class="graphics-warning">${sceneWarning} ${btn('retry-graphics','Reintentar 3D','quiet')}</div>` : '');
   for(const name of expanded) app.querySelector<HTMLDetailsElement>(`details[data-keep-open="${name}"]`)?.setAttribute('open','');
@@ -188,6 +205,7 @@ function render(focusId?: string): void {
   if (focusId) document.querySelector<HTMLButtonElement>(`[data-testid="${focusId}"]`)?.focus({preventScroll:true});
 }
 function updateVisual(): void {
+  if(screen==='records'||screen==='finale'||screen==='outside')return;
   const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
   scene?.setContractMode(playingContracts, playingContracts ? state.contracts?.pair ?? null : null);
   if (playingContracts) return;
@@ -204,6 +222,7 @@ function startNew(preserveCampaign = false): void {
   if(preserveCampaign) {
     state.seals = { ...prior.seals, urns: prior.seals?.urns === true || prior.phase === 'complete', contracts: prior.seals?.contracts === true };
     if(prior.contracts) state.contracts = prior.contracts;
+    if(prior.records)state.records=prior.records;if(prior.finale)state.finale=prior.finale;if(prior.freed!==undefined)state.freed=prior.freed;if(prior.freedomMethod)state.freedomMethod=prior.freedomMethod;
     state.activeTable = 'urns';
   } state.settings = structuredClone(settings); persist(); introLine = 0;
   if(preserveCampaign) { setScreen('table','urn-0'); return; }
@@ -215,6 +234,45 @@ function enterTable(): void {
   if (!state.history.length) { tutorialStep = 0; demoChoice = null; setScreen('tutorial', 'demo-urn-0'); }
   else setScreen('table', state.phase === 'revealed' || state.phase === 'roundEnd' ? 'next-step' : 'urn-0');
 }
+function outsideView():string {
+ return `<main class="outside-layout"><section class="completion-card"><p class="eyebrow">La calle · amanecer</p><h1>Esta vez, vos elegís.</h1><p>La puerta se cierra a tus espaldas. Llevás tres sellos, un contrato cumplido y una idea: una buena decisión no necesita que la suerte le dé la razón.</p><p>Tu libertad queda guardada. Podés visitar las mesas otra vez sin perderla.</p>${btn('back-room','Volver a practicar en la casa','primary full')}</section></main>`;
+}
+function enterRecords():void {
+ if(!tableUnlocked(state,'records'))return;
+ state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?'records-begin':'records-'+recordsChoices(state.records)[0]);
+}
+function enterFinale():void {
+ if(!tableUnlocked(state,'finale'))return;
+ state.finale??=createFinale();state.activeTable='finale';persist();setScreen('finale','finale-'+finaleChoices(state.finale)[0]);
+}
+function handleCampaignClick(target:HTMLElement):boolean {
+ const id=target.dataset.testid;
+ if(id==='exit-house'&&state.freed){state.activeTable='outside';persist();setScreen('outside','back-room');return true;}
+ if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
+ if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
+ if(id==='records-replay'&&state.records){state.records=createRecords();persist();setScreen('records','records-begin');return true;}
+ if(id==='finale-replay'&&state.finale){state.finale=createFinale();persist();setScreen('finale','finale-U');return true;}
+ if(screen==='records'&&state.records){
+   const current=state.records;
+   if(id?.startsWith('records-')&&current.phase==='choose'&&recordsChoices(current).includes(id.slice(8) as RecordsChoice)){selectedRecord=id.slice(8) as RecordsChoice;render(id);return true;}
+   if(['records-begin','records-confirm','records-next'].includes(id??'')){
+     const command:RecordsCommand={type:id==='records-begin'?'begin':id==='records-confirm'?'choose':'next',...(selectedRecord?{choice:selectedRecord}:{}),expectedRevision:Number(target.dataset.revision),commandId:'ada-'+target.dataset.revision+'-'+id};
+     const next=applyRecordsCommand(current,command);if(next===current){announce('Seguí la opción indicada por la ayuda.');return true;}
+     state.records=next;selectedRecord=null;persist();render(next.phase==='feedback'?'records-next':next.phase==='complete'?'enter-finale':'records-'+recordsChoices(next)[0]);chime(next.history.at(-1)?.correct);return true;
+   }
+ }
+ if(screen==='finale'&&state.finale){
+   const current=state.finale;
+   if(id?.startsWith('finale-')&&current.phase==='choose'&&finaleChoices(current).includes(id.slice(7) as FinaleChoice)){selectedFinale=id.slice(7) as FinaleChoice;render(id);return true;}
+   if(id==='finale-confirm'||id==='finale-next'){
+     const command:FinaleCommand={type:id==='finale-confirm'?'choose':'next',...(selectedFinale?{choice:selectedFinale}:{}),expectedRevision:Number(target.dataset.revision),commandId:'host-'+target.dataset.revision+'-'+id};
+     const next=applyFinaleCommand(current,command);if(next===current){announce('Seguí la opción indicada por la ayuda.');return true;}
+     state.finale=next;selectedFinale=null;persist();render(next.phase==='feedback'?'finale-next':next.phase==='complete'?'exit-house':'finale-'+finaleChoices(next)[0]);chime(next.history.at(-1)?.correct);return true;
+   }
+ }
+ return false;
+}
+window.addEventListener('storage',event=>{if(event.key==='thegame.save.v1.current'&&event.newValue!==event.oldValue){storageConflict=true;warning='Otra pestaña cambió el progreso. Esta partida sigue en memoria. Recargá para cargar el guardado más reciente.';render();}});
 function showDialog(title: string, content: string): HTMLDialogElement {
   const previous = document.activeElement as HTMLElement | null;
   overlay.innerHTML = `<dialog class="modal"><div class="modal-heading"><h2>${title}</h2>${btn('close-dialog', 'Cerrar ✕', 'quiet')}</div>${content}</dialog>`;
@@ -257,6 +315,9 @@ app.addEventListener('click', event => {
   const target = (event.target as HTMLElement).closest<HTMLElement>('button, [data-action]');
   if (!target) return;
   const id = target.dataset.testid;
+  if(id === 'enter-records') {enterRecords();return;}
+  if(id === 'enter-finale') {enterFinale();return;}
+  if(handleCampaignClick(target))return;
   if(id === 'enter-contracts') { enterContracts(); return; }
   if(screen === 'contracts' && state.contracts) {
     if(id === 'rehearse-die-0' || id === 'rehearse-die-1') {
@@ -282,13 +343,13 @@ app.addEventListener('click', event => {
   if (id === 'settings-button') { showSettings(); return; }
   if (target.dataset.action === 'home') { event.preventDefault(); setScreen('menu'); return; }
   if (target.dataset.action === 'credits') {
-    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Esta versión incluye las urnas de Vera y los contratos de Doble; Ada y el final siguen en desarrollo.</p><p>Nueva dirección de animación de los años treinta: sala y personajes ilustrados con generación de imágenes. Captor adaptado de las referencias de Gambito aportadas por el usuario; Cuphead es referencia estética. Sin afiliación con Marvel ni Studio MDHR. Mesa y urnas interactivas propias. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
+    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Esta versión incluye las urnas de Vera, los contratos de Doble, el archivo de Ada y el contrato de salida del anfitrión.</p><p>Nueva dirección de animación de los años treinta: sala y personajes ilustrados con generación de imágenes. Captor adaptado de las referencias de Gambito aportadas por el usuario; Cuphead es referencia estética. Sin afiliación con Marvel ni Studio MDHR. Mesa y urnas interactivas propias. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
   }
   if (id === 'new-game' || id === 'practice-again') {
     if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p>${btn('confirm-new-game','Empezar de nuevo','primary full')}`); return; }
     startNew(id === 'practice-again'); return;
   }
-  if (id === 'continue-game') { if(state.activeTable === 'contracts' && state.contracts) { enterContracts(); return; } setScreen(state.phase === 'complete' ? 'complete' : 'table', state.phase === 'choose' || state.phase === 'guided' ? 'urn-0' : 'next-step'); return; }
+  if (id === 'continue-game') { if(state.activeTable==='outside'&&state.freed){setScreen('outside','back-room');return;} if(state.activeTable==='records'){enterRecords();return;} if(state.activeTable==='finale'){enterFinale();return;} if(state.activeTable === 'contracts' && state.contracts) { enterContracts(); return; } setScreen(state.phase === 'complete' ? 'complete' : 'table', state.phase === 'choose' || state.phase === 'guided' ? 'urn-0' : 'next-step'); return; }
   if (id === 'skip-intro' || (id === 'intro-next' && introLine === 2)) { setScreen('room','enter-urns'); return; }
   if (id === 'intro-next') { stopIntro(); introPhase = 'lit'; introLine++; render('intro-next'); return; }
   if (id === 'enter-urns') { enterTable(); return; }

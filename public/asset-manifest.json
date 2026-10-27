@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "release": "urns-mvp-feedback-v4",
+  "release": "campaign-v3",
   "assets": [
     {
       "id": "ink-art-family",
@@ -42,6 +42,15 @@
       "bytes": 2236166,
       "manifest": "doble-art-v2.json",
       "license": "AI-generated illustration; not CC0; see provenance manifest"
+    },
+    {
+      "id": "ada-v1",
+      "source": "art/ada-v1.png",
+      "origin": "OpenAI built-in imagegen; existing Vera reference for visual family",
+      "sha256": "97045becbb4df13bb85305a25fa465bfab2229e3ede98c96bbc92cc2f30d1317",
+      "bytes": 2475174,
+      "manifest": "ada-art-v1.json",
+      "license": "AI-generated illustration; not CC0; project use, no general redistribution license declared"
     }
   ],
   "engine": {

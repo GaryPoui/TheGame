@@ -29,3 +29,7 @@ Esto comprueba reglas y recorridos. No demuestra duración de 30–45 minutos, a
 ## Skills aplicadas
 
 Se verificaron 92 archivos de skills sin cambios. Se leyeron y aplicaron speckit-implement (checklists aprobadas y tareas), game-designer (reglas y límites de evidencia), save-systems (versiones, backup y checkpoints), game-ui-ux y frontend-design (interfaz de la misma familia), webapp-testing (regresiones de navegador sobre Playwright TypeScript ya instalado). Cámara, input y diálogos se revisan para el siguiente bloque. Los ejemplos de otros motores no se usan como API de Babylon.
+
+La suite nueva de navegador cubrió la ruta Ada→anfitrión→calle, recarga con resultado confirmado, conservación de libertad al practicar, ayuda en ambas mesas, requisitos, teclado en silencio, 390 px con texto al 200 % y conflicto de otra pestaña. Capturas en `docs/evidence/campaign/`. Se corrigió el desborde del encabezado en la combinación de texto grande y ventana angosta. El ensayo opcional exige abrir su desplegable; la prueba lo reproduce como lo haría el jugador.
+
+Retrato nuevo: `public/art/ada-v1.png`, generado con herramienta integrada usando Vera como referencia, con transparencia comprobada y sin modificar assets anteriores. Prompt y procedencia en [manifiesto](../public/ada-art-v1.json). Se conserva la familia de tinta, papel y colores.
