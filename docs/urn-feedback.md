@@ -66,3 +66,17 @@ estas pruebas demuestren comprensión universal, aprendizaje ni rendimiento en G
 Primera suite completa local: 14/14 aprobadas, con las ocho regresiones de la mesa y
 las de introducción. Se revisaron capturas de selección y evaluación verde/roja; cambios
 finales de redacción y protección del rótulo U/V frente al halo preceden la build pública.
+
+## Entrega publicada
+
+Fuente de build `29c4148d179cd8d2f799ffcf92cd04f0cf222f87`; deployment
+`1e6bfd4ffcadec61979ba4999123dfa1b791999a`, versión `urns-mvp-feedback-v4`.
+Pages built y 138/138 archivos comprobados por SHA-256. Sitio:
+https://garypoui.github.io/TheGame/. PR https://github.com/GaryPoui/TheGame/pull/6.
+Los commits posteriores de documentación no cambian la fuente desplegada.
+Los auxiliares de captura admiten EVIDENCE_DIR y muestran las cartas antes de interactuar.
+
+Suite pública final: 14/14 aprobadas contra GitHub Pages, incluida selección real por clic
+en canvas, ocultar/mostrar sin perder selección, evaluación antes de la extracción, empate,
+resultado desfavorable con elección correcta y revisión tras recargar. Reporte:
+[pruebas públicas](evidence/urn-feedback/public-browser.json).

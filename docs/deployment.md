@@ -58,3 +58,9 @@ entrega usa `urns-mvp-ink-v3`. Se publica en el mismo destino HTTPS del MVP.
 Publicación v3 comprobada: fuente `4ec4109a4a173e3935d955e740ddd78b66904a5e`, rama estática
 `ff872d5b12bca0f2e757e46d68c11711e95ee2fd`; build Pages built, 123/123 archivos con SHA-256
 coincidente y 11/11 pruebas de navegador contra la URL pública. Evidencia en docs/evidence/ink.
+## Publicación de los ajustes de urnas — 2026-10-26
+
+Fuente de juego `29c4148d179cd8d2f799ffcf92cd04f0cf222f87`, versión `urns-mvp-feedback-v4`.
+Deployment `1e6bfd4ffcadec61979ba4999123dfa1b791999a`, Pages built. Integridad pública:
+138/138 archivos coincidentes por SHA-256, evidencia en docs/evidence/urn-feedback.
+Rama de fuente codex/urn-feedback, PR https://github.com/GaryPoui/TheGame/pull/6, sin merge.
