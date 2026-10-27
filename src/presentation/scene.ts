@@ -50,6 +50,14 @@ export class GameScene {
   private blue: PBRMaterial;
   private brass: PBRMaterial;
   private ivory: PBRMaterial;
+  private urnProps: Mesh[] = [];
+  private decorProps: Mesh[] = [];
+  private diceProps: Mesh[] = [];
+  private contractsMode = false;
+  private diceKey = '';
+  private diceInk!: PBRMaterial;
+  private dobleTexture: Texture | null = null;
+  private veraTexture: Texture | null = null;
   private resize = () => this.engine.resize();
 
   constructor(canvas: HTMLCanvasElement, onUrn: (index: 0 | 1) => void) {
@@ -88,7 +96,7 @@ export class GameScene {
     this.red = this.material('red-triangle', '#9B1728', .12, .28);
     this.blue = this.material('blue-circle', '#125F8D', .12, .28);
     const wood = this.material('painted-oak', '#895A39', 0, 1);
-    const dark = this.material('charcoal', '#181D20', .05, .72);
+    const dark = this.material('charcoal', '#181D20', .05, .72); this.diceInk = dark;
     const felt = this.material('teal-felt', '#17382C', 0, .96);
 
     // Elliptical, layered table: a readable silhouette and a brass lip against dark walnut.
@@ -99,16 +107,20 @@ export class GameScene {
     inset.position.y=1.735; inset.scaling.z=.7; inset.material=this.brass;
     this.cylinder('table-pedestal',.85,1.3,[0,.69,0],wood);
     for(const x of [-1,1]) this.box('pedestal-foot',[2.2,.18,.34],[x*.5,.12,0],wood).rotation.y=x*.6;
+    const urnStart = this.scene.meshes.length;
     for(const x of [-1.05,1.05]) this.makeUrn(x);
+    this.urnProps = this.scene.meshes.slice(urnStart).filter((mesh): mesh is Mesh => mesh instanceof Mesh);
+    const decorStart = this.scene.meshes.length;
     for(let i=0;i<3;i++) this.box('record-file',[.8,.04,1.1],[2.35,1.76+i*.05,.3],this.ivory).rotation.y=.15-i*.08;
     const die=this.box('die',[.34,.34,.34],[-2.35,1.92,-.3],this.ivory);die.rotation.y=.3;
     for(const dx of [-.085,.085]) for(const dz of [-.085,.085]) this.cylinder('die-pip',.045,.012,[-2.35+dx,2.1,-.3+dz],dark);
+    this.decorProps = this.scene.meshes.slice(decorStart).filter((mesh): mesh is Mesh => mesh instanceof Mesh);
     const portrait = CreatePlane('vera-ink-portrait', {width:2.34,height:3.5}, this.scene);
     portrait.position.set(0,3.3,2.4);
     portrait.billboardMode=Mesh.BILLBOARDMODE_ALL;
     const portraitMaterial=new StandardMaterial('vera-ink',this.scene);
     portraitMaterial.diffuseTexture=new Texture(import.meta.env.BASE_URL+'art/vera-v3.png',this.scene);
-    portraitMaterial.diffuseTexture.hasAlpha=true;
+    portraitMaterial.diffuseTexture.hasAlpha=true; this.veraTexture = portraitMaterial.diffuseTexture as Texture;
     portraitMaterial.useAlphaFromDiffuseTexture=true;
     portraitMaterial.emissiveColor=Color3.White();portraitMaterial.disableLighting=true;
     portraitMaterial.backFaceCulling=false;portrait.material=portraitMaterial;portrait.isPickable=false;
@@ -185,6 +197,38 @@ export class GameScene {
     this.mode=mode;if(reducedMotion!==undefined)this.reduced=reducedMotion;
     this.destination=mode==='menu'?new Vector3(7,5.5,-10):mode==='room'?new Vector3(0,4.6,-9):new Vector3(1.1,5.2,-7.8);
     this.focus=mode==='table'?new Vector3(1.1,2.3,.1):new Vector3(0,2.4,1.2);
+  }
+  setContractMode(enabled: boolean, pair: readonly [number, number] | null): void {
+    const changed = enabled !== this.contractsMode;
+    this.contractsMode = enabled;
+    this.urnProps.forEach(mesh => mesh.isVisible = !enabled);
+    this.decorProps.forEach(mesh => mesh.isVisible = !enabled);
+    this.tokens.forEach(mesh => mesh.isVisible = !enabled);
+    if(enabled) this.rings.forEach(mesh => mesh.isVisible = false);
+    const portrait = this.scene.getMeshByName('vera-ink-portrait');
+    const material = portrait?.material as StandardMaterial | null;
+    if(changed && portrait) { portrait.scaling.set(enabled ? 1.3 : 1,enabled ? 1.3 : 1,1); portrait.position.y = enabled ? 3.65 : 3.3; }
+    if(changed && material) {
+      if(enabled && !this.dobleTexture) { this.dobleTexture = new Texture(import.meta.env.BASE_URL+'art/doble-v2.png',this.scene); this.dobleTexture.hasAlpha = true; }
+      material.diffuseTexture = enabled ? this.dobleTexture : this.veraTexture;
+    }
+    const key = enabled ? JSON.stringify(pair) : 'off';
+    if(key === this.diceKey) return;
+    this.diceKey = key;
+    this.diceProps.forEach(mesh => { this.shadows.removeShadowCaster(mesh); mesh.dispose(); }); this.diceProps = [];
+    if(!enabled) return;
+    const start = this.scene.meshes.length;
+    const patterns: Record<number, number[]> = {1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+    for(let i=0;i<2;i++) {
+      const x = i===0 ? -.6 : .6;
+      const die = this.box('contract-die-'+i,[.65,.65,.65],[x,2.07,-.45],this.ivory);
+      die.renderOutline=true;die.outlineWidth=.018;die.outlineColor=Color3.FromHexString('#30252c');
+      this.shadows.addShadowCaster(die);
+      for(const pos of patterns[pair?.[i] ?? 0] ?? []) {
+        this.cylinder('contract-pip',.10,.014,[x+((pos%3)-1)*.18,2.403,-.45+(Math.floor(pos/3)-1)*.18],this.diceInk);
+      }
+    }
+    this.diceProps = this.scene.meshes.slice(start).filter((mesh): mesh is Mesh => mesh instanceof Mesh);
   }
   updateUrns(urns:readonly {red:number;blue:number}[],selected:number|null,revealed?:'red'|'blue'):void {
     this.tokens.forEach(m=>{this.shadows.removeShadowCaster(m);m.dispose();});this.tokens=[];

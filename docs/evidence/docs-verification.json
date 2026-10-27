@@ -3,9 +3,9 @@
   "result": "PASS",
   "features": 10,
   "requirements": 50,
-  "pending_tasks": 73,
-  "completed_tasks": 22,
+  "pending_tasks": 66,
+  "completed_tasks": 29,
   "total_tasks": 95,
-  "local_links_checked": 224,
+  "local_links_checked": 246,
   "errors": []
 }

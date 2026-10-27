@@ -1,7 +1,7 @@
 # Diseño educativo y reglas implementables
 
-Estado: reglas normativas de campaña. Mesa de urnas implementada y verificada en MVP; restantes mesas
-son propuestas pendientes de implementación. Evidencias actuales en docs/mvp-validation.md. Consultar [fuentes](research-education.md). Todas las cantidades son enteros o racionales; la UI puede redondear porcentajes a una cifra decimal conservando fracción exacta. No comparar decisiones por valores redondeados.
+Estado: reglas normativas de campaña. Mesas de urnas y contratos implementadas; registros y final
+siguen pendientes. El corte de Doble y su evidencia están en [implementación](doble-implementation.md). Evidencias actuales en docs/mvp-validation.md. Consultar [fuentes](research-education.md). Todas las cantidades son enteros o racionales; la UI puede redondear porcentajes a una cifra decimal conservando fracción exacta. No comparar decisiones por valores redondeados.
 
 ## Contrato común a todas las mesas
 
