@@ -302,10 +302,10 @@
       "sha256": "76a600283b9efe5264b0f8580d87f8e7b3631ce6d753d27d8cd1f69d674e2246"
     },
     {
-      "path": "dist/assets/index-BUKbeVQ1.js",
-      "bytes": 92574,
-      "gzipBytes": 30979,
-      "sha256": "ded26bd6d96c544e1f21bc0bb18b3e0b6ac3aa88a72f68d99e9bd8b7e4d918af"
+      "path": "dist/assets/index-D8P9Wl3v.js",
+      "bytes": 92664,
+      "gzipBytes": 30994,
+      "sha256": "b835481089be9c2d853aefc2f7f0e85a1ced5c7b0d12a52d5cefd29d414194fe"
     },
     {
       "path": "dist/assets/instancesDeclaration-CJBvtBV5.js",
@@ -772,8 +772,8 @@
     {
       "path": "dist/index.html",
       "bytes": 1387,
-      "gzipBytes": 666,
-      "sha256": "8577711219cbe888768c0039378bf4bce01dc961bb6b02ba5b93b84b1abab854"
+      "gzipBytes": 668,
+      "sha256": "1b5a7bcb7c798a7b9465497ee81125a2a665f37f162271a7ad7e1a4e8aed70d0"
     },
     {
       "path": "dist/ink-art.json",
@@ -860,7 +860,7 @@
       "sha256": "3d3f0da9d18021283c5e83927ebe57d890777f0bd302d929e90a5ac9de59dcbe"
     }
   ],
-  "totalBytes": 25620713,
-  "totalGzipBytes": 23257849,
+  "totalBytes": 25620803,
+  "totalGzipBytes": 23257866,
   "externalRuntimeAssets": false
 }

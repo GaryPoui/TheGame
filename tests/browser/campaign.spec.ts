@@ -67,6 +67,7 @@ test('gates, narrow display, text scaling and silent keyboard choices',async({pa
 test('another tab changes the save without silently overwriting its progress',async({page})=>{
  await open(page,checkpoint());const raw=JSON.stringify({schemaVersion:99});await page.evaluate(raw=>{localStorage.setItem('thegame.save.v1.current',raw);window.dispatchEvent(new StorageEvent('storage',{key:'thegame.save.v1.current',newValue:raw,oldValue:'previous'}));},raw);
  await page.getByTestId('records-begin').click();await expect(page.locator('.save-warning')).toContainText('Otra pestaña');expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(raw);
+ await page.getByTestId('settings-button').click();await page.getByTestId('delete-save').click();await page.getByTestId('confirm-delete').click();await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();await expect(page.locator('.save-warning')).toHaveCount(0);expect((await saved(page)).intro!.ended).toBe(true);
 });
 test('Doble preserves a good decision through a lost roll, reload and an independent simulation',async({page})=>{
  const s=checkpoint();delete s.records;s.contracts=createContracts(1);s.activeTable='contracts';s.seals!.contracts=false;await open(page,s);

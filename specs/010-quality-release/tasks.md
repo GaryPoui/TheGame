@@ -25,7 +25,7 @@ Prueba independiente: Ejecutar campaña en build producción, capturar modos cá
 
 ## Phase 5: Polish & cross-cutting
 
-- [ ] T010 Ejecutar aceptación SC-010-01..04, revisar canvas/DOM y registrar evidencia en docs/campaign-implementation.md.
+- [x] T010 Ejecutar aceptación SC-010-01..04, revisar canvas/DOM y registrar evidencia en docs/campaign-implementation.md.
 
 ## Dependencies & parallel examples
 

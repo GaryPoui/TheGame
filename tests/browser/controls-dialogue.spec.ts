@@ -8,6 +8,7 @@ test('dialogue resumes its checkpoint, replays without rewards, and releases con
  const before=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));await page.getByTestId('intro-history').click();await expect(page.locator('dialog')).toContainText('grilletes');await page.getByTestId('close-dialog').click();expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);
  await page.getByTestId('intro-next').click();await page.getByTestId('intro-next').click();await expect(page.locator('body')).toHaveAttribute('data-camera-mode','exploration');
  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.intro.effects)).toEqual(['released']);
+ await page.reload();await page.getByTestId('continue-game').click();await expect(page.locator('body')).toHaveAttribute('data-screen','room');
 });
 test('room navigation is bounded, rebindable and paused; returning preserves position',async({page})=>{
  await page.goto('./');await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();await page.locator('.room-walk summary').click();

@@ -75,3 +75,9 @@ La tarea externa T011 de 010 queda abierta: pruebas con personas, lector de pant
 Epílogo final: se reutiliza el escenario de calle al amanecer, con las mismas siluetas y paleta. Se recorrió Ada→anfitrión→salida nuevamente sobre build de producción. Se conserva libertad y posición al volver a practicar.
 
 La primera comprobación pública verificó 143/143 archivos y los 24 casos funcionales. Un error de trazas al cerrar un contexto se debió a dos ejecuciones locales que compartieron output; la repetición aislada del caso aprobó. La pasada final usa carpeta de resultados independiente para evitar esa interferencia.
+
+La revisión de recuperación detectó y corrigió dos bordes adicionales: después de borrar explícitamente un guardado en conflicto, se habilita otra vez el guardado de la nueva partida; retomar el checkpoint posterior a la liberación vuelve a la sala. Se añadieron esas comprobaciones a los casos existentes de multiventana y diálogo, sin cambiar el número de casos ni las reglas educativas.
+
+Un diagnóstico adicional de Chromium sin forzar SwiftShader también devolvió renderer de software en este entorno. Por eso la prueba con GPU física permanece abierta; no se identifica el renderer de software como GPU del usuario.
+
+Publicación v5.1 comprobada: source 7c74ded, deployment 69610f7, 143/143 archivos por hash y 24/24 casos en HTTPS sin errores ni casos inestables. Informe automático: `docs/evidence/campaign/public-browser-v5.1.json`. La corrección posterior de dos checkpoints aprobó sus dos casos locales; la entrega final conserva estos registros y añade su comprobación propia.

@@ -1,7 +1,7 @@
 # Entregas pequeñas y dependencias
 
 Estado 2026-10-26: 001–009 implementadas en el teatro de tinta y campaña completa.
-010 está en cierre de calidad y publicación. Las tareas y la [evidencia](../docs/campaign-implementation.md)
+010 tiene publicación y validación funcional completas; T011 conserva la validación externa pendiente. Las tareas y la [evidencia](../docs/campaign-implementation.md)
 distinguen validación automática de pruebas pendientes con personas/GPU física.
 Cada carpeta conserva spec, plan, investigación, modelo, contrato UI, quickstart, tareas y checklist.
 
