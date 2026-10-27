@@ -265,3 +265,13 @@ con el progreso existente (8/8 decisiones y 5 fichas), sin reiniciarlo. Consola 
 capturados. Captura pública: `docs/evidence/sans/public-menu.png` desde la raíz del repo.
 La revisión local previa cubrió tutorial y mesa, incluyendo los rótulos canvas.
 No se repitieron las suites automatizadas de gameplay en esta publicación tipográfica.
+
+
+## 12. Revisión del primer juego — 26/10/2026
+
+El usuario pidió arreglar urnas antes de la siguiente spec: título Las urnas, brillo
+sincronizado en urna/tarjeta, cartas ocultas con botón y respuestas verdes/rojas al comprobar,
+con explicaciones más simples. Rama de revisión codex/urn-feedback sobre fac1368, PR #6.
+Se conserva la tipografía sin serifa de bula393 y no se integra codex/doble-contracts.
+Ver [alcance y evidencia](urn-feedback.md); la corrección usa probabilidades antes de extraer,
+ambas cartas quedan verdes en empate y una buena decisión conserva verde aunque salga otro color.

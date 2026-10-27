@@ -41,3 +41,12 @@ reglas, RNG y persistencia en src/core/game.ts. Pruebas unitarias tests/unit/gam
 navegador tests/browser/mvp.spec.ts. Se conserva la separación núcleo/presentación sin crear
 wrappers vacíos sólo para reproducir los nombres propuestos en el plan. Validación de aprendizaje
 y diversión humana sigue pendiente; las marcas acreditan implementación y QA funcional.
+## Ajuste de usabilidad del primer juego — 2026-10-26
+
+Se mantiene esta spec activa; no se inicia la siguiente. Evidencia y contrato de presentación
+en docs/urn-feedback.md. Se conserva el núcleo matemático implementado.
+
+- [x] T010 Renombrar minijuego y simplificar consignas/tutorial/feedback en src/main.ts e index.html.
+- [x] T011 Plegar cartas y sincronizar selección con brillo mediante mouse/teclado en src/main.ts, src/style.css y src/presentation/scene.ts.
+- [x] T012 Evaluar en verde/rojo usando opciones óptimas previas, incluyendo empates y mala suerte en src/main.ts.
+- [x] T013 Verificar canvas, revisión tras reload, ocultar/mostrar y regresiones en tests/browser/urn-feedback.spec.ts y tests/browser/mvp.spec.ts.

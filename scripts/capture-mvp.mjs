@@ -2,7 +2,7 @@ import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:4173/';
-const destination = 'docs/evidence/runtime';
+const destination = process.env.EVIDENCE_DIR ?? 'docs/evidence/runtime';
 await mkdir(destination, { recursive: true });
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
@@ -26,7 +26,7 @@ try {
   await page.getByTestId('skip-intro').click();
   await page.getByTestId('enter-urns').click();
   await page.screenshot({ path: `${destination}/tutorial.png` });
-  await page.getByTestId('skip-tutorial').click();
+  await page.getByTestId('skip-tutorial').click(); await page.getByTestId('toggle-cards').click();
   await page.screenshot({ path: `${destination}/mvp-table.png` });
   await page.getByTestId('settings-button').click();
   await page.getByTestId('reduced-motion').check();

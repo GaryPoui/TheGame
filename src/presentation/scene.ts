@@ -1,7 +1,8 @@
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Scene } from '@babylonjs/core/scene';
 import { FreeCamera } from '@babylonjs/core/Cameras/freeCamera';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Vector3, Matrix } from '@babylonjs/core/Maths/math.vector';
+import { HighlightLayer } from '@babylonjs/core/Layers/highlightLayer';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color';
 import { DirectionalLight } from '@babylonjs/core/Lights/directionalLight';
 import { SpotLight } from '@babylonjs/core/Lights/spotLight';
@@ -9,6 +10,7 @@ import { ShadowGenerator } from '@babylonjs/core/Lights/Shadows/shadowGenerator'
 import { ImageProcessingConfiguration } from '@babylonjs/core/Materials/imageProcessingConfiguration';
 import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import '@babylonjs/core/Rendering/outlineRenderer';
+import '@babylonjs/core/Culling/ray';
 import { CreateLathe } from '@babylonjs/core/Meshes/Builders/latheBuilder';
 
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
@@ -41,6 +43,9 @@ export class GameScene {
   private currentFocus = this.focus.clone();
   private tokens: Mesh[] = [];
   private rings: Mesh[] = [];
+  private urnFrames: Mesh[][] = [[], []];
+  private selectionGlow: HighlightLayer;
+  private selectedUrn: number | null = null;
   private red: PBRMaterial;
   private blue: PBRMaterial;
   private brass: PBRMaterial;
@@ -51,6 +56,10 @@ export class GameScene {
     this.engine = new Engine(canvas, true, { stencil: true, preserveDrawingBuffer: true, antialias: true });
     this.engine.setHardwareScalingLevel(Math.max(1, window.devicePixelRatio / 1.5));
     this.scene = new Scene(this.engine);
+    this.selectionGlow = new HighlightLayer('selected-urn-glow', this.scene, { mainTextureRatio: .5 });
+    this.selectionGlow.innerGlow = false;
+    this.selectionGlow.blurHorizontalSize = 1.2;
+    this.selectionGlow.blurVerticalSize = 1.2;
     this.scene.clearColor = new Color4(0, 0, 0, 0);
     this.scene.ambientColor = new Color3(.025, .028, .026);
     this.scene.imageProcessingConfiguration.exposure = 1.05;
@@ -144,11 +153,12 @@ export class GameScene {
     const texture=new DynamicTexture('type-'+text,{width:single?256:1024,height:256},this.scene,false);
     texture.drawText(text,null,single?205:155,single?'bold 195px Arial, Helvetica, sans-serif':'bold 65px Arial, Helvetica, sans-serif',ink,bg,true,true);
     const mat=new StandardMaterial('label-'+text,this.scene);mat.diffuseTexture=texture;mat.emissiveColor=Color3.White();mat.disableLighting=true;
-    const plane=CreatePlane('label-'+text,{width,height},this.scene);plane.position.set(x,y,z);plane.material=mat;plane.isPickable=false;return plane;
+    const plane=CreatePlane('label-'+text,{width,height},this.scene);plane.position.set(x,y,z);plane.material=mat;plane.isPickable=false;this.selectionGlow.addExcludedMesh(plane);return plane;
   }
   private makeUrn(x:number):void {
     const index:0|1=x<0?0:1;
     const base=this.cylinder('urn-base',1.34,.12,[x,1.81,-.25],this.brass);base.metadata={urn:index};base.isPickable=true;
+    this.urnFrames[index]!.push(base);
     const glass=this.material('glass-'+index,'#ECF5F1',0,.09);glass.alpha=.10;glass.backFaceCulling=false;
     glass.indexOfRefraction=1.48;glass.transparencyMode=PBRMaterial.PBRMATERIAL_ALPHABLEND;
     glass.clearCoat.isEnabled=true;glass.clearCoat.intensity=1;glass.clearCoat.roughness=.06;
@@ -161,9 +171,13 @@ export class GameScene {
     for(const side of [-1,1]) {
       const edge=CreateTube('glass-ink-side',{path:[new Vector3(x+side*.58,1.86,-.25),new Vector3(x+side*.62,1.94,-.25),new Vector3(x+side*.62,3.04,-.25),new Vector3(x+side*.60,3.11,-.25)],radius:.012,tessellation:8},this.scene);
       edge.material=ink;edge.isPickable=false;
+      this.urnFrames[index]!.push(edge);
     }
     const rim=CreateTorus('urn-rim',{diameter:1.23,thickness:.055,tessellation:48},this.scene);rim.position.set(x,3.11,-.25);rim.material=this.brass;rim.isPickable=false;
-    const ring=CreateTorus('selection-ring',{diameter:1.5,thickness:.045,tessellation:48},this.scene);ring.position.set(x,1.79,-.25);ring.material=this.ivory;ring.isVisible=false;ring.isPickable=false;this.rings.push(ring);
+    this.urnFrames[index]!.push(rim);
+    const glowInk = new StandardMaterial('selection-ink-'+index,this.scene);
+    glowInk.emissiveColor=Color3.FromHexString('#FFE3A0');glowInk.disableLighting=true;
+    const ring=CreateTorus('selection-ring',{diameter:1.5,thickness:.065,tessellation:48},this.scene);ring.position.set(x,1.89,-.25);ring.material=glowInk;ring.isVisible=false;ring.isPickable=false;this.rings.push(ring);
     this.box('identification-plate',[.44,.25,.018],[x,1.94,-.94],this.brass);
     this.label(index===0?'U':'V',x,1.95,-.985,.28,.19,'#f0dfc0','#243b35');
   }
@@ -188,6 +202,9 @@ export class GameScene {
       });
     });
     this.rings.forEach((r,i)=>r.isVisible=i===selected);
+    this.selectedUrn=selected;
+    this.selectionGlow.removeAllMeshes();
+    if(selected!==null) this.urnFrames[selected]?.forEach(mesh=>this.selectionGlow.addMesh(mesh,Color3.FromHexString('#FFE3A0')));
     if(revealed){
       const t=CreateCylinder('revealed-'+revealed,{diameter:.53,height:.15,tessellation:revealed==='red'?3:32},this.scene);
       t.position.set(0,1.85,-1.5);t.material=revealed==='red'?this.red:this.blue;t.isPickable=false;
@@ -198,8 +215,14 @@ export class GameScene {
     this.reduced=settings.reducedMotion;this.camera.fov=Math.min(95,Math.max(45,settings.fov))*Math.PI/180;
   }
   /** A point-in-time renderer sample; no claim about other devices or a frame-time percentile. */
-  metrics():{meshCount:number;activeMeshCount:number;geometryTriangles:number;fps:number;renderWidth:number;renderHeight:number;renderer:string} {
+  metrics() {
+    const viewport=this.camera.viewport.toGlobal(this.engine.getRenderWidth(),this.engine.getRenderHeight());
+    const urnTargets=[-1.05,1.05].map(x=>{
+      const point=Vector3.Project(new Vector3(x,2.5,-.25),Matrix.Identity(),this.scene.getTransformMatrix(),viewport);
+      return {x:point.x/this.engine.getRenderWidth(),y:point.y/this.engine.getRenderHeight()};
+    });
     return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,
+      selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
       geometryTriangles:this.scene.meshes.reduce((total,mesh)=>total+mesh.getTotalIndices()/3,0),
       fps:this.engine.getFps(),renderWidth:this.engine.getRenderWidth(),renderHeight:this.engine.getRenderHeight(),
       renderer:this.engine.getGlInfo().renderer};

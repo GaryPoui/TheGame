@@ -16,6 +16,7 @@ let hasSave = restored.state !== null;
 let warning = restored.warning;
 let screen: Screen = 'menu';
 let selected: 0 | 1 | null = null;
+let cardsVisible = false;
 let introLine = 0;
 let introPhase: 'dark' | 'reveal' | 'lit' = 'dark';
 let introTimers: ReturnType<typeof setTimeout>[] = [];
@@ -43,7 +44,7 @@ let sceneWarning = '';
 let settings: Settings = structuredClone(restored.state?.settings ?? defaultSettings);
 let audio: AudioContext | null = null;
 let helpOpen = false;
-const chapterNames = ['El primer inventario', 'Todo vuelve a su sitio', 'Nada queda igual', 'Tu turno, sin pistas'];
+const chapterNames = ['Elegí dónde sacar', 'La ficha vuelve', 'La ficha queda afuera', 'Probá sin pistas'];
 const escapeText = (s: string) => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 const symbol = (color: 'red' | 'blue') => color === 'red' ? '▲' : '●';
 const colorName = (color: 'red' | 'blue') => color === 'red' ? 'roja' : 'azul';
@@ -78,18 +79,18 @@ function shortcutSelect(id: string, value: string): string {
 }
 function setScreen(next: Screen, focus?: string): void {
   if(next !== 'intro') stopIntro();
-  screen = next; selected = null; helpOpen = false;
+  screen = next; selected = null; helpOpen = false; cardsVisible = false;
   scene?.setMode(next === 'menu' || next === 'intro' ? 'menu' : next === 'room' || next === 'complete' ? 'room' : 'table', settings.reducedMotion);
   render(focus);
 }
 function header(): string {
-  return `<header class="topbar"><a href="#" class="brand" data-action="home" aria-label="Volver al inicio"><span class="brand-emblem" aria-hidden="true">◆</span><span>La Casa del Azar</span></a><span class="edition">El inventario de Vera <span class="edition-dot">/</span> Primer capítulo</span>${btn('settings-button', '<span aria-hidden="true">☷</span> Ajustes', 'quiet')}</header>`;
+  return `<header class="topbar"><a href="#" class="brand" data-action="home" aria-label="Volver al inicio"><span class="brand-emblem" aria-hidden="true">◆</span><span>La Casa del Azar</span></a><span class="edition">Las urnas de Vera <span class="edition-dot">/</span> Primer capítulo</span>${btn('settings-button', '<span aria-hidden="true">☷</span> Ajustes', 'quiet')}</header>`;
 }
 function badges(): string {
-  return `<div class="scoreboard"><span><i aria-hidden="true">✧</i> Decisiones <strong data-testid="merit">${state.merit}/8</strong></span><span><i aria-hidden="true">◈</i> Fichas de azar <strong data-testid="chance-tokens">${state.tokens}</strong></span></div>`;
+  return `<div class="scoreboard"><span><i aria-hidden="true">✧</i> Decisiones <strong data-testid="merit">${state.merit}/8</strong></span><span><i aria-hidden="true">◈</i> Fichas ganadas <strong data-testid="chance-tokens">${state.tokens}</strong></span></div>`;
 }
 function menu(): string {
-  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar<span class="title-period">.</span></h1><p class="menu-tagline">La suerte reparte.<br>Vos decidís qué hacer con ella.</p><p class="menu-description">Una sala cerrada, dos urnas y una anfitriona que lleva todas las cuentas. Tu primera prueba empieza en la mesa.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Retomar mi partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>El inventario de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para teclado y mouse</span></footer>`;
+  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar<span class="title-period">.</span></h1><p class="menu-tagline">La suerte reparte.<br>Vos decidís qué hacer con ella.</p><p class="menu-description">Una sala cerrada, dos urnas y una anfitriona que lleva todas las cuentas. Tu primera prueba empieza en la mesa.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Retomar mi partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>Las urnas de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para teclado y mouse</span></footer>`;
 }
 const intro = [
   ['El anfitrión', 'Una carta violeta se enciende en la oscuridad. El hombre del abrigo ya está frente a vos. «Ah… por fin. Tu libertad se juega acá. La suerte reparte; vos vas a tener que entender la mano».'],
@@ -102,23 +103,34 @@ function introView(): string {
   return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><span class="eyebrow">${dark ? 'Un momento antes…' : speaker}</span><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><div class="dialogue-actions">${btn('intro-next', introLine === 2 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}${btn('skip-intro', 'Saltar introducción', 'quiet')}</div><span class="page-count">${introLine + 1} / 3</span></section></main>`;
 }
 function room(): string {
-  return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. La puerta, por ahora, no.</p></section><section class="table-directory" aria-label="Mesas de la sala"><button class="table-entry available" data-testid="enter-urns"><span class="table-number">I</span><span><small>Disponible · Vera</small><strong>El inventario</strong><span>Urnas, probabilidades y lo que cambia al elegir.</span></span><span class="entry-arrow" aria-hidden="true">↗</span></button><div class="table-entry locked"><span class="table-number">II</span><span><small>Próximo capítulo · Doble</small><strong>Los contratos</strong><span>Promedios, dados y decisiones con riesgo.</span></span><span aria-hidden="true">◇</span></div><div class="table-entry locked"><span class="table-number">III</span><span><small>Próximo capítulo · Ada</small><strong>El archivo</strong><span>Muestras, registros y preguntas incómodas.</span></span><span aria-hidden="true">◇</span></div><p class="development-note">Este MVP incluye la primera mesa completa. Los otros encuentros y la salida final pertenecen a la campaña en desarrollo.</p></section></main>`;
+  return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. La puerta, por ahora, no.</p></section><section class="table-directory" aria-label="Mesas de la sala"><button class="table-entry available" data-testid="enter-urns"><span class="table-number">I</span><span><small>Disponible · Vera</small><strong>Las urnas</strong><span>Urnas, probabilidades y lo que cambia al elegir.</span></span><span class="entry-arrow" aria-hidden="true">↗</span></button><div class="table-entry locked"><span class="table-number">II</span><span><small>Próximo capítulo · Doble</small><strong>Los contratos</strong><span>Promedios, dados y decisiones con riesgo.</span></span><span aria-hidden="true">◇</span></div><div class="table-entry locked"><span class="table-number">III</span><span><small>Próximo capítulo · Ada</small><strong>El archivo</strong><span>Muestras, registros y preguntas incómodas.</span></span><span aria-hidden="true">◇</span></div><p class="development-note">Este MVP incluye la primera mesa completa. Los otros encuentros y la salida final pertenecen a la campaña en desarrollo.</p></section></main>`;
 }
 function tutorial(): string {
   const steps = [
-    ['Primero, mirá lo que hay.', 'Buscamos una ficha roja ▲. U tiene 3 rojas y 2 azules: 3 de sus 5 fichas sirven. V tiene una de cada color: 1 de 2. Elegir U ofrece 60 % frente a 50 %.', 'Elegir U en la demostración'],
-    ['Salió roja. Ahora falta una.', 'Esta extracción está preparada para enseñar. Quitamos una roja de U sin reponerla: quedan 2 rojas y 2 azules. La próxima roja ya no tiene 3/5 de probabilidad, sino 2/4.', 'Comparar las urnas otra vez'],
-    ['Una decisión nueva con datos nuevos.', 'Ahora U y V ofrecen lo mismo: 1/2. Cualquiera de las dos es una buena elección. Las partidas normales no están preparadas: el azar puede darte una ficha que no buscabas.', 'Empezar la primera ronda'],
+    ['Primero, mirá lo que hay.', 'Buscamos una ficha roja ▲. En U, 3 de las 5 fichas son rojas. En V, 1 de las 2 es roja. U te da más posibilidades de sacar roja: 60 % frente a 50 %.', 'Elegir U en la demostración'],
+    ['Salió roja. Ahora falta una.', 'En este ejemplo sacamos una roja de U y no la devolvemos. Quedan 2 rojas entre 4 fichas. Ahora tenés 2 posibilidades de 4 de sacar roja.', 'Comparar las urnas otra vez'],
+    ['Una decisión nueva con datos nuevos.', 'Ahora la mitad de las fichas de cada urna son rojas. Las dos opciones son correctas. En la partida, elegir bien ayuda, pero no asegura que salga el color que buscás.', 'Empezar la primera ronda'],
   ] as const;
   const [title, text, action] = steps[tutorialStep]!;
-  return `<main class="table-layout"><section class="table-heading"><p class="eyebrow">Antes de jugar</p><h1>El inventario de Vera</h1></section><aside class="game-panel tutorial-panel"><span class="prepared-label">Demostración preparada · ${tutorialStep + 1}/3</span><h2>${title}</h2><p>${text}</p><div class="tutorial-odds"><span>Urna U <b>${tutorialStep === 0 ? '3/5 · 60 %' : '2/4 · 50 %'}</b></span><span>Urna V <b>1/2 · 50 %</b></span></div><blockquote>«Lo que sacaste ya no está adentro. Mi contabilidad suele ser así de radical».</blockquote>${btn('tutorial-next', action, 'primary full')}${btn('skip-tutorial', 'Ya entendí, ir a la partida', 'text-button full')}</aside><div class="table-bottom-note">Las fichas rojas son triángulos ▲. Las azules son círculos ●.</div></main>`;
+  return `<main class="table-layout"><section class="table-heading"><p class="eyebrow">Antes de jugar</p><h1>Las urnas de Vera</h1></section><aside class="game-panel tutorial-panel"><span class="prepared-label">Demostración preparada · ${tutorialStep + 1}/3</span><h2>${title}</h2><p>${text}</p><div class="tutorial-odds"><span>Urna U <b>${tutorialStep === 0 ? '3/5 · 60 %' : '2/4 · 50 %'}</b></span><span>Urna V <b>1/2 · 50 %</b></span></div><blockquote>«Lo que sacaste ya no está adentro. Mi contabilidad suele ser así de radical».</blockquote>${btn('tutorial-next', action, 'primary full')}${btn('skip-tutorial', 'Ya entendí, ir a la partida', 'text-button full')}</aside><div class="table-bottom-note">Las fichas rojas son triángulos ▲. Las azules son círculos ●.</div></main>`;
 }
 function urnChoice(urn: Urn, index: 0 | 1): string {
   const p = probability(urn, state.event);
   const percent = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 1 }).format(100 * p.numerator / p.denominator);
   const choosing = state.phase === 'choose' || state.phase === 'guided';
-  const hinted = state.assisted && bestChoices(state).includes(index);
-  return `<button data-testid="urn-${index}" class="urn-option ${selected === index ? 'selected' : ''} ${hinted ? 'hinted' : ''}" aria-pressed="${selected === index}" ${!choosing ? 'disabled' : ''}><span class="urn-option-head"><strong>Urna ${index === 0 ? 'U' : 'V'}</strong><span>${selected === index ? '✓ Elegida' : hinted ? 'Elegí esta' : 'Elegir'}</span></span><span class="inventory"><span class="red-token">▲</span> ${urn.red} rojas <span class="blue-token">●</span> ${urn.blue} azules</span><span class="odds"><b>${p.numerator}/${p.denominator}</b><span>${state.round === 3 && !state.assisted && !helpOpen ? "Compará las fracciones" : `${percent} % de ${colorName(state.event)}`}</span></span></button>`;
+  const hinted = choosing && state.assisted && bestChoices(state).includes(index);
+  const reviewing = state.phase === 'revealed' && state.last !== null;
+  const picked = choosing ? selected === index : reviewing && state.last!.urn === index;
+  const correct = reviewing && state.last!.optimal.includes(index);
+  const verdict = reviewing ? correct ? '✓ Correcta' : '✕ Menos posibilidades' : hinted ? 'Elegí esta' : picked ? '✓ Elegida' : 'Elegir';
+  return `<button data-testid="urn-${index}" class="urn-option ${picked ? 'selected' : ''} ${hinted ? 'hinted' : ''} ${reviewing ? correct ? 'answer-correct' : 'answer-incorrect' : ''}" aria-pressed="${picked}" ${!choosing ? 'disabled' : ''}><span class="urn-option-head"><strong>Urna ${index === 0 ? 'U' : 'V'}</strong><span>${verdict}</span></span>${reviewing ? `<span class="choice-caption">Antes de sacar${picked ? ' · Tu elección' : ''}</span>` : ''}<span class="inventory"><span class="red-token">▲</span> ${urn.red} rojas <span class="blue-token">●</span> ${urn.blue} azules</span><span class="odds"><b>${p.numerator} de ${p.denominator}</b><span>${state.round === 3 && !state.assisted && !helpOpen && !reviewing ? 'Compará cuánto hay del color que buscás' : `${percent} % de ${colorName(state.event)}`}</span></span></button>`;
+}
+function urnCards(): string {
+  const reviewing = state.phase === 'revealed';
+  const urns = structuredClone(state.urns);
+  if (reviewing && state.last && !state.replacement) urns[state.last.urn][state.last.color]++;
+  const visible = cardsVisible || reviewing;
+  return `${reviewing ? '<p class="review-label">Compará tu elección</p>' : `<button data-testid="toggle-cards" class="cards-toggle" aria-expanded="${visible}" aria-controls="urn-cards" ${reviewing ? 'disabled' : ''}>${visible ? 'Ocultar cartas' : 'Mostrar cartas de las urnas'}</button>`}<div id="urn-cards" class="urn-options" ${visible ? '' : 'hidden'}>${urnChoice(urns[0],0)}${urnChoice(urns[1],1)}</div>`;
 }
 function feedback(): string {
   const last = state.last;
@@ -126,18 +138,18 @@ function feedback(): string {
   const success = last.color === state.event;
   const p = last.beforeProbability;
   const outcome = `Salió una ficha ${colorName(last.color)} ${symbol(last.color)}.`;
-  const judgment = last.correct ? 'Buena decisión.' : 'Tu plan puede mejorar.';
-  const why = last.correct ? (success ? 'Elegiste una de las urnas con mayor probabilidad del evento.' : 'Elegiste la mayor probabilidad. Eso no prometía certeza: esta vez el resultado no acompañó.') : (success ? 'La ficha ayudó, pero otra urna ofrecía una probabilidad mayor. La suerte y el razonamiento son cosas distintas.' : 'Otra urna ofrecía una probabilidad mayor. Mirá el número de fichas favorables y el total antes de elegir de nuevo.');
-  return `<section class="result-card" data-testid="result-feedback"><span class="result-token ${last.color}-token" aria-hidden="true">${symbol(last.color)}</span><h2>${outcome}</h2><p class="decision-verdict">${judgment} ${state.assisted ? 'Práctica con ayuda.' : last.correct ? '+1 mérito.' : '+0 méritos.'}</p><p>${why}</p><p class="small-note">Antes de extraer: ${p.numerator}/${p.denominator}. ${state.replacement ? 'La ficha volvió a su urna: el inventario no cambia.' : 'La ficha queda afuera: el inventario ya está actualizado.'}</p></section>`;
+  const judgment = last.correct ? '¡Elegiste bien!' : 'Había una opción mejor.';
+  const why = last.correct ? (last.optimal.length === 2 ? 'Las dos urnas daban las mismas posibilidades. Cualquiera servía.' : success ? 'Elegiste la urna con más posibilidades y salió el color que buscabas.' : 'Elegiste la urna con más posibilidades. Esta vez salió otro color: eso puede pasar aunque elijas bien.') : (success ? 'Salió el color que buscabas, pero la otra urna daba más posibilidades. Esta vez tuviste suerte.' : 'La otra urna daba más posibilidades de sacar el color que buscabas. Mirá la carta verde para comparar.');
+  return `<section class="result-card ${last.correct ? 'choice-right' : 'choice-wrong'}" data-testid="result-feedback"><span class="result-token ${last.color}-token" aria-hidden="true">${symbol(last.color)}</span><h2>${outcome}</h2><p class="decision-verdict">${judgment} ${state.assisted ? 'Práctica con ayuda.' : last.correct ? '+1 punto.' : '+0 puntos.'}</p><p>${why}</p><p class="small-note">Tu urna tenía ${p.numerator} ${p.numerator === 1 ? 'ficha' : 'fichas'} del color buscado entre ${p.denominator} en total. ${state.replacement ? 'Devolvimos la ficha: las cantidades no cambian.' : 'La ficha quedó afuera. Las urnas ya muestran lo que queda.'}</p></section>`;
 }
 function table(): string {
   const choosing = state.phase === 'choose' || state.phase === 'guided';
   const isSummary = state.phase === 'roundEnd';
   const title = state.assisted ? `Práctica guiada ${state.round + 1}/2` : chapterNames[state.round];
-  return `<main class="table-layout"><section class="table-heading"><p class="eyebrow">Mesa I · Vera, la inventarista</p><h1>El inventario</h1><p class="round-context" data-testid="round-label">${state.assisted ? title : `Ronda ${state.round + 1} de 4 · ${title}`}</p>${badges()}</section><aside class="game-panel"><div class="round-progress" aria-label="${state.assisted ? 'Práctica guiada' : `Ronda ${state.round + 1} de cuatro`}">${[0,1,2,3].map(i => `<span class="${i <= state.round ? 'filled' : ''}"></span>`).join('')}</div><div class="objective-label">${state.assisted ? 'Demostración preparada · con ayuda' : `Extracción ${state.step + 1} de 2`}</div><h2 class="objective">Buscá una ficha <span class="${state.event}-token">${colorName(state.event)} ${symbol(state.event)}</span></h2><p class="rule-tag">${state.replacement ? '↻ Con reposición' : '↗ Sin reposición'} <span>${state.replacement ? 'Cada ficha vuelve a la urna.' : 'La ficha extraída queda afuera.'}</span></p>${choosing ? `<p class="decision-prompt">${state.step === 0 ? 'Mirá las proporciones. ¿De cuál preferís sacar?' : state.replacement ? 'El inventario se conserva. Volvé a comparar antes de decidir.' : 'El inventario cambió. Volvé a comparar antes de decidir.'}</p><div class="urn-options">${urnChoice(state.urns[0],0)}${urnChoice(state.urns[1],1)}</div>${btn('confirm-choice', selected === null ? 'Elegí una urna para continuar' : `Extraer de la urna ${selected === 0 ? 'U' : 'V'}`, 'primary full', selected === null)}<p class="small-note">${state.assisted ? 'La ayuda resalta una elección válida. Completá cuatro acciones para continuar.' : 'El mérito depende de tu elección; las fichas, del azar.'}</p>` : `${isSummary ? `<section class="round-summary"><span class="summary-mark" aria-hidden="true">✧</span><h2>Una ronda más clara.</h2><p>${state.assisted ? 'Terminaste este escenario preparado.' : state.round === 3 ? state.merit >= 6 ? 'Tus decisiones alcanzaron el sello de Vera.' : 'Te falta un poco de práctica. Vera preparó dos escenarios cortos para ayudarte.' : 'Los próximos inventarios empiezan de cero. Lo que aprendiste se queda con vos.'}</p>${badges()}</section>` : feedback()}${btn('next-step', isSummary ? state.round === 3 || (state.assisted && state.round === 1) ? 'Ver mi resultado' : 'Siguiente ronda' : state.step === 0 ? 'Volver a decidir' : 'Cerrar la ronda', 'primary full')}`}${helpOpen ? `<div class="help-note"><strong>La cuenta de Vera</strong><p>Probabilidad = fichas del color buscado / total de fichas. Compará proporciones, no sólo cantidades. Si ambas proporciones son iguales, ambas urnas sirven. ${state.replacement ? 'Con reposición, el inventario se conserva.' : 'Sin reposición, quitá la ficha que viste antes de volver a comparar.'}</p></div>` : ''}<div class="panel-footer">${btn('help-button', helpOpen ? 'Cerrar ayuda' : '¿Cómo comparo?', 'text-button')}${btn('back-room', 'Volver a la sala', 'text-button')}</div></aside><div class="table-bottom-note"><span class="speaker-dot"></span> Vera <span>«Una ficha no sabe nada de tus méritos».</span></div></main>`;
+  return `<main class="table-layout"><section class="table-heading"><p class="eyebrow">Mesa I · Vera, la inventarista</p><h1>Las urnas</h1><p class="round-context" data-testid="round-label">${state.assisted ? title : `Ronda ${state.round + 1} de 4 · ${title}`}</p>${badges()}</section><aside class="game-panel"><div class="round-progress" aria-label="${state.assisted ? 'Práctica guiada' : `Ronda ${state.round + 1} de cuatro`}">${[0,1,2,3].map(i => `<span class="${i <= state.round ? 'filled' : ''}"></span>`).join('')}</div><div class="objective-label">${state.assisted ? 'Demostración preparada · con ayuda' : `Extracción ${state.step + 1} de 2`}</div><h2 class="objective">Buscá una ficha <span class="${state.event}-token">${colorName(state.event)} ${symbol(state.event)}</span></h2><p class="rule-tag">${state.replacement ? '↻ La ficha vuelve' : '↗ La ficha queda afuera'} <span>${state.replacement ? 'Cada ficha vuelve a la urna.' : 'La ficha extraída queda afuera.'}</span></p>${choosing ? `<p class="decision-prompt">${state.step === 0 ? '¿Qué urna te da más posibilidades? Tocá una urna o mostrá sus cartas.' : state.replacement ? 'Devolvimos la ficha. Las cantidades siguen iguales: elegí otra vez.' : 'Hay una ficha menos. Mirá lo que queda y elegí otra vez.'}</p>${urnCards()}${btn('confirm-choice', selected === null ? 'Elegí una urna para continuar' : `Comprobar y sacar de ${selected === 0 ? 'U' : 'V'}`, 'primary full', selected === null)}<p class="small-note">${state.assisted ? 'La ayuda resalta una elección válida. Completá cuatro acciones para continuar.' : 'Ganás un punto por elegir bien, aunque salga otro color.'}</p>` : `${isSummary ? `<section class="round-summary"><span class="summary-mark" aria-hidden="true">✧</span><h2>Una ronda más clara.</h2><p>${state.assisted ? 'Terminaste este escenario preparado.' : state.round === 3 ? state.merit >= 6 ? 'Tus decisiones alcanzaron el sello de Vera.' : 'Te falta un poco de práctica. Vera preparó dos escenarios cortos para ayudarte.' : 'La próxima ronda empieza con fichas nuevas. Podés usar lo que aprendiste.'}</p>${badges()}</section>` : urnCards() + feedback()}${btn('next-step', isSummary ? state.round === 3 || (state.assisted && state.round === 1) ? 'Ver mi resultado' : 'Siguiente ronda' : state.step === 0 ? 'Volver a decidir' : 'Cerrar la ronda', 'primary full')}`}${helpOpen ? `<div class="help-note"><strong>La cuenta de Vera</strong><p>Contá las fichas del color que buscás y todas las fichas de la urna. Por ejemplo: 3 rojas entre 5 fichas significa 3 de 5. Elegí la urna donde ese color ocupe una parte mayor. Si la parte es igual en ambas, las dos sirven. ${state.replacement ? 'Si devolvés la ficha, las cantidades no cambian.' : 'Si la ficha queda afuera, contá sólo las que quedan.'}</p></div>` : ''}<div class="panel-footer">${btn('help-button', helpOpen ? 'Cerrar ayuda' : '¿Cómo comparo?', 'text-button')}${btn('back-room', 'Volver a la sala', 'text-button')}</div></aside><div class="table-bottom-note"><span class="speaker-dot"></span> Vera <span>«Una ficha no sabe nada de tus méritos».</span></div></main>`;
 }
 function complete(): string {
-  return `<main class="completion-layout" data-testid="completion"><section class="completion-card"><div class="seal" aria-hidden="true">✧</div><p class="eyebrow">Mesa I completada</p><h1>Vera firma<br>tu inventario.</h1><p class="completion-quote">«El azar hizo su trabajo.<br>Ahora vos también sabés hacer el tuyo».</p>${badges()}<p>${state.assisted ? 'Completaste la práctica guiada. Tu sello indica «con ayuda»; podés volver a intentarlo para practicar sin pistas.' : 'Lograste el sello con tus decisiones. Incluso una buena elección puede tener un resultado desfavorable.'}</p><div class="learning-summary"><span>Práctica: comparar proporciones</span><span>Práctica: actualizar después de observar</span><span>Práctica: separar el plan de la suerte</span></div><p class="small-note">Este sello registra tus decisiones, no certifica dominio. Este es el final del primer capítulo disponible; los otros encuentros siguen en desarrollo.</p>${btn('practice-again', 'Volver a practicar', 'primary full')}${btn('back-room', 'Explorar la sala', 'text-button full')}</section></main>`;
+  return `<main class="completion-layout" data-testid="completion"><section class="completion-card"><div class="seal" aria-hidden="true">✧</div><p class="eyebrow">Mesa I completada</p><h1>Completaste<br>las urnas.</h1><p class="completion-quote">«El azar hizo su trabajo.<br>Ahora vos también sabés hacer el tuyo».</p>${badges()}<p>${state.assisted ? 'Completaste la práctica guiada. Tu sello indica «con ayuda»; podés volver a intentarlo para practicar sin pistas.' : 'Lograste el sello con tus decisiones. Incluso una buena elección puede tener un resultado desfavorable.'}</p><div class="learning-summary"><span>Práctica: comparar proporciones</span><span>Práctica: actualizar después de observar</span><span>Práctica: separar el plan de la suerte</span></div><p class="small-note">Este sello registra tus decisiones, no certifica dominio. Este es el final del primer capítulo disponible; los otros encuentros siguen en desarrollo.</p>${btn('practice-again', 'Volver a practicar', 'primary full')}${btn('back-room', 'Explorar la sala', 'text-button full')}</section></main>`;
 }
 function render(focusId?: string): void {
   document.body.dataset.screen = screen;
@@ -151,11 +163,11 @@ function render(focusId?: string): void {
 }
 function updateVisual(): void {
   const urns: Urn[] = screen === 'tutorial' ? [{red:tutorialStep === 0 ? 3 : 2,blue:2},{red:1,blue:1}] : state.urns;
-  scene?.updateUrns(urns, selected, screen === 'tutorial' && tutorialStep > 0 ? 'red' : state.phase === 'revealed' ? state.last?.color : undefined);
+  scene?.updateUrns(urns, screen === 'table' && state.phase === 'revealed' ? state.last?.urn ?? null : selected, screen === 'tutorial' && tutorialStep > 0 ? 'red' : state.phase === 'revealed' ? state.last?.color : undefined);
 }
 function commitSelection(index: 0 | 1): void {
   if (screen !== 'table' || !['choose','guided'].includes(state.phase)) return;
-  selected = index; render(`urn-${index}`);
+  selected = index; cardsVisible = true; render(`urn-${index}`);
 }
 function startNew(): void {
   state = createGame(); state.settings = structuredClone(settings); persist(); introLine = 0;
@@ -164,7 +176,7 @@ function startNew(): void {
 function enterTable(): void {
   if (state.phase === 'complete') { setScreen('complete', 'practice-again'); return; }
   if (!state.history.length) { tutorialStep = 0; setScreen('tutorial', 'tutorial-next'); }
-  else setScreen('table', state.phase === 'revealed' || state.phase === 'roundEnd' ? 'next-step' : 'urn-0');
+  else setScreen('table', state.phase === 'revealed' || state.phase === 'roundEnd' ? 'next-step' : 'toggle-cards');
 }
 function showDialog(title: string, content: string): HTMLDialogElement {
   const previous = document.activeElement as HTMLElement | null;
@@ -197,16 +209,17 @@ app.addEventListener('click', event => {
     if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p>${btn('confirm-new-game','Empezar de nuevo','primary full')}`); return; }
     startNew(); return;
   }
-  if (id === 'continue-game') { setScreen(state.phase === 'complete' ? 'complete' : 'table', state.phase === 'choose' || state.phase === 'guided' ? 'urn-0' : 'next-step'); return; }
+  if (id === 'continue-game') { setScreen(state.phase === 'complete' ? 'complete' : 'table', state.phase === 'choose' || state.phase === 'guided' ? 'toggle-cards' : 'next-step'); return; }
   if (id === 'skip-intro' || (id === 'intro-next' && introLine === 2)) { setScreen('room','enter-urns'); return; }
   if (id === 'intro-next') { stopIntro(); introPhase = 'lit'; introLine++; render('intro-next'); return; }
   if (id === 'enter-urns') { enterTable(); return; }
   if (id === 'tutorial-next') {
     if (tutorialStep < 2) { tutorialStep++; chime(); render('tutorial-next'); }
-    else setScreen('table','urn-0');
+    else setScreen('table','toggle-cards');
     return;
   }
-  if (id === 'skip-tutorial') { setScreen('table','urn-0'); return; }
+  if (id === 'skip-tutorial') { setScreen('table','toggle-cards'); return; }
+  if (id === 'toggle-cards') { cardsVisible = !cardsVisible; render('toggle-cards'); return; }
   if (id === 'urn-0' || id === 'urn-1') { commitSelection(id === 'urn-0' ? 0 : 1); return; }
   if (id === 'confirm-choice' && selected !== null) {
     const next = choose(state,selected);
@@ -215,9 +228,9 @@ app.addEventListener('click', event => {
     announce(`Salió ${colorName(state.last!.color)}. ${state.last!.correct ? 'Buena decisión.' : 'Revisá las proporciones.'}`); return;
   }
   if (id === 'next-step') {
-    state = advance(state); selected = null; persist();
+    state = advance(state); selected = null; cardsVisible = false; persist();
     if (state.phase === 'complete') setScreen('complete','practice-again');
-    else render(state.phase === 'roundEnd' ? 'next-step' : 'urn-0'); return;
+    else render(state.phase === 'roundEnd' ? 'next-step' : 'toggle-cards'); return;
   }
   if (id === 'back-room') { persist(); setScreen('room','enter-urns'); return; }
   if (id === 'help-button') { helpOpen = !helpOpen; render('help-button'); }

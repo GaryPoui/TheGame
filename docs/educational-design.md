@@ -11,7 +11,10 @@ Victoria de cada mesa: 6/8 méritos tras cuatro rondas; derrota pedagógica: men
 
 Los asistentes sólo reciben estado público, objetivo, historial observado y política identificada; no reciben semilla, estado interno RNG ni futuros. La política es reproducible: explicar la acción con mayor utilidad del objetivo; empate se enumera por ID; dificultad añade combinaciones, nunca engaño matemático. Telemetría local propuesta: escenario, elección, ayudas y méritos; no registrar datos personales.
 
-## 1. Urnas: «El inventario de Vera»
+## 1. Urnas: «Las urnas de Vera»
+
+Presentación revisada el 2026-10-26: [cartas y evaluación visual](urn-feedback.md).
+La corrección usa el estado previo a la extracción; los empates admiten ambas opciones.
 
 **Materiales e inicio.** Dos urnas etiquetadas U y V, fichas R/triángulo y A/círculo, bandeja de extraídas y dos marcadores de contrato. Cada ronda repone contenidos de su fila. Inventario completo visible; sólo próxima extracción oculta. No existen fichas indistinguibles con pesos distintos.
 

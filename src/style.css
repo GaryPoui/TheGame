@@ -52,3 +52,20 @@ body[data-screen=intro][data-intro-phase=dark] .dialogue-card h1{font-size:1.65r
 [data-screen=intro][data-speaker=vera] #captor{display:none}
 [data-screen=intro][data-speaker=vera] #intro-vera{display:block}
 @media(max-width:700px){#intro-vera{right:-5%;bottom:34%;width:80vw;height:54vh}}
+/* Urn choices: one shared selection in the scene and its card. */
+.urn-options[hidden]{display:none}
+.cards-toggle{width:100%;min-height:44px;margin:0 0 .8rem;padding:.65rem .8rem;border:2px solid #746052;border-radius:8px;background:#f8ecd4;color:#30252c;text-align:left;font-weight:700;font-size:.78rem}
+.cards-toggle:disabled{opacity:1;cursor:default}
+.urn-option.selected{border-color:#8a5f17;box-shadow:0 0 0 2px #ffe3a0,0 0 18px 4px #d99c4799;background:#fff0cc}
+.choice-caption{font-size:.62rem;line-height:1.4;font-weight:700}
+.urn-option.answer-correct{background:#d9efdc;border:2px solid #246c38;color:#153d20;opacity:1;box-shadow:none}
+.urn-option.answer-incorrect{background:#f7dcd8;border:2px solid #a63831;color:#651e19;opacity:1;box-shadow:none}
+.urn-option.answer-correct.selected{box-shadow:0 0 0 2px #246c38}
+.urn-option.answer-incorrect.selected{box-shadow:0 0 0 2px #a63831}
+.urn-option.answer-correct .odds>span,.urn-option.answer-incorrect .odds>span{color:inherit}
+.urn-option.answer-correct .urn-option-head>span,.urn-option.answer-incorrect .urn-option-head>span{font-weight:700;font-size:.62rem}
+.urn-option .odds b{font-size:1.35rem}
+.review-label{font-weight:700;font-size:.8rem;margin:0 0 .7rem}
+.urn-option.answer-correct .urn-option-head,.urn-option.answer-incorrect .urn-option-head{display:flex;flex-direction:column;align-items:flex-start;gap:.4rem}
+.result-card.choice-wrong .decision-verdict{color:#8b2924}
+.result-card.choice-right .decision-verdict{color:#246437}

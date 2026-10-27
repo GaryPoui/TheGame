@@ -1,5 +1,13 @@
 # Continuidad del proyecto
 
+## Ajustes del primer juego — 2026-10-26
+
+El usuario pidió centrarse en urnas antes de otra spec. Ver [selección y feedback](urn-feedback.md):
+título Las urnas, cartas plegables, brillo sincronizado tarjeta/urna y corrección verde/roja
+según la decisión anterior a extraer. Se incorporó la tipografía sin serifa del remoto
+fac1368 antes de crear codex/urn-feedback. Sin cambios al RNG, reglas o esquema de guardado.
+
+
 ## Teatro de tinta — 2026-10-23
 
 El usuario corrigió la dirección: referencia Cuphead más tranquila, oscuridad inicial y captor
@@ -112,3 +120,8 @@ https://github.com/GaryPoui/TheGame/pull/4. 11/11 pruebas públicas y 123/123 ar
 El usuario pidió subir el avance y el cierre al repositorio: avance en `ba95833` y registro
 final en el commit siguiente. Fuente y documentación en `codex/ink-theatre`. Próximo trabajo:
 revisión humana de la dirección visual y actuaciones por estados antes de ampliar campaña.
+
+
+Cierre de ajustes de urnas (2026-10-26): fuente 29c4148, deployment 1e6bfd4, PR #6.
+14/14 pruebas públicas y 138/138 archivos verificados; detalle en docs/urn-feedback.md.
+La siguiente spec no se inició. Se conserva el progreso y el régimen matemático del MVP.

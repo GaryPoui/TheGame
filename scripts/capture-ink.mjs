@@ -1,7 +1,7 @@
 import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:4174/';
-const out = 'docs/evidence/ink';
+const out = process.env.EVIDENCE_DIR ?? 'docs/evidence/ink';
 await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
@@ -21,7 +21,7 @@ try {
   await page.screenshot({ path: `${out}/final-intro.png` });
   await page.getByTestId('skip-intro').click();
   await page.getByTestId('enter-urns').click();
-  await page.getByTestId('skip-tutorial').click();
+  await page.getByTestId('skip-tutorial').click(); await page.getByTestId('toggle-cards').click();
   await page.waitForTimeout(1500);
   await page.screenshot({ path: `${out}/final-table.png` });
   const metrics = await page.evaluate(() => window.__THEGAME_METRICS__?.());
