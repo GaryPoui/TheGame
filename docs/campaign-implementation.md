@@ -32,7 +32,7 @@ Se verificaron 92 archivos de skills sin cambios. Se leyeron y aplicaron speckit
 
 La suite nueva de navegador cubrió la ruta Ada→anfitrión→calle, recarga con resultado confirmado, conservación de libertad al practicar, ayuda en ambas mesas, requisitos, teclado en silencio, 390 px con texto al 200 % y conflicto de otra pestaña. Capturas en `docs/evidence/campaign/`. Se corrigió el desborde del encabezado en la combinación de texto grande y ventana angosta. El ensayo opcional exige abrir su desplegable; la prueba lo reproduce como lo haría el jugador.
 
-Retrato nuevo: `public/art/ada-v1.png`, generado con herramienta integrada usando Vera como referencia, con transparencia comprobada y sin modificar assets anteriores. Prompt y procedencia en [manifiesto](../public/ada-art-v1.json). Se conserva la familia de tinta, papel y colores.
+Retrato nuevo: `public/art/ada-v1.png`, generado con herramienta integrada usando Vera como referencia, con transparencia comprobada y sin modificar assets anteriores. Prompt y procedencia en [manifiesto](../public/ada-art-v1.json); [prompt exacto y archivo final](ada-generation-prompt.md). Se conserva la familia de tinta, papel y colores.
 
 ## Apertura, diálogos y controles
 
@@ -81,3 +81,15 @@ La revisión de recuperación detectó y corrigió dos bordes adicionales: despu
 Un diagnóstico adicional de Chromium sin forzar SwiftShader también devolvió renderer de software en este entorno. Por eso la prueba con GPU física permanece abierta; no se identifica el renderer de software como GPU del usuario.
 
 Publicación v5.1 comprobada: source 7c74ded, deployment 69610f7, 143/143 archivos por hash y 24/24 casos en HTTPS sin errores ni casos inestables. Informe automático: `docs/evidence/campaign/public-browser-v5.1.json`. La corrección posterior de dos checkpoints aprobó sus dos casos locales; la entrega final conserva estos registros y añade su comprobación propia.
+
+## Entrega pública final — 2026-10-27
+
+Versión `campaign-complete-v5.2`, fuente `93c7e429d716b891bdccd0e8e874b10001f612f9`, deployment `8ea900381a026c521d4b08f62c22e1f966483c9e`. [Jugar](https://garypoui.github.io/TheGame/), [PR #7](https://github.com/GaryPoui/TheGame/pull/7), sin merge automático. GitHub Pages confirmó build lista y HTTPS obligatorio.
+
+Validación final sobre esa URL: 143/143 archivos coinciden con los hashes de `build-report-final.json`; 24/24 casos públicos aprobaron, cero errores, omitidos o casos inestables. Resultado de navegador en `public-browser-results.json` e integridad en `public-integrity-final.json`, dentro de `docs/evidence/campaign/`. La suite unitaria sigue en 32/32 y el diseño matemático en 64 comprobaciones.
+
+Hay 95 tareas originales completadas y una tarea adicional externa abierta (010/T011). El puntero local de Spec Kit está en 010; en otro clon debe seleccionarse explícitamente, sin inferirlo de la rama. Las capturas intermedias quedaron locales, conservadas y excluidas del versionado; el [índice de capturas](evidence/campaign/capture-index.md) identifica la evidencia final.
+
+`delivery.json` identifica la fuente que produjo la build; el commit de este registro es posterior para evitar autorreferencia. Los commits de avance están en la rama y el PR.
+
+CI de la fuente publicada 93c7e42: aprobada en GitHub, incluyendo instalación limpia, skills, documentos, matemática, unitarias, build y 24 casos de navegador. [Ejecución 40443839814](https://github.com/GaryPoui/TheGame/actions/runs/40443839814). El cierre siguiente sólo agrega documentos y capturas; no cambia la build publicada.

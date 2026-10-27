@@ -11,3 +11,7 @@ __pycache__/
 .tools/
 test-results/
 playwright-report/
+# Superseded local screenshot runs; reviewed release evidence stays versioned.
+/docs/evidence/campaign/quality/
+/docs/evidence/campaign/regression/
+/docs/evidence/campaign/final-local/

@@ -163,3 +163,5 @@ revisión humana de la dirección visual y actuaciones por estados antes de ampl
 Cierre de ajustes de urnas (2026-10-26): fuente 29c4148, deployment 1e6bfd4, PR #6.
 14/14 pruebas públicas y 138/138 archivos verificados; detalle en docs/urn-feedback.md.
 La siguiente spec no se inició. Se conserva el progreso y el régimen matemático del MVP.
+
+Cierre de campaña 2026-10-27: v5.2, fuente 93c7e42, deployment 8ea9003, PR #7. Las tres mesas y el final están publicados, con 32 unitarias, 24 recorridos públicos y 143 hashes correctos. Pendiente real: 010/T011, validación humana y con hardware/red representativos. Ver docs/campaign-implementation.md y delivery.json.
