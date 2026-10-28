@@ -390,3 +390,8 @@ Cierre 27/10/2026: la campaña final v5.2 está publicada en https://garypoui.gi
 ## 15. Mesas protagonistas — 2026-10-28
 
 El usuario pidió que las mesas fueran el centro de atención, con objetos de juego más claros y utilería propia de cada puesto. Se conserva la dirección actual: tablero amplio con marco de madera y paño, personajes en el borde, instrucciones al costado y opciones sobre la superficie. Vera recibe bandeja, pala e inventario; Doble, bandeja de dados, contratos y fichas; Ada, escritorio con archivo y sello; el anfitrión combina urnas, dados y registros en sus tres rondas. Se reutiliza un solo canvas, sin recrear motor ni consumir azar al seleccionar. Las reglas, sellos y guardado se conservan. Validación local: 32 unitarias y 28 recorridos de navegador. Detalle, procedencia y comprobación de publicación en [mesas](table-focus.md).
+
+
+## Vuelta al diseño anterior de mesa — 2026-10-28
+
+El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente la presentación de 2adb98e (campaña v5.2), conservando reglas, progreso y guardado. La revisión de mesas protagonistas queda como antecedente descartado.

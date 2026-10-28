@@ -98,3 +98,8 @@ CI de la fuente publicada 93c7e42: aprobada en GitHub, incluyendo instalación l
 ## Revisión de las mesas — 2026-10-28
 
 La entrega posterior `table-focus-v6` hace protagonistas a los tableros, coloca cartas/contratos/registros sobre el paño y añade utilería propia de cada puesto. El final muestra objetos de sus tres pruebas. Se mantienen reglas y guardado. Fuente d9c4f82, deployment b264adc, PR #7. Validación: 32 unitarias, 28 recorridos locales y CI, 7 pruebas públicas y 143 hashes verificados. Detalle y capturas en [mesas](table-focus.md). La evidencia v5.2 de las secciones anteriores conserva su alcance histórico.
+
+
+## Vuelta al diseño anterior de mesa — 2026-10-28
+
+El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente la presentación de 2adb98e (campaña v5.2), conservando reglas, progreso y guardado. La revisión de mesas protagonistas queda como antecedente descartado.

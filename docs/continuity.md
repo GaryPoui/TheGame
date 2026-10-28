@@ -1,5 +1,9 @@
 # Continuidad del proyecto
 
+## Restauración solicitada — 2026-10-28
+
+El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente la presentación de 2adb98e (campaña v5.2), conservando reglas, progreso y guardado. La revisión de mesas protagonistas queda como antecedente descartado.
+
 ## Mesas protagonistas — 2026-10-28
 
 El usuario pidió centrar la atención en las mesas y agregar objetos relacionados con cada juego. Se implementa en la rama vigente `codex/complete-campaign` / PR #7: tableros amplios, consignas sobre el paño, opciones junto a objetos, personajes secundarios y bandejas/inventarios/utilería por puesto. Las tres fases del final usan objetos reales de su desafío. Ver [composición y validación](table-focus.md). Regresión local: 32 unitarias y 28 casos de navegador aprobados. La tarea externa 010/T011 sigue abierta.

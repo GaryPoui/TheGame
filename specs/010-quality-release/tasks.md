@@ -42,3 +42,5 @@ Entrega mínima: US1 con fixtures y validación local. Luego US2 y recuperación
 ## Revisión de composición solicitada — 2026-10-28
 
 - [x] T012 Dar protagonismo a los tableros, encuadrar urnas/dados sin paneles encima y añadir utilería propia de cada mesa; conservar reglas, guardado y selección sincronizada. Validación de cuatro recorridos nuevos y regresión de campaña en docs/table-focus.md.
+
+T012 se implementó y luego se revirtió a pedido explícito del usuario el 2026-10-28. La presentación vigente vuelve al diseño previo; las capturas de table-focus son históricas.

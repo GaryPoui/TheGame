@@ -19,7 +19,7 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 
 [Mejoras de selección y explicaciones del primer juego](docs/urn-feedback.md).
 
-[Mesas protagonistas, objetos y encuadre de la partida](docs/table-focus.md).
+[Registro de la revisión de mesas y vuelta al diseño anterior](docs/table-focus.md).
 
 ## Mapa de lectura
 

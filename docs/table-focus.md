@@ -1,5 +1,9 @@
 # Mesas como centro de la partida — 2026-10-28
 
+## Restauración solicitada — 2026-10-28
+
+El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente la presentación de 2adb98e (campaña v5.2), conservando reglas, progreso y guardado. La revisión de mesas protagonistas queda como antecedente descartado.
+
 Pedido: dar protagonismo a las mesas, hacer legible lo que se juega y agregar objetos propios de cada desafío. Se conserva el teatro de tinta, la paleta y toda la campaña.
 
 ## Composición y objetos

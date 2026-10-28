@@ -13,15 +13,7 @@
       "id": "interactive-table",
       "source": "src/presentation/scene.ts",
       "origin": "Project procedural outlined meshes and canvas labels",
-      "license": "Project owner's rights",
-      "notes": "2026-10-28: original extraction tray, brass scoop, inventory notebook/pencil, dice tray/rails, unsigned papers, pen and prop counters. Counters are decorative, never payout evidence."
-    },
-    {
-      "id": "tabletop-desk-props",
-      "source": "src/ui/tabletop.ts; src/ui/tabletop.css",
-      "origin": "Original code-drawn table rims, felt, ink bottle, pen, folders, stamp, cards and desk props",
-      "license": "Project owner's rights",
-      "notes": "Decorative props use aria-hidden. Actual observations, choices and resolved dice remain driven by session state. Existing character illustrations are reused under their original provenance."
+      "license": "Project owner's rights"
     },
     {
       "id": "confirmation-tones",
