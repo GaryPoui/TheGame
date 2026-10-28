@@ -17,5 +17,11 @@ for(const answer of ['yes','no'])test(`initial ${answer} is unscored, survives r
  await page.reload();await page.getByTestId('continue-game').click();await expect(page.getByTestId('records-diagnostic-feedback')).toContainText(answer==='yes'?'Elegiste Sí':'Elegiste No');
  await mkdir(evidence,{recursive:true});await page.screenshot({path:`${evidence}/diagnostic-${answer}.png`});
  await page.getByTestId('records-begin').click();await page.getByTestId('records-archive').click();await page.getByTestId('records-confirm').click();await expect(page.locator('.photo-lost')).toHaveCount(4);await expect(page.getByTestId('records-feedback')).toContainText('Faltaban las derrotas');await page.screenshot({path:`${evidence}/all-photos-${answer}.png`});
+ if(answer==='no'){
+  await page.getByTestId('records-next').click();await page.getByTestId('records-close').click();await page.getByTestId('records-confirm').click();await page.getByTestId('records-next').click();
+  for(let i=0;i<2;i++){await page.getByTestId('records-no').click();await page.getByTestId('records-confirm').click();await page.getByTestId('records-next').click();}
+  const ids=await page.locator('.result-photo small').allTextContents();expect(ids).toEqual(['Partida 1','Partida 4','Partida 6','Partida 8']);
+  await page.getByTestId('records-archive').click();await page.getByTestId('records-confirm').click();expect(await page.locator('.photo-won small').allTextContents()).toEqual(ids);
+ }
  if(answer==='yes'){await page.setViewportSize({width:390,height:844});await page.getByTestId('settings-button').click();await page.getByTestId('text-scale').selectOption('2');await page.getByTestId('close-dialog').click();expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);await page.screenshot({path:`${evidence}/photos-narrow-200.png`,fullPage:true});}
 });
