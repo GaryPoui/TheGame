@@ -1,5 +1,10 @@
 # Continuidad del proyecto
 
+## Mesas protagonistas — 2026-10-28
+
+El usuario pidió centrar la atención en las mesas y agregar objetos relacionados con cada juego. Se implementa en la rama vigente `codex/complete-campaign` / PR #7: tableros amplios, consignas sobre el paño, opciones junto a objetos, personajes secundarios y bandejas/inventarios/utilería por puesto. Las tres fases del final usan objetos reales de su desafío. Ver [composición y validación](table-focus.md). Regresión local: 32 unitarias y 28 casos de navegador aprobados. La tarea externa 010/T011 sigue abierta.
+
+
 ## Campaña y final — 2026-10-26
 
 Pedido vigente: completar specs restantes, preservar diseño y publicar avances por commits.

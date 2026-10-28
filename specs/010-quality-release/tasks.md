@@ -38,3 +38,7 @@ Entrega mínima: US1 con fixtures y validación local. Luego US2 y recuperación
 ## Validación externa pendiente
 
 - [ ] T011 Realizar playtests de duración, comprensión y comodidad, revisión con lector de pantalla y medición con GPU física/red controlada según docs/validation-plan.md y docs/visual-validation.md. El renderer de software no representa esos resultados.
+
+## Revisión de composición solicitada — 2026-10-28
+
+- [x] T012 Dar protagonismo a los tableros, encuadrar urnas/dados sin paneles encima y añadir utilería propia de cada mesa; conservar reglas, guardado y selección sincronizada. Validación de cuatro recorridos nuevos y regresión de campaña en docs/table-focus.md.

@@ -385,3 +385,8 @@ Hay tres sellos, final de seis decisiones, ayuda finita y epílogo; practicar co
 La validación de reglas y recorridos no demuestra aprendizaje ni duración. La medición de render se hizo con SwiftShader, no GPU física. Documentación actual, pruebas, perfiles, límites y estado de publicación: [campaña](campaign-implementation.md). Este apartado supera las instrucciones históricas de detenerse en una sola mesa.
 
 Cierre 27/10/2026: la campaña final v5.2 está publicada en https://garypoui.github.io/TheGame/. Fuente 93c7e42, deployment 8ea9003, PR #7. Comprobación de esa versión: 32 unitarias, 24 casos públicos y 143 archivos por hash. Hay 95 tareas implementadas; la T011 agregada de validación externa sigue abierta. La última entrega y evidencias se consultan en delivery.json y docs/campaign-implementation.md.
+
+
+## 15. Mesas protagonistas — 2026-10-28
+
+El usuario pidió que las mesas fueran el centro de atención, con objetos de juego más claros y utilería propia de cada puesto. Se conserva la dirección actual: tablero amplio con marco de madera y paño, personajes en el borde, instrucciones al costado y opciones sobre la superficie. Vera recibe bandeja, pala e inventario; Doble, bandeja de dados, contratos y fichas; Ada, escritorio con archivo y sello; el anfitrión combina urnas, dados y registros en sus tres rondas. Se reutiliza un solo canvas, sin recrear motor ni consumir azar al seleccionar. Las reglas, sellos y guardado se conservan. Validación local: 32 unitarias y 28 recorridos de navegador. Detalle, procedencia y comprobación de publicación en [mesas](table-focus.md).

@@ -19,6 +19,8 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 
 [Mejoras de selección y explicaciones del primer juego](docs/urn-feedback.md).
 
+[Mesas protagonistas, objetos y encuadre de la partida](docs/table-focus.md).
+
 ## Mapa de lectura
 
 [Memoria compartible del chat y del proyecto](docs/memoria-del-chat.md), con decisiones,

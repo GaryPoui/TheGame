@@ -15,3 +15,6 @@ playwright-report/
 /docs/evidence/campaign/quality/
 /docs/evidence/campaign/regression/
 /docs/evidence/campaign/final-local/
+
+# Full local run retained; selected captures live in approved-local/.
+/docs/evidence/table-focus/local/
