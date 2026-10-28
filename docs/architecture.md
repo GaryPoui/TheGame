@@ -4,7 +4,7 @@ Actualización 2026-10-26: la campaña está implementada. La raíz única sigue
 en `src/core/game.ts`; gates en `src/core/campaign/progression.ts`, sesiones por mesa
 en `src/core/tables/` y composición HTML en `src/main.ts`. El adaptador de guardado vive
 todavía junto al validador raíz; no hay una segunda implementación en platform.
-El esquema actual es v3 con `state`, acepta v1/v2. Los contratos siguientes conservan
+El esquema actual es v4 / campaign-photos-v4 con `state`, acepta v1/v2/v3. Ada nueva usa photos-v1 y replay propio; sesiones antiguas sin discriminante mantienen su replay original. Ver docs/photos-redesign.md. Los contratos siguientes conservan
 el diseño original; la correspondencia real y evidencia están en [campaña](campaign-implementation.md).
 
 

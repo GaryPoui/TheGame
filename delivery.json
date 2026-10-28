@@ -1,12 +1,13 @@
 {
-  "phase": "table-layout-restored-v6.1",
+  "phase": "photos-and-clear-dice-v7.1",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "d314eb92dfe43133ddca92eca1578b9993478968",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/d314eb92dfe43133ddca92eca1578b9993478968",
+  "content_commit": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/99a7086986dedb1e7c8a8eba5316223d04e55b45",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/photos-redesign.md",
     "docs/table-focus.md",
     "docs/campaign-implementation.md",
     "docs/memoria-del-chat.md",
@@ -16,16 +17,24 @@
   "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9",
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
-    "unit_tests": 32,
-    "public_browser_tests": 3,
-    "public_browser_scope": "Urn selection, hidden cards, green/red correction and reload. Presentation files are identical to verified campaign v5.2.",
+    "unit_tests": 37,
+    "local_browser_tests": 8,
+    "additional_photo_identity_cases": 2,
+    "public_browser_tests": 26,
     "public_browser_failures": 0,
     "public_browser_flaky": 0,
     "public_asset_hashes": 143,
-    "exact_design_math_checks": 64,
+    "exact_design_math_checks": 67,
+    "skill_files_verified": 92,
     "https_status": "built; HTTPS enforced",
-    "public_browser_report": "docs/evidence/table-restore/public-browser-results.json",
-    "public_integrity": "docs/evidence/table-restore/public-integrity.json"
+    "public_browser_report": "docs/evidence/photos/public-browser-results.json",
+    "public_integrity": "docs/evidence/photos/public-integrity.json",
+    "source_ci": {
+      "status": "completed",
+      "conclusion": "success",
+      "headSha": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40783289937"
+    }
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -36,7 +45,7 @@
   "deployed": true,
   "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "a10c692293d22e49abb3e0cd80c395be9f1e00d5",
+  "deployment_commit": "fe040aac8034fa140b49ae82fcc5c14102698768",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -44,8 +53,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Complete campaign with the previous table presentation restored at user request; campaign rules and saved progress unchanged.",
-  "build_source_commit": "d314eb92dfe43133ddca92eca1578b9993478968",
+  "scope": "Complete campaign with Ada photo stories, an unscored fair-coin independence diagnostic, clearer Doble text and photos in the finale. Prior table layout retained; save v4 loads v1-v3 and legacy Ada.",
+  "build_source_commit": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -252,6 +261,23 @@
         "url": "https://github.com/GaryPoui/TheGame/actions/runs/40756316610",
         "conclusion": "success"
       }
+    }
+  },
+  "previous_table_restore_delivery": {
+    "phase": "table-layout-restored-v6.1",
+    "content_commit": "d314eb92dfe43133ddca92eca1578b9993478968",
+    "deployment_commit": "a10c692293d22e49abb3e0cd80c395be9f1e00d5",
+    "validation": {
+      "unit_tests": 32,
+      "public_browser_tests": 3,
+      "public_browser_scope": "Urn selection, hidden cards, green/red correction and reload. Presentation files are identical to verified campaign v5.2.",
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 143,
+      "exact_design_math_checks": 64,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/table-restore/public-browser-results.json",
+      "public_integrity": "docs/evidence/table-restore/public-integrity.json"
     }
   }
 }

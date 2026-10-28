@@ -181,3 +181,5 @@ Cierre de campaña 2026-10-27: v5.2, fuente 93c7e42, deployment 8ea9003, PR #7. 
 Cierre de mesas 2026-10-28: fuente d9c4f82, deployment b264adc, versión table-focus-v6. Publicados y comprobados 143 hashes y 7 recorridos HTTPS; 28 casos completos locales. Detalle en docs/table-focus.md y delivery.json.
 
 Restauración publicada y verificada: table-layout-restored-v6.1, fuente d314eb9, deployment a10c692. Build y 32 unitarias aprobadas; 3/3 casos públicos de urnas y 143/143 hashes correctos. Evidencia en docs/evidence/table-restore/.
+
+Fotos publicadas 2026-10-28: photos-and-clear-dice-v7.1, fuente 99a7086, deployment fe040aa. 37 unitarias, 26 recorridos HTTPS y 143 hashes correctos; 67 referencias matemáticas. Guardado v4 compatible con v1–3 y sesiones antiguas de Ada. Ver docs/photos-redesign.md y delivery.json.

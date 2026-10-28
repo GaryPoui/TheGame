@@ -38,3 +38,12 @@ Skills leídas y aplicadas: `game-designer`, `game-ui-ux` y `webapp-testing` par
 Pruebas específicas: ambas respuestas iniciales sin puntos ni RNG, bloqueo de doble respuesta, recarga, revelación de derrotas, replay de todos los checkpoints, ayuda finita, compatibilidad de sesiones anteriores y migración a guardado 4. El informe definitivo de publicación se registra tras comprobar la versión HTTPS.
 
 Validación de la build local final: 37 pruebas unitarias y ocho recorridos de Ada/Doble/final aprobados. Se verificaron 67 referencias matemáticas, 92 archivos de skills y documentación. Se revisaron las capturas de ambas respuestas iniciales, álbum completo y texto al 200 %. Evidencia seleccionada en docs/evidence/photos/approved-local/ e informe en local-browser-results.json.
+
+
+## Publicación comprobada
+
+Versión `photos-and-clear-dice-v7.1`, fuente `99a7086986dedb1e7c8a8eba5316223d04e55b45`, deployment `fe040aac8034fa140b49ae82fcc5c14102698768`. [Juego](https://garypoui.github.io/TheGame/) y [PR #7](https://github.com/GaryPoui/TheGame/pull/7), sin merge automático. Las fotos conservan sus números al revelar el álbum completo; se añadieron dos comprobaciones de esa identidad.
+
+Resultado sobre HTTPS: 26/26 recorridos aprobaron sin fallos, omitidos ni casos inestables, y 143/143 archivos coincidieron por SHA-256. Evidencia en `docs/evidence/photos/public-browser-results.json`, `public-integrity.json` y `approved-public/`. Las 37 pruebas unitarias y las 67 referencias matemáticas aprobaron. El commit posterior de registro no cambia la build publicada.
+
+CI de la fuente 99a7086: [40783289937](https://github.com/GaryPoui/TheGame/actions/runs/40783289937), aprobada con instalación limpia, build, 37 unitarias y 26 recorridos de navegador, además de documentación, skills y matemática.
