@@ -93,3 +93,8 @@ Hay 95 tareas originales completadas y una tarea adicional externa abierta (010/
 `delivery.json` identifica la fuente que produjo la build; el commit de este registro es posterior para evitar autorreferencia. Los commits de avance están en la rama y el PR.
 
 CI de la fuente publicada 93c7e42: aprobada en GitHub, incluyendo instalación limpia, skills, documentos, matemática, unitarias, build y 24 casos de navegador. [Ejecución 40443839814](https://github.com/GaryPoui/TheGame/actions/runs/40443839814). El cierre siguiente sólo agrega documentos y capturas; no cambia la build publicada.
+
+
+## Revisión de las mesas — 2026-10-28
+
+La entrega posterior `table-focus-v6` hace protagonistas a los tableros, coloca cartas/contratos/registros sobre el paño y añade utilería propia de cada puesto. El final muestra objetos de sus tres pruebas. Se mantienen reglas y guardado. Fuente d9c4f82, deployment b264adc, PR #7. Validación: 32 unitarias, 28 recorridos locales y CI, 7 pruebas públicas y 143 hashes verificados. Detalle y capturas en [mesas](table-focus.md). La evidencia v5.2 de las secciones anteriores conserva su alcance histórico.

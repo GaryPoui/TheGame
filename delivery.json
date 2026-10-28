@@ -1,12 +1,13 @@
 {
-  "phase": "campaign-complete-v5.2",
+  "phase": "table-focus-v6",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/93c7e429d716b891bdccd0e8e874b10001f612f9",
+  "content_commit": "d9c4f8205145da38c8bd3767073bddb250ef1338",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/d9c4f8205145da38c8bd3767073bddb250ef1338",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/table-focus.md",
     "docs/campaign-implementation.md",
     "docs/memoria-del-chat.md",
     "docs/evidence/campaign/capture-index.md",
@@ -16,28 +17,25 @@
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
     "unit_tests": 32,
-    "exact_design_math_checks": 64,
-    "skill_files_verified": 92,
-    "public_browser_tests": 24,
+    "local_browser_tests": 28,
+    "local_browser_failures": 0,
+    "public_browser_tests": 7,
+    "public_browser_scope": "Four new table-focus cases and three urn-feedback regressions; the full 28-case suite passed locally.",
     "public_browser_failures": 0,
     "public_browser_flaky": 0,
+    "exact_design_math_checks": 64,
+    "skill_files_verified": 92,
     "public_asset_hashes": 143,
     "https_status": "built; HTTPS enforced",
     "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not physical GPU",
-    "draw_calls_before": 115,
-    "draw_calls_after": 97,
-    "public_browser_report": "docs/evidence/campaign/public-browser-results.json",
-    "public_integrity": "docs/evidence/campaign/public-integrity-final.json",
+    "local_browser_report": "docs/evidence/table-focus/local-browser-results.json",
+    "public_browser_report": "docs/evidence/table-focus/public-browser-results.json",
+    "public_integrity": "docs/evidence/table-focus/public-integrity.json",
     "source_ci": {
-      "conclusion": "success",
-      "headSha": "93c7e429d716b891bdccd0e8e874b10001f612f9",
       "status": "completed",
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40443839814"
-    },
-    "previous_verified_ci": {
-      "source": "9b753735d05e9d86789e1444f934ea3f4175605a",
-      "status": "success",
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40442336747"
+      "headSha": "d9c4f8205145da38c8bd3767073bddb250ef1338",
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40756316610",
+      "conclusion": "success"
     }
   },
   "pending_optional_tools": [
@@ -49,7 +47,7 @@
   "deployed": true,
   "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "8ea900381a026c521d4b08f62c22e1f966483c9e",
+  "deployment_commit": "b264adc2ebf3ba41f0f6a8316d600da6a308547b",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -57,8 +55,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Three assistant tables, host finale, finite help, persistent seals/freedom and epilogue; current ink theatre design",
-  "build_source_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
+  "scope": "Three assistant tables, host finale and epilogue; expanded playable tabletops, readable objects, matching desk props, one retained WebGL canvas and unchanged campaign rules.",
+  "build_source_commit": "d9c4f8205145da38c8bd3767073bddb250ef1338",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -206,5 +204,37 @@
     "deployment_commit": "1e6bfd4ffcadec61979ba4999123dfa1b791999a",
     "next_step": "Playtest humano del primer juego y ajustes según feedback del usuario; mantener foco en urnas."
   },
-  "completion_date": "2026-10-27"
+  "completion_date": "2026-10-27",
+  "previous_campaign_delivery": {
+    "phase": "campaign-complete-v5.2",
+    "content_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
+    "build_source_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
+    "deployment_commit": "8ea900381a026c521d4b08f62c22e1f966483c9e",
+    "validation": {
+      "unit_tests": 32,
+      "exact_design_math_checks": 64,
+      "skill_files_verified": 92,
+      "public_browser_tests": 24,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 143,
+      "https_status": "built; HTTPS enforced",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not physical GPU",
+      "draw_calls_before": 115,
+      "draw_calls_after": 97,
+      "public_browser_report": "docs/evidence/campaign/public-browser-results.json",
+      "public_integrity": "docs/evidence/campaign/public-integrity-final.json",
+      "source_ci": {
+        "conclusion": "success",
+        "headSha": "93c7e429d716b891bdccd0e8e874b10001f612f9",
+        "status": "completed",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40443839814"
+      },
+      "previous_verified_ci": {
+        "source": "9b753735d05e9d86789e1444f934ea3f4175605a",
+        "status": "success",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40442336747"
+      }
+    }
+  }
 }

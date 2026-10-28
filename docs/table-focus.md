@@ -36,3 +36,14 @@ La evidencia de esta revisión se guarda en `docs/evidence/table-focus/`. Las ca
 Se añaden cuatro recorridos para comprobar: canvas sin superposición con el cuaderno, selección real de urnas sin consumir azar ni recrear canvas, contratos y par resuelto en la misma superficie, archivo y opciones sobre el escritorio a 200 % de texto, y las tres etapas visuales del final. Se conserva la suite previa de campaña, ayuda, recuperación, teclado y feedback.
 
 Validación local de producción: build y 32/32 pruebas unitarias aprobadas; 28/28 recorridos de navegador aprobados, sin fallos, omitidos ni casos inestables. Se verificaron 64 referencias matemáticas y los 92 archivos de skills. Las nueve capturas seleccionadas en `approved-local/` y el informe `local-browser-results.json` documentan esta pasada. Los resultados de publicación se añaden al cerrar la comprobación HTTPS. Las capturas no acreditan aprendizaje ni rendimiento en GPU física. La tarea externa 010/T011 sigue pendiente.
+
+
+## Entrega pública
+
+Versión `table-focus-v6`, fuente `d9c4f8205145da38c8bd3767073bddb250ef1338`, deployment `b264adc2ebf3ba41f0f6a8316d600da6a308547b`. [Juego](https://garypoui.github.io/TheGame/) y [PR #7](https://github.com/GaryPoui/TheGame/pull/7), abierto sin merge. Pages confirmó estado `built` y HTTPS obligatorio.
+
+Comprobación pública: 143/143 archivos coinciden por SHA-256, y 7/7 pruebas públicas aprobaron sin fallos, omitidos ni casos inestables: las cuatro nuevas de composición y tres regresiones de urnas. La campaña completa se verificó localmente con 28/28 casos. Informes: `public-integrity.json`, `public-browser-results.json` y `local-browser-results.json` en `docs/evidence/table-focus/`. Capturas de la versión pública en `approved-public/`.
+
+El commit posterior de documentación registra la entrega y no cambia el contenido publicado.
+
+CI de la fuente publicada: [40756316610](https://github.com/GaryPoui/TheGame/actions/runs/40756316610), aprobada con instalación limpia, documentos, skills, matemática, 32 unitarias, build y 28 recorridos de navegador.

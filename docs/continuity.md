@@ -170,3 +170,5 @@ Cierre de ajustes de urnas (2026-10-26): fuente 29c4148, deployment 1e6bfd4, PR 
 La siguiente spec no se inició. Se conserva el progreso y el régimen matemático del MVP.
 
 Cierre de campaña 2026-10-27: v5.2, fuente 93c7e42, deployment 8ea9003, PR #7. Las tres mesas y el final están publicados, con 32 unitarias, 24 recorridos públicos y 143 hashes correctos. Pendiente real: 010/T011, validación humana y con hardware/red representativos. Ver docs/campaign-implementation.md y delivery.json.
+
+Cierre de mesas 2026-10-28: fuente d9c4f82, deployment b264adc, versión table-focus-v6. Publicados y comprobados 143 hashes y 7 recorridos HTTPS; 28 casos completos locales. Detalle en docs/table-focus.md y delivery.json.
