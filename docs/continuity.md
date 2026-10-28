@@ -1,5 +1,8 @@
 # Continuidad del proyecto
 
+Actualización 2026-10-28: Ada pasa a [Las fotos tramposas](photos-redesign.md), con pregunta inicial sin puntos sobre independencia, fotos completas frente a seleccionadas y textos sencillos. Doble conserva sus reglas con consignas más simples. Las mesas mantienen el diseño anterior solicitado. Las sesiones antiguas conservan progreso y pueden empezar el álbum nuevo.
+
+
 ## Restauración solicitada — 2026-10-28
 
 El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente la presentación de 2adb98e (campaña v5.2), conservando reglas, progreso y guardado. La revisión de mesas protagonistas queda como antecedente descartado.

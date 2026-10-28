@@ -1,7 +1,6 @@
 # Diseño educativo y reglas implementables
 
-Estado: reglas normativas de campaña. Mesas de urnas y contratos implementadas; registros y final
-siguen pendientes. El corte de Doble y su evidencia están en [implementación](doble-implementation.md). Evidencias actuales en docs/mvp-validation.md. Consultar [fuentes](research-education.md). Todas las cantidades son enteros o racionales; la UI puede redondear porcentajes a una cifra decimal conservando fracción exacta. No comparar decisiones por valores redondeados.
+Estado vigente: campaña implementada. Desde el 2026-10-28, Ada se reemplaza por [Las fotos tramposas](photos-redesign.md), con diagnóstico Sí/No sin puntos y ejemplos preparados de selección de resultados e independencia. Ese documento reemplaza las reglas de la sección 3 para sesiones nuevas y la presentación de registros del final. Las reglas estadísticas anteriores se conservan abajo como compatibilidad de sesiones antiguas. Urnas, costes/pagos de Doble, umbrales de sellos y libertad no cambian.
 
 ## Contrato común a todas las mesas
 

@@ -33,3 +33,7 @@ Dependencias externas: 006; reutiliza 004 y 009. T001→T002→US1→US2→cierr
 ## Implementation strategy
 
 Entrega mínima: US1 con fixtures y validación local. Luego US2 y recuperación. Implementación autorizada el 2026-10-26; el avance y la evidencia están en docs/campaign-implementation.md.
+
+## Rediseño autorizado — 2026-10-28
+
+- [x] T010 Reemplazar sesiones nuevas por fotos, diagnóstico independiente sin puntos y ayuda finita; conservar replay legado y sellos. Reglas y evidencia en docs/photos-redesign.md.

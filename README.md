@@ -4,7 +4,7 @@ Videojuego educativo de probabilidad **y** estadística, de 30–45 minutos obje
 de escritorio. Babylon.js + TypeScript estricto + Vite. Título provisional.
 
 **Estado actual:** campaña jugable de tres asistentes y final: Las urnas de Vera,
-Los contratos de Doble, El archivo de Ada y El contrato de salida. Ayuda guiada finita,
+Los contratos de Doble, Las fotos tramposas de Ada y El contrato de salida. Ayuda guiada finita,
 progreso conservado al practicar, epílogo y guardado compatible con versiones anteriores.
 [Jugar por HTTPS](https://garypoui.github.io/TheGame/).
 [Implementación, pruebas y límites](docs/campaign-implementation.md).
@@ -20,6 +20,8 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 [Mejoras de selección y explicaciones del primer juego](docs/urn-feedback.md).
 
 [Registro de la revisión de mesas y vuelta al diseño anterior](docs/table-focus.md).
+
+[Nuevo juego de Ada, diagnóstico y textos simples](docs/photos-redesign.md).
 
 ## Mapa de lectura
 

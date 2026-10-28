@@ -1,5 +1,5 @@
 import type {RecordsChoice,RecordsState} from '../core/tables/records';
-export const RECORD_LABELS:Record<RecordsChoice,string>={archive:'Pedir el archivo completo',album:'Confiar en el álbum de premios',observe:'Observar cuatro ensayos más',close:'Cerrar un informe descriptivo',K:'Mecanismo K · siempre da 2',V:'Mecanismo V · da 0 o 4',both:'Los dos tienen el mismo promedio',certainty:'Afirmar que siempre da ese resultado'};
+export const RECORD_LABELS:Record<RecordsChoice,string>={yes:'Sí',no:'No',archive:'Pedir el archivo completo',album:'Confiar en el álbum de premios',observe:'Observar cuatro ensayos más',close:'Cerrar un informe descriptivo',K:'Mecanismo K · siempre da 2',V:'Mecanismo V · da 0 o 4',both:'Los dos tienen el mismo promedio',certainty:'Afirmar que siempre da ese resultado'};
 export function recordsPrompt(s:RecordsState):{title:string;text:string;why:string}{
  const round=s.assisted?s.round===0?0:1:s.round;
  if(round===0&&s.step===0)return {title:'¿Te mostraron toda la historia?',text:'El álbum sólo guarda premios de 4. Elegí qué fuente usar para describir lo que pasa.',why:'El álbum deja afuera los ceros. Pedir el archivo completo evita elegir sólo los resultados que gustan.'};

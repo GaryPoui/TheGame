@@ -395,3 +395,8 @@ El usuario pidió que las mesas fueran el centro de atención, con objetos de ju
 ## Vuelta al diseño anterior de mesa — 2026-10-28
 
 El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente la presentación de 2adb98e (campaña v5.2), conservando reglas, progreso y guardado. La revisión de mesas protagonistas queda como antecedente descartado.
+
+
+## Ada: fotos tramposas y diagnóstico — 2026-10-28
+
+El usuario eligió la opción de fotos seleccionadas y pidió una pregunta Sí/No sobre cuatro victorias anteriores. Se aclara independencia y moneda equilibrada: No aumenta la chance siguiente, ni obliga a perder. Diagnóstico local sin puntos, cuatro rondas con fotos y adaptación del final. Textos de Doble más simples. Diseño anterior de mesas conservado. Ver [reglas y compatibilidad](photos-redesign.md).

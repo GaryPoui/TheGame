@@ -1,5 +1,8 @@
 # GDD único — La Casa del Azar
 
+Actualización 2026-10-28: Ada pasa a [Las fotos tramposas](photos-redesign.md), con pregunta inicial sin puntos sobre independencia, fotos completas frente a seleccionadas y textos sencillos. Doble conserva sus reglas con consignas más simples. Las mesas mantienen el diseño anterior solicitado. Las sesiones antiguas conservan progreso y pueden empezar el álbum nuevo.
+
+
 Estado: campaña implementada con tres mesas y final; ver [evidencia y adaptación](campaign-implementation.md). Autoridad de reglas: [educational-design.md](educational-design.md). No crear otro GDD divergente. Visión: [vision.md](vision.md).
 
 La presentación vigente usa [tinta y acuarela](ink-theatre.md). La campaña tiene menú,

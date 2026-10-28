@@ -121,7 +121,7 @@ function badges(): string {
   return `<div class="scoreboard"><span><i aria-hidden="true">✧</i> Decisiones <strong data-testid="merit">${state.merit}/8</strong></span><span><i aria-hidden="true">◈</i> Fichas ganadas <strong data-testid="chance-tokens">${state.tokens}</strong></span></div>`;
 }
 function menu(): string {
-  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar<span class="title-period">.</span></h1><p class="menu-tagline">La suerte reparte.<br>Vos decidís qué hacer con ella.</p><p class="menu-description">Vera cuenta fichas. Doble vende contratos. Ada guarda los registros. Tres sellos y una última mesa para volver a la calle.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Retomar mi partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>Las urnas de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para teclado y mouse</span></footer>`;
+  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar<span class="title-period">.</span></h1><p class="menu-tagline">La suerte reparte.<br>Vos decidís qué hacer con ella.</p><p class="menu-description">Vera cuenta fichas. Doble vende contratos. Ada muestra sus fotos. Tres sellos y una última mesa para volver a la calle.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Retomar mi partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>Las urnas de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para teclado y mouse</span></footer>`;
 }
 const intro = INTRO.nodes.map(n=>[n.speaker,INTRO.strings[n.lineId]!] as const);
 function introView(): string {
@@ -133,7 +133,7 @@ function room(): string {
   const entries = [
     ['urns','I','Vera','Las urnas','Contá las chances y mirá qué cambia.','Disponible'],
     ['contracts','II','Doble','Los contratos','Elegí entre promedio, garantía y riesgo.','Necesitás el sello de Vera'],
-    ['records','III','Ada','El archivo','Pedí datos completos y describí lo observado.','Necesitás el sello de Doble'],
+    ['records','III','Ada','Las fotos tramposas','Descubrí las fotos que Ada dejó afuera.','Necesitás el sello de Doble'],
     ['finale','IV','El anfitrión','El contrato de salida','Usá lo aprendido para abrir la puerta.','Necesitás los tres sellos'],
   ] as const;
   return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. ${state.freed?'La puerta también. Podés volver a practicar.':'Tres sellos y una última partida te separan de la salida.'}</p>${state.freed?btn('exit-house','Volver a la calle','primary'):''}${roomWalk()}</section><section class="table-directory" aria-label="Mesas de la sala">${entries.map(([id,n,name,title,description,requirement])=>{
@@ -267,7 +267,7 @@ function outsideView():string {
 }
 function enterRecords():void {
  if(!tableUnlocked(state,'records'))return;
- state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
+ state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience==='photos-v1'&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
 }
 function enterFinale():void {
  if(!tableUnlocked(state,'finale'))return;
@@ -278,10 +278,14 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(id==='exit-house'&&state.freed){state.activeTable='outside';persist();setScreen('outside','back-room');return true;}
  if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
  if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
- if(id==='records-replay'&&state.records){state.records=createRecords(Date.now(),true);persist();setScreen('records','records-begin');return true;}
+ if(id==='records-replay'&&state.records){state.records=createRecords(Date.now(),true);persist();selectedRecord=null;setScreen('records','records-diagnostic-yes');return true;}
  if(id==='finale-replay'&&state.finale){state.finale=createFinale();persist();setScreen('finale','finale-U');return true;}
  if(screen==='records'&&state.records){
    const current=state.records;
+   if(id==='records-diagnostic-yes'||id==='records-diagnostic-no'){
+     const next=applyRecordsCommand(current,{type:'diagnose',choice:id.endsWith('yes')?'yes':'no',expectedRevision:Number(target.dataset.revision),commandId:'ada-diagnostic-'+target.dataset.revision});
+     if(next!==current){state.records=next;persist();render('records-begin');}return true;
+   }
    if(id?.startsWith('records-')&&current.phase==='choose'&&recordsChoices(current).includes(id.slice(8) as RecordsChoice)){selectedRecord=id.slice(8) as RecordsChoice;render(id);return true;}
    if(['records-begin','records-confirm','records-next'].includes(id??'')){
      const command:RecordsCommand={type:id==='records-begin'?'begin':id==='records-confirm'?'choose':'next',...(selectedRecord?{choice:selectedRecord}:{}),expectedRevision:Number(target.dataset.revision),commandId:'ada-'+target.dataset.revision+'-'+id};
@@ -377,7 +381,7 @@ app.addEventListener('click', event => {
   if (id === 'settings-button') { showSettings(); return; }
   if (target.dataset.action === 'home') { event.preventDefault(); setScreen('menu'); return; }
   if (target.dataset.action === 'credits') {
-    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Esta versión incluye las urnas de Vera, los contratos de Doble, el archivo de Ada y el contrato de salida del anfitrión.</p><p>Nueva dirección de animación de los años treinta: sala y personajes ilustrados con generación de imágenes. Captor adaptado de las referencias de Gambito aportadas por el usuario; Cuphead es referencia estética. Sin afiliación con Marvel ni Studio MDHR. Mesa y urnas interactivas propias. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
+    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Esta versión incluye las urnas de Vera, los contratos de Doble, las fotos tramposas de Ada y el contrato de salida del anfitrión.</p><p>Nueva dirección de animación de los años treinta: sala y personajes ilustrados con generación de imágenes. Captor adaptado de las referencias de Gambito aportadas por el usuario; Cuphead es referencia estética. Sin afiliación con Marvel ni Studio MDHR. Mesa y urnas interactivas propias. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
   }
   if (id === 'new-game' || id === 'practice-again') {
     if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p>${btn('confirm-new-game','Empezar de nuevo','primary full')}`); return; }

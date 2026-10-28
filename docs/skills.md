@@ -99,3 +99,5 @@ selección, cartas y feedback del primer juego. Ver [evidencia](urn-feedback.md)
 Campaña 2026-10-26: speckit-implement, game-designer, save-systems, game-ui-ux, frontend-design, webapp-testing; después dialogue-systems, camera-systems, input-systems y audio-design. create-game-assets + imagegen para Ada. performance-optimization se aplica sólo a medición, sin prometer rendimiento físico. Evidencia: [campaña](campaign-implementation.md).
 
 Mesas 2026-10-28: game-ui-ux, frontend-design, create-game-assets, camera-systems y webapp-testing leídas y aplicadas a encuadre, objetos y jerarquía de la partida. Se conserva el Playwright TypeScript instalado. Ver [cambio y evidencia](table-focus.md).
+
+Fotos 2026-10-28: game-designer, game-ui-ux y webapp-testing aplicadas al reemplazo de Ada, diagnóstico local y simplificación de Doble. Ver [reglas y evidencia](photos-redesign.md).

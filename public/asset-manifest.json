@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "release": "campaign-v3",
+  "release": "campaign-photos-v4",
   "assets": [
     {
       "id": "ink-art-family",
@@ -58,6 +58,13 @@
       "source": "src/ui/exploration.css",
       "origin": "Original code-authored silhouettes, street blockout and room floor plan; no external image",
       "license": "Project owner's rights"
+    },
+    {
+      "id": "ada-photo-cards",
+      "source": "src/ui/photo-records.ts; src/ui/campaign.css",
+      "origin": "Original code-drawn paper cards with star/cross and text; prepared example outcomes",
+      "license": "Project owner's rights",
+      "notes": "No borrowed photographs or new raster assets. Win/loss is explicit in text and symbols, not color alone."
     }
   ],
   "engine": {
