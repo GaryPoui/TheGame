@@ -1,10 +1,10 @@
 {
-  "phase": "table-focus-v6",
+  "phase": "table-layout-restored-v6.1",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "d9c4f8205145da38c8bd3767073bddb250ef1338",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/d9c4f8205145da38c8bd3767073bddb250ef1338",
+  "content_commit": "d314eb92dfe43133ddca92eca1578b9993478968",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/d314eb92dfe43133ddca92eca1578b9993478968",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
     "docs/table-focus.md",
@@ -17,26 +17,15 @@
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
     "unit_tests": 32,
-    "local_browser_tests": 28,
-    "local_browser_failures": 0,
-    "public_browser_tests": 7,
-    "public_browser_scope": "Four new table-focus cases and three urn-feedback regressions; the full 28-case suite passed locally.",
+    "public_browser_tests": 3,
+    "public_browser_scope": "Urn selection, hidden cards, green/red correction and reload. Presentation files are identical to verified campaign v5.2.",
     "public_browser_failures": 0,
     "public_browser_flaky": 0,
-    "exact_design_math_checks": 64,
-    "skill_files_verified": 92,
     "public_asset_hashes": 143,
+    "exact_design_math_checks": 64,
     "https_status": "built; HTTPS enforced",
-    "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not physical GPU",
-    "local_browser_report": "docs/evidence/table-focus/local-browser-results.json",
-    "public_browser_report": "docs/evidence/table-focus/public-browser-results.json",
-    "public_integrity": "docs/evidence/table-focus/public-integrity.json",
-    "source_ci": {
-      "status": "completed",
-      "headSha": "d9c4f8205145da38c8bd3767073bddb250ef1338",
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40756316610",
-      "conclusion": "success"
-    }
+    "public_browser_report": "docs/evidence/table-restore/public-browser-results.json",
+    "public_integrity": "docs/evidence/table-restore/public-integrity.json"
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -47,7 +36,7 @@
   "deployed": true,
   "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "b264adc2ebf3ba41f0f6a8316d600da6a308547b",
+  "deployment_commit": "a10c692293d22e49abb3e0cd80c395be9f1e00d5",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -55,8 +44,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Three assistant tables, host finale and epilogue; expanded playable tabletops, readable objects, matching desk props, one retained WebGL canvas and unchanged campaign rules.",
-  "build_source_commit": "d9c4f8205145da38c8bd3767073bddb250ef1338",
+  "scope": "Complete campaign with the previous table presentation restored at user request; campaign rules and saved progress unchanged.",
+  "build_source_commit": "d314eb92dfe43133ddca92eca1578b9993478968",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -234,6 +223,34 @@
         "source": "9b753735d05e9d86789e1444f934ea3f4175605a",
         "status": "success",
         "url": "https://github.com/GaryPoui/TheGame/actions/runs/40442336747"
+      }
+    }
+  },
+  "previous_table_focus_delivery": {
+    "phase": "table-focus-v6",
+    "content_commit": "d9c4f8205145da38c8bd3767073bddb250ef1338",
+    "deployment_commit": "b264adc2ebf3ba41f0f6a8316d600da6a308547b",
+    "validation": {
+      "unit_tests": 32,
+      "local_browser_tests": 28,
+      "local_browser_failures": 0,
+      "public_browser_tests": 7,
+      "public_browser_scope": "Four new table-focus cases and three urn-feedback regressions; the full 28-case suite passed locally.",
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "exact_design_math_checks": 64,
+      "skill_files_verified": 92,
+      "public_asset_hashes": 143,
+      "https_status": "built; HTTPS enforced",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not physical GPU",
+      "local_browser_report": "docs/evidence/table-focus/local-browser-results.json",
+      "public_browser_report": "docs/evidence/table-focus/public-browser-results.json",
+      "public_integrity": "docs/evidence/table-focus/public-integrity.json",
+      "source_ci": {
+        "status": "completed",
+        "headSha": "d9c4f8205145da38c8bd3767073bddb250ef1338",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40756316610",
+        "conclusion": "success"
       }
     }
   }

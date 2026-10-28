@@ -51,3 +51,5 @@ Comprobación pública: 143/143 archivos coinciden por SHA-256, y 7/7 pruebas p�
 El commit posterior de documentación registra la entrega y no cambia el contenido publicado.
 
 CI de la fuente publicada: [40756316610](https://github.com/GaryPoui/TheGame/actions/runs/40756316610), aprobada con instalación limpia, documentos, skills, matemática, 32 unitarias, build y 28 recorridos de navegador.
+
+Restauración publicada y verificada: table-layout-restored-v6.1, fuente d314eb9, deployment a10c692. Build y 32 unitarias aprobadas; 3/3 casos públicos de urnas y 143/143 hashes correctos. Evidencia en docs/evidence/table-restore/.

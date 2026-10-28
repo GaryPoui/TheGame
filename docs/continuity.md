@@ -176,3 +176,5 @@ La siguiente spec no se inició. Se conserva el progreso y el régimen matemáti
 Cierre de campaña 2026-10-27: v5.2, fuente 93c7e42, deployment 8ea9003, PR #7. Las tres mesas y el final están publicados, con 32 unitarias, 24 recorridos públicos y 143 hashes correctos. Pendiente real: 010/T011, validación humana y con hardware/red representativos. Ver docs/campaign-implementation.md y delivery.json.
 
 Cierre de mesas 2026-10-28: fuente d9c4f82, deployment b264adc, versión table-focus-v6. Publicados y comprobados 143 hashes y 7 recorridos HTTPS; 28 casos completos locales. Detalle en docs/table-focus.md y delivery.json.
+
+Restauración publicada y verificada: table-layout-restored-v6.1, fuente d314eb9, deployment a10c692. Build y 32 unitarias aprobadas; 3/3 casos públicos de urnas y 143/143 hashes correctos. Evidencia en docs/evidence/table-restore/.
