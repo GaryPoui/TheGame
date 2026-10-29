@@ -1,0 +1,13 @@
+# Personajes en las mesas y tutorial integrado — 2026-10-28
+
+El usuario aclara que el cuerpo completo corresponde sólo a diálogos. Durante las partidas los personajes deben estar detrás/apoyados en la mesa, sin un duplicado a la derecha.
+
+Vera y Doble vuelven a las ilustraciones originales de torso en la escena Babylon, con el mismo anclaje junto al paño. Se eliminan las ilustraciones completas de los cuadernos de partida. Ada y el anfitrión se presentan detrás de un tablero con encuadre de torso; los diálogos independientes conservan sus imágenes completas. No se crean ni editan assets raster.
+
+El tutorial de Vera usa table-layout, las mismas cartas urn-option y objetivo/régimen de la partida normal. urnChoice comparte presentación y acepta un contexto de demostración sin alterar GameState. El mouse sobre las urnas, las cartas, los controles reasignados y el brillo apuntan a la misma selección de demostración. Las cartas empiezan plegadas como en la partida normal.
+
+Cuatro momentos: elegir U (3/5 frente a 1/2), confirmar una roja preparada sin reposición, volver a elegir entre 2/4 y 1/2, y observar una azul preparada de la urna elegida. La corrección usa cantidades anteriores a sacar; en la segunda elección ambas cartas son correctas. La escena muestra el inventario restante. Vera acompaña con texto breve. No hay puntos, consumo del RNG real ni modificación de progreso; se puede saltar o repetir.
+
+Se aplica game-ui-ux a la coherencia de controles y flujo. Prueba nueva: selección de canvas y teclado, bloqueo de confirmación antes de elegir, feedback, empate, arranque de la partida real y comparación exacta del guardado antes/después. Se conservan las pruebas existentes de campaña. Build y 40 unitarias aprobadas; siete recorridos locales aprobados y dos comprobaciones finales de tutorial y texto al 200 %. Evidencia en docs/evidence/table-tutorial/. La validación de aprendizaje con personas sigue en 010/T011.
+
+La publicación se registra al verificar HTTPS.

@@ -56,3 +56,6 @@ Antes de ampliar campaña, observar 5 sesiones exploratorias de primera mesa: ti
 
 
 Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.
+
+
+Corrección 2026-10-28: cuerpo completo sólo en diálogos; durante partidas, personajes detrás de sus mesas, sin duplicados en el cuaderno. Tutorial de Vera integrado a las mismas cartas, selección y extracción de la partida normal, con resultados preparados sin alterar progreso/RNG. Ver [detalle y evidencia](table-tutorial.md).

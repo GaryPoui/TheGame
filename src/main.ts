@@ -5,6 +5,7 @@ import './ui/campaign.css';
 import './ui/exploration.css';
 import './ui/dialogue-dice.css';
 import './ui/dialogue-polish.css';
+import './ui/table-hosts.css';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {INTRO} from './content/intro';
@@ -69,6 +70,7 @@ function beginIntro(): void {
 let tutorialStep = 0;
 let tutorialFlow=createTutorial();
 let demoChoice: 0 | 1 | null = null;
+let demoCardsVisible=false;
 let dobleTutorialStep = 0;
 let selectedContract: ContractId | null = null;
 let comparisonResult: ComparisonRun | null = null;
@@ -143,25 +145,30 @@ function room(): string {
     return `<button class="table-entry ${unlocked?'available':'locked'}" data-testid="enter-${id}" ${unlocked?'':'aria-disabled="true"'}><span class="table-number">${n}</span><span><small>${unlocked?sealed?'Completada · '+name:'Disponible · '+name:requirement}</small><strong>${title}</strong><span>${description}</span></span><span aria-hidden="true">${unlocked?'↗':'◇'}</span></button>`;
   }).join('')}</section></main>`;
 }
-function tutorial(): string {
-  const demoUrns: [Urn,Urn] = [{red:tutorialStep===0?3:2,blue:2},{red:1,blue:1}];
-  const title = ['Probalo: buscá una roja.','Salió roja. Queda afuera.','¿Y ahora, cuál conviene?'][tutorialStep];
-  const text = tutorialStep===0 ? demoChoice===1 ? 'V ofrece 1/2. U ofrece 3/5, una parte mayor. Probá U: contá las fichas marcadas.' : demoChoice===0 ? 'Sí: 3/5 es mayor que 1/2. Ahora sacaremos una roja preparada para ver qué cambia.' : 'Elegí la urna con mayor proporción de rojas. Las fichas marcadas son las que sirven.'
-    : tutorialStep===1 ? 'Quitamos una roja de U: antes había 3 de 5; ahora, 2 de 4. Mirá el inventario sobre el paño.'
-    : demoChoice!==null ? 'Exacto: 2/4 y 1/2 representan la misma proporción. Las dos urnas sirven. En la partida el resultado sí será al azar.' : 'Tocá una urna. U ofrece 2/4 y V, 1/2. ¿Representan partes distintas o iguales?';
-  const ready = tutorialStep===1 || tutorialStep===0 && demoChoice===0 || tutorialStep===2 && demoChoice!==null;
-  return `<main class="table-layout playable-table"><section class="vera-floor"><div class="table-heading"><h1>Aprendé con Vera</h1><div class="tutorial-stages" aria-label="Ciclo de aprendizaje">${['Predecir','Decidir','Observar','Explicar','Aplicar'].map((stage,i)=>`<span ${i===['predict','decide','observe','explain','apply'].indexOf(tutorialFlow.phase)?'aria-current="step"':''}>${stage}</span>`).join('')}</div><p class="round-context">Ejemplo preparado · ${tutorialStep+1} de 3 · no cambia tu partida</p></div><div class="vera-playfield"><div class="table-mission"><strong>${tutorialStep===1?'Una roja quedó afuera':'Buscá la mayor chance de roja'}</strong></div><div class="urn-options">${demoUrns.map((u,i)=>`<button class="urn-option ${demoChoice===i?'selected':''}" data-testid="demo-urn-${i}" aria-pressed="${demoChoice===i}" ${tutorialStep===1?'disabled':''}><strong>Urna ${i===0?'U':'V'}</strong>${tokenTray(u,'red')}<span class="odds"><b>${u.red}/${u.red+u.blue}</b><span>fichas rojas del total</span></span></button>`).join('')}</div></div></section><aside class="game-panel vera-notebook"><h2>${title}</h2><div class="mentor-coach"><img class="dialogue-fullbody vera-speaking" src="${import.meta.env.BASE_URL}art/vera-full-v1.png" alt="Vera de cuerpo completo"><strong>Vera</strong><p>${text}</p></div>${btn('tutorial-next',tutorialStep===0?'Sacar una roja preparada':tutorialStep===1?'Comparar otra vez':'Empezar mi partida','primary full',!ready)}${btn('skip-tutorial','Ir directo a la partida','text-button full')}</aside></main>`;
+function demoInventory():[Urn,Urn]{
+ const urns:[Urn,Urn]=[{red:tutorialStep===0?3:2,blue:2},{red:1,blue:1}];
+ if(tutorialStep===3&&demoChoice!==null)urns[demoChoice].blue--;
+ return urns;
 }
-function urnChoice(urn: Urn, index: 0 | 1): string {
-  const p = probability(urn, state.event);
+function tutorial(): string {
+ const review=tutorialStep===1||tutorialStep===3;
+ const cardUrns:[Urn,Urn]=tutorialStep<=1?[{red:3,blue:2},{red:1,blue:1}]:[{red:2,blue:2},{red:1,blue:1}];
+ const text=tutorialStep===0?demoChoice===1?'V tiene una roja de dos. U tiene tres de cinco: una parte mayor. Probá elegir U.':demoChoice===0?'Elegiste U. Ahora confirmá para sacar una ficha roja preparada.':'Buscamos una roja. Tocá una urna o mostrá sus cartas. Compará las rojas con el total de cada urna.':tutorialStep===1?'Salió roja de U y quedó afuera. U tenía tres rojas de cinco; ahora quedan dos rojas de cuatro. La carta verde evalúa la elección que hiciste antes de sacar.':tutorialStep===2?'Ahora las dos ofrecen la misma chance: dos de cuatro y una de dos son la mitad. Elegí cualquiera y confirmá.':'Salió azul en este ejemplo preparado. Las dos urnas ofrecían la misma chance: tu elección fue válida aunque no saliera roja. Ya podés jugar una partida con azar real.';
+ const ready=review||tutorialStep===0&&demoChoice===0||tutorialStep===2&&demoChoice!==null;
+ const visible=demoCardsVisible||review;
+ return `<main class="table-layout tutorial-table"><section class="table-heading"><p class="eyebrow">Mesa I · Vera te acompaña</p><h1>Las urnas</h1><p class="round-context">Demostración preparada · ${tutorialStep+1} de 4 · sin puntos</p></section><aside class="game-panel"><div class="objective-label">${tutorialStep<2?'Primera extracción':'Segunda extracción'}</div><h2 class="objective">Buscá una ficha <span class="red-token">roja ▲</span></h2><p class="rule-tag">↗ La ficha queda afuera</p><div class="tutorial-coach" role="status"><strong>Vera</strong><p>${text}</p></div>${review?`<p class="review-label">Antes de sacar · compará tu elección</p>`:`<button class="cards-toggle" data-testid="toggle-cards" aria-expanded="${visible}" aria-controls="demo-cards">${visible?'Ocultar cartas':'Mostrar cartas de las urnas'}</button>`}<div id="demo-cards" class="urn-options" ${visible?'':'hidden'}>${urnChoice(cardUrns[0],0,true)}${urnChoice(cardUrns[1],1,true)}</div>${review?`<section class="result-card"><span class="result-token ${tutorialStep===1?'red':'blue'}-token" aria-hidden="true">${tutorialStep===1?'▲':'●'}</span><h2>${tutorialStep===1?'Salió una roja.':'Salió una azul.'}</h2><p>Resultado preparado para aprender. No cambia tu partida.</p></section>`:''}${btn('tutorial-next',review?tutorialStep===1?'Volver a decidir':'Empezar mi partida':demoChoice===null?'Elegí una urna para continuar':`Comprobar y sacar de ${demoChoice===0?'U':'V'}`,'primary full',!ready)}${btn('skip-tutorial','Ir directo a la partida','text-button full')}</aside></main>`;
+}
+function urnChoice(urn: Urn, index: 0 | 1, demo=false): string {
+  const event=demo?'red':state.event;
+  const p = probability(urn, event);
   const percent = p.denominator === 0 ? '0' : new Intl.NumberFormat('es-AR', { maximumFractionDigits: 1 }).format(100 * p.numerator / p.denominator);
-  const choosing = state.phase === 'choose' || state.phase === 'guided';
-  const hinted = choosing && state.assisted && bestChoices(state).includes(index);
-  const reviewing = state.phase === 'revealed' && state.last !== null;
-  const picked = choosing ? selected === index : reviewing && state.last!.urn === index;
-  const correct = reviewing && state.last!.optimal.includes(index);
+  const choosing = demo?(tutorialStep===0||tutorialStep===2):state.phase === 'choose' || state.phase === 'guided';
+  const hinted = !demo && choosing && state.assisted && bestChoices(state).includes(index);
+  const reviewing = demo?(tutorialStep===1||tutorialStep===3):state.phase === 'revealed' && state.last !== null;
+  const picked = demo?demoChoice===index:choosing ? selected === index : reviewing && state.last!.urn === index;
+  const correct = reviewing && (demo?tutorialStep===3||index===0:state.last!.optimal.includes(index));
   const verdict = reviewing ? correct ? '✓ Correcta' : '✕ Menos posibilidades' : hinted ? 'Elegí esta' : picked ? '✓ Elegida' : 'Elegir';
-  return `<button data-testid="urn-${index}" class="urn-option ${picked ? 'selected' : ''} ${hinted ? 'hinted' : ''} ${reviewing ? correct ? 'answer-correct' : 'answer-incorrect' : ''}" aria-pressed="${picked}" ${!choosing ? 'disabled' : ''}><span class="urn-option-head"><strong>Urna ${index === 0 ? 'U' : 'V'}</strong><span>${verdict}</span></span>${reviewing ? `<span class="choice-caption">Antes de sacar${picked ? ' · Tu elección' : ''}</span>` : ''}<span class="inventory"><span class="red-token">▲</span> ${urn.red} rojas <span class="blue-token">●</span> ${urn.blue} azules</span><span class="odds"><b>${p.numerator} de ${p.denominator}</b><span>${state.round === 3 && !state.assisted && !helpOpen && !reviewing ? 'Compará cuánto hay del color que buscás' : `${percent} % de ${colorName(state.event)}`}</span></span></button>`;
+  return `<button data-testid="${demo?'demo-urn-':'urn-'}${index}" class="urn-option ${picked ? 'selected' : ''} ${hinted ? 'hinted' : ''} ${reviewing ? correct ? 'answer-correct' : 'answer-incorrect' : ''}" aria-pressed="${picked}" ${!choosing ? 'disabled' : ''}><span class="urn-option-head"><strong>Urna ${index === 0 ? 'U' : 'V'}</strong><span>${verdict}</span></span>${reviewing ? `<span class="choice-caption">Antes de sacar${picked ? ' · Tu elección' : ''}</span>` : ''}<span class="inventory"><span class="red-token">▲</span> ${urn.red} rojas <span class="blue-token">●</span> ${urn.blue} azules</span><span class="odds"><b>${p.numerator} de ${p.denominator}</b><span>${!demo && state.round === 3 && !state.assisted && !helpOpen && !reviewing ? 'Compará cuánto hay del color que buscás' : `${percent} % de ${colorName(event)}`}</span></span></button>`;
 }
 function urnCards(): string {
   const reviewing = state.phase === 'revealed';
@@ -217,10 +224,17 @@ function updateVisual(): void {
   const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
   scene?.setContractMode(playingContracts, playingContracts ? state.contracts?.pair ?? null : null);
   if (playingContracts) return;
-  const urns: Urn[] = screen === 'tutorial' ? [{red:tutorialStep === 0 ? 3 : 2,blue:2},{red:1,blue:1}] : state.urns;
-  scene?.updateUrns(urns, screen === 'table' && state.phase === 'revealed' ? state.last?.urn ?? null : selected, screen === 'tutorial' && tutorialStep > 0 ? 'red' : state.phase === 'revealed' ? state.last?.color : undefined);
+  const urns: Urn[] = screen === 'tutorial' ? demoInventory() : state.urns;
+  scene?.updateUrns(urns, screen==='tutorial'?demoChoice:screen === 'table' && state.phase === 'revealed' ? state.last?.urn ?? null : selected, screen === 'tutorial' ? tutorialStep===1?'red':tutorialStep===3?'blue':undefined : state.phase === 'revealed' ? state.last?.color : undefined);
+}
+function selectDemo(index:0|1):void {
+ if(screen!=='tutorial'||![0,2].includes(tutorialStep))return;
+ demoChoice=index;demoCardsVisible=true;
+ if(tutorialStep===0&&tutorialFlow.phase==='predict'||tutorialStep===2&&tutorialFlow.phase==='explain')tutorialFlow=advanceTutorial(tutorialFlow);
+ render('demo-urn-'+index);
 }
 function commitSelection(index: 0 | 1): void {
+  if(screen==='tutorial'){selectDemo(index);return;}
   if (screen !== 'table' || !['choose','guided'].includes(state.phase)) return;
   selected = index; cardsVisible = true; render(`urn-${index}`);
 }
@@ -241,7 +255,7 @@ function startNew(preserveCampaign = false): void {
 function enterTable(): void {
   state.activeTable = 'urns'; persist();
   if (state.phase === 'complete') { setScreen('complete', 'practice-again'); return; }
-  if (!state.history.length) { tutorialStep = 0; tutorialFlow=createTutorial(); demoChoice = null; setScreen('tutorial', 'demo-urn-0'); }
+  if (!state.history.length) { tutorialStep = 0; tutorialFlow=createTutorial(); demoChoice = null;demoCardsVisible=false; setScreen('tutorial', 'toggle-cards'); }
   else setScreen('table', state.phase === 'revealed' || state.phase === 'roundEnd' ? 'next-step' : 'toggle-cards');
 }
 function finishIntro(skip:boolean):void{
@@ -394,18 +408,15 @@ app.addEventListener('click', event => {
   if (id === 'skip-intro' || (id === 'intro-next' && introLine === 2)) {finishIntro(id==='skip-intro');return;}
   if (id === 'intro-next') { stopIntro();introPhase='lit';state.intro??=createDialogue(INTRO);state.intro=applyDialogue(INTRO,state.intro,{id:'intro-'+state.intro.revision,revision:state.intro.revision,type:'next'});introLine=Math.max(0,INTRO.nodes.findIndex(n=>n.id===state.intro!.node));persist();render('intro-next');return;}
   if (id === 'enter-urns') { enterTable(); return; }
-  if (id === 'demo-urn-0' || id === 'demo-urn-1') {
-    if(screen !== 'tutorial') return;
-    demoChoice = id === 'demo-urn-0' ? 0 : 1; if(tutorialStep===0&&tutorialFlow.phase==='predict')tutorialFlow=advanceTutorial(tutorialFlow);if(tutorialStep===2&&tutorialFlow.phase==='explain')tutorialFlow=advanceTutorial(tutorialFlow);render(id);
-    announce(tutorialStep===0 && demoChoice===1 ? 'Compará las proporciones: U tiene 3 de 5; V, 1 de 2.' : 'Buena comparación. Podés continuar.'); return;
-  }
+  if (id === 'demo-urn-0' || id === 'demo-urn-1') {selectDemo(id==='demo-urn-0'?0:1);return;}
   if (id === 'tutorial-next') {
-    if((tutorialStep===0 && demoChoice!==0) || (tutorialStep===2 && demoChoice===null)) return;
-    if (tutorialStep < 2) { tutorialStep++;tutorialFlow=advanceTutorial(tutorialFlow); demoChoice=null; chime(); render(tutorialStep===2?'demo-urn-0':'tutorial-next'); }
+    if(screen!=='tutorial'||tutorialStep===0&&demoChoice!==0||tutorialStep===2&&demoChoice===null)return;
+    if(tutorialStep<3){tutorialStep++;tutorialFlow=advanceTutorial(tutorialFlow);if(tutorialStep===2){demoChoice=null;demoCardsVisible=false;}chime();render(tutorialStep===2?'toggle-cards':'tutorial-next');}
     else setScreen('table','toggle-cards');
     return;
   }
   if (id === 'skip-tutorial') { setScreen('table','toggle-cards'); return; }
+  if (id === 'toggle-cards'&&screen==='tutorial'){demoCardsVisible=!demoCardsVisible;render('toggle-cards');return;}
   if (id === 'toggle-cards') { cardsVisible = !cardsVisible; render('toggle-cards'); return; }
   if (id === 'urn-0' || id === 'urn-1') { commitSelection(id === 'urn-0' ? 0 : 1); return; }
   if (id === 'confirm-choice' && selected !== null) {
@@ -421,7 +432,7 @@ app.addEventListener('click', event => {
     else render(state.phase === 'roundEnd' ? 'next-step' : 'toggle-cards'); return;
   }
   if (id === 'back-room') {const table=state.activeTable;persist();setScreen('room',table==='contracts'||table==='records'||table==='finale'?'enter-'+table:'enter-urns');return;}
-  if(id==='repeat-tutorial'){tutorialStep=0;demoChoice=null;tutorialFlow=createTutorial();setScreen('tutorial','demo-urn-0');return;}
+  if(id==='repeat-tutorial'){tutorialStep=0;demoChoice=null;demoCardsVisible=false;tutorialFlow=createTutorial();setScreen('tutorial','toggle-cards');return;}
   if (id === 'help-button') {helpOpen=!helpOpen;if(helpOpen){tutorialFlow=requestHelp(tutorialFlow,'urns-'+state.round+'-'+state.step);state.helpHistory??=[];const id='urns-'+state.round+'-'+state.step;if(!state.helpHistory.includes(id))state.helpHistory.push(id);persist();}render('help-button');}
 });
 overlay.addEventListener('click', event => {
@@ -449,6 +460,7 @@ overlay.addEventListener('change', event => {
   applySettings(); if(hasSave)persist();
 });
 document.addEventListener('keydown', event => {
+  if(screen==='tutorial'&&!overlay.querySelector('dialog[open]')&&!event.repeat){if(event.code===settings.keys.left||event.code===settings.keys.right){event.preventDefault();selectDemo(event.code===settings.keys.left?0:1);return;}if(event.code===settings.keys.interact){event.preventDefault();document.querySelector<HTMLButtonElement>('[data-testid=tutorial-next]')?.click();return;}}
   if(screen==='room'&&!overlay.querySelector('dialog[open]')&&!(event.target instanceof HTMLInputElement)&&!(event.target instanceof HTMLSelectElement)){const action=actionForKey(settings.keys,event.code);if(action){event.preventDefault();moveRoom(action);return;}}
   if(screen==='street'&&!overlay.querySelector('dialog[open]')&&event.code===settings.keys.forward){event.preventDefault();document.querySelector<HTMLButtonElement>('[data-testid=street-forward]')?.click();return;}
   if(screen === 'contracts' && state.contracts && ['offer','order'].includes(state.contracts.phase) && !overlay.querySelector('dialog[open]') && !event.repeat && !(event.target instanceof HTMLInputElement) && !(event.target instanceof HTMLSelectElement)) {

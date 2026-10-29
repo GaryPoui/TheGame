@@ -189,3 +189,6 @@ Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.m
 
 
 Revisión de carteles y diálogo 2026-10-28: acción principal amplia, utilidades separadas, historial por intervenciones y modales con cabecera clara. Reglas y progreso conservados. Ver [cambio y evidencia](dialogue-polish.md).
+
+
+Corrección 2026-10-28: cuerpo completo sólo en diálogos; durante partidas, personajes detrás de sus mesas, sin duplicados en el cuaderno. Tutorial de Vera integrado a las mismas cartas, selección y extracción de la partida normal, con resultados preparados sin alterar progreso/RNG. Ver [detalle y evidencia](table-tutorial.md).
