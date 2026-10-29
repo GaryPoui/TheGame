@@ -12,4 +12,8 @@ Se aplicaron camera-systems y game-ui-ux. Se revisaron las declaraciones oficial
 
 Build/TypeScript, 41 pruebas unitarias y cinco recorridos locales aprobados, incluyendo seis tamaños, texto al 200 %, tirada, movimiento reducido y alternativa HTML. Documentación, 70 comprobaciones matemáticas y 92 archivos de skills correctos. Evidencia seleccionada en docs/evidence/doble-proportions/. Se revisan diff, secretos y licencias. La validación externa sigue pendiente en 010/T011.
 
-La publicación se registra después de verificar HTTPS.
+## Publicación comprobada
+
+Versión doble-proportions-v16, fuente `4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f`, deployment `d68dc3570aa5c07fde080028e2f774567c9b5d1d`. [Juego](https://garypoui.github.io/TheGame/) y [PR #7](https://github.com/GaryPoui/TheGame/pull/7), sin merge. Cinco recorridos HTTPS aprobados, sin fallos, inestables ni omitidos; 146/146 archivos coincidentes por SHA-256. Informes, integridad y captura pública en docs/evidence/doble-proportions/.
+
+Las capturas y medidas corresponden a Chromium con ANGLE SwiftShader en Windows, sin afirmaciones sobre GPU física. La [CI completa de la fuente](https://github.com/GaryPoui/TheGame/actions/runs/40856004439) estaba ejecutándose al registrar el cierre y no se cuenta como aprobada. El commit posterior de registro no modifica la build publicada.
