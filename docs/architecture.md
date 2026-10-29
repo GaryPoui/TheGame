@@ -101,3 +101,6 @@ de objetos del motor, acciones reasignables con conflictos y grafo de diálogo c
 idempotentes. Se adaptaron conceptos a almacenamiento web y HTML; no se copian snippets de
 Godot ni se adopta Ink/Yarn para una narrativa pequeña. Las skills Spec Kit orientaron el flujo
 documental según docs/spec-kit.md; los registros visual y educativo identifican sus otras lecturas.
+
+
+Actualización 2026-10-28: esquema v5 / campaign-challenge-v5 acepta v1–4. Ada nueva usa photos-v2, conservando replay photos-v1 y legado; ver docs/character-challenge-update.md.

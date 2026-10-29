@@ -1,12 +1,13 @@
 {
-  "phase": "photos-and-clear-dice-v7.1",
+  "phase": "characters-challenge-v8.2",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/99a7086986dedb1e7c8a8eba5316223d04e55b45",
+  "content_commit": "db6f6bc697ee4299a890a0f245895b9bf4dc67b9",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/db6f6bc697ee4299a890a0f245895b9bf4dc67b9",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/character-challenge-update.md",
     "docs/photos-redesign.md",
     "docs/table-focus.md",
     "docs/campaign-implementation.md",
@@ -17,23 +18,23 @@
   "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9",
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
-    "unit_tests": 37,
-    "local_browser_tests": 8,
-    "additional_photo_identity_cases": 2,
+    "unit_tests": 40,
+    "local_targeted_browser_tests": 9,
+    "upgrade_browser_tests": 2,
     "public_browser_tests": 26,
     "public_browser_failures": 0,
     "public_browser_flaky": 0,
-    "public_asset_hashes": 143,
-    "exact_design_math_checks": 67,
+    "public_asset_hashes": 146,
+    "exact_design_math_checks": 70,
     "skill_files_verified": 92,
     "https_status": "built; HTTPS enforced",
-    "public_browser_report": "docs/evidence/photos/public-browser-results.json",
-    "public_integrity": "docs/evidence/photos/public-integrity.json",
+    "public_browser_report": "docs/evidence/challenge/public-browser-results.json",
+    "public_integrity": "docs/evidence/challenge/public-integrity.json",
     "source_ci": {
       "status": "completed",
       "conclusion": "success",
-      "headSha": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40783289937"
+      "headSha": "db6f6bc697ee4299a890a0f245895b9bf4dc67b9",
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40795002152"
     }
   },
   "pending_optional_tools": [
@@ -45,7 +46,7 @@
   "deployed": true,
   "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "fe040aac8034fa140b49ae82fcc5c14102698768",
+  "deployment_commit": "5ea94ae13e2658ff6e97b706e17576fa8a52b26d",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -53,8 +54,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Complete campaign with Ada photo stories, an unscored fair-coin independence diagnostic, clearer Doble text and photos in the finale. Prior table layout retained; save v4 loads v1-v3 and legacy Ada.",
-  "build_source_commit": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
+  "scope": "Full-body dialogue cast, clearer dice offers, advanced Ada proportions/joint probability and final assessment without pre-answer hints; compatible save v5.",
+  "build_source_commit": "db6f6bc697ee4299a890a0f245895b9bf4dc67b9",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -278,6 +279,31 @@
       "https_status": "built; HTTPS enforced",
       "public_browser_report": "docs/evidence/table-restore/public-browser-results.json",
       "public_integrity": "docs/evidence/table-restore/public-integrity.json"
+    }
+  },
+  "previous_photo_delivery": {
+    "phase": "photos-and-clear-dice-v7.1",
+    "content_commit": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
+    "deployment_commit": "fe040aac8034fa140b49ae82fcc5c14102698768",
+    "validation": {
+      "unit_tests": 37,
+      "local_browser_tests": 8,
+      "additional_photo_identity_cases": 2,
+      "public_browser_tests": 26,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 143,
+      "exact_design_math_checks": 67,
+      "skill_files_verified": 92,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/photos/public-browser-results.json",
+      "public_integrity": "docs/evidence/photos/public-integrity.json",
+      "source_ci": {
+        "status": "completed",
+        "conclusion": "success",
+        "headSha": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40783289937"
+      }
     }
   }
 }

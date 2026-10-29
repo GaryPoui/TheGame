@@ -101,3 +101,5 @@ Campaña 2026-10-26: speckit-implement, game-designer, save-systems, game-ui-ux,
 Mesas 2026-10-28: game-ui-ux, frontend-design, create-game-assets, camera-systems y webapp-testing leídas y aplicadas a encuadre, objetos y jerarquía de la partida. Se conserva el Playwright TypeScript instalado. Ver [cambio y evidencia](table-focus.md).
 
 Fotos 2026-10-28: game-designer, game-ui-ux y webapp-testing aplicadas al reemplazo de Ada, diagnóstico local y simplificación de Doble. Ver [reglas y evidencia](photos-redesign.md).
+
+Personajes/desafíos 2026-10-28: imagegen integrada para tres extensiones de cuerpo completo; game-ui-ux/frontend-design para jerarquía de Doble y encuadre. Ver [entrega y procedencia](character-challenge-update.md).

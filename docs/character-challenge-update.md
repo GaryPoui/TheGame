@@ -19,3 +19,10 @@ Se leyeron/aplicaron imagegen, game-ui-ux y frontend-design, junto al diseño y 
 Pruebas específicas de proporciones, variación de repetición, probabilidad conjunta, replay legado y ausencia de pistas calculadas antes del final en tests/unit/challenge.test.ts. Se detectó una carrera de foco al cerrar Ajustes: un evento de cierre tardío podía quitar foco a una opción ya seleccionada con teclado. Ahora sólo se restaura foco si el usuario no pasó a otro control.
 
 Las pruebas humanas, lector de pantalla, GPU física y red controlada siguen en 010/T011. No se afirma que la dificultad o comprensión estén validadas por tener pruebas automáticas. Resultados de publicación se registran al cierre.
+
+
+## Entrega pública
+
+characters-challenge-v8.2, fuente `db6f6bc697ee4299a890a0f245895b9bf4dc67b9`, deployment `5ea94ae13e2658ff6e97b706e17576fa8a52b26d`. [Juego](https://garypoui.github.io/TheGame/) / [PR #7](https://github.com/GaryPoui/TheGame/pull/7), sin merge. 40 unitarias, 26/26 recorridos públicos sin fallos ni inestables, 146/146 hashes y 70 referencias matemáticas correctas. [CI de la fuente aprobada](https://github.com/GaryPoui/TheGame/actions/runs/40795002152), con instalación limpia y 26 recorridos. Evidencia en docs/evidence/challenge/: informes de build, navegador e integridad y capturas reales.
+
+Se ofrece a partidas photos-v1 un botón explícito para empezar los desafíos avanzados sin perder sellos. No se migra silenciosamente una ronda en curso. Las capturas visual/vera-full-dialogue.png y visual/dice-offers-*.png se tomaron recorriendo el sitio público desde una partida nueva, incluyendo las urnas.
