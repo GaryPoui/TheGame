@@ -7,22 +7,27 @@
 .contracts-layout .dice-table{background:transparent;border:0;border-radius:0;overflow:visible}
 .contracts-layout .dice-viewport{height:clamp(250px,calc(100svh - 425px),420px)}
 .contracts-layout .dice-table-caption{width:fit-content;max-width:100%;margin:0 auto;padding:.3rem 1rem;border:1px solid #b59b6966;border-radius:6px;font-size:.9rem}
-.contracts-layout .contract-offers{width:100%;max-width:1080px;align-self:center;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
-.contracts-layout .compact-offer{display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,1.3fr);align-content:center;align-items:center;gap:.25rem .5rem;padding:.55rem .65rem;min-height:0;border-radius:6px;box-shadow:0 3px 8px #0c081d44}
+.contracts-layout .contract-offers{width:100%;max-width:none;align-self:center;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
+.contracts-layout .compact-offer{display:grid;grid-template-columns:minmax(0,1fr) minmax(214px,1.6fr);align-content:center;align-items:center;gap:.25rem .5rem;padding:.55rem .65rem;min-height:0;border-radius:6px;box-shadow:0 3px 8px #0c081d44}
 .contracts-layout .compact-offer .offer-heading,.contracts-layout .compact-offer .compact-payment{grid-column:1}
-.contracts-layout .compact-offer .offer-heading{gap:.3rem;flex-wrap:wrap;line-height:1.2;font-size:.85rem}
-.contracts-layout .compact-offer .offer-code{min-width:20px;height:20px;font-size:.7rem}
+.contracts-layout .compact-offer .offer-heading{gap:.3rem;flex-wrap:nowrap;line-height:1.2;font-size:.85rem}
+.contracts-layout .compact-offer .offer-code{min-width:16px;height:16px;font-size:.65rem}
+.contracts-layout .compact-offer .offer-name{min-width:0}
 .contracts-layout .compact-offer .offer-name{font-size:.85rem;line-height:1.2}
 .contracts-layout .compact-offer .offer-cost,.contracts-layout .compact-offer .offer-select{display:none}
 .contracts-layout .compact-offer .compact-payment{font-size:.8rem;line-height:1.3}
 .contracts-layout .compact-payment small{font-size:.65rem;margin-top:.2rem}
 .contracts-layout .compact-offer .winning-combos{grid-column:2;grid-row:1/3;min-width:0;padding:0 0 0 .5rem;border-block:0;border-left:1px solid #b19a755c;gap:.25rem}
 .contracts-layout .combo-row{gap:.2rem}
-.contracts-layout .combo-row>b,.contracts-layout .winning-combos>small{font-size:.65rem}
+.contracts-layout .combo-row>b,.contracts-layout .winning-combos>small{font-size:.75rem}
 .contracts-layout .combo-pairs{gap:.2rem}
-.contracts-layout .dice-combo{padding:.08rem .12rem;border-radius:3px}
-.contracts-layout .dice-combo>span{font-size:1rem}
-.contracts-layout .dice-combo i{font-size:.5rem;margin:0 .04rem}
+.contracts-layout .dice-combo{padding:0;border:0;background:transparent}
+.contracts-layout .dice-combo>span{gap:.1rem}
+.contracts-layout .dice-combo i{font-size:.6rem;margin:0}
+.contracts-layout .combo-face{display:inline-grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);width:1.3rem;height:1.3rem;flex-shrink:0;padding:3px;gap:1px;border:1px solid #493544;border-radius:3px;background:#fff9e9;box-shadow:0 1px 1px #49354433}
+.contracts-layout .combo-face>b{display:block;width:100%;height:100%;border-radius:50%}
+.contracts-layout .combo-face>.pip{background:#302331}
+.contracts-layout .any-faces{display:flex;gap:.35rem;flex-wrap:wrap}
 .contracts-layout .any-combo>span{font-size:1.35rem;white-space:normal}
 .contracts-layout .combo-legend{font-size:.68rem;padding:.3rem .5rem;background:#271f3099}
 .contracts-layout .contracts-panel{padding:1.1rem;font-size:.85rem}
@@ -35,7 +40,7 @@
 @media(max-width:760px){
  .contracts-layout{padding-top:.5rem}.contracts-layout .dice-viewport{height:clamp(140px,calc(100svh - 550px),210px)}
  .contracts-layout .contract-offers{grid-template-columns:1fr;gap:.35rem;max-width:560px}
- .contracts-layout .compact-offer{grid-template-columns:minmax(0,1fr) minmax(172px,1.1fr);padding:.4rem .5rem;gap:.2rem .5rem}
+ .contracts-layout .compact-offer{grid-template-columns:minmax(0,1fr) minmax(214px,1.6fr);padding:.4rem .5rem;gap:.2rem .5rem}
  .contracts-layout .compact-offer .offer-heading{flex-wrap:nowrap}.contracts-layout .compact-offer .winning-combos{padding-left:.4rem}
  .contracts-layout .dice-mission h2{font-size:1rem}.contracts-layout .dice-mission{padding:.4rem .65rem}
  .contracts-layout .dice-table-caption{font-size:.72rem;padding:.2rem .5rem}

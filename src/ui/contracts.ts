@@ -1,4 +1,4 @@
-import {dieFace} from './dice-face';
+import {dieFace,combinationFace} from './dice-face';
 import {diceTable} from './dice-table';
 import { contractPreview, contractRehearsal, decisionTrack } from './table-experience';
 import { CONTRACT_IDS, CONTRACTS, OBJECTIVES, favorableCount, grossPayout, netPayout, objectiveThreshold, supportsObjective, type ContractId } from '../core/math/dice';
@@ -20,10 +20,9 @@ export function winningPairGroups(id:ContractId):{sum:number;pairs:[number,numbe
  return [...groups].sort(([a],[b])=>a-b).map(([sum,pairs])=>({sum,pairs}));
 }
 function combinations(id:ContractId):string{
- const faces=['','⚀','⚁','⚂','⚃','⚄','⚅'];
- if(id==='S')return `<span class="winning-combos any-combo" role="img" aria-label="Cualquier combinación de los dos dados paga: 36 de 36 pares"><span aria-hidden="true">⚀ ⚁ ⚂ ⚃ ⚄ ⚅</span><small>Cualquier par · 36 de 36</small></span>`;
+ if(id==='S')return `<span class="winning-combos any-combo" role="img" aria-label="Cualquier combinación de los dos dados paga: 36 de 36 pares"><span class="any-faces" aria-hidden="true">${[1,2,3,4,5,6].map(combinationFace).join('')}</span><small>Cualquier par · 36 de 36</small></span>`;
  const count=winningPairGroups(id).reduce((n,g)=>n+g.pairs.reduce((total,[a,b])=>total+(a===b?1:2),0),0);
- return `<span class="winning-combos" role="group" aria-label="Combinaciones que pagan con ${CONTRACTS[id].name}">${winningPairGroups(id).map(g=>`<span class="combo-row"><b>Suma ${g.sum}</b><span class="combo-pairs">${g.pairs.map(([a,b])=>`<span class="dice-combo" role="img" aria-label="${a} más ${b}, suma ${g.sum}${a===b?'':'; también '+b+' más '+a}" title="${a} + ${b}${a===b?'':' y '+b+' + '+a}"><span aria-hidden="true">${faces[a]}<i>+</i>${faces[b]}</span></span>`).join('')}</span></span>`).join('')}<small>${count} de 36 pares pagan</small></span>`;
+ return `<span class="winning-combos" role="group" aria-label="Combinaciones que pagan con ${CONTRACTS[id].name}">${winningPairGroups(id).map(g=>`<span class="combo-row"><b>Suma ${g.sum}</b><span class="combo-pairs">${g.pairs.map(([a,b])=>`<span class="dice-combo" role="img" aria-label="${a} más ${b}, suma ${g.sum}${a===b?'':'; también '+b+' más '+a}" title="${a} + ${b}${a===b?'':' y '+b+' + '+a}"><span aria-hidden="true">${combinationFace(a)}<i>+</i>${combinationFace(b)}</span></span>`).join('')}</span></span>`).join('')}<small>${count} de 36 pares pagan</small></span>`;
 }
 function offer(state: ContractsState, id: ContractId, selected: ContractId | null): string {
  const c=CONTRACTS[id],choosing=state.phase==='offer'||state.phase==='order';

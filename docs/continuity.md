@@ -204,3 +204,5 @@ Publicada visible-dice-table-v12: fuente afc2963, deployment db5f217. 41 unitari
 Pedido 2026-10-29: [mesa protagonista de Doble](doble-table-focus.md), con ventana grande y ofertas como fichas cortas debajo. Se conservan pares gráficos, selección y animación. Cambio de presentación limitado a Doble.
 
 Publicada doble-table-focus-v13: fuente 35cbe47, deployment a172217. 41 unitarias, diez recorridos dirigidos locales y diez públicos aprobados; seis tamaños de pantalla y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
+
+Revisión 2026-10-29: [combinaciones más claras](clear-dice-combinations.md). Caras dibujadas de al menos 20 px, puntos contrastados y más ancho para los pares. Las alturas de la mesa se conservan y se verifican en las seis resoluciones.

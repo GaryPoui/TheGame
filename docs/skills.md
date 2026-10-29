@@ -109,3 +109,5 @@ Doble compacto 2026-10-28: game-ui-ux, frontend-design y webapp-testing para tre
 Mesa y tirada 2026-10-29: game-ui-ux, game-feel y webapp-testing para encuadre reservado, giro/rebote amortiguado, lectura del resultado y controles con movimiento reducido. Ver [evidencia](dice-table-roll.md).
 
 Énfasis de Doble 2026-10-29: game-ui-ux y frontend-design para jerarquía centrada en la mesa y fichas compactas. Validación con el Playwright TypeScript existente. Ver [evidencia](doble-table-focus.md).
+
+Dados legibles 2026-10-29: game-ui-ux y frontend-design para caras con puntos y distribución más clara en las cartas, conservando la mesa. Ver [evidencia](clear-dice-combinations.md).
