@@ -413,3 +413,5 @@ Corrección 2026-10-28: cuerpo completo sólo en diálogos; durante partidas, pe
 Revisión de Doble 2026-10-28: el usuario pidió ver todas las opciones sin desplazar y mostrar las combinaciones de dados. Se compactan las tres ofertas y se representan los pares que pagan por suma, aclarando los órdenes inversos. Se mantiene el estilo y la matemática. Ver [detalle y evidencia](dice-combinations.md).
 
 Revisión 2026-10-29: el usuario aprobó la comparación y pidió además ver la mesa, la tirada y los números. Se reserva una ventana para la mesa 3D original, se animan los dados de la única tirada guardada y se muestra cada número con la suma. Se conserva la comparación compacta y la alternativa sin movimiento/3D. Ver [detalle y evidencia](dice-table-roll.md).
+
+Segundo ajuste del 2026-10-29: el usuario pidió dar mucho más énfasis a la mesa y menos a las tarjetas. La mesa de Doble gana altura y las ofertas quedan como fichas cortas debajo, conservando los pares y los controles. Ver [detalle y evidencia](doble-table-focus.md).

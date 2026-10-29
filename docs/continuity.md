@@ -200,3 +200,5 @@ Publicación de Doble compacto: compact-dice-v11, fuente c3eb34e, deployment 520
 Revisión 2026-10-29: [mesa de Doble y tirada](dice-table-roll.md). El canvas original se integra arriba de las ofertas; dados con giro y rebote visual, números y suma al detenerse. Una sola tirada guardada; segunda orden sin relanzar. Movimiento reducido inmediato y alternativa HTML sin WebGL.
 
 Publicada visible-dice-table-v12: fuente afc2963, deployment db5f217. 41 unitarias, 31 recorridos locales completos y 11 públicos aprobados, con 146 hashes correctos. CI completa aún en ejecución al registrar. Estado observado y evidencia en delivery.json.
+
+Pedido 2026-10-29: [mesa protagonista de Doble](doble-table-focus.md), con ventana grande y ofertas como fichas cortas debajo. Se conservan pares gráficos, selección y animación. Cambio de presentación limitado a Doble.

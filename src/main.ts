@@ -8,6 +8,7 @@ import './ui/dialogue-polish.css';
 import './ui/table-hosts.css';
 import './ui/compact-dice.css';
 import './ui/dice-table.css';
+import './ui/doble-table-focus.css';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {INTRO} from './content/intro';
