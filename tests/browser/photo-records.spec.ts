@@ -9,7 +9,7 @@ for(const answer of ['yes','no'])test(`initial ${answer} is unscored, survives r
  const s=createGame(7);s.settings.volume=0;s.settings.reducedMotion=true;
  for(let i=0;i<35&&s.phase!=='complete';i++)Object.assign(s,['choose','guided'].includes(s.phase)?choose(s,bestChoices(s)[0] as 0|1):advance(s));
  s.contracts=createContracts(4);for(let i=0;i<40&&s.contracts.phase!=='complete';i++){const c=s.contracts;s.contracts=applyContractCommand(c,{type:c.phase==='tutorial'?'begin':['offer','order'].includes(c.phase)?'sign':'next',contract:bestContracts(currentObjective(c))[0],commandId:'c'+c.revision,expectedRevision:c.revision});}
- s.records=createRecords(1);s.activeTable='records';s.seals={urns:true,contracts:true};
+ s.records=createRecords(1,false,'photos-v1');s.activeTable='records';s.seals={urns:true,contracts:true};
  await page.addInitScript(raw=>{if(!sessionStorage.getItem('loaded')){localStorage.setItem('thegame.save.v1.current',raw);sessionStorage.setItem('loaded','yes');}},JSON.stringify({schemaVersion:3,contentVersion:'campaign-v3',state:s}));
  await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();await expect(page.getByTestId('records-begin')).toHaveCount(0);
  await page.getByTestId('records-diagnostic-'+answer).click();await expect(page.getByTestId('records-diagnostic-feedback')).toContainText('La respuesta es No');

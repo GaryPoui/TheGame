@@ -125,7 +125,7 @@ export class GameScene {
     portrait.position.set(0,3.3,2.4);
     portrait.billboardMode=Mesh.BILLBOARDMODE_ALL;
     const portraitMaterial=new StandardMaterial('vera-ink',this.scene);
-    portraitMaterial.diffuseTexture=new Texture(import.meta.env.BASE_URL+'art/vera-v3.png',this.scene);
+    portraitMaterial.diffuseTexture=new Texture(import.meta.env.BASE_URL+'art/vera-full-v1.png',this.scene);
     portraitMaterial.diffuseTexture.hasAlpha=true; this.veraTexture = portraitMaterial.diffuseTexture as Texture;
     portraitMaterial.useAlphaFromDiffuseTexture=true;
     portraitMaterial.emissiveColor=Color3.White();portraitMaterial.disableLighting=true;
@@ -216,7 +216,7 @@ export class GameScene {
     const material = portrait?.material as StandardMaterial | null;
     if(changed && portrait) { portrait.scaling.set(enabled ? 1.3 : 1,enabled ? 1.3 : 1,1); portrait.position.y = enabled ? 3.65 : 3.3; }
     if(changed && material) {
-      if(enabled && !this.dobleTexture) { this.dobleTexture = new Texture(import.meta.env.BASE_URL+'art/doble-v2.png',this.scene); this.dobleTexture.hasAlpha = true; }
+      if(enabled && !this.dobleTexture) { this.dobleTexture = new Texture(import.meta.env.BASE_URL+'art/doble-full-v1.png',this.scene); this.dobleTexture.hasAlpha = true; }
       material.diffuseTexture = enabled ? this.dobleTexture : this.veraTexture;
     }
     const key = enabled ? JSON.stringify(pair) : 'off';

@@ -400,3 +400,6 @@ El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente
 ## Ada: fotos tramposas y diagnóstico — 2026-10-28
 
 El usuario eligió la opción de fotos seleccionadas y pidió una pregunta Sí/No sobre cuatro victorias anteriores. Se aclara independencia y moneda equilibrada: No aumenta la chance siguiente, ni obliga a perder. Diagnóstico local sin puntos, cuatro rondas con fotos y adaptación del final. Textos de Doble más simples. Diseño anterior de mesas conservado. Ver [reglas y compatibilidad](photos-redesign.md).
+
+
+Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.

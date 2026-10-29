@@ -31,7 +31,7 @@ it('all movement and interaction bindings detect conflicts without changing keys
 });
 it('v1 and v2 snapshots migrate without losing state; completed seals survive practice',()=>{
  const map=new Map<string,string>(),store:SaveStorage={getItem:k=>map.get(k)??null,setItem:(k,v)=>{map.set(k,v);},removeItem:k=>{map.delete(k);}};
- for(const [schemaVersion,contentVersion] of [[1,'urns-mvp-v1'],[2,'urns-contracts-v2']] as const){const s=createGame(2);map.set('thegame.save.v1.current',JSON.stringify({schemaVersion,contentVersion,state:s}));expect(loadGame(store).state).toEqual(s);expect(saveGame(s,store)).toBeNull();expect(JSON.parse(map.get('thegame.save.v1.current')!).schemaVersion).toBe(4);}
+ for(const [schemaVersion,contentVersion] of [[1,'urns-mvp-v1'],[2,'urns-contracts-v2']] as const){const s=createGame(2);map.set('thegame.save.v1.current',JSON.stringify({schemaVersion,contentVersion,state:s}));expect(loadGame(store).state).toEqual(s);expect(saveGame(s,store)).toBeNull();expect(JSON.parse(map.get('thegame.save.v1.current')!).schemaVersion).toBe(5);}
  let s=createGame(3);while(s.phase!=='complete')s=s.phase==='choose'||s.phase==='guided'?choose(s,bestChoices(s)[0] as 0|1):advance(s);
  s=checkpointCampaign(s);expect(tableUnlocked(s,'contracts')).toBe(true);expect(tableUnlocked(s,'records')).toBe(false);const practice={...createGame(4),seals:s.seals!};expect(checkpointCampaign(practice).seals?.urnsMethod).toBe('independent');expect(tableUnlocked(practice,'contracts')).toBe(true);
 });

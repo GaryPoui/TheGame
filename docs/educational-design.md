@@ -111,3 +111,6 @@ Precisiones normativas posteriores a revisión:
 - Repetir transferencia independiente usa un pool finito distinto, sin generación ilimitada: urnas 4R/2A frente a 2R/2A, evento A sin reposición; dados S/C/J con objetivo P(neto≥20) y rango mínimo; registros completo V n4 [4,0,4,4] y bloque de cuatro hasta n8. Los criterios se calculan igual que en reglas base. Repeticiones posteriores reutilizan escenarios y dejan de contarse como transferencia nueva.
 
 Comprobación reproducible: `python scripts/verify-math.py`; evidencia [math-verification.json](evidence/math-verification.json). Resultado ejecutado: 64 aserciones aprobadas con Python 3.11.9, enumeración de 36 pares y ramas de urnas mediante racionales exactos. Verifica parámetros y puntuación del diseño; no prueba código de videojuego, UX, guardado real ni eficacia educativa.
+
+
+Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.

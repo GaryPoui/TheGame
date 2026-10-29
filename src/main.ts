@@ -3,6 +3,7 @@ import './ui/contracts.css';
 import './ui/table-experience.css';
 import './ui/campaign.css';
 import './ui/exploration.css';
+import './ui/dialogue-dice.css';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {INTRO} from './content/intro';
@@ -148,7 +149,7 @@ function tutorial(): string {
     : tutorialStep===1 ? 'Quitamos una roja de U: antes había 3 de 5; ahora, 2 de 4. Mirá el inventario sobre el paño.'
     : demoChoice!==null ? 'Exacto: 2/4 y 1/2 representan la misma proporción. Las dos urnas sirven. En la partida el resultado sí será al azar.' : 'Tocá una urna. U ofrece 2/4 y V, 1/2. ¿Representan partes distintas o iguales?';
   const ready = tutorialStep===1 || tutorialStep===0 && demoChoice===0 || tutorialStep===2 && demoChoice!==null;
-  return `<main class="table-layout playable-table"><section class="vera-floor"><div class="table-heading"><h1>Aprendé con Vera</h1><div class="tutorial-stages" aria-label="Ciclo de aprendizaje">${['Predecir','Decidir','Observar','Explicar','Aplicar'].map((stage,i)=>`<span ${i===['predict','decide','observe','explain','apply'].indexOf(tutorialFlow.phase)?'aria-current="step"':''}>${stage}</span>`).join('')}</div><p class="round-context">Ejemplo preparado · ${tutorialStep+1} de 3 · no cambia tu partida</p></div><div class="vera-playfield"><div class="table-mission"><strong>${tutorialStep===1?'Una roja quedó afuera':'Buscá la mayor chance de roja'}</strong></div><div class="urn-options">${demoUrns.map((u,i)=>`<button class="urn-option ${demoChoice===i?'selected':''}" data-testid="demo-urn-${i}" aria-pressed="${demoChoice===i}" ${tutorialStep===1?'disabled':''}><strong>Urna ${i===0?'U':'V'}</strong>${tokenTray(u,'red')}<span class="odds"><b>${u.red}/${u.red+u.blue}</b><span>fichas rojas del total</span></span></button>`).join('')}</div></div></section><aside class="game-panel vera-notebook"><h2>${title}</h2><div class="mentor-coach"><strong>Vera</strong><p>${text}</p></div>${btn('tutorial-next',tutorialStep===0?'Sacar una roja preparada':tutorialStep===1?'Comparar otra vez':'Empezar mi partida','primary full',!ready)}${btn('skip-tutorial','Ir directo a la partida','text-button full')}</aside></main>`;
+  return `<main class="table-layout playable-table"><section class="vera-floor"><div class="table-heading"><h1>Aprendé con Vera</h1><div class="tutorial-stages" aria-label="Ciclo de aprendizaje">${['Predecir','Decidir','Observar','Explicar','Aplicar'].map((stage,i)=>`<span ${i===['predict','decide','observe','explain','apply'].indexOf(tutorialFlow.phase)?'aria-current="step"':''}>${stage}</span>`).join('')}</div><p class="round-context">Ejemplo preparado · ${tutorialStep+1} de 3 · no cambia tu partida</p></div><div class="vera-playfield"><div class="table-mission"><strong>${tutorialStep===1?'Una roja quedó afuera':'Buscá la mayor chance de roja'}</strong></div><div class="urn-options">${demoUrns.map((u,i)=>`<button class="urn-option ${demoChoice===i?'selected':''}" data-testid="demo-urn-${i}" aria-pressed="${demoChoice===i}" ${tutorialStep===1?'disabled':''}><strong>Urna ${i===0?'U':'V'}</strong>${tokenTray(u,'red')}<span class="odds"><b>${u.red}/${u.red+u.blue}</b><span>fichas rojas del total</span></span></button>`).join('')}</div></div></section><aside class="game-panel vera-notebook"><h2>${title}</h2><div class="mentor-coach"><img class="dialogue-fullbody vera-speaking" src="${import.meta.env.BASE_URL}art/vera-full-v1.png" alt="Vera de cuerpo completo"><strong>Vera</strong><p>${text}</p></div>${btn('tutorial-next',tutorialStep===0?'Sacar una roja preparada':tutorialStep===1?'Comparar otra vez':'Empezar mi partida','primary full',!ready)}${btn('skip-tutorial','Ir directo a la partida','text-button full')}</aside></main>`;
 }
 function urnChoice(urn: Urn, index: 0 | 1): string {
   const p = probability(urn, state.event);
@@ -267,7 +268,7 @@ function outsideView():string {
 }
 function enterRecords():void {
  if(!tableUnlocked(state,'records'))return;
- state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience==='photos-v1'&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
+ state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience?.startsWith('photos-')&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
 }
 function enterFinale():void {
  if(!tableUnlocked(state,'finale'))return;
@@ -298,7 +299,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
    if(id?.startsWith('finale-')&&current.phase==='choose'&&finaleChoices(current).includes(id.slice(7) as FinaleChoice)){selectedFinale=id.slice(7) as FinaleChoice;render(id);return true;}
    if(id==='finale-confirm'||id==='finale-next'){
      const command:FinaleCommand={type:id==='finale-confirm'?'choose':'next',...(selectedFinale?{choice:selectedFinale}:{}),expectedRevision:Number(target.dataset.revision),commandId:'host-'+target.dataset.revision+'-'+id};
-     const next=applyFinaleCommand(current,command);if(next===current){announce('Seguí la opción indicada por la ayuda.');return true;}
+     const next=applyFinaleCommand(current,command);if(next===current){announce('Revisá los datos e intentá otra respuesta.');return true;}
      state.finale=next;selectedFinale=null;persist();render(next.phase==='feedback'?'finale-next':next.phase==='complete'?'exit-house':'finale-'+finaleChoices(next)[0]);if(next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
    }
  }
@@ -312,7 +313,8 @@ function showDialog(title: string, content: string): HTMLDialogElement {
   dialog.addEventListener('close', () => {
     // A closed dialog may already have been replaced by another one (reset/confirmation).
     if (!dialog.isConnected) return;
-    dialog.remove(); previous?.focus({preventScroll:true});
+    const restore=document.activeElement===document.body||dialog.contains(document.activeElement);
+    dialog.remove(); if(restore)previous?.focus({preventScroll:true});
   });
   dialog.showModal(); return dialog;
 }

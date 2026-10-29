@@ -53,3 +53,6 @@ Cámara estable en exploración; conversación con mirada suave opcional; mesa c
 ## Hipótesis y puerta de producción
 
 Antes de ampliar campaña, observar 5 sesiones exploratorias de primera mesa: tiempo, acciones erróneas, uso de ayuda, identificación de reposición, explicación de mala suerte, disfrute autoinformado. No es ensayo de eficacia. Si predominan clics siguiendo ayudas sin comprensión, revisar mecánica antes de arte final. Tras prototipo, comparar transferencia inmediata y diferida si hay recursos y consentimiento; no recolectar datos personales por defecto.
+
+
+Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.

@@ -183,3 +183,6 @@ Cierre de mesas 2026-10-28: fuente d9c4f82, deployment b264adc, versión table-f
 Restauración publicada y verificada: table-layout-restored-v6.1, fuente d314eb9, deployment a10c692. Build y 32 unitarias aprobadas; 3/3 casos públicos de urnas y 143/143 hashes correctos. Evidencia en docs/evidence/table-restore/.
 
 Fotos publicadas 2026-10-28: photos-and-clear-dice-v7.1, fuente 99a7086, deployment fe040aa. 37 unitarias, 26 recorridos HTTPS y 143 hashes correctos; 67 referencias matemáticas. Guardado v4 compatible con v1–3 y sesiones antiguas de Ada. Ver docs/photos-redesign.md y delivery.json.
+
+
+Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.
