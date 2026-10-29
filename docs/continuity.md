@@ -210,3 +210,5 @@ Revisión 2026-10-29: [combinaciones más claras](clear-dice-combinations.md). C
 Publicada clear-dice-v14: fuente b65eb4e, deployment 581f554. 41 unitarias, diez recorridos locales y cinco públicos aprobados; seis tamaños con la mesa conservada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
 
 Encuadre 2026-10-29: [Doble desde la cintura](doble-waist-portrait.md), con escala y altura ajustadas para ver torso, manos y sombrero completo. Mesa y cámara conservadas; sólo presentación del rival en esta mesa.
+
+Publicada doble-waist-portrait-v15: fuente 9330041, deployment de35ee7. 41 unitarias, cinco recorridos locales y cinco públicos aprobados; seis tamaños con la mesa conservada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
