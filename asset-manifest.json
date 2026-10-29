@@ -65,6 +65,39 @@
       "origin": "Original code-drawn paper cards with star/cross and text; prepared example outcomes",
       "license": "Project owner's rights",
       "notes": "No borrowed photographs or new raster assets. Win/loss is explicit in text and symbols, not color alone."
+    },
+    {
+      "id": "vera-full-v1",
+      "source": "art/vera-full-v1.png",
+      "origin": "Built-in imagegen extension of the existing project character; full standing body, original face/costume/palette preserved",
+      "license": "AI-generated; not CC0; existing character provenance retained",
+      "sha256": "4604a049502557543c99e59eff09164d0c1159a5aa7e6a1c6ab8cdd5a56a3baf",
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "doble-full-v1",
+      "source": "art/doble-full-v1.png",
+      "origin": "Built-in imagegen extension of the existing project character; full standing body, original face/costume/palette preserved",
+      "license": "AI-generated; not CC0; existing character provenance retained",
+      "sha256": "1d79297806693b3755fd62a8f62feefe5f439bfa3ad789a28ad24438ea51e98f",
+      "alpha_extrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "ada-full-v1",
+      "source": "art/ada-full-v1.png",
+      "origin": "Built-in imagegen extension of the existing project character; full standing body, original face/costume/palette preserved",
+      "license": "AI-generated; not CC0; existing character provenance retained",
+      "sha256": "7867658d3a7f57ea023bad8ece20504fdf15180f9a6cb0d66630f4e14ff197f0",
+      "alpha_extrema": [
+        0,
+        254
+      ]
     }
   ],
   "engine": {
