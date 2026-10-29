@@ -68,7 +68,7 @@ test('settings allow reduced motion and text scaling', async ({ page }) => {
   await page.getByTestId('settings-button').click();
   await page.getByTestId('reduced-motion').check();
   await page.getByTestId('text-scale').selectOption('2');
-  await page.getByTestId('volume').focus();
+  await page.getByRole('tab',{name:'Sonido',exact:true}).click();await page.getByTestId('volume').focus();
   await page.keyboard.press('Home');
   await page.getByTestId('close-dialog').click();
   await expect(page.locator('dialog')).toHaveCount(0);
@@ -114,14 +114,14 @@ test('weak decisions reach a finite guided completion', async ({ page }) => {
 test('remapped shortcuts work and conflicting bindings are rejected', async ({ page }) => {
   await start(page);
   const before = await saved(page);
-  await page.getByTestId('help-button').click();
+  await page.getByText('Ayuda y opciones',{exact:true}).click();await page.getByTestId('help-button').click();
   await page.getByTestId('help-button').click();
   expect(await saved(page)).toEqual({ ...before, helpHistory: ['urns-0-0'] });
   await page.getByTestId('settings-button').click();
-  await page.getByTestId('bind-urn-u').selectOption('KeyD');
+  await page.getByRole('tab',{name:'Controles',exact:true}).click();await page.getByTestId('bind-urn-u').selectOption('KeyD');
   await expect(page.getByTestId('binding-warning')).not.toBeEmpty();
-  await page.getByTestId('bind-urn-u').selectOption('KeyJ');
-  await page.getByTestId('bind-confirm').selectOption('KeyL');
+  await page.getByRole('tab',{name:'Controles',exact:true}).click();await page.getByTestId('bind-urn-u').selectOption('KeyJ');
+  await page.getByRole('tab',{name:'Controles',exact:true}).click();await page.getByTestId('bind-confirm').selectOption('KeyL');
   await page.getByTestId('close-dialog').click();
   await expect(page.locator('dialog')).toHaveCount(0);
   await page.keyboard.press('j');

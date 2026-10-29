@@ -42,7 +42,7 @@ test('reduced motion shortens the darkness and stops character motion', async ({
   await page.goto('./');
   await page.getByTestId('settings-button').click();
   await page.getByTestId('reduced-motion').check();
-  await page.getByTestId('volume').fill('0');
+  await page.getByRole('tab',{name:'Sonido',exact:true}).click();await page.getByTestId('volume').fill('0');
   await page.getByTestId('close-dialog').click();
   await page.getByTestId('new-game').click();
   await expect(page.locator('body')).toHaveAttribute('data-intro-phase', 'lit', { timeout: 1500 });

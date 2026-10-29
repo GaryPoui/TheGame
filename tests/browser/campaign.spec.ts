@@ -52,7 +52,7 @@ test('Ada, host finale, epilogue and freedom survive reload and practice',async(
  await page.locator('details.transfer summary').click();await page.getByTestId('transfer-a').click();await expect(page.getByTestId('transfer-feedback')).toContainText('80 %');
  await page.getByTestId('exit-house').click();await expect(page.locator('body')).toHaveAttribute('data-screen','outside');
  await page.screenshot({path:`${evidence}/epilogue.png`});await page.reload();await page.getByTestId('continue-game').click();await expect(page.locator('body')).toHaveAttribute('data-screen','outside');
- await page.getByTestId('back-room').click();await page.getByTestId('enter-finale').click();await page.getByTestId('finale-replay').click();expect((await saved(page)).freed).toBe(true);expect(errors).toEqual([]);
+ if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();await page.getByTestId('enter-finale').click();await page.getByTestId('finale-replay').click();expect((await saved(page)).freed).toBe(true);expect(errors).toEqual([]);
 });
 test('poor decisions lead through finite help in Ada and finale',async({page})=>{
  await open(page,checkpoint());await finishRecords(page,false);expect((await saved(page)).records!.assisted).toBe(true);
@@ -63,7 +63,7 @@ test('gates, narrow display, text scaling and silent keyboard choices',async({pa
  await page.setViewportSize({width:390,height:844});await page.getByTestId('settings-button').click();await page.getByTestId('text-scale').selectOption('2');await page.getByTestId('close-dialog').click();
  await page.getByTestId('records-archive').focus();await page.keyboard.press('Enter');await page.getByTestId('records-confirm').focus();await page.keyboard.press('Enter');await expect(page.getByTestId('records-feedback')).toContainText('Buena decisión');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);await page.screenshot({path:`${evidence}/ada-200-narrow.png`,fullPage:true});
- await page.getByTestId('back-room').click();await expect(page.getByTestId('enter-finale')).toBeDisabled();await expect(page.getByTestId('enter-records')).toBeEnabled();
+ if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();await expect(page.getByTestId('enter-finale')).toBeDisabled();await expect(page.getByTestId('enter-records')).toBeEnabled();
 });
 test('another tab changes the save without silently overwriting its progress',async({page})=>{
  await open(page,checkpoint());const raw=JSON.stringify({schemaVersion:99});await page.evaluate(raw=>{localStorage.setItem('thegame.save.v1.current',raw);window.dispatchEvent(new StorageEvent('storage',{key:'thegame.save.v1.current',newValue:raw,oldValue:'previous'}));},raw);
@@ -84,8 +84,8 @@ test('all campaign panels remain usable at 200 percent text in a narrow window',
  test.setTimeout(120_000);
  const s=checkpoint();s.seals!.records=true;s.finale=createFinale(1);s.settings.textScale=2;s.settings.volume=0;s.settings.reducedMotion=true;await page.setViewportSize({width:390,height:844});await open(page,s);
  const check=async(name:string)=>{expect(await page.evaluate(()=>document.documentElement.scrollWidth),name).toBeLessThanOrEqual(390);expect(await page.locator('.topbar').evaluate(el=>Math.max(...Array.from(el.children).filter(child=>child.getClientRects().length>0).map(child=>child.getBoundingClientRect().bottom))-el.getBoundingClientRect().bottom),name+' header overlap').toBeLessThanOrEqual(1);await page.screenshot({path:`${evidence}/${name}-200.png`,fullPage:true});};
- await check('ada-tutorial');await beginRecords(page);await check('ada');await page.getByTestId('back-room').click();await check('room');
- await page.getByTestId('enter-urns').click();await check('vera-complete');await page.getByTestId('practice-again').click();await page.getByTestId('toggle-cards').click();await check('vera');await page.getByTestId('back-room').click();
- await page.getByTestId('enter-contracts').click();await page.getByTestId('doble-replay').click();await page.getByTestId('doble-begin').click();await check('doble');await page.getByTestId('back-room').click();
+ await check('ada-tutorial');await beginRecords(page);await check('ada');if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();await check('room');
+ await page.getByTestId('enter-urns').click();await check('vera-complete');await page.getByTestId('practice-again').click();await page.getByTestId('toggle-cards').click();await check('vera');if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();
+ await page.getByTestId('enter-contracts').click();await page.getByTestId('doble-replay').click();await page.getByTestId('doble-begin').click();await check('doble');if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();
  await page.getByTestId('enter-finale').click();await check('host');await page.getByTestId('finale-U').click();await page.getByTestId('finale-confirm').click();await expect(page.getByTestId('finale-feedback')).toBeVisible();
 });

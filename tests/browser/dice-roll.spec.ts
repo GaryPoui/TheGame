@@ -22,7 +22,7 @@ test('visible table rolls once, settles on the saved pair and preserves the canv
  await expect(page.getByTestId('dice-status')).toHaveText(`Dado 1: ${record.pair[0]} · Dado 2: ${record.pair[1]} · Suma ${record.pair[0]+record.pair[1]}`);await expect(page.getByTestId('doble-next')).toBeEnabled();
  expect(await saved(page)).toEqual(record);expect((await metrics(page)).diceRolling).toBe(false);await writeFile(`${evidence}/result-metrics.json`,JSON.stringify(await metrics(page),null,2));await page.screenshot({path:`${evidence}/table-result.png`});
  await page.getByTestId('doble-next').click();expect((await metrics(page)).diceRollCount).toBe(1);await expect(page.getByTestId('dice-status')).toContainText('Tirada anterior');await page.getByTestId('contract-S').click();await page.getByTestId('doble-sign').click();expect((await metrics(page)).diceRollCount).toBe(1);
- await page.getByTestId('back-room').click();await expect(page.locator('body > #scene')).toHaveCount(1);await page.getByTestId('enter-urns').click();await expect(page.locator('body > #scene')).toHaveCount(1);
+ if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();await expect(page.locator('body > #scene')).toHaveCount(1);await page.getByTestId('enter-urns').click();await expect(page.locator('body > #scene')).toHaveCount(1);
  await page.reload();await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();expect((await saved(page)).pair).toEqual(record.pair);
 });
 

@@ -211,7 +211,7 @@ export class GameScene {
     glowInk.emissiveColor=Color3.FromHexString('#FFE3A0');glowInk.disableLighting=true;
     const ring=CreateTorus('selection-ring',{diameter:1.5,thickness:.065,tessellation:48},this.scene);ring.position.set(x,1.89,-.25);ring.material=glowInk;ring.isVisible=false;ring.isPickable=false;this.rings.push(ring);
     this.box('identification-plate',[.44,.25,.018],[x,1.94,-.94],this.brass);
-    this.label(index===0?'U':'V',x,1.95,-.985,.28,.19,'#f0dfc0','#243b35');
+    this.label(index===0?'1':'2',x,1.95,-.985,.28,.19,'#f0dfc0','#243b35');
   }
   setMode(mode:'menu'|'room'|'table',reducedMotion?:boolean):void {
     this.mode=mode;if(reducedMotion!==undefined)this.reduced=reducedMotion;

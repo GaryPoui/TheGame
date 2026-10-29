@@ -12,10 +12,10 @@ test('dialogue resumes its checkpoint, replays without rewards, and releases con
 });
 test('room navigation is bounded, rebindable and paused; returning preserves position',async({page})=>{
  await page.goto('./');await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();await page.locator('.room-walk summary').click();
- await page.getByTestId('settings-button').click();await page.getByTestId('bind-forward').selectOption('KeyJ');await page.getByTestId('close-dialog').click();await page.keyboard.press('KeyJ');
+ await page.getByTestId('settings-button').click();await page.getByRole('tab',{name:'Controles',exact:true}).click();await page.getByTestId('bind-forward').selectOption('KeyJ');await page.getByTestId('close-dialog').click();await page.keyboard.press('KeyJ');
  const position=await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.roomPosition);expect(position.z).toBe(1.5);
  await page.keyboard.press('Escape');await expect(page.locator('dialog[open]')).toBeVisible();await page.keyboard.press('KeyJ');expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.roomPosition)).toEqual(position);await page.getByTestId('resume-game').click();
- await page.getByTestId('enter-urns').click();await page.getByTestId('skip-tutorial').click();await page.keyboard.press('KeyJ');await page.getByTestId('back-room').click();expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.roomPosition)).toEqual(position);
+ await page.getByTestId('enter-urns').click();await page.getByTestId('skip-tutorial').click();await page.keyboard.press('KeyJ');await page.getByText('Ayuda y opciones',{exact:true}).click();await page.getByTestId('back-room').click();expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.roomPosition)).toEqual(position);
  await expect(page.getByTestId('enter-finale')).toBeDisabled();
 });
 test('optional street memory uses limited steps and returns to the dark opening',async({page})=>{

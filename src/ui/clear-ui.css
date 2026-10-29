@@ -1,0 +1,242 @@
+/* Reading and decisions share the existing ink, paper and brass palette. */
+:root { --font-ui: Arial, Helvetica, sans-serif; font-size: calc(18px * var(--text-scale)); }
+body { font-weight: 500; }
+button, input, select, summary { font-family: var(--font-ui); }
+h1, h2, h3, strong, summary, button { font-weight: 700; }
+h1, h2 { text-wrap: balance; letter-spacing: -.025em; }
+::selection { background: #e1b36d; color: #30252c; }
+.topbar { height: 64px; justify-content: flex-end; padding-inline: 4%; background: transparent; border: 0; }
+.topbar .quiet { margin: 0; font-size: .9rem; min-height: 44px; }
+body[data-screen] .topbar { height: 64px; min-height: 0; }
+#app summary { pointer-events: auto; }
+.graphics-warning { top: auto; bottom: .7rem; left: .7rem; right: auto; max-width: min(44vw,600px); font-size: .75rem; padding: .4rem .6rem; border-radius: 8px; pointer-events: none; }
+.graphics-warning button { pointer-events: auto; font-size: .75rem; padding: .35rem; }
+.menu-layout { min-height: calc(100svh - 128px); padding-block: 1rem; }
+.menu-copy { max-width: 550px; }
+.menu-copy h1 { font-size: clamp(3.4rem, 7vw, 6rem); margin-bottom: 1rem; letter-spacing: -.035em; }
+.menu-copy .eyebrow, .menu-copy .fine-rule { display: none; }
+.menu-tagline { font-size: 1.2rem; max-width: 30ch; line-height: 1.45; }
+.menu-description { font-size: 1rem; max-width: 39ch; line-height: 1.5; margin-bottom: 1rem; }
+.menu-note, .menu-footer { font-size: .85rem; }
+.menu-footer { height: 64px; gap: 1rem; }
+.menu-footer .text-button { font-size: .85rem; }
+.menu-actions button { justify-content: center; }
+.room-layout { min-height: calc(100svh - 64px); padding-block: 1rem; }
+.room-copy { margin-top: 1rem; }
+.table-entry { padding-block: .8rem; }
+.table-entry small { font-size: .8rem; }
+.table-entry strong { font-size: 1.25rem; font-weight: 700; }
+.table-entry > span:nth-child(2) > span { font-size: .85rem; }
+.game-panel p, .game-panel .decision-prompt, .result-card p,
+.ada-table-layout .archive-panel p { font-size: .95rem; line-height: 1.45; }
+.game-panel h2.objective { font-size: 1.55rem; line-height: 1.2; }
+.game-panel .primary, .ada-table-layout .archive-panel .primary { font-size: .95rem; min-height: 46px; padding: .65rem .8rem; }
+.game-panel .small-note, .ada-table-layout .archive-panel .small-note { font-size: .8rem; line-height: 1.4; }
+.round-context, .objective-label, .rule-tag, .scoreboard { font-size: .85rem; }
+.rule-tag span { display: none; }
+.urn-options { gap: .5rem; margin-bottom: .65rem; }
+.urn-option { gap: .4rem; padding: .65rem; }
+.urn-option.selected { padding: .65rem; }
+.urn-option-head strong { font-size: 1rem; }
+.urn-option-head > span, .choice-caption { font-size: .75rem; }
+.inventory { font-size: .85rem; line-height: 1.45; }
+.urn-option .odds b { font-size: 1rem; font-weight: 700; line-height: 1.3; }
+.odds > span { font-size: .8rem; line-height: 1.35; }
+.cards-toggle { font-size: .9rem; margin-bottom: .65rem; }
+.tutorial-coach { padding: .6rem 0; }
+.tutorial-coach p { margin: .3rem 0 .7rem; }
+.tutorial-coach strong { font-size: .9rem; }
+.result-card { margin-bottom: .6rem; }
+.result-card h2 { font-size: 1.35rem; margin: .3rem 0; }
+.result-card p { margin-bottom: .5rem; }
+.result-card .result-token { display: none; }
+.result-card .small-note { margin-top: .5rem; padding-top: .5rem; }
+.tutorial-table .result-card > p { display: none; }
+.tutorial-table .odds > span { display: none; }
+.panel-tools { border-top: 1px solid #ac9677; margin-top: .6rem; pointer-events: auto; }
+.panel-tools summary, .tutorial-recap summary { cursor: pointer; min-height: 44px; padding: .6rem 0; font-size: .85rem; }
+.panel-footer { flex-wrap: wrap; gap: .3rem 1rem; border: 0; margin-top: 0; }
+.panel-footer .text-button { font-size: .8rem; }
+.review-concepts { font-size: .85rem; color: #51345e; font-weight: 700; text-align: left; min-height: 44px; }
+.tutorial-summary { padding-left: 1.2rem; font-size: .9rem; line-height: 1.45; }
+.tutorial-summary li + li { margin-top: .55rem; }
+.table-bottom-note { display: none; }
+.learning-topics section + section { border-top: 1px solid #b7a07d; margin-top: 1.2rem; padding-top: .7rem; }
+.learning-topics h3 { margin: .5rem 0; }
+.learning-topics p { font-size: 1rem; line-height: 1.5; }
+.learning-topics a { color: #51345e; font-weight: 700; display: block; padding-block: .5rem; text-underline-offset: 3px; }
+.external-note { display: block; font-size: .8rem; font-weight: 500; margin-top: .2rem; }
+.settings-modal { width: 620px; }
+.settings-modal .modal-body { padding: 1rem 1.4rem; }
+.settings-intro { margin: 0 0 .8rem; }
+.settings-tabs { display: flex; border-bottom: 1px solid #b8a285; gap: .5rem; }
+.settings-tabs button { flex: 1; padding: .65rem .4rem; min-height: 44px; background: transparent; color: #513f56; border-radius: 7px 7px 0 0; font-size: .9rem; }
+.settings-tabs [aria-selected="true"] { background: #513f56; color: #fff0d8; }
+.settings-modal [hidden] { display: none; }
+.settings-modal .setting-row { padding: .75rem 0; gap: 1rem; font-size: .95rem; }
+.settings-modal .setting-row small { font-size: .8rem; line-height: 1.4; }
+.settings-modal input[type=range] { width: 45%; max-width: 220px; }
+.settings-modal select { min-height: 44px; font-weight: 700; }
+.settings-actions { margin-top: 1rem; padding-top: .8rem; border-top: 1px solid #b8a285; flex-wrap: wrap; }
+.settings-actions .text-button, .settings-actions .secondary { font-size: .85rem; }
+.modal .settings-actions .secondary { background: #f8efd8; color: #513f56; border-color: #9b8061; box-shadow: none; }
+.settings-actions [data-testid=delete-save] { color: #863b38; }
+.settings-modal .small-note { margin-bottom: .3rem; }
+.intro-layout, .contracts-tutorial { min-height: calc(100svh - 64px); }
+.dialogue-card p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.55; }
+.dialogue-card .dialogue-actions { margin-top: .8rem; padding-top: .7rem; }
+.completion-layout { min-height: calc(100svh - 64px); padding: 1rem; }
+.completion-card { max-width: 680px; padding: 1.3rem 1.6rem; }
+.completion-card h1 { font-size: 2.2rem; }
+.completion-card > p:not(.eyebrow):not(.completion-quote) { font-size: .95rem; line-height: 1.45; }
+.completion-card .learning-summary { font-size: .85rem; }
+
+@media (min-width: 1000px) and (min-height: 650px) {
+  .table-layout { min-height: calc(100svh - 64px); padding: .6rem 3% 1rem; grid-template-columns: minmax(0,1fr) minmax(400px,450px); }
+  .game-panel { max-height: calc(100svh - 90px); padding: 1rem; }
+  .table-heading h1 { font-size: 2rem; }
+  .urn-option.answer-correct .odds > span, .urn-option.answer-incorrect .odds > span { display: none; }
+  .ada-table-layout { grid-template-columns: minmax(0,1fr) minmax(360px,410px); padding-top: .5rem; }
+  .ada-table-layout .archive-panel { padding: 1rem; max-height: calc(100svh - 90px); overflow: auto; }
+  .ada-table-layout .archive-panel h2 { margin-bottom: .6rem; font-size: 1.3rem; }
+  .ada-table-layout .archive-options { gap: .4rem; }
+  .ada-table-layout .archive-choice { font-size: .95rem; padding: .6rem; }
+}
+@media (max-width: 700px) {
+  body[data-screen] .topbar { height: 56px; min-height: 0; }
+  .topbar { height: 56px; }
+  .menu-layout { min-height: calc(100svh - 120px); padding: 0 5% .8rem; align-items: center; }
+  .menu-copy { padding: 0; margin: 0; }
+  .menu-copy h1 { font-size: 3.5rem; }
+  .menu-tagline { font-size: 1.1rem; }
+  .menu-description { font-size: .95rem; }
+  .menu-footer { min-height: 64px; height: auto; padding: .4rem 5%; gap: .3rem; }
+  .menu-footer > span:first-child { display: none; }
+  .menu-footer .text-button { margin-left: 0; }
+  .table-layout { padding: .5rem 4%; min-height: calc(100svh - 56px); }
+  .table-heading h1 { font-size: 1.5rem; }
+  .table-heading .eyebrow { display: none; }
+  .table-layout .game-panel { margin-top: 14vh; }
+  .settings-modal .modal-body { padding: .8rem 1rem; }
+  .setting-row small { max-width: 24ch; }
+  .intro-layout { min-height: calc(100svh - 56px); }
+  .dialogue-card { width: 100%; }
+  .completion-card { padding: 1rem; }
+}
+/* Expanded text and short windows retain natural reflow instead of clipping controls. */
+.enlarged-text .game-panel { max-height: none; overflow: visible; }
+
+/* Keep the decision and next action in the first viewport at the default scale. */
+.table-layout { height: auto; }
+.tutorial-coach { margin: .4rem 0; padding: .25rem 0; border: 0; background: transparent; }
+.tutorial-coach p { margin: .25rem 0; }
+.urn-option.answer-correct .odds, .urn-option.answer-incorrect .odds { display: none; }
+.result-details summary { font-size: .85rem; padding-block: .4rem; min-height: 40px; cursor: pointer; }
+.game-panel .rule-tag { margin-block: .4rem .6rem; padding: .55rem; }
+.game-panel .objective-label { margin-bottom: .3rem; }
+.result-card .review-concepts { padding-block: .25rem; }
+.contracts-layout { min-height: calc(100svh - 64px); }
+.contracts-layout .contract-steps { display: flex; gap: .3rem; justify-content: space-between; font-size: .75rem; }
+.contracts-layout .contract-steps span { padding: .3rem; }
+.contracts-layout .mentor-coach { margin-block: .5rem; padding-block: .5rem; }
+.contracts-layout .mentor-coach p { font-size: .85rem; }
+.contracts-layout .selected-contract { font-size: .9rem; padding: .6rem; }
+.mobile-objective-help { display: none; }
+.dice-combinations-toggle { display: none; }
+.winning-summary { display: none; }
+.contracts-layout .contracts-panel h2 { font-size: 1.2rem; }
+.contracts-layout .compact-offer { grid-template-columns: minmax(0,1fr); gap: .3rem; }
+.contracts-layout .compact-offer .offer-heading, .contracts-layout .compact-offer .compact-payment { grid-column: 1; }
+.contracts-layout .compact-offer .winning-combos { grid-column: 1; grid-row: auto; border: 0; padding: 0; min-width: 0; }
+.contracts-layout .combo-pairs { display: flex; flex-wrap: wrap; gap: .15rem; }
+.contracts-layout .compact-payment { font-size: .9rem; }
+.contracts-layout .dice-viewport { height: clamp(220px,calc(100svh - 480px),390px); }
+.finale-layout { min-height: calc(100svh - 64px); padding-block: 1rem; }
+.finale-title h1 { font-size: 2.4rem; }
+.finale-title .table-host-crop { height: min(30vh,270px); }
+.tutorial-table .review-label { margin-bottom: .5rem; }
+@media (min-width: 1000px) and (min-height: 650px) {
+  .table-layout { height: calc(100svh - 64px); min-height: 0; }
+  .table-layout .game-panel { max-height: calc(100svh - 78px); }
+  .contracts-layout { grid-template-columns: minmax(0,1fr) 380px; padding: .6rem 3% 1rem; }
+}
+@media (max-width: 700px) {
+  .menu-layout { min-height: calc(100svh - 140px); }
+  .menu-footer { min-height: 64px; }
+  .room-copy h1 { font-size: 1.8rem; margin-bottom: .5rem; }
+  .room-copy h1 br { display: none; }
+  .room-layout { padding: .5rem 4%; }
+  .room-copy { margin-top: 0; }
+  .room-copy .eyebrow { display: none; }
+  .room-copy p { font-size: .9rem; margin-bottom: .5rem; }
+  .table-directory { margin-top: .5rem; }
+  .table-entry { padding: .65rem .5rem; gap: .65rem; }
+  .table-entry > span:nth-child(2) > span { display: none; }
+  .table-entry small { font-size: .75rem; }
+  .table-entry strong { font-size: 1.1rem; }
+  .room-walk summary { padding: .5rem; min-height: 44px; }
+  .table-layout { gap: .4rem; }
+  .table-layout { padding-block: .3rem; }
+  .table-heading .round-context { margin-bottom: .35rem; }
+  .table-heading h1 { margin-bottom: .3rem; }
+  .table-layout .game-panel { margin-top: 0; padding: .8rem; }
+  .table-layout .odds > span { display: none; }
+  .table-heading .scoreboard { font-size: .75rem; gap: .6rem; }
+  .table-heading .scoreboard strong { font-size: .8rem; }
+  .table-layout .urn-options { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .4rem; }
+  .urn-option-head { flex-wrap: wrap; }
+  .urn-option-head strong { font-size: .95rem; }
+  .urn-option .inventory { font-size: .78rem; }
+  .urn-option .odds b { font-size: .9rem; }
+  .urn-option .odds > span { font-size: .75rem; }
+  .game-panel .objective { font-size: 1.3rem; }
+  .game-panel .decision-prompt, .tutorial-coach p { font-size: .95rem; }
+  .table-layout .game-panel .primary { padding: .55rem; }
+  .table-layout .result-card p { font-size: .9rem; line-height: 1.35; }
+  .table-layout .result-card h2 { font-size: 1.2rem; }
+  .table-layout .result-details summary, .table-layout .panel-tools summary { min-height: 38px; padding-block: .35rem; }
+  .table-layout .scoreboard { margin-bottom: 0; }
+  .contracts-layout { display: grid; grid-template-columns: minmax(0,1fr); gap: .4rem; padding: .4rem 3%; }
+  .contracts-layout .dice-viewport { height: 150px; min-height: 0; }
+  .contracts-layout .contract-offers { grid-template-columns: repeat(3,minmax(0,1fr)); gap: .3rem; }
+  .contracts-layout .dice-combinations-toggle { display: block; grid-column: 1/-1; text-align: left; padding-block: .4rem; min-height: 40px; font-size: .85rem; }
+  .contracts-layout [data-combinations=false] .combo-pairs,
+  .contracts-layout [data-combinations=false] .any-faces,
+  .contracts-layout [data-combinations=false] .combo-row,
+  .contracts-layout [data-combinations=false] .combo-legend { display: none; }
+  .contracts-layout [data-combinations=false] .winning-summary { display: block; font-size: .8rem; }
+  .contracts-layout .compact-offer { padding: .45rem .35rem; grid-template-columns: minmax(0,1fr); align-content: start; }
+  .contracts-layout .offer-heading { flex-wrap: wrap; }
+  .contracts-layout .offer-name { font-size: .8rem; }
+  .contracts-layout .compact-payment { font-size: .8rem; }
+  .contracts-layout .compact-payment small { display: none; }
+  .contracts-layout .winning-combos small { font-size: .7rem; }
+  .contracts-layout .combo-row { display: block; }
+  .contracts-layout .combo-row > b { font-size: .7rem; }
+  .contracts-layout .any-faces { flex-wrap: wrap; }
+  .contracts-layout .contracts-panel { padding: .6rem; margin: 0; max-height: none; }
+  .contracts-layout .contracts-panel > h2, .contracts-layout .contracts-panel > .round-context,
+  .contracts-layout .contracts-panel .mentor-coach, .contracts-layout .contracts-panel .selected-contract,
+  .contracts-layout .contracts-panel .contract-steps { display: none; }
+  .contracts-layout .contracts-panel > p:not(.hypothetical-note) { display: none; }
+  .contracts-layout .mobile-objective-help { display: block; }
+  .contracts-layout .contracts-panel > p { font-size: .85rem; margin-bottom: .4rem; }
+  .contracts-layout .mobile-table-objective { padding: .4rem; }
+  .contracts-layout .mobile-table-objective strong { font-size: .95rem; }
+  .contracts-layout .contracts-heading > p { font-size: .75rem; }
+  .contracts-layout .dice-table-caption { font-size: .75rem; padding: .3rem; }
+  .ada-table-layout .ada-viewport { height: 170px; }
+  .ada-diagnostic .ada-viewport { height: 120px; }
+  .ada-diagnostic .archive-floor > .eyebrow { display: none; }
+  .ada-table-layout .ada-evidence { margin-top: -65px; }
+  .ada-table-layout .archive-panel { margin-top: 0; padding: .8rem; }
+  .finale-layout { padding: .4rem 4%; gap: .6rem; }
+  .finale-title h1 { font-size: 1.6rem; margin-bottom: .5rem; }
+  .finale-title h1 br { display: none; }
+  .finale-title .eyebrow { display: none; }
+  .finale-title .table-host-crop { display: none; }
+  .finale-title .finale-promise { font-size: .85rem; padding: .4rem 0; margin: .4rem 0; }
+  .finale-layout .archive-panel h2 { font-size: 1.25rem; }
+  .finale-layout .archive-choice { padding: .6rem; font-size: .9rem; }
+  .graphics-warning { max-width: 46vw; font-size: .65rem; opacity: .9; }
+}

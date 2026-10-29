@@ -117,3 +117,5 @@ Retrato de Doble 2026-10-29: camera-systems para encuadre del sujeto y game-ui-u
 Proporciones de Doble 2026-10-29: camera-systems para encuadrar torso y mesa juntos; game-ui-ux para reasignar espacio de la pregunta duplicada y compactar contadores en celular. Ver [evidencia](doble-proportions.md).
 
 Rediseño de Ada 2026-10-29: frontend-design y game-ui-ux para composición compartida, fotos sobre el paño, panel y controles adaptables. Se verifica con Playwright TypeScript existente. Ver [evidencia](ada-table-redesign.md).
+
+Interfaz 2026-10-29: game-ui-ux, frontend-design, webapp-testing e Impeccable (ruta proporcionada por el usuario). Ver [aplicación y evidencia](clear-interface.md).

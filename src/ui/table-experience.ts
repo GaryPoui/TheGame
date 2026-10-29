@@ -12,7 +12,7 @@ export function veraCoach(state: GameState, selected: 0 | 1 | null): string {
     : state.replacement ? 'La ficha volvió. ¿Cambió alguna proporción? Elegí mirando lo que hay ahora.'
     : 'Una ficha quedó afuera. Contá otra vez antes de repetir tu elección.';
   const p = probability(state.urns[selected],state.event);
-  const name = selected === 0 ? 'U' : 'V';
+  const name = selected === 0 ? '1' : '2';
   return `En ${name}, ${p.numerator} de ${p.denominator} fichas sirven. ${p.numerator === p.denominator ? 'Todas sirven: esta urna sí da certeza.' : p.numerator === 0 ? 'Ninguna sirve para el color pedido.' : `Las otras ${p.denominator-p.numerator} también pueden salir.`} ¿La otra urna ofrece una proporción mayor?`;
 }
 

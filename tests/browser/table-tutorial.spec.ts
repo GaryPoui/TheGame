@@ -3,7 +3,7 @@ import {mkdir} from 'node:fs/promises';
 const evidence=process.env.EVIDENCE_DIR??'.tools/table-tutorial';
 test('Vera guides a normal table through two prepared draws without changing the campaign',async({page})=>{
  await mkdir(evidence,{recursive:true});await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);
- await page.getByTestId('settings-button').click();await page.getByTestId('reduced-motion').check();await page.getByTestId('volume').fill('0');await page.getByTestId('close-dialog').click();
+ await page.getByTestId('settings-button').click();await page.getByTestId('reduced-motion').check();await page.getByRole('tab',{name:'Sonido',exact:true}).click();await page.getByTestId('volume').fill('0');await page.getByTestId('close-dialog').click();
  await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();await page.getByTestId('enter-urns').click();
  const before=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));
  await expect(page.locator('aside img')).toHaveCount(0);await expect(page.getByTestId('demo-urn-0')).toBeHidden();

@@ -218,3 +218,7 @@ Corrección de proporciones 2026-10-29: el usuario señaló que el crupier qued�
 Publicada doble-proportions-v16: fuente 4be1ea9, deployment d68dc35. 41 unitarias, cinco recorridos locales y cinco públicos aprobados; seis tamaños con proporción del retrato comprobada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
 
 Rediseño de Ada 2026-10-29: [misma mesa y jerarquía que las otras partidas](ada-table-redesign.md). Canvas original con retrato de Ada, fotos en el paño, panel compacto, comparación de álbumes adaptable y alternativa HTML. Reglas y guardado conservados.
+
+Interfaz 2026-10-29: lenguaje breve, urnas 1/2, ajustes por pestañas y repaso con videos. Ver [cambios y límites de validación](clear-interface.md). Cambios locales; sin publicación nueva.
+
+Cierre de interfaz 2026-10-29: escena Babylon comprobada en una build local sin servidor; Vera, Doble y Ada aceptan acciones. Doble/Ada/final sin scroll en vistas iniciales de 1366x768 y 390x844. TypeScript, build y 41 unitarias aprobadas. HTTP y publicación siguen pendientes. Ver docs/clear-interface.md y docs/evidence/clear-interface/.
