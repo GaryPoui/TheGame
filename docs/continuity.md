@@ -198,3 +198,5 @@ Revisión de Doble 2026-10-28: tres ofertas compactas antes de los dados, con gr
 Publicación de Doble compacto: compact-dice-v11, fuente c3eb34e, deployment 520ab44. 41 unitarias y siete recorridos locales/públicos aprobados; 146 hashes públicos correctos. La CI completa aún estaba ejecutándose al registrar el cierre. Ver delivery.json para el estado observado.
 
 Revisión 2026-10-29: [mesa de Doble y tirada](dice-table-roll.md). El canvas original se integra arriba de las ofertas; dados con giro y rebote visual, números y suma al detenerse. Una sola tirada guardada; segunda orden sin relanzar. Movimiento reducido inmediato y alternativa HTML sin WebGL.
+
+Publicada visible-dice-table-v12: fuente afc2963, deployment db5f217. 41 unitarias, 31 recorridos locales completos y 11 públicos aprobados, con 146 hashes correctos. CI completa aún en ejecución al registrar. Estado observado y evidencia en delivery.json.

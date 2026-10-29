@@ -16,4 +16,10 @@ Aceptación: mesa y dados visibles; una animación por tirada real; números igu
 
 Validación local terminada: build/TypeScript, 41 pruebas unitarias y los 31 recorridos completos de navegador aprobados, sin fallos ni inestables. Incluye los cinco tamaños de la comparación, texto al 200 %, animación y resultado guardado, segunda orden sin relanzar, canvas conservado, modo sin movimiento, alternativa sin WebGL y regresiones de urnas/Ada/final. Las capturas seleccionadas y el informe están en docs/evidence/dice-table-roll/. Se comprobaron documentación, 70 referencias matemáticas y 92 archivos de skills; diff y patrones habituales de secretos sin hallazgos. No se modifican dependencias ni licencias.
 
-Las mediciones del canvas son muestras puntuales de Chromium con ANGLE SwiftShader en Windows, sin afirmaciones de rendimiento con GPU física ni aprendizaje. La validación externa sigue abierta en 010/T011. La publicación se registra después de verificar HTTPS.
+Las mediciones del canvas son muestras puntuales de Chromium con ANGLE SwiftShader en Windows, sin afirmaciones de rendimiento con GPU física ni aprendizaje. La validación externa sigue abierta en 010/T011.
+
+## Publicación comprobada
+
+Versión visible-dice-table-v12, fuente `afc296333ab422f026e2ae9ba91f8efe31de6308`, deployment `db5f217943fbdf672f5087db5eaefd178dea7ac8`. [Juego](https://garypoui.github.io/TheGame/) y [PR #7](https://github.com/GaryPoui/TheGame/pull/7), sin merge. Once recorridos HTTPS aprobados, sin fallos, inestables ni omitidos; 146/146 archivos públicos coincidentes por SHA-256. Informe y comprobación en docs/evidence/dice-table-roll/public-browser-results.json y public-integrity.json; captura pública public-result.png en la misma carpeta.
+
+La [CI completa de la fuente](https://github.com/GaryPoui/TheGame/actions/runs/40811032444) estaba ejecutándose al registrar el cierre; no se cuenta como aprobada. Sí finalizaron los 31 recorridos locales y los 11 públicos indicados. El commit posterior de registro no cambia la build pública.
