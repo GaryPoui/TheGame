@@ -212,3 +212,5 @@ Publicada clear-dice-v14: fuente b65eb4e, deployment 581f554. 41 unitarias, diez
 Encuadre 2026-10-29: [Doble desde la cintura](doble-waist-portrait.md), con escala y altura ajustadas para ver torso, manos y sombrero completo. Mesa y cámara conservadas; sólo presentación del rival en esta mesa.
 
 Publicada doble-waist-portrait-v15: fuente 9330041, deployment de35ee7. 41 unitarias, cinco recorridos locales y cinco públicos aprobados; seis tamaños con la mesa conservada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
+
+Corrección de proporciones 2026-10-29: el usuario señaló que el crupier quedó demasiado pequeño. [Doble proporcionado con la mesa](doble-proportions.md) combina escala mayor, cámara menos elevada y más espacio vertical. Pregunta al costado en escritorio y arriba en celular; comprobación de sombrero, cintura y ancho relativo, sin miniaturizar.

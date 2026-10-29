@@ -5,7 +5,7 @@
 .contracts-layout .dice-mission{padding:.5rem .8rem;max-width:780px;margin:.35rem 0}
 .contracts-layout .dice-mission h2{font-size:1.05rem;margin:.2rem 0;line-height:1.25}
 .contracts-layout .dice-table{background:transparent;border:0;border-radius:0;overflow:visible}
-.contracts-layout .dice-viewport{height:clamp(250px,calc(100svh - 425px),420px)}
+.contracts-layout .dice-viewport{height:clamp(322px,calc(100svh - 353px),492px)}
 .contracts-layout .dice-table-caption{width:fit-content;max-width:100%;margin:0 auto;padding:.3rem 1rem;border:1px solid #b59b6966;border-radius:6px;font-size:.9rem}
 .contracts-layout .contract-offers{width:100%;max-width:none;align-self:center;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
 .contracts-layout .compact-offer{display:grid;grid-template-columns:minmax(0,1fr) minmax(214px,1.6fr);align-content:center;align-items:center;gap:.25rem .5rem;padding:.55rem .65rem;min-height:0;border-radius:6px;box-shadow:0 3px 8px #0c081d44}
@@ -36,9 +36,16 @@
 .contracts-layout .compact-offer.chosen .offer-code{background:#403044;box-shadow:0 0 0 2px #e5b966}
 .contracts-layout .compact-offer.chosen .offer-name:after{content:' ✓'}
 .enlarged-text .contracts-layout .contract-offers{grid-template-columns:1fr}
+@media(min-width:1101px){.contracts-layout .contracts-heading .dice-mission{display:none}}
 @media(max-width:1100px){.contracts-layout{grid-template-columns:1fr}.contracts-layout .contracts-panel{width:100%;max-width:780px;margin:1rem auto 0}.contracts-layout .dice-viewport{height:clamp(230px,calc(100svh - 425px),390px)}}
 @media(max-width:760px){
- .contracts-layout{padding-top:.5rem}.contracts-layout .dice-viewport{height:clamp(140px,calc(100svh - 550px),210px)}
+ .contracts-layout{padding-top:.5rem}.contracts-layout .dice-viewport{height:clamp(180px,calc(100svh - 510px),250px)}
+ .contracts-layout .contracts-heading{display:grid;grid-template-columns:1fr 1fr;gap:.2rem .4rem}
+ .contracts-layout .contracts-heading h1{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .contracts-layout .contracts-heading .dice-mission{grid-column:1/-1}
+ .contracts-layout .contracts-heading .scoreboard{justify-self:end;gap:.25rem;font-size:.65rem;align-self:center}
+ .contracts-layout .contracts-heading .scoreboard strong{font-size:.8rem}
+ .contracts-layout .contracts-heading .scoreboard span{gap:.25rem}
  .contracts-layout .contract-offers{grid-template-columns:1fr;gap:.35rem;max-width:560px}
  .contracts-layout .compact-offer{grid-template-columns:minmax(0,1fr) minmax(214px,1.6fr);padding:.4rem .5rem;gap:.2rem .5rem}
  .contracts-layout .compact-offer .offer-heading{flex-wrap:nowrap}.contracts-layout .compact-offer .winning-combos{padding-left:.4rem}

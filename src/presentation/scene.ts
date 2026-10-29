@@ -67,7 +67,7 @@ export class GameScene {
   private originalFelt: PBRMaterial;
   private dobleTexture: Texture | null = null;
   private veraTexture: Texture | null = null;
-  private resize = () => this.engine.resize();
+  private resize = () => this.resizeCanvas();
 
   constructor(canvas: HTMLCanvasElement, onUrn: (index: 0 | 1) => void) {
     this.engine = new Engine(canvas, true, { stencil: true, preserveDrawingBuffer: true, antialias: true });
@@ -217,7 +217,15 @@ export class GameScene {
     this.focus=mode==='table'?new Vector3(1.1,2.3,.1):new Vector3(0,2.4,1.2);
   }
   setRendering(active:boolean):void {this.rendering=active;}
-  resizeCanvas():void {this.engine.resize();}
+  resizeCanvas():void {this.engine.resize();this.frameContracts();}
+  private frameContracts():void {
+    if(!this.contractsMode)return;
+    const height=this.engine.getRenderingCanvas()?.clientHeight??420;
+    const originalHeight=height-(window.innerWidth>1100?72:window.innerWidth<=760?40:0);
+    this.destination.set(0,5.6,-9);this.focus.set(0,2.6,0);
+    this.camera.fov=Math.max(.44,2*Math.atan(Math.tan(.36/2)*height/Math.max(1,originalHeight)*1.04));
+    this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);
+  }
   rollDice():void {
     this.diceRollCount++;
     this.diceRollStart=performance.now();
@@ -248,11 +256,9 @@ export class GameScene {
     if(enabled) this.rings.forEach(mesh => mesh.isVisible = false);
     const portrait = this.scene.getMeshByName('vera-ink-portrait');
     const material = portrait?.material as StandardMaterial | null;
-    if(changed && portrait) { portrait.scaling.set(enabled ? .4 : 1,enabled ? .4 : 1,1); portrait.position.y = enabled ? 2.48 : 3.3; }
+    if(changed && portrait) { portrait.scaling.set(enabled ? .9 : 1,enabled ? .9 : 1,1); portrait.position.y = enabled ? 2.8 : 3.3; }
     if(enabled){
-      this.destination.set(0,6.8,-8.2);this.focus.set(0,2.3,0);this.camera.fov=.36;
-      // The inline table should be framed immediately, including after a reload.
-      this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);
+      this.frameContracts();
     } else if(changed){this.setMode(this.mode);this.camera.fov=65*Math.PI/180;this.stopDiceRoll();}
     const felt=this.scene.getMeshByName('table-felt');
     if(felt){felt.material=enabled?this.contractFelt:this.originalFelt;felt.position.y=enabled?1.8:1.7;}
@@ -328,9 +334,22 @@ export class GameScene {
       const point=Vector3.Project(new Vector3(x,2.5,-.25),Matrix.Identity(),this.scene.getTransformMatrix(),viewport);
       return {x:point.x/this.engine.getRenderWidth(),y:point.y/this.engine.getRenderHeight()};
     });
+    const portrait=this.scene.getMeshByName('vera-ink-portrait');
+    const project=(point:Vector3,world=Matrix.Identity())=>{
+      const p=Vector3.Project(point,world,this.scene.getTransformMatrix(),viewport);
+      return {x:p.x/this.engine.getRenderWidth(),y:p.y/this.engine.getRenderHeight()};
+    };
+    const dealerFrame=this.contractsMode&&portrait?{
+      hat:project(new Vector3(0,1.75,0),portrait.getWorldMatrix()),
+      waist:project(new Vector3(0,-1.05,0),portrait.getWorldMatrix()),
+      width:project(new Vector3(1.17,.2,0),portrait.getWorldMatrix()).x-project(new Vector3(-1.17,.2,0),portrait.getWorldMatrix()).x,
+      tableWidth:project(new Vector3(3.34,1.825,0)).x-project(new Vector3(-3.34,1.825,0)).x,
+      tableBack:project(new Vector3(0,1.825,2.4)),
+    }:null;
     return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,
       selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
       diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),
+      dealerFrame,
       activeNames:this.scene.getActiveMeshes().data.slice(0,this.scene.getActiveMeshes().length).map(mesh=>mesh.name),
       geometryTriangles:this.scene.meshes.reduce((total,mesh)=>total+mesh.getTotalIndices()/3,0),
       fps:this.engine.getFps(),renderWidth:this.engine.getRenderWidth(),renderHeight:this.engine.getRenderHeight(),

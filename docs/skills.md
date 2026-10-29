@@ -113,3 +113,5 @@ Mesa y tirada 2026-10-29: game-ui-ux, game-feel y webapp-testing para encuadre r
 Dados legibles 2026-10-29: game-ui-ux y frontend-design para caras con puntos y distribución más clara en las cartas, conservando la mesa. Ver [evidencia](clear-dice-combinations.md).
 
 Retrato de Doble 2026-10-29: camera-systems para encuadre del sujeto y game-ui-ux para conservar la mesa y los controles. Ver [evidencia](doble-waist-portrait.md).
+
+Proporciones de Doble 2026-10-29: camera-systems para encuadrar torso y mesa juntos; game-ui-ux para reasignar espacio de la pregunta duplicada y compactar contadores en celular. Ver [evidencia](doble-proportions.md).
