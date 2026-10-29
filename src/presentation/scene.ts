@@ -66,6 +66,8 @@ export class GameScene {
   private contractFelt: StandardMaterial;
   private originalFelt: PBRMaterial;
   private dobleTexture: Texture | null = null;
+  private adaTexture: Texture | null = null;
+  private tableHost:'doble'|'ada'='doble';
   private veraTexture: Texture | null = null;
   private resize = () => this.resizeCanvas();
 
@@ -221,9 +223,10 @@ export class GameScene {
   private frameContracts():void {
     if(!this.contractsMode)return;
     const height=this.engine.getRenderingCanvas()?.clientHeight??420;
+    const width=this.engine.getRenderingCanvas()?.clientWidth??900;
     const originalHeight=height-(window.innerWidth>1100?72:window.innerWidth<=760?40:0);
     this.destination.set(0,5.6,-9);this.focus.set(0,2.6,0);
-    this.camera.fov=Math.max(.44,2*Math.atan(Math.tan(.36/2)*height/Math.max(1,originalHeight)*1.04));
+    this.camera.fov=this.tableHost==='ada'?Math.max(.44,2*Math.atan(3.8*height/(9.5*Math.max(1,width)))):Math.max(.44,2*Math.atan(Math.tan(.36/2)*height/Math.max(1,originalHeight)*1.04));
     this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);
   }
   rollDice():void {
@@ -247,9 +250,10 @@ export class GameScene {
       die.rotation.set(spin,spin*.65*(i===0?1:-1),spin*.4);
     });
   }
-  setContractMode(enabled: boolean, pair: readonly [number, number] | null): void {
-    const changed = enabled !== this.contractsMode;
+  setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'='doble'): void {
+    const changed = enabled !== this.contractsMode||host!==this.tableHost;
     this.contractsMode = enabled;
+    this.tableHost=host;
     this.urnProps.forEach(mesh => mesh.isVisible = !enabled);
     this.decorProps.forEach(mesh => mesh.isVisible = !enabled);
     this.tokens.forEach(mesh => mesh.isVisible = !enabled);
@@ -265,15 +269,16 @@ export class GameScene {
     const inlay=this.scene.getMeshByName('felt-inlay');if(inlay)inlay.position.y=enabled?1.835:1.735;
     const lip=this.scene.getMeshByName('table-lip');if(lip instanceof Mesh)lip.renderOutline=!enabled;
     if(changed && material) {
-      if(enabled && !this.dobleTexture) { this.dobleTexture = new Texture(import.meta.env.BASE_URL+'art/doble-v2.png',this.scene); this.dobleTexture.hasAlpha = true; }
-      material.diffuseTexture = enabled ? this.dobleTexture : this.veraTexture;
+      if(enabled&&host==='doble'&&!this.dobleTexture) { this.dobleTexture = new Texture(import.meta.env.BASE_URL+'art/doble-v2.png',this.scene); this.dobleTexture.hasAlpha = true; }
+      if(enabled&&host==='ada'&&!this.adaTexture){this.adaTexture=new Texture(import.meta.env.BASE_URL+'art/ada-v1.png',this.scene);this.adaTexture.hasAlpha=true;}
+      material.diffuseTexture = enabled ? host==='ada'?this.adaTexture:this.dobleTexture : this.veraTexture;
     }
-    const key = enabled ? JSON.stringify(pair) : 'off';
+    const key = enabled ? host+JSON.stringify(pair) : 'off';
     if(key === this.diceKey) return;
     this.diceKey = key;
     this.diceProps.forEach(mesh => { this.shadows.removeShadowCaster(mesh); mesh.dispose(); }); this.diceProps = [];
     this.diceRoots=[];
-    if(!enabled) return;
+    if(!enabled||host==='ada') return;
     const start = this.scene.meshes.length;
     const patterns: Record<number, number[]> = {1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
     for(let i=0;i<2;i++) {
@@ -350,6 +355,8 @@ export class GameScene {
       selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
       diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),
       dealerFrame,
+      tableHost:this.contractsMode?this.tableHost:'vera',
+      tableTextureReady:!!(portrait?.material as StandardMaterial|null)?.diffuseTexture?.isReady(),
       activeNames:this.scene.getActiveMeshes().data.slice(0,this.scene.getActiveMeshes().length).map(mesh=>mesh.name),
       geometryTriangles:this.scene.meshes.reduce((total,mesh)=>total+mesh.getTotalIndices()/3,0),
       fps:this.engine.getFps(),renderWidth:this.engine.getRenderWidth(),renderHeight:this.engine.getRenderHeight(),

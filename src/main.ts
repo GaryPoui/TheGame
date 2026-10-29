@@ -9,6 +9,7 @@ import './ui/table-hosts.css';
 import './ui/compact-dice.css';
 import './ui/dice-table.css';
 import './ui/doble-table-focus.css';
+import './ui/ada-table.css';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {INTRO} from './content/intro';
@@ -230,14 +231,14 @@ function render(focusId?: string): void {
 }
 function updateVisual(): void {
   const canvas=document.querySelector<HTMLCanvasElement>('#scene');
-  const viewport=app.querySelector<HTMLElement>('.dice-viewport');
+  const viewport=app.querySelector<HTMLElement>('.dice-viewport,.ada-viewport');
   if(canvas&&viewport){viewport.append(canvas);scene?.resizeCanvas();}
   else scene?.resizeCanvas();
-  scene?.setRendering(screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
-  if(screen==='records'||screen==='finale'||screen==='outside')return;
+  const playingAda=screen==='records'&&!!app.querySelector('.ada-viewport');
+  scene?.setRendering(playingAda||screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
   const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
-  scene?.setContractMode(playingContracts, playingContracts ? state.contracts?.pair ?? null : null);
-  if (playingContracts) return;
+  scene?.setContractMode(playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : null,playingAda?'ada':'doble');
+  if (playingContracts||screen==='records'||screen==='finale'||screen==='outside') return;
   const urns: Urn[] = screen === 'tutorial' ? demoInventory() : state.urns;
   scene?.updateUrns(urns, screen==='tutorial'?demoChoice:screen === 'table' && state.phase === 'revealed' ? state.last?.urn ?? null : selected, screen === 'tutorial' ? tutorialStep===1?'red':tutorialStep===3?'blue':undefined : state.phase === 'revealed' ? state.last?.color : undefined);
 }

@@ -421,3 +421,5 @@ Legibilidad del 2026-10-29: el usuario pidió agrandar las combinaciones dentro 
 Encuadre final del 2026-10-29: el usuario pidió ver al personaje de Doble desde la cintura y con todo el sombrero. Se ajusta su escala y altura, conservando mesa grande, cámara, combinaciones y animación. Ver [detalle y evidencia](doble-waist-portrait.md).
 
 Corrección del 2026-10-29: el usuario rechazó la escala pequeña del crupier. Se aumenta su tamaño y se redistribuye el encuadre para conservar cintura, sombrero y mesa grande. La prueba comprueba también la proporción del retrato con la mesa. Ver [detalle y evidencia](doble-proportions.md).
+
+Rediseño de Ada del 2026-10-29: el usuario pidió que su partida se asemejara a las demás. Se sustituye la mesa plana y el álbum separado por el canvas compartido, con Ada detrás del paño y las fotos integradas. Se simplifica el texto inicial y se unifican controles y tamaños. Ver [detalle y evidencia](ada-table-redesign.md).

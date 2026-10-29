@@ -216,3 +216,5 @@ Publicada doble-waist-portrait-v15: fuente 9330041, deployment de35ee7. 41 unita
 Corrección de proporciones 2026-10-29: el usuario señaló que el crupier quedó demasiado pequeño. [Doble proporcionado con la mesa](doble-proportions.md) combina escala mayor, cámara menos elevada y más espacio vertical. Pregunta al costado en escritorio y arriba en celular; comprobación de sombrero, cintura y ancho relativo, sin miniaturizar.
 
 Publicada doble-proportions-v16: fuente 4be1ea9, deployment d68dc35. 41 unitarias, cinco recorridos locales y cinco públicos aprobados; seis tamaños con proporción del retrato comprobada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
+
+Rediseño de Ada 2026-10-29: [misma mesa y jerarquía que las otras partidas](ada-table-redesign.md). Canvas original con retrato de Ada, fotos en el paño, panel compacto, comparación de álbumes adaptable y alternativa HTML. Reglas y guardado conservados.

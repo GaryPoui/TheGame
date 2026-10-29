@@ -115,3 +115,5 @@ Dados legibles 2026-10-29: game-ui-ux y frontend-design para caras con puntos y 
 Retrato de Doble 2026-10-29: camera-systems para encuadre del sujeto y game-ui-ux para conservar la mesa y los controles. Ver [evidencia](doble-waist-portrait.md).
 
 Proporciones de Doble 2026-10-29: camera-systems para encuadrar torso y mesa juntos; game-ui-ux para reasignar espacio de la pregunta duplicada y compactar contadores en celular. Ver [evidencia](doble-proportions.md).
+
+Rediseño de Ada 2026-10-29: frontend-design y game-ui-ux para composición compartida, fotos sobre el paño, panel y controles adaptables. Se verifica con Playwright TypeScript existente. Ver [evidencia](ada-table-redesign.md).
