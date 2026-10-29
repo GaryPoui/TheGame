@@ -202,3 +202,5 @@ Revisión 2026-10-29: [mesa de Doble y tirada](dice-table-roll.md). El canvas or
 Publicada visible-dice-table-v12: fuente afc2963, deployment db5f217. 41 unitarias, 31 recorridos locales completos y 11 públicos aprobados, con 146 hashes correctos. CI completa aún en ejecución al registrar. Estado observado y evidencia en delivery.json.
 
 Pedido 2026-10-29: [mesa protagonista de Doble](doble-table-focus.md), con ventana grande y ofertas como fichas cortas debajo. Se conservan pares gráficos, selección y animación. Cambio de presentación limitado a Doble.
+
+Publicada doble-table-focus-v13: fuente 35cbe47, deployment a172217. 41 unitarias, diez recorridos dirigidos locales y diez públicos aprobados; seis tamaños de pantalla y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.

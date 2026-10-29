@@ -1,12 +1,13 @@
 {
-  "phase": "visible-dice-table-v12",
+  "phase": "doble-table-focus-v13",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "afc296333ab422f026e2ae9ba91f8efe31de6308",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/afc296333ab422f026e2ae9ba91f8efe31de6308",
+  "content_commit": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/35cbe476ddd687bbd8f2599a889e3689b6555835",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/doble-table-focus.md",
     "docs/dice-table-roll.md",
     "docs/dice-combinations.md",
     "docs/table-tutorial.md",
@@ -23,33 +24,34 @@
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
     "unit_tests": 41,
-    "local_browser_tests": 31,
-    "local_browser_failures": 0,
-    "public_browser_tests": 11,
+    "local_targeted_browser_tests": 10,
+    "public_browser_tests": 10,
     "public_browser_failures": 0,
     "public_browser_flaky": 0,
-    "public_browser_scope": "Six campaign regressions, five-size compact layout, three dice animation/fallback cases and guided Vera tutorial",
     "public_asset_hashes": 146,
     "exact_design_math_checks": 70,
     "skill_files_verified": 92,
     "normal_text_viewports": [
+      "1837x823",
       "1440x900",
       "1366x768",
       "530x850",
       "390x844",
       "360x740"
     ],
+    "visual_hierarchy": "Canvas viewport is more than 1.5 times the height of every offer; each dice-pair graphic stays inside its offer",
     "enlarged_text": "200 percent in 390px window, vertical growth allowed without horizontal overflow",
     "https_status": "built; HTTPS enforced",
-    "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU performance claim",
-    "local_browser_report": "docs/evidence/dice-table-roll/local-browser-results.json",
-    "public_browser_report": "docs/evidence/dice-table-roll/public-browser-results.json",
-    "public_integrity": "docs/evidence/dice-table-roll/public-integrity.json",
+    "public_browser_scope": "Six campaign regressions, six-size compact layout and three dice animation/fallback cases",
+    "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not a physical GPU benchmark",
+    "local_browser_report": "docs/evidence/doble-table-focus/local-browser-results.json",
+    "public_browser_report": "docs/evidence/doble-table-focus/public-browser-results.json",
+    "public_integrity": "docs/evidence/doble-table-focus/public-integrity.json",
     "source_ci": {
       "conclusion": "",
-      "headSha": "afc296333ab422f026e2ae9ba91f8efe31de6308",
+      "headSha": "35cbe476ddd687bbd8f2599a889e3689b6555835",
       "status": "in_progress",
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40811032444"
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40830438632"
     }
   },
   "pending_optional_tools": [
@@ -61,7 +63,7 @@
   "deployed": true,
   "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "db5f217943fbdf672f5087db5eaefd178dea7ac8",
+  "deployment_commit": "a17221700b9a490393a83cf700dbce28e3e57d46",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -69,8 +71,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Original Doble table in a reserved canvas window, animated dice settling on the one saved roll, numeric result and sum, reduced motion and HTML fallback. Compact offers preserved.",
-  "build_source_commit": "afc296333ab422f026e2ae9ba91f8efe31de6308",
+  "scope": "Doble table is the main visual area, with short offer tickets below preserving all paying pairs and selection. Presentation-only change.",
+  "build_source_commit": "35cbe476ddd687bbd8f2599a889e3689b6555835",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -426,5 +428,43 @@
     },
     "scope": "Compact Doble offers with graphical paying dice pairs and reverse-order counts; five normal-text viewports show all offers without scrolling; enlarged text grows vertically."
   },
-  "last_update_date": "2026-10-29"
+  "last_update_date": "2026-10-29",
+  "previous_visible_dice_table_delivery": {
+    "phase": "visible-dice-table-v12",
+    "content_commit": "afc296333ab422f026e2ae9ba91f8efe31de6308",
+    "build_source_commit": "afc296333ab422f026e2ae9ba91f8efe31de6308",
+    "deployment_commit": "db5f217943fbdf672f5087db5eaefd178dea7ac8",
+    "validation": {
+      "unit_tests": 41,
+      "local_browser_tests": 31,
+      "local_browser_failures": 0,
+      "public_browser_tests": 11,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_browser_scope": "Six campaign regressions, five-size compact layout, three dice animation/fallback cases and guided Vera tutorial",
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_text_viewports": [
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "enlarged_text": "200 percent in 390px window, vertical growth allowed without horizontal overflow",
+      "https_status": "built; HTTPS enforced",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU performance claim",
+      "local_browser_report": "docs/evidence/dice-table-roll/local-browser-results.json",
+      "public_browser_report": "docs/evidence/dice-table-roll/public-browser-results.json",
+      "public_integrity": "docs/evidence/dice-table-roll/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "afc296333ab422f026e2ae9ba91f8efe31de6308",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40811032444"
+      }
+    },
+    "scope": "Original Doble table in a reserved canvas window, animated dice settling on the one saved roll, numeric result and sum, reduced motion and HTML fallback. Compact offers preserved."
+  }
 }
