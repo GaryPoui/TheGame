@@ -1,12 +1,13 @@
 {
-  "phase": "doble-table-focus-v13",
+  "phase": "clear-dice-v14",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "35cbe476ddd687bbd8f2599a889e3689b6555835",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/35cbe476ddd687bbd8f2599a889e3689b6555835",
+  "content_commit": "b65eb4ed366cd7d81d32d3119962c9b6db910d25",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/b65eb4ed366cd7d81d32d3119962c9b6db910d25",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/clear-dice-combinations.md",
     "docs/doble-table-focus.md",
     "docs/dice-table-roll.md",
     "docs/dice-combinations.md",
@@ -25,7 +26,7 @@
   "validation": {
     "unit_tests": 41,
     "local_targeted_browser_tests": 10,
-    "public_browser_tests": 10,
+    "public_browser_tests": 5,
     "public_browser_failures": 0,
     "public_browser_flaky": 0,
     "public_asset_hashes": 146,
@@ -39,19 +40,27 @@
       "390x844",
       "360x740"
     ],
-    "visual_hierarchy": "Canvas viewport is more than 1.5 times the height of every offer; each dice-pair graphic stays inside its offer",
+    "preserved_table_heights_px": [
+      398,
+      420,
+      343,
+      210,
+      210,
+      190
+    ],
+    "combination_faces": "At least 20x20px; pip count equals the stated value; every pair stays inside its offer",
     "enlarged_text": "200 percent in 390px window, vertical growth allowed without horizontal overflow",
     "https_status": "built; HTTPS enforced",
-    "public_browser_scope": "Six campaign regressions, six-size compact layout and three dice animation/fallback cases",
+    "public_browser_scope": "Six-size comparison and preserved table dimensions, 200 percent campaign panels, dice animation, reduced motion and HTML fallback",
     "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not a physical GPU benchmark",
-    "local_browser_report": "docs/evidence/doble-table-focus/local-browser-results.json",
-    "public_browser_report": "docs/evidence/doble-table-focus/public-browser-results.json",
-    "public_integrity": "docs/evidence/doble-table-focus/public-integrity.json",
+    "local_browser_report": "docs/evidence/clear-dice-combinations/local-browser-results.json",
+    "public_browser_report": "docs/evidence/clear-dice-combinations/public-browser-results.json",
+    "public_integrity": "docs/evidence/clear-dice-combinations/public-integrity.json",
     "source_ci": {
       "conclusion": "",
-      "headSha": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+      "headSha": "b65eb4ed366cd7d81d32d3119962c9b6db910d25",
       "status": "in_progress",
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40830438632"
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40833673366"
     }
   },
   "pending_optional_tools": [
@@ -63,7 +72,7 @@
   "deployed": true,
   "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "a17221700b9a490393a83cf700dbce28e3e57d46",
+  "deployment_commit": "581f554e7a9340ed4744f5247b92e3eeda1e0194",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -71,8 +80,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Doble table is the main visual area, with short offer tickets below preserving all paying pairs and selection. Presentation-only change.",
-  "build_source_commit": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+  "scope": "Readable offer dice drawn with pips, minimum 20px faces, larger labels and more room for pairs. Large table heights preserved exactly.",
+  "build_source_commit": "b65eb4ed366cd7d81d32d3119962c9b6db910d25",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -466,5 +475,44 @@
       }
     },
     "scope": "Original Doble table in a reserved canvas window, animated dice settling on the one saved roll, numeric result and sum, reduced motion and HTML fallback. Compact offers preserved."
+  },
+  "previous_doble_focus_delivery": {
+    "phase": "doble-table-focus-v13",
+    "content_commit": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+    "build_source_commit": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+    "deployment_commit": "a17221700b9a490393a83cf700dbce28e3e57d46",
+    "validation": {
+      "unit_tests": 41,
+      "local_targeted_browser_tests": 10,
+      "public_browser_tests": 10,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_text_viewports": [
+        "1837x823",
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "visual_hierarchy": "Canvas viewport is more than 1.5 times the height of every offer; each dice-pair graphic stays inside its offer",
+      "enlarged_text": "200 percent in 390px window, vertical growth allowed without horizontal overflow",
+      "https_status": "built; HTTPS enforced",
+      "public_browser_scope": "Six campaign regressions, six-size compact layout and three dice animation/fallback cases",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not a physical GPU benchmark",
+      "local_browser_report": "docs/evidence/doble-table-focus/local-browser-results.json",
+      "public_browser_report": "docs/evidence/doble-table-focus/public-browser-results.json",
+      "public_integrity": "docs/evidence/doble-table-focus/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40830438632"
+      }
+    },
+    "scope": "Doble table is the main visual area, with short offer tickets below preserving all paying pairs and selection. Presentation-only change."
   }
 }

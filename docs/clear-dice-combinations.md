@@ -10,4 +10,8 @@ Se aplicaron frontend-design y game-ui-ux a la legibilidad y distribución; se c
 
 Validación local aprobada: build/TypeScript, 41 pruebas unitarias, diez recorridos dirigidos de campaña/dados, texto al 200 %, 70 comprobaciones matemáticas, documentación y 92 archivos de skills. Se revisan capturas de escritorio y celular; diff, patrones habituales de secretos y licencias sin cambios de dependencia ni assets. Evidencia seleccionada en docs/evidence/clear-dice-combinations/. La validación externa con personas y hardware sigue pendiente en 010/T011.
 
-La publicación se registra después de verificar HTTPS.
+## Publicación comprobada
+
+Versión clear-dice-v14, fuente `b65eb4ed366cd7d81d32d3119962c9b6db910d25`, deployment `581f554e7a9340ed4744f5247b92e3eeda1e0194`. [Juego](https://garypoui.github.io/TheGame/) y [PR #7](https://github.com/GaryPoui/TheGame/pull/7), sin merge. Cinco recorridos públicos aprobados, sin fallos, inestables ni omitidos: comparación en seis tamaños, mesa conservada, texto al 200 %, tirada, movimiento reducido y alternativa HTML. Se comprobaron 146/146 archivos por SHA-256. Informe, integridad y captura pública en docs/evidence/clear-dice-combinations/.
+
+La [CI completa de la fuente](https://github.com/GaryPoui/TheGame/actions/runs/40833673366) estaba ejecutándose al registrar el cierre y no se cuenta como aprobada. Sí finalizaron las validaciones locales y públicas indicadas. El commit posterior de registro no modifica la build pública.
