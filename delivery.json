@@ -1,12 +1,13 @@
 {
-  "phase": "dialogue-polish-v9",
+  "phase": "table-tutorial-v10",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "31b2252983157f00e01ede9cc2bbe41c450e1cb3",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/31b2252983157f00e01ede9cc2bbe41c450e1cb3",
+  "content_commit": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/c1eae52eb0a71e59809973ec3c39a99e4d018e14",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/table-tutorial.md",
     "docs/dialogue-polish.md",
     "docs/character-challenge-update.md",
     "docs/photos-redesign.md",
@@ -20,16 +21,23 @@
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
     "unit_tests": 40,
-    "local_targeted_browser_tests": 8,
-    "public_browser_tests": 8,
-    "public_browser_scope": "Dialogue, history, keyboard navigation, settings, reduced motion and confirmation dialogs",
+    "local_targeted_browser_tests": 7,
+    "final_layout_cases": 2,
+    "public_browser_tests": 7,
     "public_browser_failures": 0,
     "public_browser_flaky": 0,
     "public_asset_hashes": 146,
     "exact_design_math_checks": 70,
     "https_status": "built; HTTPS enforced",
-    "public_browser_report": "docs/evidence/dialogue-polish/public-browser-results.json",
-    "public_integrity": "docs/evidence/dialogue-polish/public-integrity.json"
+    "public_browser_report": "docs/evidence/table-tutorial/public-browser-results.json",
+    "public_integrity": "docs/evidence/table-tutorial/public-integrity.json",
+    "source_ci": {
+      "status": "completed",
+      "conclusion": "success",
+      "headSha": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+      "browser_tests": 27,
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40800532863"
+    }
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -40,7 +48,7 @@
   "deployed": true,
   "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "4921c4c171f10da99b05d22fc406cc42f4e6f63b",
+  "deployment_commit": "cdda0855aa8ff5b273cf5d9689ca2a920db98c1c",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -48,8 +56,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Campaign unchanged; polished dialogue controls, structured conversation history and accessible native modal layout.",
-  "build_source_commit": "31b2252983157f00e01ede9cc2bbe41c450e1cb3",
+  "scope": "Seated/waist-up characters during table play; full body only in dialogue. Vera tutorial uses normal table controls and two prepared draws, preserving saved campaign and RNG.",
+  "build_source_commit": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -323,6 +331,24 @@
         "headSha": "db6f6bc697ee4299a890a0f245895b9bf4dc67b9",
         "url": "https://github.com/GaryPoui/TheGame/actions/runs/40795002152"
       }
+    }
+  },
+  "previous_dialogue_delivery": {
+    "phase": "dialogue-polish-v9",
+    "content_commit": "31b2252983157f00e01ede9cc2bbe41c450e1cb3",
+    "deployment_commit": "4921c4c171f10da99b05d22fc406cc42f4e6f63b",
+    "validation": {
+      "unit_tests": 40,
+      "local_targeted_browser_tests": 8,
+      "public_browser_tests": 8,
+      "public_browser_scope": "Dialogue, history, keyboard navigation, settings, reduced motion and confirmation dialogs",
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/dialogue-polish/public-browser-results.json",
+      "public_integrity": "docs/evidence/dialogue-polish/public-integrity.json"
     }
   }
 }

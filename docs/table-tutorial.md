@@ -11,3 +11,8 @@ Cuatro momentos: elegir U (3/5 frente a 1/2), confirmar una roja preparada sin r
 Se aplica game-ui-ux a la coherencia de controles y flujo. Prueba nueva: selección de canvas y teclado, bloqueo de confirmación antes de elegir, feedback, empate, arranque de la partida real y comparación exacta del guardado antes/después. Se conservan las pruebas existentes de campaña. Build y 40 unitarias aprobadas; siete recorridos locales aprobados y dos comprobaciones finales de tutorial y texto al 200 %. Evidencia en docs/evidence/table-tutorial/. La validación de aprendizaje con personas sigue en 010/T011.
 
 La publicación se registra al verificar HTTPS.
+
+
+## Publicación comprobada
+
+Versión table-tutorial-v10, fuente `c1eae52eb0a71e59809973ec3c39a99e4d018e14`, deployment `cdda0855aa8ff5b273cf5d9689ca2a920db98c1c`. [Juego](https://garypoui.github.io/TheGame/) y [PR #7](https://github.com/GaryPoui/TheGame/pull/7), sin merge. Verificación HTTPS: 7/7 recorridos de tutorial y campaña, sin fallos/inestables/omitidos, y 146/146 archivos coincidentes por SHA-256. [CI de la fuente](https://github.com/GaryPoui/TheGame/actions/runs/40800532863) aprobada, incluyendo las 40 unitarias y los 27 recorridos completos de navegador. Capturas públicas de Vera, Ada y anfitrión en docs/evidence/table-tutorial/public/. El registro posterior no modifica la build publicada.
