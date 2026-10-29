@@ -1,21 +1,24 @@
 import {photoChoices,photoBest,preparePhotos,revealPhotos} from './photo-records';
+import {preparePoker,pokerBest,drawPoker,type PokerTable} from './poker-records';
 import { uniform, type GameState } from '../game';
 export type RecordsChoice = 'archive' | 'album' | 'observe' | 'close' | 'K' | 'V' | 'both' | 'certainty' | 'yes' | 'no';
 export interface RecordsCommand { commandId: string; expectedRevision: number; type: 'begin' | 'choose' | 'next' | 'diagnose'; choice?: RecordsChoice }
 export interface RecordsDecision { round: number; step: number; choice: RecordsChoice; optimal: RecordsChoice[]; correct: boolean; assisted: boolean }
 export interface RecordsState {
-  experience?:'photos-v1'|'photos-v2'; diagnostic?:'yes'|'no'|null;
+  experience?:'photos-v1'|'photos-v2'|'cards-v1'; diagnostic?:'yes'|'no'|null; cards?:PokerTable;
   variant?:'repeat';
   seed: number; rng: GameState['rng']; phase: 'tutorial' | 'choose' | 'feedback' | 'complete';
   round: number; step: number; assisted: boolean; merit: number; source: 'album' | 'complete';
   observations: number[]; audit: number; history: RecordsDecision[]; revision: number; journal: RecordsCommand[];
 }
-export function createRecords(seed = Date.now(),repeat=false,experience:'photos-v1'|'photos-v2'|'legacy'='photos-v2'): RecordsState {
+export function createRecords(seed = Date.now(),repeat=false,experience:'photos-v1'|'photos-v2'|'cards-v1'|'legacy'='cards-v1'): RecordsState {
   const value = (seed>>>0)||0x9e3779b9;
   const base:RecordsState={...(repeat?{variant:'repeat' as const}:{}),seed:value,rng:{algorithm:'xorshift32-v1',state:value,count:0},phase:'tutorial',round:0,step:0,assisted:false,merit:0,source:'album',observations:[4,4,4,4],audit:2,history:[],revision:0,journal:[]};
+  if(experience==='cards-v1'){base.experience=experience;preparePoker(base);return base;}
   return experience==='legacy'?base:{...base,experience,diagnostic:null};
 }
 export function recordsChoices(s: RecordsState): RecordsChoice[] {
+  if(s.experience==='cards-v1')return ['K','V'];
   if(s.experience?.startsWith('photos-'))return photoChoices(s);
   const round=s.assisted ? s.round===0?0:1 : s.round;
   if(round===0 && s.step===0) return ['archive','album'];
@@ -24,6 +27,7 @@ export function recordsChoices(s: RecordsState): RecordsChoice[] {
   return ['observe','close'];
 }
 export function bestRecords(s: RecordsState): RecordsChoice[] {
+  if(s.experience==='cards-v1')return pokerBest(s);
   if(s.experience?.startsWith('photos-'))return photoBest(s);
   const round=s.assisted ? s.round===0?0:1 : s.round;
   if(round===0 && s.step===0) return ['archive'];
@@ -31,6 +35,7 @@ export function bestRecords(s: RecordsState): RecordsChoice[] {
   return [s.step===0 ? 'observe':'close'];
 }
 function prepareRound(s: RecordsState): void {
+  if(s.experience==='cards-v1'){preparePoker(s);return;}
   if(s.experience?.startsWith('photos-')){preparePhotos(s);return;}
   const round=s.assisted?s.round===0?0:1:s.round;
   s.source=round===0?'album':'complete'; s.audit=2;
@@ -52,7 +57,8 @@ export function applyRecordsCommand(s: RecordsState, c: RecordsCommand): Records
     next.history.push({round:s.round,step:s.step,choice:c.choice!,optimal,correct,assisted:s.assisted});
     if(correct&&!s.assisted) next.merit++;
     // Canonical second task is reachable even after an incorrect first decision.
-    if(s.experience?.startsWith('photos-'))revealPhotos(next);
+    if(s.experience==='cards-v1')drawPoker(next,c.choice!);
+    else if(s.experience?.startsWith('photos-'))revealPhotos(next);
     else if(s.step===0 && recordsChoices(s).includes('archive')) {next.source='complete';next.observations=[0,4,0,4,0,4,0,4];}
     else if(s.step===0 && recordsChoices(s).includes('observe')) {
       for(let i=0;i<4;i++) {
@@ -78,6 +84,6 @@ export function validRecordsState(value: unknown): value is RecordsState {
   const s=value as RecordsState;
   if(!Number.isInteger(s.seed)||s.seed<1||s.seed>0xffffffff||!Array.isArray(s.journal)||s.journal.length>28) return false;
   if(s.variant!==undefined&&s.variant!=='repeat')return false;
-  if(s.experience!==undefined&&!['photos-v1','photos-v2'].includes(s.experience))return false;
+  if(s.experience!==undefined&&!['photos-v1','photos-v2','cards-v1'].includes(s.experience))return false;
   try {let replay=createRecords(s.seed,s.variant==='repeat',s.experience??'legacy');for(const c of s.journal){const next=applyRecordsCommand(replay,c);if(next===replay)return false;replay=next;}return JSON.stringify(replay)===JSON.stringify(s);}catch{return false;}
 }
