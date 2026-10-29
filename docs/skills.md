@@ -105,3 +105,5 @@ Fotos 2026-10-28: game-designer, game-ui-ux y webapp-testing aplicadas al reempl
 Personajes/desafíos 2026-10-28: imagegen integrada para tres extensiones de cuerpo completo; game-ui-ux/frontend-design para jerarquía de Doble y encuadre. Ver [entrega y procedencia](character-challenge-update.md).
 
 Doble compacto 2026-10-28: game-ui-ux, frontend-design y webapp-testing para tres opciones visibles, combinaciones gráficas y verificación de matemática/escala. Ver [evidencia](dice-combinations.md).
+
+Mesa y tirada 2026-10-29: game-ui-ux, game-feel y webapp-testing para encuadre reservado, giro/rebote amortiguado, lectura del resultado y controles con movimiento reducido. Ver [evidencia](dice-table-roll.md).

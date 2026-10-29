@@ -55,10 +55,16 @@ export class GameScene {
   private urnProps: Mesh[] = [];
   private decorProps: Mesh[] = [];
   private diceProps: Mesh[] = [];
+  private diceRoots: Mesh[] = [];
+  private diceRollStart: number | null = null;
+  private diceRollCount = 0;
   private contractsMode = false;
   private diceKey = '';
   private rendering=true;
   private diceInk!: PBRMaterial;
+  private contractInk: StandardMaterial;
+  private contractFelt: StandardMaterial;
+  private originalFelt: PBRMaterial;
   private dobleTexture: Texture | null = null;
   private veraTexture: Texture | null = null;
   private resize = () => this.engine.resize();
@@ -104,6 +110,11 @@ export class GameScene {
     const wood = this.material('painted-oak', '#895A39', 0, 1);
     const dark = this.material('charcoal', '#181D20', .05, .72); this.diceInk = dark;
     const felt = this.material('teal-felt', '#17382C', 0, .96);
+    this.originalFelt=felt;
+    this.contractFelt=new StandardMaterial('contract-felt-ink',this.scene);
+    this.contractFelt.disableLighting=true;this.contractFelt.emissiveColor=Color3.FromHexString('#234C3B');
+    this.contractInk=new StandardMaterial('contract-pip-ink',this.scene);
+    this.contractInk.disableLighting=true;this.contractInk.emissiveColor=Color3.FromHexString('#211B29');
 
     // Elliptical, layered table: a readable silhouette and a brass lip against dark walnut.
     const table=this.cylinder('table-edge', 7, .28, [0,1.5,0], wood); table.scaling.z=.72;
@@ -151,6 +162,7 @@ export class GameScene {
       this.camera.position=Vector3.Lerp(this.camera.position,this.destination,t);
       this.currentFocus=Vector3.Lerp(this.currentFocus,this.focus,t);
       this.camera.setTarget(this.currentFocus);
+      this.updateDiceRoll();
       if(this.rendering)this.scene.render();
     });
     this.ready=new Promise(resolve=>this.scene.executeWhenReady(resolve));
@@ -205,6 +217,28 @@ export class GameScene {
     this.focus=mode==='table'?new Vector3(1.1,2.3,.1):new Vector3(0,2.4,1.2);
   }
   setRendering(active:boolean):void {this.rendering=active;}
+  resizeCanvas():void {this.engine.resize();}
+  rollDice():void {
+    this.diceRollCount++;
+    this.diceRollStart=performance.now();
+    this.updateDiceRoll();
+  }
+  stopDiceRoll():void {
+    this.diceRollStart=null;
+    this.diceRoots.forEach((die,i)=>{die.position.set(i===0?-.6:.6,2.17,-.45);die.rotation.set(0,0,0);});
+  }
+  private updateDiceRoll():void {
+    if(this.diceRollStart===null)return;
+    const p=Math.min(1,(performance.now()-this.diceRollStart)/850);
+    if(p===1||this.reduced){this.stopDiceRoll();return;}
+    this.diceRoots.forEach((die,i)=>{
+      const q=Math.min(1,p*(i===0?1.12:1));
+      const rest=i===0?-.6:.6;
+      die.position.set(rest+(i===0?-1.3:1.5)*(1-q),2.17+Math.abs(Math.sin(q*Math.PI*3))*.9*(1-q),-.45+1.1*(1-q));
+      const spin=(1-q)*Math.PI*4;
+      die.rotation.set(spin,spin*.65*(i===0?1:-1),spin*.4);
+    });
+  }
   setContractMode(enabled: boolean, pair: readonly [number, number] | null): void {
     const changed = enabled !== this.contractsMode;
     this.contractsMode = enabled;
@@ -214,7 +248,16 @@ export class GameScene {
     if(enabled) this.rings.forEach(mesh => mesh.isVisible = false);
     const portrait = this.scene.getMeshByName('vera-ink-portrait');
     const material = portrait?.material as StandardMaterial | null;
-    if(changed && portrait) { portrait.scaling.set(enabled ? 1.3 : 1,enabled ? 1.3 : 1,1); portrait.position.y = enabled ? 3.65 : 3.3; }
+    if(changed && portrait) { portrait.scaling.set(enabled ? .68 : 1,enabled ? .68 : 1,1); portrait.position.y = enabled ? 2.15 : 3.3; }
+    if(enabled){
+      this.destination.set(0,6.8,-8.2);this.focus.set(0,2.3,0);this.camera.fov=.36;
+      // The inline table should be framed immediately, including after a reload.
+      this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);
+    } else if(changed){this.setMode(this.mode);this.camera.fov=65*Math.PI/180;this.stopDiceRoll();}
+    const felt=this.scene.getMeshByName('table-felt');
+    if(felt){felt.material=enabled?this.contractFelt:this.originalFelt;felt.position.y=enabled?1.8:1.7;}
+    const inlay=this.scene.getMeshByName('felt-inlay');if(inlay)inlay.position.y=enabled?1.835:1.735;
+    const lip=this.scene.getMeshByName('table-lip');if(lip instanceof Mesh)lip.renderOutline=!enabled;
     if(changed && material) {
       if(enabled && !this.dobleTexture) { this.dobleTexture = new Texture(import.meta.env.BASE_URL+'art/doble-v2.png',this.scene); this.dobleTexture.hasAlpha = true; }
       material.diffuseTexture = enabled ? this.dobleTexture : this.veraTexture;
@@ -223,16 +266,29 @@ export class GameScene {
     if(key === this.diceKey) return;
     this.diceKey = key;
     this.diceProps.forEach(mesh => { this.shadows.removeShadowCaster(mesh); mesh.dispose(); }); this.diceProps = [];
+    this.diceRoots=[];
     if(!enabled) return;
     const start = this.scene.meshes.length;
     const patterns: Record<number, number[]> = {1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
     for(let i=0;i<2;i++) {
       const x = i===0 ? -.6 : .6;
-      const die = this.box('contract-die-'+i,[.65,.65,.65],[x,2.07,-.45],this.ivory);
+      const die = this.box('contract-die-'+i,[.65,.65,.65],[x,2.17,-.45],this.ivory);
       die.renderOutline=true;die.outlineWidth=.018;die.outlineColor=Color3.FromHexString('#30252c');
       this.shadows.addShadowCaster(die);
-      for(const pos of patterns[pair?.[i] ?? 0] ?? []) {
-        this.cylinder('contract-pip',.10,.014,[x+((pos%3)-1)*.18,2.403,-.45+(Math.floor(pos/3)-1)*.18],this.diceInk);
+      this.diceRoots.push(die);
+      const top=pair?.[i];
+      if(top===undefined)continue;
+      const other=[1,2,3,4,5,6].filter(n=>n!==top&&n!==7-top);
+      const values=[top,7-top,other[0]!,7-other[0]!,other.find(n=>n!==other[0]&&n!==7-other[0]!)!];
+      values.push(7-values[4]!);
+      for(let face=0;face<6;face++)for(const pos of patterns[values[face]!]!) {
+        const u=((pos%3)-1)*.18,v=(Math.floor(pos/3)-1)*.18;
+        const at=face<2?[u,face===0?.36:-.36,v]:face<4?[face===2?.36:-.36,u,v]:[u,v,face===4?.36:-.36];
+        const pip=this.cylinder('contract-pip',.10,.014,[0,0,0],this.diceInk);
+        pip.material=this.contractInk;
+        pip.parent=die;pip.position.set(at[0]!,at[1]!,at[2]!);
+        if(face===2||face===3)pip.rotation.z=Math.PI/2;
+        if(face===4||face===5)pip.rotation.x=Math.PI/2;
       }
     }
     this.diceProps = this.scene.meshes.slice(start).filter((mesh): mesh is Mesh => mesh instanceof Mesh);
@@ -274,6 +330,8 @@ export class GameScene {
     });
     return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,
       selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
+      diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),
+      activeNames:this.scene.getActiveMeshes().data.slice(0,this.scene.getActiveMeshes().length).map(mesh=>mesh.name),
       geometryTriangles:this.scene.meshes.reduce((total,mesh)=>total+mesh.getTotalIndices()/3,0),
       fps:this.engine.getFps(),renderWidth:this.engine.getRenderWidth(),renderHeight:this.engine.getRenderHeight(),
       renderer:this.engine.getGlInfo().renderer,rendering:this.rendering,

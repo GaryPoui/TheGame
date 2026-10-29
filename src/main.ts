@@ -7,6 +7,7 @@ import './ui/dialogue-dice.css';
 import './ui/dialogue-polish.css';
 import './ui/table-hosts.css';
 import './ui/compact-dice.css';
+import './ui/dice-table.css';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {INTRO} from './content/intro';
@@ -76,6 +77,8 @@ let dobleTutorialStep = 0;
 let selectedContract: ContractId | null = null;
 let comparisonResult: ComparisonRun | null = null;
 let rehearsalPair: [number, number] = [2, 2];
+let diceRolling = false;
+let diceRollTimer: ReturnType<typeof setTimeout> | undefined;
 let scene: GameScene | null = null;
 let sceneWarning = '';
 window.addEventListener('blur',()=>gameAudio.suspend());
@@ -113,6 +116,7 @@ function shortcutSelect(id: string, value: string): string {
 }
 function setScreen(next: Screen, focus?: string): void {
   if(next !== 'intro') stopIntro();
+  if(next!=='contracts'){clearTimeout(diceRollTimer);diceRolling=false;scene?.stopDiceRoll();}
   cameraController.setMode(next==='room'?'exploration':next==='intro'?'dialogue':['table','contracts','records','finale','tutorial'].includes(next)?'table':'cinematic');
   gameAudio.setAmbience(next==='intro'||next==='room'||next==='finale'||next==='street');
   screen = next; selected = null; selectedContract = null; selectedRecord=null; selectedFinale=null; helpOpen = false; cardsVisible = false;
@@ -202,9 +206,12 @@ function complete(): string {
 function dobleScreen(): string {
   const c = state.contracts;
   if (!c) return room();
-  return c.phase === 'tutorial' ? contractsTutorial(c, dobleTutorialStep) : c.phase === 'complete' ? contractsComplete(c) : contractsView(c, selectedContract, comparisonResult, rehearsalPair);
+  return c.phase === 'tutorial' ? contractsTutorial(c, dobleTutorialStep) : c.phase === 'complete' ? contractsComplete(c) : contractsView(c, selectedContract, comparisonResult, rehearsalPair, diceRolling);
 }
 function render(focusId?: string): void {
+  // Preserve the one WebGL canvas when replacing the surrounding HTML.
+  const canvas=document.querySelector<HTMLCanvasElement>('#scene');
+  if(canvas&&app.contains(canvas))document.body.prepend(canvas);
   const expanded = [...app.querySelectorAll<HTMLDetailsElement>('details[data-keep-open][open]')].map(el => el.dataset.keepOpen);
   document.body.dataset.screen = screen;
   document.documentElement.style.setProperty('--street-progress',String(state.streetPosition??0));
@@ -221,6 +228,10 @@ function render(focusId?: string): void {
   if (focusId) document.querySelector<HTMLButtonElement>(`[data-testid="${focusId}"]`)?.focus({preventScroll:true});
 }
 function updateVisual(): void {
+  const canvas=document.querySelector<HTMLCanvasElement>('#scene');
+  const viewport=app.querySelector<HTMLElement>('.dice-viewport');
+  if(canvas&&viewport){viewport.append(canvas);scene?.resizeCanvas();}
+  else scene?.resizeCanvas();
   scene?.setRendering(screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
   if(screen==='records'||screen==='finale'||screen==='outside')return;
   const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
@@ -353,15 +364,29 @@ function revealFeedback(selector: string): void {
 }
 function commandDoble(type: ContractCommand['type'], revision: number, pointerFeedback = false): void {
   if(screen !== 'contracts' || !state.contracts) return;
+  if(diceRolling)return;
   const command: ContractCommand = { type, expectedRevision: revision, commandId: `doble-${revision}-${type}` };
   if(type === 'sign' && selectedContract) command.contract = selectedContract;
   const next = applyContractCommand(state.contracts, command);
   if(next === state.contracts) { announce('Elegí el contrato indicado por la ayuda o revisá el encargo actual.'); return; }
-  state.contracts = next; selectedContract = null; persist(); chime(next.history.at(-1)?.correct ?? true);
+  const throwsDice=type==='sign'&&state.contracts.phase==='offer'&&next.phase==='result';
+  diceRolling=throwsDice&&!settings.reducedMotion&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  state.contracts = next; selectedContract = null; persist();
+  if(!diceRolling)chime(next.history.at(-1)?.correct ?? true);
   render(next.phase === 'offer' || next.phase === 'order' ? 'contract-S' : next.phase === 'complete' ? 'back-room' : 'doble-next');
   if(type==='begin'||next.phase==='offer'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});
-  if(pointerFeedback && next.phase === 'result') revealFeedback('.dice-readout');
-  announce(next.phase === 'result' ? `Dados ${next.pair![0]} y ${next.pair![1]}. Saldo ${next.balance}.` : next.phase === 'order' ? 'Nuevo encargo hipotético. Sin otra tirada.' : next.phase === 'complete' ? 'Sello de Doble obtenido.' : 'Encargo actualizado.');
+  if(diceRolling){scene?.rollDice();diceRollTimer=setTimeout(finishDiceRoll,900);}
+  if(throwsDice)app.querySelector('.dice-table')?.scrollIntoView({block:'center',behavior:'instant'});
+  if(pointerFeedback && next.phase === 'result'&&!throwsDice) revealFeedback('.dice-table-caption');
+  announce(diceRolling?'Tirando los dados…':next.phase === 'result' ? `Dados ${next.pair![0]} y ${next.pair![1]}. Suma ${next.pair![0]+next.pair![1]}. Saldo ${next.balance}.` : next.phase === 'order' ? 'Nuevo encargo hipotético. Sin otra tirada.' : next.phase === 'complete' ? 'Sello de Doble obtenido.' : 'Encargo actualizado.');
+}
+function finishDiceRoll():void {
+  clearTimeout(diceRollTimer);diceRolling=false;scene?.stopDiceRoll();
+  if(screen!=='contracts'||state.contracts?.phase!=='result')return;
+  chime(state.contracts.history.at(-1)?.correct??true);
+  render(overlay.querySelector('dialog[open]')?undefined:'doble-next');
+  const pair=state.contracts.pair!;
+  announce(`Dados ${pair[0]} y ${pair[1]}. Suma ${pair[0]+pair[1]}. Saldo ${state.contracts.balance}.`);
 }
 app.addEventListener('click', event => {
   const target = (event.target as HTMLElement).closest<HTMLElement>('button, [data-action]');
