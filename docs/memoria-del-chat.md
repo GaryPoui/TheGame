@@ -409,3 +409,5 @@ Revisión de carteles y diálogo 2026-10-28: acción principal amplia, utilidade
 
 
 Corrección 2026-10-28: cuerpo completo sólo en diálogos; durante partidas, personajes detrás de sus mesas, sin duplicados en el cuaderno. Tutorial de Vera integrado a las mismas cartas, selección y extracción de la partida normal, con resultados preparados sin alterar progreso/RNG. Ver [detalle y evidencia](table-tutorial.md).
+
+Revisión de Doble 2026-10-28: el usuario pidió ver todas las opciones sin desplazar y mostrar las combinaciones de dados. Se compactan las tres ofertas y se representan los pares que pagan por suma, aclarando los órdenes inversos. Se mantiene el estilo y la matemática. Ver [detalle y evidencia](dice-combinations.md).

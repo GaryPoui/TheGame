@@ -6,6 +6,7 @@ import './ui/exploration.css';
 import './ui/dialogue-dice.css';
 import './ui/dialogue-polish.css';
 import './ui/table-hosts.css';
+import './ui/compact-dice.css';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {INTRO} from './content/intro';
@@ -102,6 +103,7 @@ function announce(message: string): void { announcer.textContent = message; }
 function applySettings(): void {
   gameAudio.setVolume(settings.volume);
   document.documentElement.style.setProperty('--text-scale', String(settings.textScale));
+  document.body.classList.toggle('enlarged-text', settings.textScale > 1);
   document.body.classList.toggle('reduced-motion', settings.reducedMotion);
   scene?.setSettings({ reducedMotion: settings.reducedMotion, sensitivity: settings.sensitivity, fov: 65 });
 }

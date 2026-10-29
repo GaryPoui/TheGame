@@ -1,0 +1,11 @@
+import {test,expect} from '@playwright/test';
+import {mkdir} from 'node:fs/promises';
+import {createGame,choose,advance,bestChoices} from '../../src/core/game';
+import {createContracts} from '../../src/core/tables/contracts';
+const evidence=process.env.EVIDENCE_DIR??'.tools/dice-layout';
+test('all dice offers fit without scrolling and show paying combinations',async({page})=>{
+ let s=createGame(8);for(let i=0;i<35&&s.phase!=='complete';i++)s=['choose','guided'].includes(s.phase)?choose(s,bestChoices(s)[0] as 0|1):advance(s);s.contracts=createContracts(1);s.seals={urns:true,contracts:false};s.activeTable='contracts';s.settings.volume=0;
+ await page.addInitScript(raw=>localStorage.setItem('thegame.save.v1.current',raw),JSON.stringify({schemaVersion:5,contentVersion:'campaign-challenge-v5',state:s}));await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();await page.getByTestId('doble-begin').click();await mkdir(evidence,{recursive:true});
+ for(const [width,height] of [[1440,900],[1366,768],[530,850],[390,844],[360,740]]){await page.setViewportSize({width:width!,height:height!});await page.evaluate(()=>scrollTo(0,0));for(const id of ['S','C','J']){const r=await page.getByTestId('contract-'+id).boundingBox();expect(r!.y).toBeGreaterThanOrEqual(0);expect(r!.y+r!.height).toBeLessThanOrEqual(height!);expect(r!.x+r!.width).toBeLessThanOrEqual(width!);}await page.screenshot({path:`${evidence}/offers-${width}.png`});}
+ await expect(page.getByTestId('contract-C')).toContainText('16 de 36');await expect(page.getByTestId('contract-J')).toContainText('6 de 36');await expect(page.getByTestId('contract-C').getByRole('img',{name:'1 más 5, suma 6; también 5 más 1',exact:true})).toBeVisible();await page.getByTestId('contract-J').click();await expect(page.getByTestId('doble-sign')).toBeEnabled();
+});

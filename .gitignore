@@ -21,3 +21,6 @@ playwright-report/
 
 # Full photo redesign run retained locally; selected captures are versioned.
 /docs/evidence/photos/local/
+
+# Full dice regression captures retained locally; selected release evidence is versioned.
+/docs/evidence/dice-combinations/local/
