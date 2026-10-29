@@ -186,3 +186,6 @@ Fotos publicadas 2026-10-28: photos-and-clear-dice-v7.1, fuente 99a7086, deploym
 
 
 Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.
+
+
+Revisión de carteles y diálogo 2026-10-28: acción principal amplia, utilidades separadas, historial por intervenciones y modales con cabecera clara. Reglas y progreso conservados. Ver [cambio y evidencia](dialogue-polish.md).

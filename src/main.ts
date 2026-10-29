@@ -4,6 +4,7 @@ import './ui/table-experience.css';
 import './ui/campaign.css';
 import './ui/exploration.css';
 import './ui/dialogue-dice.css';
+import './ui/dialogue-polish.css';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {INTRO} from './content/intro';
@@ -128,7 +129,7 @@ const intro = INTRO.nodes.map(n=>[n.speaker,INTRO.strings[n.lineId]!] as const);
 function introView(): string {
   const [speaker, line] = intro[introLine]!;
   const dark = introPhase === 'dark';
-  return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><span class="eyebrow">${dark ? 'Un momento antes…' : speaker}</span><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><div class="dialogue-actions">${btn('intro-next', introLine === 2 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}${btn('skip-intro', 'Saltar introducción', 'quiet')}${btn('intro-history','Releer conversación','text-button')}${introLine===0&&!dark?btn('remember-street','Recordar cómo llegaste','text-button'):''}</div><span class="page-count">${introLine + 1} / 3</span></section></main>`;
+  return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><div class="dialogue-heading"><span class="speaker-tag"><span class="speaker-emblem" aria-hidden="true">${dark?'◇':speaker==='Vera'?'V':'A'}</span>${dark ? 'Un momento antes…' : speaker}</span><span class="dialogue-progress" aria-label="Intervención ${introLine+1} de 3">${introLine+1} de 3</span></div><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><div class="dialogue-actions">${btn('intro-next', introLine === 2 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}${btn('skip-intro', 'Saltar introducción', 'quiet')}${btn('intro-history','Volver a leer','dialogue-utility')}${introLine===0&&!dark?btn('remember-street','Recordar cómo llegaste','text-button'):''}</div></section></main>`;
 }
 function room(): string {
   const entries = [
@@ -306,9 +307,9 @@ function handleCampaignClick(target:HTMLElement):boolean {
  return false;
 }
 window.addEventListener('storage',event=>{if(event.key==='thegame.save.v1.current'&&event.newValue!==event.oldValue){storageConflict=true;warning='Otra pestaña cambió el progreso. Esta partida sigue en memoria. Recargá para cargar el guardado más reciente.';render();}});
-function showDialog(title: string, content: string): HTMLDialogElement {
+function showDialog(title: string, content: string, kind=''): HTMLDialogElement {
   const previous = document.activeElement as HTMLElement | null;
-  overlay.innerHTML = `<dialog class="modal"><div class="modal-heading"><h2>${title}</h2>${btn('close-dialog', 'Cerrar ✕', 'quiet')}</div>${content}</dialog>`;
+  overlay.innerHTML = `<dialog class="modal ${kind}" aria-labelledby="modal-title"><div class="modal-heading"><h2 id="modal-title">${title}</h2>${btn('close-dialog', 'Cerrar <span aria-hidden="true">×</span>', 'quiet modal-close')}</div><div class="modal-body">${content}</div></dialog>`;
   const dialog = overlay.querySelector('dialog')!;
   dialog.addEventListener('close', () => {
     // A closed dialog may already have been replaced by another one (reset/confirmation).
@@ -374,7 +375,7 @@ app.addEventListener('click', event => {
       return;
     }
   }
-  if(id==='intro-history'){showDialog('Lo que dijeron',intro.slice(0,introLine+1).map(([speaker,line])=>`<p><strong>${speaker}</strong><br>${escapeText(line)}</p>`).join(''));return;}
+  if(id==='intro-history'){showDialog('Lo que dijeron',`<p class="conversation-lead">Podés volver a leer lo que escuchaste hasta ahora.</p><ol class="conversation-list">${intro.slice(0,introLine+1).map(([speaker,line],i)=>`<li><article class="conversation-entry"><header><span class="speaker-emblem" aria-hidden="true">${speaker==='Vera'?'V':'A'}</span><h3>${escapeText(speaker)}</h3><span class="conversation-order">${i+1} de ${introLine+1}</span></header><p>${escapeText(line)}</p></article></li>`).join('')}</ol>`,'conversation-modal');return;}
   if(id==='remember-street'){stopIntro();setScreen('street','street-forward');return;}
   if(id==='street-forward'){state.streetPosition=Math.min(8,(state.streetPosition??0)+1);chime();persist();render('street-forward');return;}
   if(id==='street-return'){beginIntro();setScreen('intro','skip-intro');return;}
