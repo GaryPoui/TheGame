@@ -208,3 +208,5 @@ Publicada doble-table-focus-v13: fuente 35cbe47, deployment a172217. 41 unitaria
 Revisión 2026-10-29: [combinaciones más claras](clear-dice-combinations.md). Caras dibujadas de al menos 20 px, puntos contrastados y más ancho para los pares. Las alturas de la mesa se conservan y se verifican en las seis resoluciones.
 
 Publicada clear-dice-v14: fuente b65eb4e, deployment 581f554. 41 unitarias, diez recorridos locales y cinco públicos aprobados; seis tamaños con la mesa conservada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
+
+Encuadre 2026-10-29: [Doble desde la cintura](doble-waist-portrait.md), con escala y altura ajustadas para ver torso, manos y sombrero completo. Mesa y cámara conservadas; sólo presentación del rival en esta mesa.

@@ -248,7 +248,7 @@ export class GameScene {
     if(enabled) this.rings.forEach(mesh => mesh.isVisible = false);
     const portrait = this.scene.getMeshByName('vera-ink-portrait');
     const material = portrait?.material as StandardMaterial | null;
-    if(changed && portrait) { portrait.scaling.set(enabled ? .68 : 1,enabled ? .68 : 1,1); portrait.position.y = enabled ? 2.15 : 3.3; }
+    if(changed && portrait) { portrait.scaling.set(enabled ? .4 : 1,enabled ? .4 : 1,1); portrait.position.y = enabled ? 2.48 : 3.3; }
     if(enabled){
       this.destination.set(0,6.8,-8.2);this.focus.set(0,2.3,0);this.camera.fov=.36;
       // The inline table should be framed immediately, including after a reload.

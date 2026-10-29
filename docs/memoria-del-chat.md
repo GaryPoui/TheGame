@@ -417,3 +417,5 @@ Revisión 2026-10-29: el usuario aprobó la comparación y pidió además ver la
 Segundo ajuste del 2026-10-29: el usuario pidió dar mucho más énfasis a la mesa y menos a las tarjetas. La mesa de Doble gana altura y las ofertas quedan como fichas cortas debajo, conservando los pares y los controles. Ver [detalle y evidencia](doble-table-focus.md).
 
 Legibilidad del 2026-10-29: el usuario pidió agrandar las combinaciones dentro de las cartas sin reducir la mesa. Los símbolos pequeños se reemplazan por caras dibujadas con puntos y se reserva más ancho a los pares. Mesa conservada en los seis tamaños probados. Ver [detalle y evidencia](clear-dice-combinations.md).
+
+Encuadre final del 2026-10-29: el usuario pidió ver al personaje de Doble desde la cintura y con todo el sombrero. Se ajusta su escala y altura, conservando mesa grande, cámara, combinaciones y animación. Ver [detalle y evidencia](doble-waist-portrait.md).
