@@ -1,12 +1,13 @@
 {
-  "phase": "table-tutorial-v10",
+  "phase": "compact-dice-v11",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+  "content_commit": "c3eb34e851d3d39234d3b5598403ff27e8219c65",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/c3eb34e851d3d39234d3b5598403ff27e8219c65",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/dice-combinations.md",
     "docs/table-tutorial.md",
     "docs/dialogue-polish.md",
     "docs/character-challenge-update.md",
@@ -20,23 +21,31 @@
   "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9",
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
-    "unit_tests": 40,
+    "unit_tests": 41,
     "local_targeted_browser_tests": 7,
-    "final_layout_cases": 2,
     "public_browser_tests": 7,
     "public_browser_failures": 0,
     "public_browser_flaky": 0,
     "public_asset_hashes": 146,
+    "normal_text_viewports": [
+      "1440x900",
+      "1366x768",
+      "530x850",
+      "390x844",
+      "360x740"
+    ],
+    "enlarged_text": "Campaign panels at 200 percent in 390px window; vertical scrolling permitted, no horizontal overflow",
     "exact_design_math_checks": 70,
+    "skill_files_verified": 92,
     "https_status": "built; HTTPS enforced",
-    "public_browser_report": "docs/evidence/table-tutorial/public-browser-results.json",
-    "public_integrity": "docs/evidence/table-tutorial/public-integrity.json",
+    "public_browser_scope": "Six campaign regressions and compact dice layout across five viewport sizes",
+    "public_browser_report": "docs/evidence/dice-combinations/public-browser-results.json",
+    "public_integrity": "docs/evidence/dice-combinations/public-integrity.json",
     "source_ci": {
-      "status": "completed",
-      "conclusion": "success",
-      "headSha": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
-      "browser_tests": 27,
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40800532863"
+      "conclusion": "",
+      "headSha": "c3eb34e851d3d39234d3b5598403ff27e8219c65",
+      "status": "in_progress",
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40807050790"
     }
   },
   "pending_optional_tools": [
@@ -48,7 +57,7 @@
   "deployed": true,
   "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "cdda0855aa8ff5b273cf5d9689ca2a920db98c1c",
+  "deployment_commit": "520ab440bb77ff858b0de355ee25e640da6d11fa",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -56,8 +65,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Seated/waist-up characters during table play; full body only in dialogue. Vera tutorial uses normal table controls and two prepared draws, preserving saved campaign and RNG.",
-  "build_source_commit": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+  "scope": "Compact Doble offers with graphical paying dice pairs and reverse-order counts; five normal-text viewports show all offers without scrolling; enlarged text grows vertically.",
+  "build_source_commit": "c3eb34e851d3d39234d3b5598403ff27e8219c65",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -350,5 +359,32 @@
       "public_browser_report": "docs/evidence/dialogue-polish/public-browser-results.json",
       "public_integrity": "docs/evidence/dialogue-polish/public-integrity.json"
     }
+  },
+  "previous_table_tutorial_delivery": {
+    "phase": "table-tutorial-v10",
+    "content_commit": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+    "build_source_commit": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+    "deployment_commit": "cdda0855aa8ff5b273cf5d9689ca2a920db98c1c",
+    "validation": {
+      "unit_tests": 40,
+      "local_targeted_browser_tests": 7,
+      "final_layout_cases": 2,
+      "public_browser_tests": 7,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/table-tutorial/public-browser-results.json",
+      "public_integrity": "docs/evidence/table-tutorial/public-integrity.json",
+      "source_ci": {
+        "status": "completed",
+        "conclusion": "success",
+        "headSha": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+        "browser_tests": 27,
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40800532863"
+      }
+    },
+    "scope": "Seated/waist-up characters during table play; full body only in dialogue. Vera tutorial uses normal table controls and two prepared draws, preserving saved campaign and RNG."
   }
 }

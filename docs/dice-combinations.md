@@ -14,4 +14,8 @@ El caso de navegador comprueba las tres ofertas completas dentro del viewport, s
 
 Validación local aprobada: build/TypeScript, 41 pruebas unitarias, 7 recorridos de navegador (campaña y nuevo caso de cinco tamaños), 70 comprobaciones matemáticas, documentación y 92 archivos de skills. Revisión visual de escritorio, celular de 360 px y texto al 200 %. La primera revisión detectó un desborde al ampliar texto; quedó corregido y la regresión completa pasó después del ajuste. Informe en docs/evidence/dice-combinations/local-browser-results.json. No se agregaron licencias ni dependencias; diff y patrones habituales de secretos revisados.
 
-Evidencia de la publicación y comprobaciones definitivas se registra al verificar HTTPS.
+## Publicación comprobada
+
+Versión compact-dice-v11, fuente `c3eb34e851d3d39234d3b5598403ff27e8219c65`, deployment `520ab440bb77ff858b0de355ee25e640da6d11fa`. [Juego](https://garypoui.github.io/TheGame/) y [PR #7](https://github.com/GaryPoui/TheGame/pull/7), sin merge. Siete recorridos HTTPS aprobados, sin fallos, inestables ni omitidos, y 146/146 archivos coincidentes por SHA-256. Informes en docs/evidence/dice-combinations/public-browser-results.json y public-integrity.json. Capturas seleccionadas: desktop.png, mobile.png, text-200.png y public-mobile.png en la misma carpeta.
+
+La CI completa de la fuente estaba ejecutándose al registrar esta publicación; no se cuenta como aprobada: [ejecución](https://github.com/GaryPoui/TheGame/actions/runs/40807050790). Las comprobaciones locales y públicas indicadas arriba sí terminaron. El commit posterior de registro no cambia los archivos del juego publicado.
