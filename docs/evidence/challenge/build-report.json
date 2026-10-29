@@ -314,16 +314,16 @@
       "sha256": "559b28417ed85e95302f238f0f1e1b2191ccb06143502dc0de835cc14cb65f18"
     },
     {
-      "path": "dist/assets/index-8jzWuhAY.css",
-      "bytes": 54974,
-      "gzipBytes": 12648,
-      "sha256": "ce907c9e46d6c0b4899690058b57785a52ea725be806dfebb715521fb8f16343"
+      "path": "dist/assets/index-BkoJkFkR.css",
+      "bytes": 55107,
+      "gzipBytes": 12681,
+      "sha256": "d112d1ebaec253ffce21a91ac121dc10b593009aec20cac5f003950d4e5c1b42"
     },
     {
-      "path": "dist/assets/index-DGC5RMj4.js",
-      "bytes": 105241,
-      "gzipBytes": 34099,
-      "sha256": "689956c6d6e20381d6db288380793d3696d4cf07bd6e8d27c8d904c2321ce3fe"
+      "path": "dist/assets/index-CMYwxyVy.js",
+      "bytes": 105259,
+      "gzipBytes": 34106,
+      "sha256": "b466784e61ce8b6e24499771d75c47128e86fd7b80094905c5041ce3256ce327"
     },
     {
       "path": "dist/assets/instancesDeclaration-CJBvtBV5.js",
@@ -790,8 +790,8 @@
     {
       "path": "dist/index.html",
       "bytes": 1392,
-      "gzipBytes": 676,
-      "sha256": "83bf7b29e52d4a02ccca3d138946ec14d359489cb923fe3362a3d124bbff96ce"
+      "gzipBytes": 674,
+      "sha256": "beeb9f07caab60400d1016fde375ed7bc29df9e07857a27091598658ce9d271a"
     },
     {
       "path": "dist/ink-art.json",
@@ -878,7 +878,7 @@
       "sha256": "3d3f0da9d18021283c5e83927ebe57d890777f0bd302d929e90a5ac9de59dcbe"
     }
   ],
-  "totalBytes": 30618675,
-  "totalGzipBytes": 28203121,
+  "totalBytes": 30618826,
+  "totalGzipBytes": 28203159,
   "externalRuntimeAssets": false
 }
