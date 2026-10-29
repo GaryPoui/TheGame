@@ -314,16 +314,16 @@
       "sha256": "559b28417ed85e95302f238f0f1e1b2191ccb06143502dc0de835cc14cb65f18"
     },
     {
-      "path": "dist/assets/index-5AhAtt-0.js",
-      "bytes": 104933,
-      "gzipBytes": 34007,
-      "sha256": "3a7556bbf7c7f778978094444ef7ff001e246419db48b6a26defd5df044ef2f9"
-    },
-    {
       "path": "dist/assets/index-8jzWuhAY.css",
       "bytes": 54974,
       "gzipBytes": 12648,
       "sha256": "ce907c9e46d6c0b4899690058b57785a52ea725be806dfebb715521fb8f16343"
+    },
+    {
+      "path": "dist/assets/index-DGC5RMj4.js",
+      "bytes": 105241,
+      "gzipBytes": 34099,
+      "sha256": "689956c6d6e20381d6db288380793d3696d4cf07bd6e8d27c8d904c2321ce3fe"
     },
     {
       "path": "dist/assets/instancesDeclaration-CJBvtBV5.js",
@@ -790,8 +790,8 @@
     {
       "path": "dist/index.html",
       "bytes": 1392,
-      "gzipBytes": 673,
-      "sha256": "3da858698ab19e85281f381095537033c8a688a3a7af8319c8ab8dfdcd7b05fc"
+      "gzipBytes": 676,
+      "sha256": "83bf7b29e52d4a02ccca3d138946ec14d359489cb923fe3362a3d124bbff96ce"
     },
     {
       "path": "dist/ink-art.json",
@@ -878,7 +878,7 @@
       "sha256": "3d3f0da9d18021283c5e83927ebe57d890777f0bd302d929e90a5ac9de59dcbe"
     }
   ],
-  "totalBytes": 30618367,
-  "totalGzipBytes": 28203026,
+  "totalBytes": 30618675,
+  "totalGzipBytes": 28203121,
   "externalRuntimeAssets": false
 }
