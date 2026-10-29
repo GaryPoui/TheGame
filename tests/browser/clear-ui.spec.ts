@@ -10,7 +10,7 @@ test('clear language, settings tabs and tutorial replay preserve campaign progre
  await expect(page.locator('.topbar')).toHaveText('Ajustes');await expect(page.locator('.menu-copy h1')).not.toContainText('.');
  await page.getByTestId('settings-button').click();await page.getByTestId('reduced-motion').check();
  await page.getByRole('tab',{name:'Sonido',exact:true}).click();await page.getByTestId('volume').fill('0');
- await page.getByRole('tab',{name:'Controles',exact:true}).click();await expect(page.getByTestId('bind-urn-u')).toBeVisible();
+ await expect(page.getByRole('tab',{name:'Controles',exact:true})).toHaveCount(0);await expect(page.locator('[data-testid^="bind-"]')).toHaveCount(0);
  await page.screenshot({path:`${evidence}/settings.png`});await page.getByTestId('close-dialog').click();
  await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();await page.getByTestId('enter-urns').click();
  await page.getByTestId('toggle-cards').click();await expect(page.getByTestId('demo-urn-0')).toContainText('Urna 1');

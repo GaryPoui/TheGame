@@ -9,7 +9,7 @@ function checkpoint(comparison=false){
  let s=createGame(7);s.settings.volume=0;s.settings.reducedMotion=true;
  for(let i=0;i<35&&s.phase!=='complete';i++)s=['choose','guided'].includes(s.phase)?choose(s,bestChoices(s)[0] as 0|1):advance(s);
  s.contracts=createContracts(4);for(let i=0;i<40&&s.contracts.phase!=='complete';i++){const c=s.contracts;s.contracts=applyContractCommand(c,{type:c.phase==='tutorial'?'begin':['offer','order'].includes(c.phase)?'sign':'next',contract:bestContracts(currentObjective(c))[0],commandId:'c'+c.revision,expectedRevision:c.revision});}
- s.records=createRecords(1);s.activeTable='records';s.seals={urns:true,contracts:true};
+ s.records=createRecords(1,false,'photos-v2');s.activeTable='records';s.seals={urns:true,contracts:true};
  if(comparison){for(let i=0;i<20&&!(s.records.phase==='choose'&&s.records.round===2);i++){const r=s.records;s.records=applyRecordsCommand(r,{type:r.phase==='tutorial'?r.diagnostic===null?'diagnose':'begin':r.phase==='feedback'?'next':'choose',choice:r.phase==='tutorial'?'no':bestRecords(r)[0],commandId:'a'+r.revision,expectedRevision:r.revision});}}
  return s;
 }
@@ -20,7 +20,7 @@ async function fits(page:Page,width:number){expect(await page.evaluate(()=>docum
 test('Ada uses the shared table with responsive photos and an unscored diagnostic',async({page})=>{
  await mkdir(evidence,{recursive:true});await open(page);await tableReady(page);const before=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));
  for(const [width,height] of [[1673,840],[1440,900],[1366,768],[900,900],[390,844]]){await page.setViewportSize({width:width!,height:height!});await page.evaluate(()=>scrollTo(0,0));await tableReady(page);await fits(page,width!);await expect(page.locator('.ada-evidence .result-photo')).toHaveCount(4);await page.screenshot({path:`${evidence}/ada-diagnostic-${width}.png`,fullPage:true});}
- expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);await page.getByTestId('records-diagnostic-no').focus();await page.keyboard.press('Enter');await expect(page.getByTestId('records-diagnostic-feedback')).toContainText('La respuesta es No');await page.getByTestId('records-begin').click();await page.getByTestId('records-archive').click();await page.getByTestId('records-confirm').click();await expect(page.locator('.photo-lost')).toHaveCount(4);await page.screenshot({path:`${evidence}/ada-revealed-mobile.png`,fullPage:true});await page.getByTestId('back-room').click();await expect(page.locator('body > #scene')).toHaveCount(1);
+ expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);await page.getByTestId('records-diagnostic-no').click();await expect(page.getByTestId('records-diagnostic-feedback')).toContainText('La respuesta es No');await page.getByTestId('records-begin').click();await page.getByTestId('records-archive').click();await page.getByTestId('records-confirm').click();await expect(page.locator('.photo-lost')).toHaveCount(4);await page.screenshot({path:`${evidence}/ada-revealed-mobile.png`,fullPage:true});await page.getByTestId('back-room').click();await expect(page.locator('body > #scene')).toHaveCount(1);
 });
 
 test('advanced album comparison keeps all records and playable choices visible',async({page})=>{

@@ -10,13 +10,14 @@ test('dialogue resumes its checkpoint, replays without rewards, and releases con
  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.intro.effects)).toEqual(['released']);
  await page.reload();await page.getByTestId('continue-game').click();await expect(page.locator('body')).toHaveAttribute('data-screen','room');
 });
-test('room navigation is bounded, rebindable and paused; returning preserves position',async({page})=>{
- await page.goto('./');await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();await page.locator('.room-walk summary').click();
- await page.getByTestId('settings-button').click();await page.getByRole('tab',{name:'Controles',exact:true}).click();await page.getByTestId('bind-forward').selectOption('KeyJ');await page.getByTestId('close-dialog').click();await page.keyboard.press('KeyJ');
- const position=await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.roomPosition);expect(position.z).toBe(1.5);
- await page.keyboard.press('Escape');await expect(page.locator('dialog[open]')).toBeVisible();await page.keyboard.press('KeyJ');expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.roomPosition)).toEqual(position);await page.getByTestId('resume-game').click();
- await page.getByTestId('enter-urns').click();await page.getByTestId('skip-tutorial').click();await page.keyboard.press('KeyJ');await page.getByText('Ayuda y opciones',{exact:true}).click();await page.getByTestId('back-room').click();expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.roomPosition)).toEqual(position);
- await expect(page.getByTestId('enter-finale')).toBeDisabled();
+test('room uses mouse selection without walking or remapping controls',async({page})=>{
+ await page.goto('./');await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();
+ await expect(page.locator('.room-walk')).toHaveCount(0);
+ const before=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));
+ await page.keyboard.press('KeyW');await page.keyboard.press('KeyD');expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);
+ await page.getByTestId('settings-button').click();await expect(page.getByRole('tab',{name:'Controles',exact:true})).toHaveCount(0);await expect(page.locator('[data-testid^="bind-"]')).toHaveCount(0);await page.getByTestId('close-dialog').click();
+ await page.getByTestId('enter-urns').click();await page.getByTestId('skip-tutorial').click();await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();
+ await expect(page.locator('body')).toHaveAttribute('data-screen','room');await expect(page.getByTestId('enter-finale')).toHaveAttribute('aria-disabled','true');
 });
 test('optional street memory uses limited steps and returns to the dark opening',async({page})=>{
  await mkdir(evidence,{recursive:true});await page.goto('./');await page.getByTestId('new-game').click();await expect(page.getByTestId('remember-street')).toBeVisible();await page.getByTestId('remember-street').click();

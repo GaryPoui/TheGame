@@ -114,3 +114,6 @@ Comprobación reproducible: `python scripts/verify-math.py`; evidencia [math-ver
 
 
 Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.
+
+
+Actualización 2026-10-29: Ada nueva usa [cartas de póker](ada-poker.md), con proporciones, actualización sin reposición y unión de eventos. Las fotos anteriores se conservan sólo para partidas antiguas y el final. El usuario pidió retirar el ensayo opcional del cierre y usar únicamente el mouse. Esta instrucción prevalece sobre los atajos y ejercicios previstos en documentos históricos.

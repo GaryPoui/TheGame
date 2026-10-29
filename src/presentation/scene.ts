@@ -125,6 +125,10 @@ export class GameScene {
     const inset=CreateTorus('felt-inlay',{diameter:6.2,thickness:.016,tessellation:80},this.scene);
     inset.position.y=1.735; inset.scaling.z=.7; inset.material=this.brass;
     this.cylinder('table-pedestal',.85,1.3,[0,.69,0],wood);
+    for(const x of [-2.25,2.25]) for(const z of [-1.2,1.2]) {
+      this.cylinder('table-leg',.22,1.4,[x,.74,z],wood);
+      this.cylinder('table-leg-foot',.32,.14,[x,.10,z],this.brass);
+    }
     for(const x of [-1,1]) this.box('pedestal-foot',[2.2,.18,.34],[x*.5,.12,0],wood).rotation.y=x*.6;
     const urnStart = this.scene.meshes.length;
     for(const x of [-1.05,1.05]) this.makeUrn(x);
@@ -224,9 +228,8 @@ export class GameScene {
     if(!this.contractsMode)return;
     const height=this.engine.getRenderingCanvas()?.clientHeight??420;
     const width=this.engine.getRenderingCanvas()?.clientWidth??900;
-    const originalHeight=height-(window.innerWidth>1100?72:window.innerWidth<=760?40:0);
-    this.destination.set(0,5.6,-9);this.focus.set(0,2.6,0);
-    this.camera.fov=this.tableHost==='ada'?Math.max(.44,2*Math.atan(3.8*height/(9.5*Math.max(1,width)))):Math.max(.44,2*Math.atan(Math.tan(.36/2)*height/Math.max(1,originalHeight)*1.04));
+    this.destination.set(0,4.6,-10);this.focus.set(0,2.25,0);
+    this.camera.fov=Math.max(.44,2*Math.atan(Math.max(2.6/10.7,3.85*height/(10.7*Math.max(1,width)))));
     this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);
   }
   rollDice():void {

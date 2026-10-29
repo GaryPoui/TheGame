@@ -43,49 +43,48 @@ async function finishFinale(page:Page,good=true){
 test('Ada, host finale, epilogue and freedom survive reload and practice',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await open(page,checkpoint());
  await beginRecords(page);await page.screenshot({path:`${evidence}/ada-desktop.png`});
- await page.getByTestId('records-archive').click();await page.keyboard.press('Enter');
- // Selection restores focus to the option; Enter repeats selection, confirm remains explicit.
+ await page.getByTestId('records-'+bestRecords((await saved(page)).records!)[0]).click();
  await page.getByTestId('records-confirm').click();
  const before=await saved(page);await page.reload();await page.getByTestId('continue-game').click();expect((await saved(page)).records).toEqual(before.records);
  await finishRecords(page);await page.getByTestId('enter-finale').click();await page.screenshot({path:`${evidence}/host-desktop.png`});
  await finishFinale(page);expect((await saved(page)).freed).toBe(true);
- await page.locator('details.transfer summary').click();await page.getByTestId('transfer-a').click();await expect(page.getByTestId('transfer-feedback')).toContainText('80 %');
+ await expect(page.getByTestId('transfer-a')).toHaveCount(0);await expect(page.getByText(/Un último ensayo opcional/)).toHaveCount(0);
  await page.getByTestId('exit-house').click();await expect(page.locator('body')).toHaveAttribute('data-screen','outside');
  await page.screenshot({path:`${evidence}/epilogue.png`});await page.reload();await page.getByTestId('continue-game').click();await expect(page.locator('body')).toHaveAttribute('data-screen','outside');
- if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();await page.getByTestId('enter-finale').click();await page.getByTestId('finale-replay').click();expect((await saved(page)).freed).toBe(true);expect(errors).toEqual([]);
+ if(!await page.getByTestId('back-room').isVisible())await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();await page.getByTestId('enter-finale').click();await page.getByTestId('finale-replay').click();expect((await saved(page)).freed).toBe(true);expect(errors).toEqual([]);
 });
 test('poor decisions lead through finite help in Ada and finale',async({page})=>{
  await open(page,checkpoint());await finishRecords(page,false);expect((await saved(page)).records!.assisted).toBe(true);
  await page.getByTestId('enter-finale').click();await finishFinale(page,false);const s=await saved(page);expect(s.finale!.merit).toBe(0);expect(s.finale!.assisted).toBe(true);expect(s.freedomMethod).toBe('assisted');
 });
-test('gates, narrow display, text scaling and silent keyboard choices',async({page})=>{
+test('gates, narrow display, text scaling and silent mouse choices',async({page})=>{
  const s=checkpoint();s.settings.reducedMotion=true;s.settings.volume=0;await open(page,s);await beginRecords(page);
  await page.setViewportSize({width:390,height:844});await page.getByTestId('settings-button').click();await page.getByTestId('text-scale').selectOption('2');await page.getByTestId('close-dialog').click();
- await page.getByTestId('records-archive').focus();await page.keyboard.press('Enter');await page.getByTestId('records-confirm').focus();await page.keyboard.press('Enter');await expect(page.getByTestId('records-feedback')).toContainText('Buena decisión');
+ await page.getByTestId('records-'+bestRecords((await saved(page)).records!)[0]).click();await page.getByTestId('records-confirm').click();await expect(page.getByTestId('records-feedback')).toContainText('Buena elección');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);await page.screenshot({path:`${evidence}/ada-200-narrow.png`,fullPage:true});
- if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();await expect(page.getByTestId('enter-finale')).toBeDisabled();await expect(page.getByTestId('enter-records')).toBeEnabled();
+ if(!await page.getByTestId('back-room').isVisible())await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();await expect(page.getByTestId('enter-finale')).toBeDisabled();await expect(page.getByTestId('enter-records')).toBeEnabled();
 });
 test('another tab changes the save without silently overwriting its progress',async({page})=>{
  await open(page,checkpoint());const raw=JSON.stringify({schemaVersion:99});await page.evaluate(raw=>{localStorage.setItem('thegame.save.v1.current',raw);window.dispatchEvent(new StorageEvent('storage',{key:'thegame.save.v1.current',newValue:raw,oldValue:'previous'}));},raw);
  await beginRecords(page);await expect(page.locator('.save-warning')).toContainText('Otra pestaña');expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(raw);
  await page.getByTestId('settings-button').click();await page.getByTestId('delete-save').click();await page.getByTestId('confirm-delete').click();await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();await expect(page.locator('.save-warning')).toHaveCount(0);expect((await saved(page)).intro!.ended).toBe(true);
 });
-test('Doble preserves a good decision through a lost roll, reload and an independent simulation',async({page})=>{
+test('Doble preserves a good decision through a lost roll, reload and reading its accounts',async({page})=>{
  const s=checkpoint();delete s.records;s.contracts=createContracts(1);s.activeTable='contracts';s.seals!.contracts=false;await open(page,s);
- await page.getByTestId('doble-begin').click();await page.getByTestId('contract-J').click();await page.keyboard.press('KeyE');
+ await page.getByTestId('doble-begin').click();await page.getByTestId('contract-J').click();await page.getByTestId('doble-sign').click();
  await expect(page.getByTestId('doble-balance')).toHaveText('-1');await expect(page.locator('.contract-verdict')).toContainText('Buena decisión');
  const prior=(await saved(page)).contracts;await page.reload();await page.getByTestId('continue-game').click();expect((await saved(page)).contracts).toEqual(prior);
- await page.locator('.contract-lab summary').click();await page.getByTestId('simulate-100').click();expect((await saved(page)).contracts).toEqual(prior);
+ await page.getByRole('button',{name:/Practicar y ver las cuentas/}).click();await page.getByRole('button',{name:/Ver los 36 pares y comparar contratos/}).click();await expect(page.locator('.pair-grid')).toBeVisible();expect((await saved(page)).contracts).toEqual(prior);await page.getByTestId('close-dialog').click();
  await page.screenshot({path:`${evidence}/doble-good-unlucky.png`});
  for(let i=0;i<36;i++){const c=(await saved(page)).contracts!;if(c.phase==='complete')break;if(c.phase==='offer'||c.phase==='order'){await page.getByTestId('contract-'+bestContracts(currentObjective(c))[0]).click();await page.getByTestId('doble-sign').click();}else await page.getByTestId('doble-next').click();}
- await expect(page.getByTestId('doble-completion')).toBeVisible();await page.getByTestId('enter-records').click();await expect(page.getByTestId('records-diagnostic-yes')).toBeVisible();
+ await expect(page.getByTestId('doble-completion')).toBeVisible();await page.getByTestId('enter-records').click();await expect(page.getByTestId('records-begin')).toBeVisible();await expect(page.getByRole('heading',{name:'Las cartas de Ada'})).toBeVisible();
 });
 test('all campaign panels remain usable at 200 percent text in a narrow window',async({page})=>{
  test.setTimeout(120_000);
  const s=checkpoint();s.seals!.records=true;s.finale=createFinale(1);s.settings.textScale=2;s.settings.volume=0;s.settings.reducedMotion=true;await page.setViewportSize({width:390,height:844});await open(page,s);
  const check=async(name:string)=>{expect(await page.evaluate(()=>document.documentElement.scrollWidth),name).toBeLessThanOrEqual(390);expect(await page.locator('.topbar').evaluate(el=>Math.max(...Array.from(el.children).filter(child=>child.getClientRects().length>0).map(child=>child.getBoundingClientRect().bottom))-el.getBoundingClientRect().bottom),name+' header overlap').toBeLessThanOrEqual(1);await page.screenshot({path:`${evidence}/${name}-200.png`,fullPage:true});};
- await check('ada-tutorial');await beginRecords(page);await check('ada');if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();await check('room');
- await page.getByTestId('enter-urns').click();await check('vera-complete');await page.getByTestId('practice-again').click();await page.getByTestId('toggle-cards').click();await check('vera');if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();
- await page.getByTestId('enter-contracts').click();await page.getByTestId('doble-replay').click();await page.getByTestId('doble-begin').click();await check('doble');if(!await page.getByTestId('back-room').isVisible())await page.locator('.panel-tools > summary').first().click();await page.getByTestId('back-room').click();
+ await check('ada-tutorial');await beginRecords(page);await check('ada');if(!await page.getByTestId('back-room').isVisible())await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();await check('room');
+ await page.getByTestId('enter-urns').click();await check('vera-complete');await page.getByTestId('practice-again').click();await page.getByTestId('toggle-cards').click();await check('vera');if(!await page.getByTestId('back-room').isVisible())await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();
+ await page.getByTestId('enter-contracts').click();await page.getByTestId('doble-replay').click();await page.getByTestId('doble-begin').click();await check('doble');if(!await page.getByTestId('back-room').isVisible())await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();
  await page.getByTestId('enter-finale').click();await check('host');await page.getByTestId('finale-U').click();await page.getByTestId('finale-confirm').click();await expect(page.getByTestId('finale-feedback')).toBeVisible();
 });

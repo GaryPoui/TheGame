@@ -11,13 +11,15 @@ import './ui/dice-table.css';
 import './ui/doble-table-focus.css';
 import './ui/ada-table.css';
 import './ui/clear-ui.css';
+import './ui/quiet-desktop.css';
+import {replaceDisclosures,installInfoDialogs} from './ui/info-dialog';
 import {learningReview, reviewButton, tutorialSummary, type LearningTopic} from './ui/learning';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {INTRO} from './content/intro';
 import {createDialogue,applyDialogue} from './core/dialogue/runner';
 import {CameraController} from './presentation/camera-controller';
-import {nearbyTable,ROOM_TABLES} from './presentation/interaction';
+import {nearbyTable} from './presentation/interaction';
 import {actionForKey,rebind,type InputAction} from './platform/input';
 import {createRecords,applyRecordsCommand,recordsChoices,type RecordsChoice,type RecordsCommand} from './core/tables/records';
 import {createFinale,applyFinaleCommand,finaleChoices,type FinaleChoice,type FinaleCommand} from './core/tables/finale';
@@ -136,7 +138,7 @@ function badges(): string {
   return `<div class="scoreboard"><span><i aria-hidden="true">✧</i> Decisiones <strong data-testid="merit">${state.merit}/8</strong></span><span><i aria-hidden="true">◈</i> Fichas ganadas <strong data-testid="chance-tokens">${state.tokens}</strong></span></div>`;
 }
 function menu(): string {
-  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar</h1><p class="menu-tagline">La suerte reparte y vos decidís qué hacer con ella.</p><p class="menu-description">Vera cuenta fichas. Doble vende contratos. Ada muestra sus fotos. Tres sellos y una última mesa para volver a la calle.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Reanudar partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>Las urnas de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para teclado y mouse</span></footer>`;
+  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar</h1><p class="menu-tagline">La suerte reparte y vos decidís qué hacer con ella.</p><p class="menu-description">Vera cuenta fichas. Doble vende contratos. Ada reparte cartas. Tres sellos y una última mesa para volver a la calle.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Reanudar partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>Las urnas de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button><span class="desktop-note">Para jugar con el mouse</span></footer>`;
 }
 const intro = INTRO.nodes.map(n=>[n.speaker,INTRO.strings[n.lineId]!] as const);
 function introView(): string {
@@ -148,10 +150,10 @@ function room(): string {
   const entries = [
     ['urns','I','Vera','Las urnas','Contá las chances y mirá qué cambia.','Disponible'],
     ['contracts','II','Doble','Los contratos','Elegí entre promedio, garantía y riesgo.','Necesitás el sello de Vera'],
-    ['records','III','Ada','Las fotos tramposas','Descubrí las fotos que Ada dejó afuera.','Necesitás el sello de Doble'],
+    ['records','III','Ada','Las cartas de Ada','Compará las chances de una baraja.','Necesitás el sello de Doble'],
     ['finale','IV','El anfitrión','El contrato de salida','Usá lo aprendido para abrir la puerta.','Necesitás los tres sellos'],
   ] as const;
-  return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. ${state.freed?'La puerta también. Podés volver a practicar.':'Tres sellos y una última partida te separan de la salida.'}</p>${state.freed?btn('exit-house','Volver a la calle','primary'):''}${roomWalk()}</section><section class="table-directory" aria-label="Mesas de la sala">${entries.map(([id,n,name,title,description,requirement])=>{
+  return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. ${state.freed?'La puerta también. Podés volver a practicar.':'Tres sellos y una última partida te separan de la salida.'}</p>${state.freed?btn('exit-house','Volver a la calle','primary'):''}</section><section class="table-directory" aria-label="Mesas de la sala">${entries.map(([id,n,name,title,description,requirement])=>{
     const unlocked=tableUnlocked(state,id),sealed=id==='finale'?state.freed:id==='urns'?urnsSealed():state.seals?.[id];
     return `<button class="table-entry ${unlocked?'available':'locked'}" data-testid="enter-${id}" ${unlocked?'':'aria-disabled="true"'}><span class="table-number">${n}</span><span><small>${unlocked?sealed?'Completada · '+name:'Disponible · '+name:requirement}</small><strong>${title}</strong><span>${description}</span></span><span aria-hidden="true">${unlocked?'↗':'◇'}</span></button>`;
   }).join('')}</section></main>`;
@@ -207,8 +209,9 @@ function table(): string {
   return `<main class="table-layout"><section class="table-heading"><p class="eyebrow">Mesa I · Vera, la inventarista</p><h1>Las urnas</h1><p class="round-context" data-testid="round-label">${state.assisted ? title : `Ronda ${state.round + 1} de 4 · ${title}`}</p>${badges()}</section><aside class="game-panel"><div class="round-progress" aria-label="${state.assisted ? 'Práctica guiada' : `Ronda ${state.round + 1} de cuatro`}">${[0,1,2,3].map(i => `<span class="${i <= state.round ? 'filled' : ''}"></span>`).join('')}</div><div class="objective-label">${state.assisted ? 'Demostración preparada · con ayuda' : `Extracción ${state.step + 1} de 2`}</div><h2 class="objective">Buscá una ficha <span class="${state.event}-token">${colorName(state.event)} ${symbol(state.event)}</span></h2><p class="rule-tag">${state.replacement ? '↻ La ficha vuelve' : '↗ La ficha queda afuera'} <span>${state.replacement ? 'Cada ficha vuelve a la urna.' : 'La ficha extraída queda afuera.'}</span></p>${choosing ? `<p class="decision-prompt">${state.step === 0 ? '¿Qué urna te da más posibilidades? Tocá una urna o mostrá sus tarjetas.' : state.replacement ? 'Devolvimos la ficha. Las cantidades siguen iguales: elegí otra vez.' : 'Hay una ficha menos. Mirá lo que queda y elegí otra vez.'}</p>${urnCards()}${btn('confirm-choice', selected === null ? 'Elegí una urna para continuar' : `Sacar una ficha de la urna ${selected === 0 ? '1' : '2'}`, 'primary full', selected === null)}<p class="small-note">${state.assisted ? 'La ayuda resalta una elección válida. Completá cuatro acciones para continuar.' : 'Ganás un punto por elegir bien, aunque salga otro color.'}</p>` : `${isSummary ? `<section class="round-summary"><span class="summary-mark" aria-hidden="true">✧</span><h2>Una ronda más clara.</h2><p>${state.assisted ? 'Terminaste este escenario preparado.' : state.round === 3 ? state.merit >= 6 ? 'Tus decisiones alcanzaron el sello de Vera.' : 'Te falta un poco de práctica. Vera preparó dos escenarios cortos para ayudarte.' : 'La próxima ronda empieza con fichas nuevas. Podés usar lo que aprendiste.'}</p>${badges()}${!state.assisted&&state.round===3&&state.merit<6?reviewButton('urns'):''}</section>` : urnCards() + feedback()}${btn('next-step', isSummary ? state.round === 3 || (state.assisted && state.round === 1) ? 'Ver mi resultado' : 'Siguiente ronda' : state.step === 0 ? 'Volver a decidir' : 'Cerrar la ronda', 'primary full')}`}${helpOpen ? `<div class="help-note"><strong>La cuenta de Vera</strong><p>Contá las fichas del color que buscás y todas las fichas de la urna. Por ejemplo: 3 rojas entre 5 fichas significa 3 de 5. Elegí la urna donde ese color ocupe una parte mayor. Si la parte es igual en ambas, las dos sirven. ${state.replacement ? 'Si devolvés la ficha, las cantidades no cambian.' : 'Si la ficha queda afuera, contá sólo las que quedan.'}</p></div>` : ''}<details class="panel-tools" data-keep-open="urn-tools"><summary>Ayuda y opciones</summary><div class="panel-footer">${btn('help-button', helpOpen ? 'Cerrar ayuda' : '¿Cómo comparo?', 'text-button')}${btn('repeat-tutorial','Repetir demostración','text-button')}${btn('back-room', 'Volver a la sala', 'text-button')}</div></details></aside><div class="table-bottom-note"><span class="speaker-dot"></span> Vera <span>«Una ficha no sabe nada de tus méritos».</span></div></main>`;
 }
 function complete(): string {
-  return `<main class="completion-layout" data-testid="completion"><section class="completion-card"><div class="seal" aria-hidden="true">✧</div><p class="eyebrow">Mesa I completada</p><h1>Vera firma<br>tu inventario.</h1><p class="completion-quote">«El azar hizo su trabajo.<br>Ahora vos también sabés hacer el tuyo».</p>${badges()}<p>${state.assisted ? 'Completaste la práctica guiada. Tu sello indica «con ayuda»; podés volver a intentarlo para practicar sin pistas.' : 'Lograste el sello con tus decisiones. Incluso una buena elección puede tener un resultado desfavorable.'}</p><div class="learning-summary"><span>Práctica: comparar proporciones</span><span>Práctica: actualizar después de observar</span><span>Práctica: separar el plan de la suerte</span></div><p class="small-note">Este sello registra tus decisiones, no certifica dominio. Doble ya abrió su correduría: el próximo encargo usa dados y contratos.</p>${btn('enter-contracts', 'Llevar el sello a Doble', 'primary full')}${btn('practice-again', 'Volver a practicar urnas · conservar sellos', 'text-button full')}${btn('back-room', 'Explorar la sala', 'text-button full')}</section></main>`;
+  return `<main class="completion-layout" data-testid="completion"><section class="completion-card"><div class="seal" aria-hidden="true">✧</div><h1>Vera te entrega su sello.</h1>${badges()}<p>${state.assisted ? 'Completaste los ejemplos con ayuda.' : 'Lograste el sello con tus decisiones.'}</p><p>La próxima mesa usa dados y contratos.</p>${btn('enter-contracts', 'Jugar con Doble', 'primary full')}${btn('practice-again', 'Volver a jugar con Vera', 'text-button full')}${btn('back-room', 'Volver a la sala', 'text-button full')}</section></main>`;
 }
+
 function dobleScreen(): string {
   const c = state.contracts;
   if (!c) return room();
@@ -230,6 +233,7 @@ function render(focusId?: string): void {
     (warning ? `<div class="save-warning" role="status">${escapeText(warning)}</div>` : '') +
     (sceneWarning ? `<div class="graphics-warning">${sceneWarning} ${btn('retry-graphics','Reintentar 3D','quiet')}</div>` : '');
   for(const name of expanded) app.querySelector<HTMLDetailsElement>(`details[data-keep-open="${name}"]`)?.setAttribute('open','');
+  replaceDisclosures(app);
   updateVisual();
   if (focusId) document.querySelector<HTMLButtonElement>(`[data-testid="${focusId}"]`)?.focus({preventScroll:true});
 }
@@ -280,10 +284,7 @@ function enterTable(): void {
 function finishIntro(skip:boolean):void{
  state.intro??=createDialogue(INTRO);state.intro=applyDialogue(INTRO,state.intro,{id:'intro-'+state.intro.revision,revision:state.intro.revision,type:skip?'skip':'next'});persist();setScreen('room','enter-urns');
 }
-function roomWalk():string {
- const p=cameraController.position,near=nearbyTable(p);
- return `<details class="room-walk" data-keep-open="room-walk"><summary>Recorrer la sala</summary><p>Movete con ${shortcutName(settings.keys.forward)}, ${shortcutName(settings.keys.backward)}, ${shortcutName(settings.keys.left)} y ${shortcutName(settings.keys.right)}. ${shortcutName(settings.keys.interact)} para acercarte a la mesa indicada. También podés usar la lista.</p><div class="room-map" aria-label="Plano de sala">${ROOM_TABLES.map(t=>`<span style="left:${(t.x+3)/6*100}%;top:${(t.z+3)/6*100}%">${t.name}</span>`).join('')}<b class="room-player" style="left:${(p.x+3)/6*100}%;top:${(p.z+3)/6*100}%" aria-label="Tu posición">◆</b></div><p role="status">${near?`Cerca de ${near.name}. ${tableUnlocked(state,near.id)?'Podés entrar.':'Falta el sello indicado en la lista.'}`:'Acercate a una mesa o elegila en la lista.'}</p><div class="walk-buttons">${(['forward','left','backward','right','interact'] as const).map(a=>btn('walk-'+a,({forward:'↑ Avanzar',backward:'↓ Retroceder',left:'← Izquierda',right:'→ Derecha',interact:'Entrar'})[a],'quiet')).join('')}</div></details>`;
-}
+
 function moveRoom(action:InputAction):void {
  if(screen!=='room'||overlay.querySelector('dialog[open]'))return;
  if(action==='interact'){const t=nearbyTable(cameraController.position);if(t&&tableUnlocked(state,t.id)){document.querySelector<HTMLButtonElement>('[data-testid=enter-'+t.id+']')?.click();}else announce('Acercate a una mesa disponible o usá la lista.');return;}
@@ -295,7 +296,7 @@ function streetScenery(dawn:boolean):string {
 }
 function streetView():string {
  const position=state.streetPosition??0;
- return `<main class="street-layout">${streetScenery(false)}<section class="dialogue-card"><p class="eyebrow">Un recuerdo · un momento antes</p><h1>${position<8?'Sólo faltaba una cuadra.':'Un paso detrás. Después, oscuridad.'}</h1><p>${position<8?'Una calle tranquila. La lámpara titila. Podés avanzar unos pasos; alguien camina detrás de vos.':'No hubo una pelea. Un roce de cartas, la luz se apaga y despertás en la casa. El recuerdo termina acá.'}</p><p>Camino ${position} de 8 · ${shortcutName(settings.keys.forward)} para avanzar</p>${btn('street-forward','Dar un paso','primary',position>=8)}${btn('street-return',position>=8?'Volver al despertar':'Saltar el recuerdo','quiet')}</section></main>`;
+ return `<main class="street-layout">${streetScenery(false)}<section class="dialogue-card"><p class="eyebrow">Un recuerdo · un momento antes</p><h1>${position<8?'Sólo faltaba una cuadra.':'Un paso detrás. Después, oscuridad.'}</h1><p>${position<8?'Una calle tranquila. La lámpara titila. Podés avanzar unos pasos; alguien camina detrás de vos.':'No hubo una pelea. Un roce de cartas, la luz se apaga y despertás en la casa. El recuerdo termina acá.'}</p><p>Camino ${position} de 8</p>${btn('street-forward','Dar un paso','primary',position>=8)}${btn('street-return',position>=8?'Volver al despertar':'Saltar el recuerdo','quiet')}</section></main>`;
 }
 function outsideView():string {
  return `<main class="outside-layout">${streetScenery(true)}<section class="completion-card"><p class="eyebrow">La calle · amanecer</p><h1>Esta vez, vos elegís.</h1><p>La puerta se cierra a tus espaldas. Llevás tres sellos, un contrato cumplido y una idea: una buena decisión no necesita que la suerte le dé la razón.</p><p>Tu libertad queda guardada. Podés visitar las mesas otra vez sin perderla.</p>${btn('back-room','Volver a practicar en la casa','primary full')}</section></main>`;
@@ -313,7 +314,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(id==='exit-house'&&state.freed){state.activeTable='outside';persist();setScreen('outside','back-room');return true;}
  if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
  if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
- if((id==='records-replay'||id==='records-upgrade')&&state.records){state.records=createRecords(Date.now(),true);persist();selectedRecord=null;setScreen('records','records-diagnostic-yes');return true;}
+ if((id==='records-replay'||id==='records-upgrade')&&state.records){state.records=createRecords(Date.now(),true);persist();selectedRecord=null;setScreen('records','records-begin');return true;}
  if(id==='finale-replay'&&state.finale){state.finale=createFinale();persist();setScreen('finale','finale-U');return true;}
  if(screen==='records'&&state.records){
    const current=state.records;
@@ -353,7 +354,7 @@ function showDialog(title: string, content: string, kind=''): HTMLDialogElement 
   dialog.showModal(); return dialog;
 }
 function showSettings(): void {
-  showDialog('Ajustes', `<p class="settings-intro">Los cambios se guardan al instante.</p><div class="settings-tabs" role="tablist" aria-label="Tipo de ajuste">${[['display','Pantalla'],['sound','Sonido'],['controls','Controles']].map(([id,label],i)=>`<button role="tab" id="settings-tab-${id}" aria-selected="${i===0}" aria-controls="settings-${id}" data-settings-tab="${id}">${label}</button>`).join('')}</div><section id="settings-display" role="tabpanel" aria-labelledby="settings-tab-display"><label class="setting-row"><span>Tamaño de texto<small>Incluye explicaciones y subtítulos.</small></span><select data-testid="text-scale">${[1,1.25,1.5,2].map(n=>`<option value="${n}" ${settings.textScale===n?'selected':''}>${n*100} %</option>`).join('')}</select></label><label class="setting-row"><span>Reducir movimiento<small>Sin movimientos de cámara ni animaciones de reposo.</small></span><input type="checkbox" data-testid="reduced-motion" ${settings.reducedMotion?'checked':''}></label><p class="small-note">No hay límite de tiempo para elegir.</p></section><section id="settings-sound" role="tabpanel" aria-labelledby="settings-tab-sound" hidden><label class="setting-row"><span>Volumen<small>En cero, el juego queda en silencio.</small></span><input data-testid="volume" type="range" min="0" max="1" step="0.05" value="${settings.volume}" aria-label="Volumen"></label><p>Las instrucciones también se pueden leer.</p></section><section id="settings-controls" role="tabpanel" aria-labelledby="settings-tab-controls" hidden><p class="small-note">Tab recorre opciones; Enter confirma y Escape pausa.</p>${[['forward','Avanzar',settings.keys.forward],['backward','Retroceder',settings.keys.backward],['urn-u','Urna 1 / oferta anterior',settings.keys.left],['urn-v','Urna 2 / oferta siguiente',settings.keys.right],['confirm','Confirmar',settings.keys.interact]].map(([id,label,value])=>`<label class="setting-row"><span>${label}</span>${shortcutSelect('bind-'+id,value!)}</label>`).join('')}<p data-testid="binding-warning" class="small-note" role="status"></p></section><div class="settings-actions">${btn('restore-settings','Restaurar ajustes','secondary')}${btn('delete-save','Borrar progreso…','text-button')}</div>`, 'settings-modal');
+  showDialog('Ajustes', `<p class="settings-intro">Los cambios se guardan al instante.</p><div class="settings-tabs" role="tablist" aria-label="Tipo de ajuste">${[['display','Pantalla'],['sound','Sonido']].map(([id,label],i)=>`<button role="tab" id="settings-tab-${id}" aria-selected="${i===0}" aria-controls="settings-${id}" data-settings-tab="${id}">${label}</button>`).join('')}</div><section id="settings-display" role="tabpanel" aria-labelledby="settings-tab-display"><label class="setting-row"><span>Tamaño de texto<small>Incluye explicaciones y subtítulos.</small></span><select data-testid="text-scale">${[1,1.25,1.5,2].map(n=>`<option value="${n}" ${settings.textScale===n?'selected':''}>${n*100} %</option>`).join('')}</select></label><label class="setting-row"><span>Reducir movimiento<small>Sin movimientos de cámara ni animaciones de reposo.</small></span><input type="checkbox" data-testid="reduced-motion" ${settings.reducedMotion?'checked':''}></label><p class="small-note">No hay límite de tiempo para elegir.</p></section><section id="settings-sound" role="tabpanel" aria-labelledby="settings-tab-sound" hidden><label class="setting-row"><span>Volumen<small>En cero, el juego queda en silencio.</small></span><input data-testid="volume" type="range" min="0" max="1" step="0.05" value="${settings.volume}" aria-label="Volumen"></label><p>Las instrucciones también se pueden leer.</p></section><div class="settings-actions">${btn('restore-settings','Restaurar ajustes','secondary')}${btn('delete-save','Borrar progreso…','text-button')}</div>`, 'settings-modal');
 }
 
 function enterContracts(): void {
@@ -380,7 +381,7 @@ function commandDoble(type: ContractCommand['type'], revision: number, pointerFe
   render(next.phase === 'offer' || next.phase === 'order' ? 'contract-S' : next.phase === 'complete' ? 'back-room' : 'doble-next');
   if(type==='begin'||next.phase==='offer'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});
   if(diceRolling){scene?.rollDice();diceRollTimer=setTimeout(finishDiceRoll,900);}
-  if(throwsDice)app.querySelector('.dice-table')?.scrollIntoView({block:'center',behavior:'instant'});
+
   if(pointerFeedback && next.phase === 'result'&&!throwsDice) revealFeedback('.dice-table-caption');
   announce(diceRolling?'Tirando los dados…':next.phase === 'result' ? `Dados ${next.pair![0]} y ${next.pair![1]}. Suma ${next.pair![0]+next.pair![1]}. Saldo ${next.balance}.` : next.phase === 'order' ? 'Nuevo encargo hipotético. Sin otra tirada.' : next.phase === 'complete' ? 'Sello de Doble obtenido.' : 'Encargo actualizado.');
 }
@@ -392,7 +393,7 @@ function finishDiceRoll():void {
   const pair=state.contracts.pair!;
   announce(`Dados ${pair[0]} y ${pair[1]}. Suma ${pair[0]+pair[1]}. Saldo ${state.contracts.balance}.`);
 }
-app.addEventListener('click', event => {
+function handleGameClick(event: MouseEvent): void {
   const target = (event.target as HTMLElement).closest<HTMLElement>('button, [data-action]');
   if (!target) return;
   const id = target.dataset.testid;
@@ -467,9 +468,12 @@ app.addEventListener('click', event => {
   }
   if (id === 'back-room') {const table=state.activeTable;persist();setScreen('room',table==='contracts'||table==='records'||table==='finale'?'enter-'+table:'enter-urns');return;}
   if(id==='repeat-tutorial'){tutorialStep=0;demoChoice=null;demoCardsVisible=false;tutorialFlow=createTutorial();setScreen('tutorial','toggle-cards');return;}
-  if (id === 'help-button') {helpOpen=!helpOpen;if(helpOpen){tutorialFlow=requestHelp(tutorialFlow,'urns-'+state.round+'-'+state.step);state.helpHistory??=[];const id='urns-'+state.round+'-'+state.step;if(!state.helpHistory.includes(id))state.helpHistory.push(id);persist();}render('help-button');}
-});
+  if (id === 'help-button') {tutorialFlow=requestHelp(tutorialFlow,'urns-'+state.round+'-'+state.step);showDialog('Cómo comparar', '<p>Contá las fichas del color pedido y comparalas con el total. Tres rojas de cinco ofrecen más posibilidades que una de dos.</p><p>Si la ficha queda afuera, volvé a contar antes de elegir.</p>');}
+}
+app.addEventListener('click', handleGameClick);
 overlay.addEventListener('click', event => {
+  const utility=(event.target as HTMLElement).closest<HTMLElement>('button')?.dataset.testid;
+  if(utility&&['help-button','repeat-tutorial','back-room'].includes(utility)){overlay.querySelector('dialog')?.close();handleGameClick(event);return;}
   const tab=(event.target as HTMLElement).closest<HTMLElement>('[data-settings-tab]')?.dataset.settingsTab;
   if(tab){
     overlay.querySelectorAll<HTMLElement>('[data-settings-tab]').forEach(el=>el.setAttribute('aria-selected',String(el.dataset.settingsTab===tab)));
@@ -499,33 +503,8 @@ overlay.addEventListener('change', event => {
   }
   applySettings(); if(hasSave)persist();
 });
-document.addEventListener('keydown', event => {
-  const settingsTab=(event.target as HTMLElement).closest<HTMLButtonElement>('[data-settings-tab]');
-  if(settingsTab&&['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
-    const tabs=[...overlay.querySelectorAll<HTMLButtonElement>('[data-settings-tab]')];
-    const index=event.key==='Home'?0:event.key==='End'?tabs.length-1:(tabs.indexOf(settingsTab)+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length;
-    event.preventDefault();tabs[index]?.click();tabs[index]?.focus();return;
-  }
-  if(screen==='tutorial'&&!overlay.querySelector('dialog[open]')&&!event.repeat){if(event.code===settings.keys.left||event.code===settings.keys.right){event.preventDefault();selectDemo(event.code===settings.keys.left?0:1);return;}if(event.code===settings.keys.interact){event.preventDefault();document.querySelector<HTMLButtonElement>('[data-testid=tutorial-next]')?.click();return;}}
-  if(screen==='room'&&!overlay.querySelector('dialog[open]')&&!(event.target instanceof HTMLInputElement)&&!(event.target instanceof HTMLSelectElement)){const action=actionForKey(settings.keys,event.code);if(action){event.preventDefault();moveRoom(action);return;}}
-  if(screen==='street'&&!overlay.querySelector('dialog[open]')&&event.code===settings.keys.forward){event.preventDefault();document.querySelector<HTMLButtonElement>('[data-testid=street-forward]')?.click();return;}
-  if(screen === 'contracts' && state.contracts && ['offer','order'].includes(state.contracts.phase) && !overlay.querySelector('dialog[open]') && !event.repeat && !(event.target instanceof HTMLInputElement) && !(event.target instanceof HTMLSelectElement)) {
-    if(event.code === settings.keys.left || event.code === settings.keys.right) {
-      event.preventDefault(); const index = selectedContract ? CONTRACT_IDS.indexOf(selectedContract) : -1;
-      selectedContract = CONTRACT_IDS[(index + (event.code === settings.keys.left ? 2 : 1) + 3) % 3]!; render(`contract-${selectedContract}`); return;
-    }
-    if(event.code === settings.keys.interact && selectedContract) { event.preventDefault(); document.querySelector<HTMLButtonElement>('[data-testid=doble-sign]')?.click(); return; }
-  }
-  if (!overlay.querySelector('dialog[open]') && screen === 'table' && ['choose','guided'].includes(state.phase) && !event.repeat) {
-    if (event.code === settings.keys.left) { event.preventDefault(); commitSelection(0); return; }
-    if (event.code === settings.keys.right) { event.preventDefault(); commitSelection(1); return; }
-    if (event.code === settings.keys.interact && selected !== null) { event.preventDefault(); document.querySelector<HTMLButtonElement>('[data-testid="confirm-choice"]')?.click(); return; }
-  }
-  if (event.key !== 'Escape' || overlay.querySelector('dialog[open]')) return;
-  if (screen === 'menu') return;
-  event.preventDefault();
-  showDialog('La casa puede esperar', `<p>La partida está en pausa. Tu decisión y el azar se quedan donde estaban.</p>${btn('resume-game','Reanudar partida','primary full')}<p class="small-note">Sin tiempo límite. Tomate lo que necesites.</p>`);
-});
+
+installInfoDialogs(showDialog);
 async function initScene(): Promise<void> {
   try {
     scene?.dispose(); scene = null;

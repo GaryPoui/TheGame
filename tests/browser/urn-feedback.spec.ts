@@ -71,7 +71,7 @@ test('equal chances make both cards correct, using the counts before extraction'
 });
 test('a correct choice stays green when luck draws the other color', async ({page}) => {
   await load(page,fixture('blue'));
-  await page.keyboard.press('a');
+  await page.getByTestId('toggle-cards').click();await page.getByTestId('urn-0').click();
   await expect(page.getByTestId('urn-0')).toHaveAttribute('aria-pressed','true');
   await page.getByTestId('confirm-choice').click();
   await expect(page.getByTestId('urn-0')).toHaveClass(/answer-correct/);

@@ -1,0 +1,84 @@
+/* Keep the theatre, the current decision and one primary action in view. */
+.info-trigger { display: block; text-align: left; min-height: 36px; padding: .35rem 0; font-size: .85rem; }
+.info-trigger::after { content: ' +'; }
+.info-modal { width: min(850px,94vw); }
+.info-modal .modal-body { overflow: hidden; }
+.reading-pages { min-height: 60px; }
+.reading-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: .7rem; }
+.reading-nav[hidden] { display: none; }
+.modal-close { min-width: 44px; }
+.info-modal .pair-grid { font-size: .75rem; }
+.info-modal .pair-grid td,.info-modal .pair-grid th { padding: .18rem; }
+.info-modal .contract-stats { font-size: .85rem; }
+.info-modal p { font-size: .95rem; line-height: 1.4; }
+.finale-title .host-final { overflow: hidden; }
+.context-note,.menu-note,.menu-footer > span:first-child,.scene-caption,.table-bottom-note,
+.archive-note,.ada-coach,.contract-steps,.contracts-panel > .round-context { display: none; }
+.contracts-layout .compact-offer .compact-payment { line-height: 1.35; }
+.contracts-layout .compact-offer { transform: none; }
+.contracts-layout .compact-offer.chosen { transform: none; }
+.contracts-layout .table-receipt { display: none; }
+.contracts-layout .contracts-panel .contract-steps { display: none; }
+.contracts-layout .contracts-panel .contract-settlement { margin: .4rem 0; padding: .5rem; }
+.contracts-layout .contracts-panel .contract-settlement > span:nth-child(2),
+.contracts-layout .contracts-panel .contract-settlement > span:nth-child(3),
+.contracts-layout .contracts-panel .small-note { display: none; }
+.contracts-layout .contract-stage { min-height: 0; padding: 0; gap: .4rem; }
+.contracts-layout .combo-legend { grid-column: 1/-1; margin: 0; }
+@media (min-width: 1000px) {
+  html,body { height: 100%; overflow: hidden; }
+  #app { height: 100svh; overflow: hidden; }
+  .topbar,body[data-screen] .topbar { height: 52px; }
+  .menu-layout { min-height: 0; height: calc(100svh - 112px); }
+  .menu-footer { height: 60px; min-height: 0; }
+  .room-layout,.intro-layout,.contracts-tutorial,.completion-layout,.outside-layout,.street-layout { height: calc(100svh - 52px); min-height: 0; padding-block: .7rem; }
+  .table-layout,.contracts-layout,.ada-table-layout,.finale-layout { height: calc(100svh - 52px); min-height: 0; padding: .5rem 3% .7rem; gap: 1rem; }
+  .table-layout { grid-template-columns: minmax(0,1fr) 400px; }
+  .game-panel,.table-layout .game-panel,.ada-table-layout .archive-panel,.contracts-layout .contracts-panel { max-height: none; overflow: visible; padding: .85rem; margin: 0; }
+  .game-panel p { margin: .35rem 0 .6rem; font-size: .9rem; line-height: 1.35; }
+  .game-panel h2 { margin: .35rem 0 .7rem; }
+  .table-heading h1 { font-size: 1.8rem; }
+  .contracts-layout { grid-template-columns: minmax(0,1fr) 350px; align-items: start; }
+  .contracts-layout .contracts-floor { min-height: 0; height: 100%; display: flex; flex-direction: column; }
+  .contracts-layout .contracts-heading { flex: 0 0 auto; }
+  .contracts-layout .contracts-heading h1 { font-size: 1.3rem; margin: 0 0 .3rem; }
+  .contracts-layout .contracts-heading > p { margin: .2rem 0; font-size: .8rem; }
+  .contracts-layout .contract-stage { flex: 1; min-height: 0; }
+  .contracts-layout .dice-table { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .contracts-layout .dice-viewport { flex: 1; height: auto; min-height: 0; }
+  .contracts-layout .dice-table-caption { font-size: .8rem; padding: .2rem .5rem; }
+  .contracts-layout .contract-offers { flex: 0 0 auto; gap: .4rem; }
+  .contracts-layout .compact-offer { padding: .45rem; gap: .2rem; align-content: start; }
+  .contracts-layout .compact-offer .offer-name { font-size: .85rem; }
+  .contracts-layout .compact-offer .combo-row { display: none; }
+  .contracts-layout .compact-offer .any-faces { display: none; }
+  .contracts-layout .winning-summary { display: block; font-size: .85rem; font-weight: 700; }
+  .contracts-layout .compact-offer .winning-combos { display: block; }
+  .contracts-layout .winning-combos > small { font-size: .75rem; }
+  .contracts-layout .contracts-panel > h2 { font-size: 1.2rem; }
+  .contracts-layout .dice-combinations-toggle { display: none; }
+  .ada-table-layout { grid-template-columns: minmax(0,1fr) 370px; }
+  .ada-table-layout .archive-floor { min-height: 0; }
+  .ada-table-layout .archive-floor h1 { font-size: 1.7rem; }
+  .ada-table-layout .archive-options { gap: .4rem; }
+  .ada-table-layout .archive-choice { padding: .55rem; }
+  .finale-layout { grid-template-columns: minmax(0,1fr) 470px; }
+  .finale-title h1 { font-size: 2.1rem; }
+  .finale-title .finale-promise { display: none; }
+  .finale-layout .archive-panel h2 { font-size: 1.25rem; line-height: 1.2; margin: 0 0 .5rem; }
+  .finale-layout .archive-options { gap: .4rem; margin-block: .5rem; }
+  .finale-layout .archive-choice { min-height: 44px; padding: .55rem .65rem; font-size: .9rem; }
+  .finale-layout .archive-choice small { margin-top: .2rem; font-size: .8rem; }
+  .finale-layout .archive-panel h3 { margin: .6rem 0 .3rem; font-size: 1.1rem; }
+  .finale-layout .photo-album { padding: .4rem; margin-block: .4rem; }
+  .finale-layout .photo-album h2 { font-size: .9rem; }
+  .finale-layout .photo-grid { grid-template-columns: repeat(8,minmax(0,1fr)); gap: .2rem; }
+  .finale-layout .result-photo { padding: .3rem .1rem; }
+  .finale-layout .result-photo > span { min-height: 24px; font-size: 1.3rem; }
+  .finale-layout .result-photo small,.finale-layout .result-photo strong { font-size: .55rem; }
+  .completion-card { padding: 1rem 1.4rem; }
+  .completion-card > p { margin-bottom: .6rem; }
+  .completion-card h1 { font-size: 2rem; }
+  .completion-card .seal { width: 52px; height: 52px; font-size: 2rem; margin-bottom: .7rem; }
+  .modal { max-height: calc(100svh - 24px); }
+}
