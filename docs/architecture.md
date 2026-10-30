@@ -1,4 +1,12 @@
-# Arquitectura propuesta
+# Arquitectura y responsabilidades
+
+Actualización 2026-10-26: la campaña está implementada. La raíz única sigue siendo `GameState`
+en `src/core/game.ts`; gates en `src/core/campaign/progression.ts`, sesiones por mesa
+en `src/core/tables/` y composición HTML en `src/main.ts`. El adaptador de guardado vive
+todavía junto al validador raíz; no hay una segunda implementación en platform.
+El esquema actual es v4 / campaign-photos-v4 con `state`, acepta v1/v2/v3. Ada nueva usa photos-v1 y replay propio; sesiones antiguas sin discriminante mantienen su replay original. Ver docs/photos-redesign.md. Los contratos siguientes conservan
+el diseño original; la correspondencia real y evidencia están en [campaña](campaign-implementation.md).
+
 
 Estado: diseño, no implementación. Fuente de reglas: [diseño educativo](educational-design.md).
 
@@ -93,3 +101,6 @@ de objetos del motor, acciones reasignables con conflictos y grafo de diálogo c
 idempotentes. Se adaptaron conceptos a almacenamiento web y HTML; no se copian snippets de
 Godot ni se adopta Ink/Yarn para una narrativa pequeña. Las skills Spec Kit orientaron el flujo
 documental según docs/spec-kit.md; los registros visual y educativo identifican sus otras lecturas.
+
+
+Actualización 2026-10-28: esquema v5 / campaign-challenge-v5 acepta v1–4. Ada nueva usa photos-v2, conservando replay photos-v1 y legado; ver docs/character-challenge-update.md.

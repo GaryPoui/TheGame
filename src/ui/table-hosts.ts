@@ -1,0 +1,1 @@
+export function tableAda():string{return `<div class="table-host-crop host-ada"><img src="${import.meta.env.BASE_URL}art/ada-v1.png" alt="Ada detrás de su mesa"><div class="host-table-edge" aria-hidden="true"></div></div>`;}

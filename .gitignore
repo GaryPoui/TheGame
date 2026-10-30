@@ -11,3 +11,16 @@ __pycache__/
 .tools/
 test-results/
 playwright-report/
+# Superseded local screenshot runs; reviewed release evidence stays versioned.
+/docs/evidence/campaign/quality/
+/docs/evidence/campaign/regression/
+/docs/evidence/campaign/final-local/
+
+# Full local run retained; selected captures live in approved-local/.
+/docs/evidence/table-focus/local/
+
+# Full photo redesign run retained locally; selected captures are versioned.
+/docs/evidence/photos/local/
+
+# Full dice regression captures retained locally; selected release evidence is versioned.
+/docs/evidence/dice-combinations/local/

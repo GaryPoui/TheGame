@@ -1,5 +1,12 @@
 # Implementation Plan: Mesa de registros
 
+Actualización autorizada 2026-10-28: las sesiones nuevas de Ada se reemplazan por fotos seleccionadas, independencia y diagnóstico Sí/No sin puntos. Reglas actuales y migración en [rediseño](../../docs/photos-redesign.md). Las reglas de muestras/promedios siguientes se conservan como diseño e implementación compatibles de sesiones anteriores.
+
+
+> Ejecución 2026-10-26/27: implementación y correspondencia de módulos en
+> [campaña](../../docs/campaign-implementation.md). Este documento conserva el plan inicial;
+> las tareas y la evidencia distinguen implementación de validación externa pendiente.
+
 **Branch**: `codex/research-specs-skills` | **Date**: 2026-10-22 | **Spec**: [spec.md](spec.md)
 
 ## Summary

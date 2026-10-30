@@ -1,8 +1,8 @@
 # Feature Specification: Dados y contratos
 
-**Feature Branch**: `codex/research-specs-skills` (entrega documental; spec independiente de rama)
+**Feature Branch**: `codex/doble-contracts` (implementación; selección de spec independiente de rama)
 **Created**: 2026-10-22
-**Status**: Especificada; implementación pendiente de instrucción posterior
+**Status**: Implementada con aceptación manual y automatizada; ver [campaña](../../docs/campaign-implementation.md).
 **Input**: Apartado 006 del prompt original y decisiones versionadas.
 
 ## Objetivo y dependencias
@@ -65,6 +65,14 @@ es propiedad de 009; esta spec no crea un guardado alternativo. Reglas de mesa y
 - **SC-006-01**: Probabilidad de 7 es 6/36 y EV neto de J es 3.
 - **SC-006-02**: Encargo EV elige J, umbral 4 elige C, garantía elige S.
 - **SC-006-03**: Una mala tirada conserva los méritos de elección óptima.
+
+## Evidencia de implementación — 23/10/2026
+
+La mesa integra las cuatro rondas, segunda orden hipotética, cuadrícula de pares, comparación
+1/100 independiente, recuperación guiada y guardado compartido versionado. Véase
+[implementación, recorridos y límites](../../docs/doble-implementation.md).
+La aceptación manual incluye elección óptima con pérdida que conserva mérito y recarga sin
+otra tirada. No se añadieron ni ejecutaron tests nuevos; no se afirma aprendizaje validado.
 
 ## Assumptions
 

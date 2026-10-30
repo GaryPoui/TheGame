@@ -6,6 +6,9 @@ export default defineConfig({
   workers: 1,
   timeout: 60_000,
   expect: { timeout: 15_000 },
+  webServer: process.env.PLAYWRIGHT_BASE_URL ? undefined : {
+    command: 'npm run preview', url: 'http://127.0.0.1:4173', reuseExistingServer: !process.env.CI, timeout: 30_000,
+  },
   reporter: [['list'], ['json', { outputFile: 'test-results/browser-results.json' }]],
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:4173',
@@ -13,6 +16,6 @@ export default defineConfig({
     viewport: { width: 1440, height: 900 },
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
-    launchOptions: { args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] },
+    launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] },
   },
 });

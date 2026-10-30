@@ -1,8 +1,11 @@
 # Feature Specification: Mesa de registros
 
+Actualización autorizada 2026-10-28: las sesiones nuevas de Ada se reemplazan por fotos seleccionadas, independencia y diagnóstico Sí/No sin puntos. Reglas actuales y migración en [rediseño](../../docs/photos-redesign.md). Las reglas de muestras/promedios siguientes se conservan como diseño e implementación compatibles de sesiones anteriores.
+
+
 **Feature Branch**: `codex/research-specs-skills` (entrega documental; spec independiente de rama)
 **Created**: 2026-10-22
-**Status**: Especificada; implementación pendiente de instrucción posterior
+**Status**: Implementada y verificada por reglas y recorridos automáticos; validación humana pendiente. Ver [evidencia de campaña](../../docs/campaign-implementation.md).
 **Input**: Apartado 007 del prompt original y decisiones versionadas.
 
 ## Objetivo y dependencias

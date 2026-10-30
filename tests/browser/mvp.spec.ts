@@ -68,18 +68,15 @@ test('settings allow reduced motion and text scaling', async ({ page }) => {
   await page.getByTestId('settings-button').click();
   await page.getByTestId('reduced-motion').check();
   await page.getByTestId('text-scale').selectOption('2');
-  await page.getByTestId('volume').focus();
-  await page.keyboard.press('Home');
+  await page.getByRole('tab',{name:'Sonido',exact:true}).click();await page.getByTestId('volume').fill('0');
   await page.getByTestId('close-dialog').click();
   await expect(page.locator('dialog')).toHaveCount(0);
   const state = await saved(page);
   expect(state.settings.reducedMotion).toBe(true);
   expect(state.settings.textScale).toBe(2);
   expect(state.settings.volume).toBe(0);
-  await page.getByTestId('urn-0').focus();
-  await page.keyboard.press('Enter');
-  await page.getByTestId('confirm-choice').focus();
-  await page.keyboard.press('Enter');
+  await page.getByTestId('urn-0').click();
+  await page.getByTestId('confirm-choice').click();
   await expect(page.getByTestId('result-feedback')).toBeVisible();
   await page.screenshot({ path: `${evidence}/mvp-text-200-percent.png`, fullPage: true });
 });
@@ -94,13 +91,10 @@ test('weak decisions reach a finite guided completion', async ({ page }) => {
       const [a, b] = state.urns;
       const aBest = a[state.event] * (b.red + b.blue) >= b[state.event] * (a.red + a.blue);
       const choice = state.assisted ? (aBest ? 0 : 1) : (aBest ? 1 : 0);
-      await page.getByTestId(`urn-${choice}`).focus();
-      await page.keyboard.press('Enter');
-      await page.getByTestId('confirm-choice').focus();
-      await page.keyboard.press('Enter');
+      await page.getByTestId(`urn-${choice}`).click();
+      await page.getByTestId('confirm-choice').click();
     } else {
-      await page.getByTestId('next-step').focus();
-      await page.keyboard.press('Enter');
+      await page.getByTestId('next-step').click();
     }
   }
   await expect(page.getByTestId('completion')).toBeVisible();
@@ -111,24 +105,13 @@ test('weak decisions reach a finite guided completion', async ({ page }) => {
   await page.screenshot({ path: `${evidence}/mvp-assisted-complete.png` });
 });
 
-test('remapped shortcuts work and conflicting bindings are rejected', async ({ page }) => {
-  await start(page);
-  const before = await saved(page);
-  await page.getByTestId('help-button').click();
-  await page.getByTestId('help-button').click();
-  expect(await saved(page)).toEqual(before);
-  await page.getByTestId('settings-button').click();
-  await page.getByTestId('bind-urn-u').selectOption('KeyD');
-  await expect(page.getByTestId('binding-warning')).not.toBeEmpty();
-  await page.getByTestId('bind-urn-u').selectOption('KeyJ');
-  await page.getByTestId('bind-confirm').selectOption('KeyL');
-  await page.getByTestId('close-dialog').click();
-  await expect(page.locator('dialog')).toHaveCount(0);
-  await page.keyboard.press('j');
-  await expect(page.getByTestId('urn-0')).toHaveAttribute('aria-pressed', 'true');
-  await page.keyboard.press('l');
-  await expect(page.getByTestId('result-feedback')).toBeVisible();
-  expect((await saved(page)).history).toHaveLength(1);
+test('mouse help preserves progress and removed shortcuts do not choose or confirm', async ({page})=>{
+ await start(page);const before=await saved(page);
+ await page.keyboard.press('KeyA');await page.keyboard.press('KeyE');await expect(page.getByTestId('urn-0')).toHaveAttribute('aria-pressed','false');expect(await saved(page)).toEqual(before);
+ await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('help-button').click();
+ expect(await saved(page)).toEqual({...before,helpHistory:['urns-0-0']});await expect(page.getByRole('dialog')).toContainText('Cómo comparar');await page.getByTestId('close-dialog').click();
+ await page.getByTestId('settings-button').click();await expect(page.getByRole('tab',{name:'Controles',exact:true})).toHaveCount(0);await page.getByTestId('close-dialog').click();
+ await page.getByTestId('urn-0').click();await page.getByTestId('confirm-choice').click();await expect(page.getByTestId('result-feedback')).toBeVisible();expect((await saved(page)).history).toHaveLength(1);
 });
 
 test('invalid save keeps a usable menu', async ({ page }) => {

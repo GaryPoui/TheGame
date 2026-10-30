@@ -1,31 +1,62 @@
 {
-  "phase": "urn-feedback-v4",
+  "phase": "desktop-poker-2026-10-30",
   "repository": "https://github.com/GaryPoui/TheGame",
-  "branch": "codex/urn-feedback",
-  "base_commit": "fac1368",
-  "content_commit": "29c4148d179cd8d2f799ffcf92cd04f0cf222f87",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/29c4148d179cd8d2f799ffcf92cd04f0cf222f87",
-  "pull_request": "https://github.com/GaryPoui/TheGame/pull/6",
-  "documentation": "https://github.com/GaryPoui/TheGame/blob/codex/urn-feedback/docs/urn-feedback.md",
+  "branch": "codex/complete-campaign",
+  "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
+  "content_commit": "7a9ed907361207a0238233c0fb12232d3e2b5164",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/7a9ed907361207a0238233c0fb12232d3e2b5164",
+  "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
+  "documentation": [
+    "docs/desktop-revision.md",
+    "docs/ada-poker.md",
+    "docs/doble-proportions.md",
+    "docs/doble-waist-portrait.md",
+    "docs/clear-dice-combinations.md",
+    "docs/doble-table-focus.md",
+    "docs/dice-table-roll.md",
+    "docs/dice-combinations.md",
+    "docs/table-tutorial.md",
+    "docs/dialogue-polish.md",
+    "docs/character-challenge-update.md",
+    "docs/photos-redesign.md",
+    "docs/table-focus.md",
+    "docs/campaign-implementation.md",
+    "docs/memoria-del-chat.md",
+    "docs/evidence/campaign/capture-index.md",
+    "docs/ada-generation-prompt.md"
+  ],
   "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9",
-  "snapshot_note": "Instantánea pública generada durante el cierre; no es sincronización futura ni reemplaza documentación versionada.",
+  "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
-    "unit_tests": 15,
-    "exact_design_math_checks": 64,
+    "unit_tests": 46,
+    "local_browser_suite_passed": 38,
+    "local_browser_suite_initial_failure": 1,
+    "failed_case_fixed_and_retested": "PASS: header with 200 percent text at 390x844",
+    "local_browser_cases_covered": 39,
+    "public_completed_browser_cases": 4,
+    "public_capture_free_dice_actions": "PASS: one saved animated roll and second decision without reroll",
+    "public_capture_timeouts": 2,
+    "public_note": "Long public 1280 campaign and screenshot-based animated dice cases exceeded browser/teardown timeouts. Public 1366 campaign, 200 percent narrow text, reduced-motion dice and HTML fallback completed; animated actions passed separately without image capture. Do not claim the entire public suite passed.",
+    "public_asset_hashes": 146,
+    "public_asset_mismatches": 0,
+    "exact_design_math_checks": 70,
     "skill_files_verified": 92,
-    "local_browser_tests": 14,
-    "local_final_feedback_tests": 3,
-    "public_browser_tests": 14,
-    "local_markdown_links": 224,
-    "math_core_changed": false,
-    "new_art_or_dependencies": false,
-    "source_font_update_preserved": "fac1368",
-    "implementation_tasks_completed": 22,
-    "implementation_tasks_pending": 73,
-    "note": "Existing saves and probability model unchanged; software-rendered browser tests are not a hardware benchmark.",
-    "public_asset_hashes": 138,
-    "public_deployment_status": "built",
-    "public_http_status": 200
+    "normal_desktop_no_scroll_viewports": [
+      "1280x720",
+      "1366x768",
+      "1920x1080"
+    ],
+    "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU benchmark",
+    "local_browser_report": "docs/evidence/desktop-poker/local-browser-results.txt",
+    "correction_report": "docs/evidence/desktop-poker/correction-browser-results.txt",
+    "public_browser_report": "docs/evidence/desktop-poker/public-browser-results.txt",
+    "public_interrupted_report": "docs/evidence/desktop-poker/public-browser-interrupted.txt",
+    "public_actions": "docs/evidence/desktop-poker/public-actions.json",
+    "public_integrity": "docs/evidence/desktop-poker/public-integrity.json",
+    "source_ci": {
+      "status_observed": "in_progress",
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/41063226522"
+    }
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -34,9 +65,9 @@
   ],
   "game_implemented": true,
   "deployed": true,
-  "next_step": "Playtest humano del primer juego y ajustes según feedback del usuario; mantener foco en urnas.",
+  "next_step": "Revisión del usuario; pruebas humanas de comprensión y rendimiento en hardware real pendientes.",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "1e6bfd4ffcadec61979ba4999123dfa1b791999a",
+  "deployment_commit": "013e7a42c7af52ebbcab23f23a9875706d37ff59",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -44,8 +75,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Primer juego Las urnas: cartas plegables, selección con brillo y evaluación verde/roja. No se inicia la siguiente spec.",
-  "build_source_commit": "29c4148d179cd8d2f799ffcf92cd04f0cf222f87",
+  "scope": "Poker probability game for Ada, table legs and larger dice stage, brief cards, centered reading dialogs, mouse play and desktop layouts without page scrolling. Removes room walking panel, control remapping tab, superimposed final table and optional closing exercises.",
+  "build_source_commit": "7a9ed907361207a0238233c0fb12232d3e2b5164",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -105,5 +136,517 @@
       "text_scale": "200 percent screenshot inspected; urn choice and extraction remain operable",
       "local_markdown_links": 209
     }
+  },
+  "integrated_doble_deliveries": {
+    "latest_delivery": {
+      "phase": "doble-contracts",
+      "branch": "codex/doble-contracts",
+      "content_commit": "0c039791eb9e07840cf57584ed803239db0d71c7",
+      "deployment_branch": "gh-pages",
+      "deployment_commit": "a5a1977f5125f0e213aaf6a43dc28620735497b1",
+      "release": "urns-contracts-v1",
+      "pull_request": "https://github.com/GaryPoui/TheGame/pull/5",
+      "site_url": "https://garypoui.github.io/TheGame/",
+      "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39951468045",
+      "documentation": "docs/doble-implementation.md",
+      "validation": {
+        "build_typecheck": "PASS",
+        "document_links": 232,
+        "design_math_checks": 64,
+        "manual_local": "Vera unlock, contracts, optimal loss, reload, simulation, completion and guided route; final visual confirmation",
+        "independent_review": "ship for reviewed source and screenshot scope",
+        "viewports": [
+          "desktop",
+          "390px",
+          "200 percent text"
+        ],
+        "public": "legacy Vera save preserved; Doble tutorial and offers loaded; no captured console error or save warning",
+        "automated_gameplay_suites": "Not added or run in this task; T007/T008 pending"
+      }
+    },
+    "latest_visual_update": {
+      "phase": "doble-art-v2",
+      "branch": "codex/doble-contracts",
+      "content_commit": "61268d31e1b01e1f284b076126ea79c4b1ce3dfb",
+      "deployment_commit": "80100dc3562495397dffe3f75784762999455665",
+      "release": "urns-contracts-doble-art-v2",
+      "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39953002366",
+      "asset_manifest": "public/doble-art-v2.json",
+      "public_capture": "docs/evidence/doble-art-v2/public-table.png",
+      "validation": "Build/typecheck and local/public visual inspection; no new gameplay tests"
+    },
+    "latest_playability_update": {
+      "phase": "table-playability-v1",
+      "branch": "codex/doble-contracts",
+      "content_commit": "7b463b0f3c04a73b26dff0020fc94d3d861c0e9e",
+      "deployment_commit": "8e64958f8c2c35d8b40666b963dca42731b893ec",
+      "release": "urns-contracts-playability-v1",
+      "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/39956779863",
+      "site_url": "https://garypoui.github.io/TheGame/",
+      "documentation": "docs/playability-local.md",
+      "validation": {
+        "build_typecheck": "PASS",
+        "document_links": 240,
+        "design_math_checks": 64,
+        "public": "HTTP 200; build-info matches source; public entry bundle matches local build",
+        "automated_gameplay_suites": "Not added or run"
+      }
+    }
+  },
+  "previous_urn_feedback_delivery": {
+    "phase": "urn-feedback-v4",
+    "branch": "codex/urn-feedback",
+    "base_commit": "fac1368",
+    "content_commit": "29c4148d179cd8d2f799ffcf92cd04f0cf222f87",
+    "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/29c4148d179cd8d2f799ffcf92cd04f0cf222f87",
+    "pull_request": "https://github.com/GaryPoui/TheGame/pull/6",
+    "documentation": "https://github.com/GaryPoui/TheGame/blob/codex/urn-feedback/docs/urn-feedback.md",
+    "validation": {
+      "unit_tests": 15,
+      "exact_design_math_checks": 64,
+      "skill_files_verified": 92,
+      "local_browser_tests": 14,
+      "local_final_feedback_tests": 3,
+      "public_browser_tests": 14,
+      "local_markdown_links": 224,
+      "math_core_changed": false,
+      "new_art_or_dependencies": false,
+      "source_font_update_preserved": "fac1368",
+      "implementation_tasks_completed": 22,
+      "implementation_tasks_pending": 73,
+      "note": "Existing saves and probability model unchanged; software-rendered browser tests are not a hardware benchmark.",
+      "public_asset_hashes": 138,
+      "public_deployment_status": "built",
+      "public_http_status": 200
+    },
+    "scope": "Primer juego Las urnas: cartas plegables, selección con brillo y evaluación verde/roja. No se inicia la siguiente spec.",
+    "build_source_commit": "29c4148d179cd8d2f799ffcf92cd04f0cf222f87",
+    "deployment_commit": "1e6bfd4ffcadec61979ba4999123dfa1b791999a",
+    "next_step": "Playtest humano del primer juego y ajustes según feedback del usuario; mantener foco en urnas."
+  },
+  "completion_date": "2026-10-30",
+  "previous_campaign_delivery": {
+    "phase": "campaign-complete-v5.2",
+    "content_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
+    "build_source_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
+    "deployment_commit": "8ea900381a026c521d4b08f62c22e1f966483c9e",
+    "validation": {
+      "unit_tests": 32,
+      "exact_design_math_checks": 64,
+      "skill_files_verified": 92,
+      "public_browser_tests": 24,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 143,
+      "https_status": "built; HTTPS enforced",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not physical GPU",
+      "draw_calls_before": 115,
+      "draw_calls_after": 97,
+      "public_browser_report": "docs/evidence/campaign/public-browser-results.json",
+      "public_integrity": "docs/evidence/campaign/public-integrity-final.json",
+      "source_ci": {
+        "conclusion": "success",
+        "headSha": "93c7e429d716b891bdccd0e8e874b10001f612f9",
+        "status": "completed",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40443839814"
+      },
+      "previous_verified_ci": {
+        "source": "9b753735d05e9d86789e1444f934ea3f4175605a",
+        "status": "success",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40442336747"
+      }
+    }
+  },
+  "previous_table_focus_delivery": {
+    "phase": "table-focus-v6",
+    "content_commit": "d9c4f8205145da38c8bd3767073bddb250ef1338",
+    "deployment_commit": "b264adc2ebf3ba41f0f6a8316d600da6a308547b",
+    "validation": {
+      "unit_tests": 32,
+      "local_browser_tests": 28,
+      "local_browser_failures": 0,
+      "public_browser_tests": 7,
+      "public_browser_scope": "Four new table-focus cases and three urn-feedback regressions; the full 28-case suite passed locally.",
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "exact_design_math_checks": 64,
+      "skill_files_verified": 92,
+      "public_asset_hashes": 143,
+      "https_status": "built; HTTPS enforced",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not physical GPU",
+      "local_browser_report": "docs/evidence/table-focus/local-browser-results.json",
+      "public_browser_report": "docs/evidence/table-focus/public-browser-results.json",
+      "public_integrity": "docs/evidence/table-focus/public-integrity.json",
+      "source_ci": {
+        "status": "completed",
+        "headSha": "d9c4f8205145da38c8bd3767073bddb250ef1338",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40756316610",
+        "conclusion": "success"
+      }
+    }
+  },
+  "previous_table_restore_delivery": {
+    "phase": "table-layout-restored-v6.1",
+    "content_commit": "d314eb92dfe43133ddca92eca1578b9993478968",
+    "deployment_commit": "a10c692293d22e49abb3e0cd80c395be9f1e00d5",
+    "validation": {
+      "unit_tests": 32,
+      "public_browser_tests": 3,
+      "public_browser_scope": "Urn selection, hidden cards, green/red correction and reload. Presentation files are identical to verified campaign v5.2.",
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 143,
+      "exact_design_math_checks": 64,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/table-restore/public-browser-results.json",
+      "public_integrity": "docs/evidence/table-restore/public-integrity.json"
+    }
+  },
+  "previous_photo_delivery": {
+    "phase": "photos-and-clear-dice-v7.1",
+    "content_commit": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
+    "deployment_commit": "fe040aac8034fa140b49ae82fcc5c14102698768",
+    "validation": {
+      "unit_tests": 37,
+      "local_browser_tests": 8,
+      "additional_photo_identity_cases": 2,
+      "public_browser_tests": 26,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 143,
+      "exact_design_math_checks": 67,
+      "skill_files_verified": 92,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/photos/public-browser-results.json",
+      "public_integrity": "docs/evidence/photos/public-integrity.json",
+      "source_ci": {
+        "status": "completed",
+        "conclusion": "success",
+        "headSha": "99a7086986dedb1e7c8a8eba5316223d04e55b45",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40783289937"
+      }
+    }
+  },
+  "previous_character_delivery": {
+    "phase": "characters-challenge-v8.2",
+    "content_commit": "db6f6bc697ee4299a890a0f245895b9bf4dc67b9",
+    "deployment_commit": "5ea94ae13e2658ff6e97b706e17576fa8a52b26d",
+    "validation": {
+      "unit_tests": 40,
+      "local_targeted_browser_tests": 9,
+      "upgrade_browser_tests": 2,
+      "public_browser_tests": 26,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/challenge/public-browser-results.json",
+      "public_integrity": "docs/evidence/challenge/public-integrity.json",
+      "source_ci": {
+        "status": "completed",
+        "conclusion": "success",
+        "headSha": "db6f6bc697ee4299a890a0f245895b9bf4dc67b9",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40795002152"
+      }
+    }
+  },
+  "previous_dialogue_delivery": {
+    "phase": "dialogue-polish-v9",
+    "content_commit": "31b2252983157f00e01ede9cc2bbe41c450e1cb3",
+    "deployment_commit": "4921c4c171f10da99b05d22fc406cc42f4e6f63b",
+    "validation": {
+      "unit_tests": 40,
+      "local_targeted_browser_tests": 8,
+      "public_browser_tests": 8,
+      "public_browser_scope": "Dialogue, history, keyboard navigation, settings, reduced motion and confirmation dialogs",
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/dialogue-polish/public-browser-results.json",
+      "public_integrity": "docs/evidence/dialogue-polish/public-integrity.json"
+    }
+  },
+  "previous_table_tutorial_delivery": {
+    "phase": "table-tutorial-v10",
+    "content_commit": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+    "build_source_commit": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+    "deployment_commit": "cdda0855aa8ff5b273cf5d9689ca2a920db98c1c",
+    "validation": {
+      "unit_tests": 40,
+      "local_targeted_browser_tests": 7,
+      "final_layout_cases": 2,
+      "public_browser_tests": 7,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_report": "docs/evidence/table-tutorial/public-browser-results.json",
+      "public_integrity": "docs/evidence/table-tutorial/public-integrity.json",
+      "source_ci": {
+        "status": "completed",
+        "conclusion": "success",
+        "headSha": "c1eae52eb0a71e59809973ec3c39a99e4d018e14",
+        "browser_tests": 27,
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40800532863"
+      }
+    },
+    "scope": "Seated/waist-up characters during table play; full body only in dialogue. Vera tutorial uses normal table controls and two prepared draws, preserving saved campaign and RNG."
+  },
+  "previous_compact_dice_delivery": {
+    "phase": "compact-dice-v11",
+    "content_commit": "c3eb34e851d3d39234d3b5598403ff27e8219c65",
+    "build_source_commit": "c3eb34e851d3d39234d3b5598403ff27e8219c65",
+    "deployment_commit": "520ab440bb77ff858b0de355ee25e640da6d11fa",
+    "validation": {
+      "unit_tests": 41,
+      "local_targeted_browser_tests": 7,
+      "public_browser_tests": 7,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "normal_text_viewports": [
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "enlarged_text": "Campaign panels at 200 percent in 390px window; vertical scrolling permitted, no horizontal overflow",
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "https_status": "built; HTTPS enforced",
+      "public_browser_scope": "Six campaign regressions and compact dice layout across five viewport sizes",
+      "public_browser_report": "docs/evidence/dice-combinations/public-browser-results.json",
+      "public_integrity": "docs/evidence/dice-combinations/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "c3eb34e851d3d39234d3b5598403ff27e8219c65",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40807050790"
+      }
+    },
+    "scope": "Compact Doble offers with graphical paying dice pairs and reverse-order counts; five normal-text viewports show all offers without scrolling; enlarged text grows vertically."
+  },
+  "last_update_date": "2026-10-30",
+  "previous_visible_dice_table_delivery": {
+    "phase": "visible-dice-table-v12",
+    "content_commit": "afc296333ab422f026e2ae9ba91f8efe31de6308",
+    "build_source_commit": "afc296333ab422f026e2ae9ba91f8efe31de6308",
+    "deployment_commit": "db5f217943fbdf672f5087db5eaefd178dea7ac8",
+    "validation": {
+      "unit_tests": 41,
+      "local_browser_tests": 31,
+      "local_browser_failures": 0,
+      "public_browser_tests": 11,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_browser_scope": "Six campaign regressions, five-size compact layout, three dice animation/fallback cases and guided Vera tutorial",
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_text_viewports": [
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "enlarged_text": "200 percent in 390px window, vertical growth allowed without horizontal overflow",
+      "https_status": "built; HTTPS enforced",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU performance claim",
+      "local_browser_report": "docs/evidence/dice-table-roll/local-browser-results.json",
+      "public_browser_report": "docs/evidence/dice-table-roll/public-browser-results.json",
+      "public_integrity": "docs/evidence/dice-table-roll/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "afc296333ab422f026e2ae9ba91f8efe31de6308",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40811032444"
+      }
+    },
+    "scope": "Original Doble table in a reserved canvas window, animated dice settling on the one saved roll, numeric result and sum, reduced motion and HTML fallback. Compact offers preserved."
+  },
+  "previous_doble_focus_delivery": {
+    "phase": "doble-table-focus-v13",
+    "content_commit": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+    "build_source_commit": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+    "deployment_commit": "a17221700b9a490393a83cf700dbce28e3e57d46",
+    "validation": {
+      "unit_tests": 41,
+      "local_targeted_browser_tests": 10,
+      "public_browser_tests": 10,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_text_viewports": [
+        "1837x823",
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "visual_hierarchy": "Canvas viewport is more than 1.5 times the height of every offer; each dice-pair graphic stays inside its offer",
+      "enlarged_text": "200 percent in 390px window, vertical growth allowed without horizontal overflow",
+      "https_status": "built; HTTPS enforced",
+      "public_browser_scope": "Six campaign regressions, six-size compact layout and three dice animation/fallback cases",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not a physical GPU benchmark",
+      "local_browser_report": "docs/evidence/doble-table-focus/local-browser-results.json",
+      "public_browser_report": "docs/evidence/doble-table-focus/public-browser-results.json",
+      "public_integrity": "docs/evidence/doble-table-focus/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "35cbe476ddd687bbd8f2599a889e3689b6555835",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40830438632"
+      }
+    },
+    "scope": "Doble table is the main visual area, with short offer tickets below preserving all paying pairs and selection. Presentation-only change."
+  },
+  "previous_clear_dice_delivery": {
+    "phase": "clear-dice-v14",
+    "content_commit": "b65eb4ed366cd7d81d32d3119962c9b6db910d25",
+    "build_source_commit": "b65eb4ed366cd7d81d32d3119962c9b6db910d25",
+    "deployment_commit": "581f554e7a9340ed4744f5247b92e3eeda1e0194",
+    "validation": {
+      "unit_tests": 41,
+      "local_targeted_browser_tests": 10,
+      "public_browser_tests": 5,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_text_viewports": [
+        "1837x823",
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "preserved_table_heights_px": [
+        398,
+        420,
+        343,
+        210,
+        210,
+        190
+      ],
+      "combination_faces": "At least 20x20px; pip count equals the stated value; every pair stays inside its offer",
+      "enlarged_text": "200 percent in 390px window, vertical growth allowed without horizontal overflow",
+      "https_status": "built; HTTPS enforced",
+      "public_browser_scope": "Six-size comparison and preserved table dimensions, 200 percent campaign panels, dice animation, reduced motion and HTML fallback",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; not a physical GPU benchmark",
+      "local_browser_report": "docs/evidence/clear-dice-combinations/local-browser-results.json",
+      "public_browser_report": "docs/evidence/clear-dice-combinations/public-browser-results.json",
+      "public_integrity": "docs/evidence/clear-dice-combinations/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "b65eb4ed366cd7d81d32d3119962c9b6db910d25",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40833673366"
+      }
+    },
+    "scope": "Readable offer dice drawn with pips, minimum 20px faces, larger labels and more room for pairs. Large table heights preserved exactly."
+  },
+  "previous_waist_portrait_delivery": {
+    "phase": "doble-waist-portrait-v15",
+    "content_commit": "93300416cf9bb11f3fb6a61c1aac8977eeeaf675",
+    "build_source_commit": "93300416cf9bb11f3fb6a61c1aac8977eeeaf675",
+    "deployment_commit": "de35ee79984f6dadd25c1e6fe321a2a8d2b6ffd6",
+    "validation": {
+      "unit_tests": 41,
+      "local_targeted_browser_tests": 5,
+      "public_browser_tests": 5,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_text_viewports": [
+        "1837x823",
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "preserved_table_heights_px": [
+        398,
+        420,
+        343,
+        210,
+        210,
+        190
+      ],
+      "visual_review": "Desktop and mobile screenshots checked for waist-up portrait, full hat and headroom",
+      "https_status": "built; HTTPS enforced",
+      "public_browser_scope": "Six-size comparison, 200 percent campaign panels, dice animation, reduced motion and HTML fallback",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU benchmark",
+      "local_browser_report": "docs/evidence/doble-waist-portrait/local-browser-results.json",
+      "public_browser_report": "docs/evidence/doble-waist-portrait/public-browser-results.json",
+      "public_integrity": "docs/evidence/doble-waist-portrait/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "93300416cf9bb11f3fb6a61c1aac8977eeeaf675",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40836018521"
+      }
+    },
+    "scope": "Doble portrait framed from waist up with the complete hat and space above, changing only portrait scale and height. Large table, camera and dice unchanged."
+  },
+  "previous_doble_proportions_delivery": {
+    "phase": "doble-proportions-v16",
+    "content_commit": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
+    "build_source_commit": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
+    "deployment_commit": "d68dc3570aa5c07fde080028e2f774567c9b5d1d",
+    "validation": {
+      "unit_tests": 41,
+      "local_targeted_browser_tests": 5,
+      "public_browser_tests": 5,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_text_viewports": [
+        "1837x823",
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "canvas_heights_px": [
+        470,
+        492,
+        415,
+        250,
+        250,
+        230
+      ],
+      "dealer_proportion": "Projected portrait width at least 22 percent of table width; hat inside frame and waist near table edge",
+      "https_status": "built; HTTPS enforced",
+      "public_browser_scope": "Six-size comparison and framing, 200 percent campaign panels, dice animation, reduced motion and HTML fallback",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU benchmark",
+      "local_browser_report": "docs/evidence/doble-proportions/local-browser-results.json",
+      "public_browser_report": "docs/evidence/doble-proportions/public-browser-results.json",
+      "public_integrity": "docs/evidence/doble-proportions/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40856004439"
+      }
+    },
+    "scope": "Large waist-up Doble in proportion with the table, lower camera angle and extra headroom. Projected hat, waist and width measured across six viewports."
   }
 }

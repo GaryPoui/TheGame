@@ -1,7 +1,9 @@
 # Entregas pequeñas y dependencias
 
-Estado 2026-10-23: 001 y 005 implementadas en el MVP; las demás conservan trabajo pendiente. Cada carpeta contiene spec, plan,
-investigación, modelo, contrato UI, quickstart, tareas y checklist documental.
+Estado 2026-10-26: 001–009 implementadas en el teatro de tinta y campaña completa.
+010 tiene publicación y validación funcional completas; T011 conserva la validación externa pendiente. Las tareas y la [evidencia](../docs/campaign-implementation.md)
+distinguen validación automática de pruebas pendientes con personas/GPU física.
+Cada carpeta conserva spec, plan, investigación, modelo, contrato UI, quickstart, tareas y checklist.
 
 | Spec | Objetivo | Dependencias |
 | --- | --- | --- |
@@ -37,4 +39,6 @@ y la verificación global de 009 depende de tener todas las mesas. No implementa
 
 Las tareas sin marcar son pendientes reales, aunque sus documentos estén completos. Los requisitos y
 criterios enlazan a fuente única de reglas. El análisis de consistencia distingue cobertura
-planificada de evidencia de ejecución. Spec activa del corte MVP: 005-urn-table.
+planificada de evidencia de ejecución. El corte actual integra la campaña en
+`codex/complete-campaign`; la selección local de Spec Kit se consulta en `.specify/feature.json`,
+no se infiere de la rama. Evidencia y límites: [campaña](../docs/campaign-implementation.md).

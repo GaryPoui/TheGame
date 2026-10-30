@@ -3,9 +3,12 @@
 Videojuego educativo de probabilidad **y** estadística, de 30–45 minutos objetivo, en navegador
 de escritorio. Babylon.js + TypeScript estricto + Vite. Título provisional.
 
-**Estado actual:** MVP jugable de la primera mesa, Las urnas de Vera, con sala ilustrada, mesa 3D, Vera, tutorial, cuatro rondas,
-ayuda guiada, guardado local y ajustes. [Jugar por HTTPS](https://garypoui.github.io/TheGame/).
-La campaña de tres asistentes y final sigue en desarrollo; el MVP no dura todavía 30–45 minutos.
+**Estado actual:** campaña jugable de tres asistentes y final: Las urnas de Vera,
+Los contratos de Doble, Las cartas de Ada y El contrato de salida. Ayuda guiada finita,
+progreso conservado al practicar, epílogo y guardado compatible con versiones anteriores.
+[Jugar por HTTPS](https://garypoui.github.io/TheGame/).
+[Implementación, pruebas y límites](docs/campaign-implementation.md).
+El objetivo de 30–45 minutos y la eficacia educativa siguen pendientes de pruebas con personas.
 
 La [dirección visual actual](docs/ink-theatre.md) usa tinta, acuarela y personajes de animación
 de los años treinta, con una apertura a oscuras y captor inspirado en las referencias de Gambito.
@@ -15,6 +18,12 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 [validación real](docs/mvp-validation.md) y [publicación reproducible](docs/deployment.md).
 
 [Mejoras de selección y explicaciones del primer juego](docs/urn-feedback.md).
+
+[Registro de la revisión de mesas y vuelta al diseño anterior](docs/table-focus.md).
+
+[Juego actual de Ada con cartas de póker](docs/ada-poker.md).
+
+[Revisión de escritorio y publicación](docs/desktop-revision.md).
 
 ## Mapa de lectura
 
@@ -32,7 +41,7 @@ entregas, validación y contexto para continuar en otra conversación.
 | Fuentes verificables | [Investigación técnica](docs/research.md) y [educativa](docs/research-education.md) |
 | Skills instaladas y reinstalación | [Auditoría](docs/skills.md) y [manifiesto](skills-manifest.json) |
 | Integración real de especificaciones | [Spec Kit](docs/spec-kit.md) y [constitución](.specify/memory/constitution.md) |
-| Trabajo futuro dividido en diez cortes | [Índice de specs](specs/README.md) |
+| Entregas y trabajo pendiente en diez cortes | [Índice de specs](specs/README.md) |
 | Arte, interfaz y producción | [Dirección artística](docs/art-direction.md), [guía UI](docs/ui-style-guide.md), [pipeline](docs/asset-pipeline.md) |
 | Cómo comprobar calidad | [Plan de validación](docs/validation-plan.md), [visual](docs/visual-validation.md), [análisis](docs/consistency-analysis.md) |
 | Qué falta decidir | [Riesgos](docs/risks.md) |
@@ -54,5 +63,7 @@ nueva sesión. Se distinguen instalación, lectura y aplicación en la auditorí
 
 Las versiones están fijadas en package.json y package-lock.json. Para ejecutar: `npm ci`,
 `npm run dev`. Validación: `npm test`, `npm run build`, `npm run preview` y, con preview activo,
-`npm run test:browser`. Se implementó **una mesa completa en una sala simple** antes de producir
-el resto de la campaña. Capturas, pruebas y limitaciones se registran en docs/mvp-validation.md.
+`npm run test:browser`. Se implementó una mesa completa antes de ampliar a Doble. La evidencia
+histórica del MVP está en docs/mvp-validation.md; el alcance manual y la cobertura automatizada
+pendiente del nuevo corte están en docs/doble-implementation.md. Enumerar comandos disponibles
+no significa que se hayan ejecutado en esta entrega.

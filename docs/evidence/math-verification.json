@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "method": "exact rational enumeration and assertions; not gameplay or pedagogical validation",
-  "checks": 64,
+  "checks": 70,
   "assertions": [
     "36 equiprobable ordered pairs",
     "sum multiplicities",
@@ -66,7 +66,13 @@
     "final finite guided completion after every decision pattern",
     "final assisted labels retained",
     "final worked score and balance",
-    "optimal choices progress under worst random payouts"
+    "optimal choices progress under worst random payouts",
+    "next win after four wins remains one half",
+    "next win after four losses remains one half",
+    "four past wins probability is distinct from next-win chance",
+    "photo album equal proportions",
+    "photo repeat proportion exceeds larger count",
+    "two future independent wins"
   ],
   "dice_counts": {
     "2": 1,
