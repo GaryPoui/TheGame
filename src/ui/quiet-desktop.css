@@ -7,6 +7,8 @@
 .reading-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: .7rem; }
 .reading-nav[hidden] { display: none; }
 .modal-close { min-width: 44px; }
+.topbar .quiet { font-size: clamp(16px,.9rem,22px); line-height: 1.2; padding: 8px 12px; min-height: 44px; margin: 0; }
+.topbar { padding-block: 0; }
 .info-modal .pair-grid { font-size: .75rem; }
 .info-modal .pair-grid td,.info-modal .pair-grid th { padding: .18rem; }
 .info-modal .contract-stats { font-size: .85rem; }
@@ -14,6 +16,7 @@
 .finale-title .host-final { overflow: hidden; }
 .context-note,.menu-note,.menu-footer > span:first-child,.scene-caption,.table-bottom-note,
 .archive-note,.ada-coach,.contract-steps,.contracts-panel > .round-context { display: none; }
+.table-heading > .eyebrow,.finale-title > .eyebrow,.archive-floor > .eyebrow { display: none; }
 .contracts-layout .compact-offer .compact-payment { line-height: 1.35; }
 .contracts-layout .compact-offer { transform: none; }
 .contracts-layout .compact-offer.chosen { transform: none; }

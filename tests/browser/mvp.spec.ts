@@ -109,7 +109,7 @@ test('mouse help preserves progress and removed shortcuts do not choose or confi
  await start(page);const before=await saved(page);
  await page.keyboard.press('KeyA');await page.keyboard.press('KeyE');await expect(page.getByTestId('urn-0')).toHaveAttribute('aria-pressed','false');expect(await saved(page)).toEqual(before);
  await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('help-button').click();
- expect(await saved(page)).toEqual({...before,helpHistory:['urns-0-0']});await expect(page.getByRole('dialog')).toContainText('La cuenta de Vera');await page.getByTestId('close-dialog').click();
+ expect(await saved(page)).toEqual({...before,helpHistory:['urns-0-0']});await expect(page.getByRole('dialog')).toContainText('Cómo comparar');await page.getByTestId('close-dialog').click();
  await page.getByTestId('settings-button').click();await expect(page.getByRole('tab',{name:'Controles',exact:true})).toHaveCount(0);await page.getByTestId('close-dialog').click();
  await page.getByTestId('urn-0').click();await page.getByTestId('confirm-choice').click();await expect(page.getByTestId('result-feedback')).toBeVisible();expect((await saved(page)).history).toHaveLength(1);
 });

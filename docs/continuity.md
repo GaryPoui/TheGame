@@ -222,3 +222,6 @@ Rediseño de Ada 2026-10-29: [misma mesa y jerarquía que las otras partidas](ad
 Interfaz 2026-10-29: lenguaje breve, urnas 1/2, ajustes por pestañas y repaso con videos. Ver [cambios y límites de validación](clear-interface.md). Cambios locales; sin publicación nueva.
 
 Cierre de interfaz 2026-10-29: escena Babylon comprobada en una build local sin servidor; Vera, Doble y Ada aceptan acciones. Doble/Ada/final sin scroll en vistas iniciales de 1366x768 y 390x844. TypeScript, build y 41 unitarias aprobadas. HTTP y publicación siguen pendientes. Ver docs/clear-interface.md y docs/evidence/clear-interface/.
+
+
+Revisión 2026-10-30: [escritorio y cartas](desktop-revision.md). Ada nueva usa cartas de póker; patas visibles y mesa de dados ampliada, menos texto, lecturas en ventanas con cruz, sin recorrido ni pestaña de controles ni ensayo opcional final. Juego con mouse, guardado v6 compatible con v1–5. Build, 46 unitarias, 70 comprobaciones matemáticas y 92 archivos de skills aprobados. Suite de 39 casos: 38 aprobados y el caso de cabecera al 200 % corregido y aprobado al repetirse. Publicación y hashes públicos pendientes de cierre.

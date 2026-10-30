@@ -1,12 +1,12 @@
 # GDD único — La Casa del Azar
 
-Actualización 2026-10-28: Ada pasa a [Las fotos tramposas](photos-redesign.md), con pregunta inicial sin puntos sobre independencia, fotos completas frente a seleccionadas y textos sencillos. Doble conserva sus reglas con consignas más simples. Las mesas mantienen el diseño anterior solicitado. Las sesiones antiguas conservan progreso y pueden empezar el álbum nuevo.
+Actualización vigente 2026-10-29: Ada usa [cartas de póker](ada-poker.md). La [revisión de escritorio](desktop-revision.md) reduce texto, abre explicaciones en ventanas centrales y retira el recorrido, la configuración de controles y el ensayo opcional del cierre. Las versiones anteriores siguen documentadas como historia y para guardados antiguos.
 
 
 Estado: campaña implementada con tres mesas y final; ver [evidencia y adaptación](campaign-implementation.md). Autoridad de reglas: [educational-design.md](educational-design.md). No crear otro GDD divergente. Visión: [vision.md](vision.md).
 
 La presentación vigente usa [tinta y acuarela](ink-theatre.md). La campaña tiene menú,
-apertura a oscuras, recuerdo opcional de calle, sala con directorio/plano acotado, tres asistentes,
+apertura a oscuras, recuerdo opcional de calle, sala con directorio de mesas, tres asistentes,
 contrato de salida y epílogo. Se mantiene una raíz de progreso y no hay combate.
 Los controles de exploración se adaptaron al teatro pintado; la locomoción FPS libre y la captura
 de mouse de la propuesta inicial no se presentan como implementadas. La duración sigue siendo
@@ -16,7 +16,7 @@ un objetivo a medir con personas.
 
 Explorar sala → acercarse a mesa → leer objetivo y requisitos → sentarse → predecir colocando un marcador → elegir una acción de juego → observar extracción/contrato/datos → comparar plan y resultado → aplicar en un estado diferente. El marcador es opcional para progreso, útil para reflexión; no hay cuestionarios de opción múltiple que sustituyan la acción.
 
-Exploración: WASD/flechas configurables, mouse para mirar, E/Enter para interactuar, Escape para pausa. Toda interacción de mesa tiene equivalente HTML enfocable, Enter confirma, Escape cancela antes de confirmar. Sin decisiones cronometradas. Cursor liberado en diálogos, pausa y mesa; recuperar captura requiere acción explícita. Configuración de sensibilidad, inversión, subtítulos, escala y movimiento reducido antes de empezar.
+Control vigente: mouse para elegir mesas, seleccionar opciones, confirmar y cerrar ventanas. No hay desplazamiento por la página en escritorio ni decisiones cronometradas. Los ajustes conservan volumen, escala de texto y movimiento reducido. Los controles HTML conservan su comportamiento nativo.
 
 ## Estados y habilitación
 
@@ -36,7 +36,7 @@ Una sala legible con puerta de salida, tres mesas periféricas y mesa del anfitr
 |---|---|---|---|---|
 | Urnas / Vera | Elegir contenedor y volver a elegir tras consumir una ficha | Contenidos, reposición y evento | Cambia probabilidad del sello ficticio | Jugador señala qué ficha cambió su plan y resuelve estado nuevo |
 | Contratos / Doble | Elegir flujo estable o pago variable según encargo | 36 pares, costes, pagos y objetivo | Saldo aleatorio y mérito determinista separados | Cambia elección cuando cambia objetivo sin culpar a una tirada |
-| Registros / Ada | Elegir qué registro auditar y qué decisión autoriza la evidencia | Mecanismos conocidos, procedencia, n, datos y coste de observación | Compra bloque pertinente o cierra informe prudente | Rechaza selección favorable y termina de observar cuando ya cumple la regla |
+| Cartas / Ada | Elegir el montón con mayor probabilidad de cumplir el objetivo | Todas las cartas y el objetivo visibles | Saca una carta uniforme sin reposición y vuelve a comparar | Compara proporciones y actualiza tras retirar la carta |
 
 Los oponentes son presentadores y adversarios retóricos, no jugadores que ocultamente cambian ofertas. No copiar nombres, presentación ni identidad de juegos comerciales. Las mecánicas genéricas de urnas, contratos y auditoría se combinan en una puesta propia.
 

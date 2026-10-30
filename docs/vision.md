@@ -1,6 +1,6 @@
 # Visión y alcance — La Casa del Azar
 
-Estado: campaña de tres asistentes y final implementada y publicada. Fecha de revisión: 2026-10-27. Validación funcional y límites en [campaña](campaign-implementation.md). Dirección vigente: [Teatro de tinta](ink-theatre.md). La implementación del MVP no demuestra eficacia educativa.
+Estado: campaña de tres asistentes y final implementada y publicada. Fecha de revisión: 2026-10-29. Validación funcional y límites en [campaña](campaign-implementation.md). Dirección vigente: [Teatro de tinta](ink-theatre.md). La implementación del MVP no demuestra eficacia educativa.
 
 ## Experiencia
 
@@ -10,7 +10,7 @@ Público provisional: adolescentes mayores y adultos que manejan sumas y divisio
 
 ## Alcance cerrado
 
-- Navegador de escritorio, teclado y mouse; Babylon.js + TypeScript estricto + Vite; WebGL base.
+- Navegador de escritorio, juego con mouse; Babylon.js + TypeScript estricto + Vite; WebGL base.
 - Calle de unos 20 segundos y una sala principal compacta con cuatro puestos. Tres asistentes y anfitrión, sin otros NPC necesarios.
 - Introducción 2–3 minutos; urnas 7–9; contratos 7–9; registros 8–10; final 5–7; navegación/epílogo 1–3. Total objetivo 30–41 minutos, margen de lectura hasta 45. Objetivo sujeto a prueba.
 - Una campaña local sin cuentas, backend, multijugador, dinero real ni compras. Persistencia versionada local.
@@ -28,4 +28,7 @@ Combate físico, armas, shooter, acción de secuestro compleja, generación proc
 
 ## Criterios de éxito
 
-Experiencia terminable sin suerte favorable; reglas reproducibles; ausencia de errores matemáticos; decisiones comprensibles con objetos y texto; navegación completa por teclado; lectura sin audio; rendimiento medido en equipo identificado. Diversión y aprendizaje son hipótesis, no resultados. Ver [diseño educativo](educational-design.md), [GDD](game-design.md) y plan de validación del proyecto.
+Experiencia terminable sin suerte favorable; reglas reproducibles; ausencia de errores matemáticos; decisiones comprensibles con objetos y texto; todas las acciones disponibles con el mouse; lectura sin audio; rendimiento medido en equipo identificado. Diversión y aprendizaje son hipótesis, no resultados. Ver [diseño educativo](educational-design.md), [GDD](game-design.md) y plan de validación del proyecto.
+
+
+Pedido vigente: [Ada con cartas de póker](ada-poker.md) y [composición de escritorio sin scroll](desktop-revision.md). La duración prevista requiere una nueva medición tras estos cambios.

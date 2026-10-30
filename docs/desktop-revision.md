@@ -40,5 +40,22 @@ adicional; no se declara accesibilidad integral.
 
 ## Validación y publicación
 
-El registro de cierre y los resultados ejecutados se incorporan al completar las
-pruebas locales y públicas. Destino autorizado: la rama `gh-pages`, sin fusionar PR.
+Cierre local 2026-10-30: TypeScript y build aprobados; 46 pruebas unitarias,
+70 comprobaciones matemáticas y 92 archivos de skills verificados. La suite completa
+recorrió 39 casos: 38 aprobados y uno detectó padding excesivo en la cabecera con
+texto al 200 % en 390 × 844. Se corrigió ese padding, se reconstruyó y el caso
+fallido pasó al repetirse. Los recorridos de campaña sin scroll incluyen 1280 × 720,
+1366 × 768 y 1920 × 1080, con todas las decisiones y cierres de Vera, Ada y anfitrión,
+ventanas centrales, partidas guardadas y controles de Doble. Las pruebas específicas
+cubren animación, movimiento reducido y alternativa HTML sin WebGL.
+
+Resultados: [suite local](evidence/desktop-poker/local-browser-results.txt),
+[corrección revalidada](evidence/desktop-poker/correction-browser-results.txt),
+[build y hashes](evidence/desktop-poker/build-report.json) y
+[revisión previa a push](evidence/desktop-poker/prepush-review.json).
+Capturas: [Vera](evidence/desktop-poker/vera-desktop.png),
+[Doble](evidence/desktop-poker/dice-desktop.png) y
+[Ada](evidence/desktop-poker/ada-desktop.png).
+
+Publicación autorizada en `gh-pages`, conservando el historial y el PR #7 sin fusionar.
+La verificación pública se registra al cerrar el deployment.

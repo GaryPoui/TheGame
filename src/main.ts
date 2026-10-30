@@ -468,7 +468,7 @@ function handleGameClick(event: MouseEvent): void {
   }
   if (id === 'back-room') {const table=state.activeTable;persist();setScreen('room',table==='contracts'||table==='records'||table==='finale'?'enter-'+table:'enter-urns');return;}
   if(id==='repeat-tutorial'){tutorialStep=0;demoChoice=null;demoCardsVisible=false;tutorialFlow=createTutorial();setScreen('tutorial','toggle-cards');return;}
-  if (id === 'help-button') {tutorialFlow=requestHelp(tutorialFlow,'urns-'+state.round+'-'+state.step);showDialog('Cómo comparar', '<p>Contá las fichas del color pedido y comparalas con el total. Tres rojas de cinco ofrecen más posibilidades que una de dos.</p><p>Si la ficha queda afuera, volvé a contar antes de elegir.</p>');}
+  if (id === 'help-button') {const helpId='urns-'+state.round+'-'+state.step;tutorialFlow=requestHelp(tutorialFlow,helpId);state.helpHistory??=[];if(!state.helpHistory.includes(helpId))state.helpHistory.push(helpId);persist();showDialog('Cómo comparar', '<p>Contá las fichas del color pedido y comparalas con el total. Tres rojas de cinco ofrecen más posibilidades que una de dos.</p><p>Si la ficha queda afuera, volvé a contar antes de elegir.</p>');}
 }
 app.addEventListener('click', handleGameClick);
 overlay.addEventListener('click', event => {

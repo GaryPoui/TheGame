@@ -1,0 +1,7 @@
+
+Running 1 test using 1 worker
+
+
+
+[1/1] tests\browser\campaign.spec.ts:82:1 › all campaign panels remain usable at 200 percent text in a narrow window
+  1 passed (8.0s)

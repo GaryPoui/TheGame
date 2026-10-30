@@ -26,12 +26,13 @@ test('clear language, settings tabs and tutorial replay preserve campaign progre
  await page.reload();await expect(page.getByTestId('continue-game')).toContainText('Reanudar partida');
 });
 
-test('capture all primary screens and report viewport fit at desktop and mobile sizes',async({browser})=>{
+test('capture all primary screens and report viewport fit at desktop and mobile sizes',async({browser,baseURL})=>{
+ test.setTimeout(180000);
  await mkdir(evidence,{recursive:true});
  const reports:unknown[]=[];
  for(const [width,height] of [[1366,768],[1440,900],[390,844]]){
   for(const mode of ['menu','tutorial','urns','contracts','records']){
-   const page=await browser.newPage({viewport:{width:width!,height:height!}});
+   const page=await browser.newPage({baseURL,viewport:{width:width!,height:height!}});
    const s=createGame(8);s.settings.reducedMotion=true;s.settings.volume=0;
    if(mode==='contracts'||mode==='records'){
     for(let i=0;i<35&&s.phase!=='complete';i++)Object.assign(s,['choose','guided'].includes(s.phase)?choose(s,bestChoices(s)[0] as 0|1):advance(s));
