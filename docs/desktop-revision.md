@@ -58,4 +58,19 @@ Capturas: [Vera](evidence/desktop-poker/vera-desktop.png),
 [Ada](evidence/desktop-poker/ada-desktop.png).
 
 Publicación autorizada en `gh-pages`, conservando el historial y el PR #7 sin fusionar.
-La verificación pública se registra al cerrar el deployment.
+Publicada el 2026-10-30 como `desktop-poker-2026-10-30`:
+fuente `7a9ed90`, rama estática `013e7a4`. [Jugar por HTTPS](https://garypoui.github.io/TheGame/).
+Los 146 archivos públicos coinciden con la build por SHA-256, sin diferencias.
+
+En HTTPS completaron campaña a 1366 × 768, texto al 200 % en ventana angosta,
+dados con movimiento reducido y alternativa HTML sin WebGL. Dos recorridos con
+capturas agotaron los tiempos del navegador y su cierre; el intento largo quedó
+interrumpido. No se presentan como aprobados. Una comprobación adicional sin
+capturar imágenes pasó en 6,7 segundos: animación normal, resultado guardado,
+segunda elección sin relanzar, RNG conservado y ausencia de errores de página.
+
+Evidencia: [integridad pública](evidence/desktop-poker/public-integrity.json),
+[pruebas cortas](evidence/desktop-poker/public-browser-results.txt),
+[intento largo](evidence/desktop-poker/public-browser-interrupted.txt) y
+[acciones animadas sin captura](evidence/desktop-poker/public-actions.json).
+La CI de la fuente seguía en ejecución al consultar su estado; no se declara aprobada.

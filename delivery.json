@@ -1,12 +1,14 @@
 {
-  "phase": "doble-proportions-v16",
+  "phase": "desktop-poker-2026-10-30",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
+  "content_commit": "7a9ed907361207a0238233c0fb12232d3e2b5164",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/7a9ed907361207a0238233c0fb12232d3e2b5164",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/desktop-revision.md",
+    "docs/ada-poker.md",
     "docs/doble-proportions.md",
     "docs/doble-waist-portrait.md",
     "docs/clear-dice-combinations.md",
@@ -26,42 +28,34 @@
   "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9",
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
-    "unit_tests": 41,
-    "local_targeted_browser_tests": 5,
-    "public_browser_tests": 5,
-    "public_browser_failures": 0,
-    "public_browser_flaky": 0,
+    "unit_tests": 46,
+    "local_browser_suite_passed": 38,
+    "local_browser_suite_initial_failure": 1,
+    "failed_case_fixed_and_retested": "PASS: header with 200 percent text at 390x844",
+    "local_browser_cases_covered": 39,
+    "public_completed_browser_cases": 4,
+    "public_capture_free_dice_actions": "PASS: one saved animated roll and second decision without reroll",
+    "public_capture_timeouts": 2,
+    "public_note": "Long public 1280 campaign and screenshot-based animated dice cases exceeded browser/teardown timeouts. Public 1366 campaign, 200 percent narrow text, reduced-motion dice and HTML fallback completed; animated actions passed separately without image capture. Do not claim the entire public suite passed.",
     "public_asset_hashes": 146,
+    "public_asset_mismatches": 0,
     "exact_design_math_checks": 70,
     "skill_files_verified": 92,
-    "normal_text_viewports": [
-      "1837x823",
-      "1440x900",
+    "normal_desktop_no_scroll_viewports": [
+      "1280x720",
       "1366x768",
-      "530x850",
-      "390x844",
-      "360x740"
+      "1920x1080"
     ],
-    "canvas_heights_px": [
-      470,
-      492,
-      415,
-      250,
-      250,
-      230
-    ],
-    "dealer_proportion": "Projected portrait width at least 22 percent of table width; hat inside frame and waist near table edge",
-    "https_status": "built; HTTPS enforced",
-    "public_browser_scope": "Six-size comparison and framing, 200 percent campaign panels, dice animation, reduced motion and HTML fallback",
     "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU benchmark",
-    "local_browser_report": "docs/evidence/doble-proportions/local-browser-results.json",
-    "public_browser_report": "docs/evidence/doble-proportions/public-browser-results.json",
-    "public_integrity": "docs/evidence/doble-proportions/public-integrity.json",
+    "local_browser_report": "docs/evidence/desktop-poker/local-browser-results.txt",
+    "correction_report": "docs/evidence/desktop-poker/correction-browser-results.txt",
+    "public_browser_report": "docs/evidence/desktop-poker/public-browser-results.txt",
+    "public_interrupted_report": "docs/evidence/desktop-poker/public-browser-interrupted.txt",
+    "public_actions": "docs/evidence/desktop-poker/public-actions.json",
+    "public_integrity": "docs/evidence/desktop-poker/public-integrity.json",
     "source_ci": {
-      "conclusion": "",
-      "headSha": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
-      "status": "in_progress",
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/40856004439"
+      "status_observed": "in_progress",
+      "url": "https://github.com/GaryPoui/TheGame/actions/runs/41063226522"
     }
   },
   "pending_optional_tools": [
@@ -71,9 +65,9 @@
   ],
   "game_implemented": true,
   "deployed": true,
-  "next_step": "010/T011: human playtests, screen reader, physical GPU and controlled network; no learning or duration claims",
+  "next_step": "Revisión del usuario; pruebas humanas de comprensión y rendimiento en hardware real pendientes.",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "d68dc3570aa5c07fde080028e2f774567c9b5d1d",
+  "deployment_commit": "013e7a42c7af52ebbcab23f23a9875706d37ff59",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -81,8 +75,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Large waist-up Doble in proportion with the table, lower camera angle and extra headroom. Projected hat, waist and width measured across six viewports.",
-  "build_source_commit": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
+  "scope": "Poker probability game for Ada, table legs and larger dice stage, brief cards, centered reading dialogs, mouse play and desktop layouts without page scrolling. Removes room walking panel, control remapping tab, superimposed final table and optional closing exercises.",
+  "build_source_commit": "7a9ed907361207a0238233c0fb12232d3e2b5164",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -230,7 +224,7 @@
     "deployment_commit": "1e6bfd4ffcadec61979ba4999123dfa1b791999a",
     "next_step": "Playtest humano del primer juego y ajustes según feedback del usuario; mantener foco en urnas."
   },
-  "completion_date": "2026-10-27",
+  "completion_date": "2026-10-30",
   "previous_campaign_delivery": {
     "phase": "campaign-complete-v5.2",
     "content_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
@@ -438,7 +432,7 @@
     },
     "scope": "Compact Doble offers with graphical paying dice pairs and reverse-order counts; five normal-text viewports show all offers without scrolling; enlarged text grows vertically."
   },
-  "last_update_date": "2026-10-29",
+  "last_update_date": "2026-10-30",
   "previous_visible_dice_table_delivery": {
     "phase": "visible-dice-table-v12",
     "content_commit": "afc296333ab422f026e2ae9ba91f8efe31de6308",
@@ -608,5 +602,51 @@
       }
     },
     "scope": "Doble portrait framed from waist up with the complete hat and space above, changing only portrait scale and height. Large table, camera and dice unchanged."
+  },
+  "previous_doble_proportions_delivery": {
+    "phase": "doble-proportions-v16",
+    "content_commit": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
+    "build_source_commit": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
+    "deployment_commit": "d68dc3570aa5c07fde080028e2f774567c9b5d1d",
+    "validation": {
+      "unit_tests": 41,
+      "local_targeted_browser_tests": 5,
+      "public_browser_tests": 5,
+      "public_browser_failures": 0,
+      "public_browser_flaky": 0,
+      "public_asset_hashes": 146,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_text_viewports": [
+        "1837x823",
+        "1440x900",
+        "1366x768",
+        "530x850",
+        "390x844",
+        "360x740"
+      ],
+      "canvas_heights_px": [
+        470,
+        492,
+        415,
+        250,
+        250,
+        230
+      ],
+      "dealer_proportion": "Projected portrait width at least 22 percent of table width; hat inside frame and waist near table edge",
+      "https_status": "built; HTTPS enforced",
+      "public_browser_scope": "Six-size comparison and framing, 200 percent campaign panels, dice animation, reduced motion and HTML fallback",
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU benchmark",
+      "local_browser_report": "docs/evidence/doble-proportions/local-browser-results.json",
+      "public_browser_report": "docs/evidence/doble-proportions/public-browser-results.json",
+      "public_integrity": "docs/evidence/doble-proportions/public-integrity.json",
+      "source_ci": {
+        "conclusion": "",
+        "headSha": "4be1ea911f7badb6dbcc1b8b5a5ea3f30b828f6f",
+        "status": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/40856004439"
+      }
+    },
+    "scope": "Large waist-up Doble in proportion with the table, lower camera angle and extra headroom. Projected hat, waist and width measured across six viewports."
   }
 }

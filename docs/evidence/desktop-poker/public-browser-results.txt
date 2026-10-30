@@ -1,0 +1,47 @@
+
+Running 3 tests using 1 worker
+
+
+
+[1/3] tests\browser\dice-roll.spec.ts:14:1 › visible table rolls once, settles on the saved pair and preserves the canvas
+  1) tests\browser\dice-roll.spec.ts:14:1 › visible table rolls once, settles on the saved pair and preserves the canvas 
+
+    Test timeout of 60000ms exceeded.
+
+    Tearing down "context" exceeded the test timeout of 60000ms.
+
+    Error: locator.click: Test ended.
+    Call log:
+      - waiting for getByTestId('contract-J')
+        - locator resolved to <button aria-pressed="false" data-testid="contract-J" class="contract-ticket compact-offer ">…</button>
+
+
+      16 |  await expect(page.getByTestId('dice-viewport').locator('canvas')).toHaveCount(1);await writeFile(`${evidence}/table-metrics.json`,JSON.stringify(await metrics(page),null,2));await page.screenshot({path:`${evidence}/table-ready.png`});
+      17 |  expect((await metrics(page)).activeNames).toEqual(expect.arrayContaining(['table-felt','table-edge','contract-die-0','contract-die-1']));
+    > 18 |  await page.getByTestId('contract-J').click();await page.getByTestId('doble-sign').click();
+         |                                       ^
+      19 |  await expect(page.getByTestId('dice-status')).toHaveText('Tirando los dados…');await expect(page.getByTestId('doble-next')).toBeDisabled();
+      20 |  const first=await metrics(page),record=await saved(page);expect(first.diceRolling).toBe(true);expect(first.diceRollCount).toBe(1);
+      21 |  await page.waitForTimeout(120);expect((await metrics(page)).dicePositions).not.toEqual(first.dicePositions);await page.screenshot({path:`${evidence}/table-rolling.png`});
+        at C:\Users\facub\Documents\TheGame\tests\browser\dice-roll.spec.ts:18:39
+
+    Error: browserContext.close: Target page, context or browser has been closed
+
+    Error Context: .tools\public-dice-test-results\dice-roll-visible-table-ro-e65f1-ir-and-preserves-the-canvas\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\public-dice-test-results\dice-roll-visible-table-ro-e65f1-ir-and-preserves-the-canvas\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\public-dice-test-results\dice-roll-visible-table-ro-e65f1-ir-and-preserves-the-canvas\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+[2/3] tests\browser\dice-roll.spec.ts:29:1 › reduced motion shows the exact result immediately without a roll animation
+[3/3] tests\browser\dice-roll.spec.ts:34:1 › HTML table and numbered result remain usable when WebGL is unavailable
+  1 failed
+    tests\browser\dice-roll.spec.ts:14:1 › visible table rolls once, settles on the saved pair and preserves the canvas 
+  2 passed (3.8m)
