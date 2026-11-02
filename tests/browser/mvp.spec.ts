@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
+import { completeIntro } from './story-navigation';
 
 const evidence = process.env.EVIDENCE_DIR ?? 'docs/evidence/runtime';
 const saved = (page: Page) => page.evaluate(() => {
@@ -15,7 +16,7 @@ async function start(page: Page) {
   await expect(page.locator('.graphics-warning')).toHaveCount(0);
   await page.screenshot({ path: `${evidence}/mvp-menu.png` });
   await page.getByTestId('new-game').click();
-  await page.getByTestId('skip-intro').click();
+  await completeIntro(page);
   await page.getByTestId('enter-urns').click();
   await page.getByTestId('skip-tutorial').click();
   await expect(page.locator('body')).toHaveAttribute('data-screen', 'table');
@@ -136,7 +137,7 @@ test('unavailable WebGL preserves playable controls and a retry action', async (
   await page.waitForLoadState('networkidle');
   await expect(page.getByTestId('retry-graphics')).toBeVisible();
   await page.getByTestId('new-game').click();
-  await page.getByTestId('skip-intro').click();
+  await completeIntro(page);
   await page.getByTestId('enter-urns').click();
   await page.getByTestId('skip-tutorial').click();
   await page.getByTestId('toggle-cards').click();

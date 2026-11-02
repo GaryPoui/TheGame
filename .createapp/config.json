@@ -1,0 +1,27 @@
+{
+  "name": "thegame",
+  "directory": ".",
+  "agent": "copilot",
+  "agents": [
+    "copilot"
+  ],
+  "stack": "web",
+  "template": "config-only",
+  "mode": "balanced",
+  "coordinator": "simple",
+  "testing": "balanced",
+  "autonomy": "milestones",
+  "parallel": false,
+  "design": "existing",
+  "database": "none",
+  "goal": "La Casa del Azar / TheGame. Juego educativo existente con Babylon.js, TypeScript estricto y Vite, sin React ni backend. Conservar AGENTS.md, las skills auditadas y sus manifiestos, Spec Kit, arte, reglas matematicas, RNG y guardados. Leer primero las instrucciones y fuentes de verdad del proyecto. Usar Vitest y Playwright TypeScript existentes para verificar. No reemplazar el motor ni instalar frameworks o servicios adicionales.",
+  "skills": null,
+  "packs": [
+    "addy",
+    "ponytail",
+    "uiux"
+  ],
+  "vercel_react": false,
+  "vercel_web": true,
+  "vercel_composition": false
+}

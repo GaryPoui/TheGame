@@ -81,3 +81,19 @@ sus videos ni transcripciones. Abren una pestaña nueva, avisada en el texto del
 - [Introducción a la probabilidad teórica](https://es.khanacademy.org/math/cc-seventh-grade-math/cc-7th-probability-statistics/cc-7th-basic-prob/v/basic-probability)
 - [Media o valor esperado](https://es.khanacademy.org/math/precalculus/x9e81a4f98389efdf:prob-comb/x9e81a4f98389efdf:expected-value/v/expected-value-of-a-discrete-random-variable)
 - [Probabilidad independiente y dependiente](https://es.khanacademy.org/math/probability/probability-geometry/multiplication-rule-dependent-events/v/independent-events-1)
+
+## Inputs de Ajustes — 2026-11-02
+
+Se conserva el diseño existente de papel, tinta y latón y la tipografía sin serifa. Los controles siguen siendo inputs nativos:
+
+- Selector de tamaño de texto con superficie clara, borde de latón y foco visible.
+- Interruptor de movimiento reducido con estado Activado/Desactivado, área interactiva de 48 px y manejo por teclado.
+- Deslizador de volumen con relleno proporcional y porcentaje actualizado durante la interacción, incluido silencio en 0 %.
+- Etiquetas y ayudas separadas en el nombre y la descripción accesibles, sin repetir el texto de ayuda.
+- Filas que se apilan en móvil o con texto ampliado; pestañas ajustadas para conservar sus rótulos al 200 %.
+
+Skills aplicadas: **frontend-design** y **game-ui-ux** para coherencia visual, controles y foco; **ca-ux** para revisar etiquetas, áreas táctiles y reflujo conservando el sistema existente; **webapp-testing** con el Playwright TypeScript instalado. No se agregaron paquetes, tipografías ni recursos.
+
+Validación local: build y **46 unitarias** aprobadas. **Ocho casos de navegador** cubren teclado, nombres y descripciones accesibles, volumen en vivo, persistencia tras recargar, restauración de valores, vuelta del foco y el flujo de tutorial. La distribución se midió en 1440 × 900, 1366 × 768 y 390 × 844, con texto al 100 % y 200 %: sin desbordes horizontales, sin superposición de etiquetas y controles y con objetivos interactivos de al menos 44 px. Se revisaron capturas de ambas pestañas en escritorio y móvil ampliado. En vistas pequeñas y con texto ampliado se conserva desplazamiento vertical dentro del modal; no se promete que todo aparezca simultáneamente.
+
+Capturas de la comprobación en `/tmp/thegame-settings`; las pruebas nuevas usan `.tools/settings-inputs` para no sobrescribir revisiones anteriores. El servidor local está en `http://127.0.0.1:5174/`. Continúa la advertencia previa de Vite sobre un chunk mayor de 900 kB. Sin cambios al formato de guardado, las reglas o el RNG, sin publicación ni commits. Estas pruebas no certifican accesibilidad integral ni compatibilidad visual con navegadores distintos de Chromium.

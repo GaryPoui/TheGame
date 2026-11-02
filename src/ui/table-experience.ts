@@ -6,6 +6,36 @@ export function tokenTray(urn: Urn, event: GameState['event']): string {
   return `<span class="token-tray" aria-hidden="true">${(['red','blue'] as const).map(color => Array.from({length:urn[color]}, () => `<i class="counting-token ${color} ${event === color ? 'wanted' : ''}">${color === 'red' ? '▲' : '●'}</i>`).join('')).join('')}</span>`;
 }
 
+export function urnTutorialHelp(urns: readonly [Urn, Urn], remaining?: readonly [Urn, Urn], explanation = '', page = 0): string {
+  const chances = urns.map(urn => probability(urn, 'red'));
+  const percent = (urn: Urn) => {
+    const chance = probability(urn, 'red');
+    return (chance.denominator ? 100 * chance.numerator / chance.denominator : 0).toLocaleString('es-AR', { maximumFractionDigits: 1 });
+  };
+  const equation = (urn: Urn) => {
+    const total = urn.red + urn.blue;
+    const value = total ? 100 * urn.red / total : 0;
+    const equality = value === Math.round(value * 10) / 10 ? '=' : '≈';
+    return `${urn.red} ÷ ${total} × 100 ${equality} <strong>${percent(urn)} %</strong>`;
+  };
+  const difference = chances[0]!.numerator * chances[1]!.denominator - chances[1]!.numerator * chances[0]!.denominator;
+  const comparison = difference === 0
+    ? `${percent(urns[0])} % = ${percent(urns[1])} %: las dos urnas ofrecen la misma posibilidad. Cualquiera sirve.`
+    : `La urna ${difference > 0 ? 1 : 2} ofrece ${percent(urns[difference > 0 ? 0 : 1])} %, frente al ${percent(urns[difference > 0 ? 1 : 0])} % de la otra. Elegirla da más posibilidades, no una victoria segura.`;
+  let pages = 0;
+  const reading = (html: string) => `<section data-tutorial-help-page="${pages}" ${pages++ === page ? '' : 'hidden'}>${html}</section>`;
+  const calculations = urns.map((urn, index) => {
+    const after = remaining?.[index];
+    return `<article class="tutorial-calculation" data-testid="tutorial-calculation-${index}">${reading(`<h3>Urna ${index + 1}${remaining?' · antes':''}</h3><p>${urn.red} ${urn.red===1?'roja':'rojas'} + ${urn.blue} ${urn.blue===1?'azul':'azules'} = ${urn.red + urn.blue} fichas</p><p class="tutorial-equation">${equation(urn)}</p>`)}${after ? reading(`<h3>Urna ${index+1} · ahora</h3><p>Quedan ${after.red} ${after.red===1?'roja':'rojas'} y ${after.blue} ${after.blue===1?'azul':'azules'}.</p><p class="tutorial-equation">${equation(after)}</p>`) : ''}</article>`;
+  }).join('');
+  const details = reading('<h3>Cómo se calcula</h3><p>Rojas ÷ total × 100.</p><p>Dividí las fichas rojas por todas las fichas de esa urna.</p>') +
+    `<div class="tutorial-comparison-pages" data-testid="tutorial-comparison">${comparison.split(/(?<=[.!?])\s+/).map(line=>reading(`<h3>Compará</h3><p class="tutorial-comparison">${line}</p>`)).join('')}</div>` +
+    explanation.split(/(?<=[.!?])\s+/).filter(Boolean).map(line => reading(`<h3>Vera te acompaña</h3><p>${line}</p>`)).join('') +
+    reading(`<h3>Recordá</h3><p class="tutorial-math-note">${remaining ? 'La elección anterior se juzga con las cuentas de antes, no con las de ahora.' : 'No alcanza con contar rojas: importa qué parte del total representan.'}</p>`) +
+    (remaining ? reading('<h3>La próxima extracción</h3><p>Las cuentas de «ahora» sirven para la próxima extracción, con las fichas que quedan.</p>') : '');
+  return `<aside class="tutorial-help" aria-labelledby="tutorial-help-title"><h2 id="tutorial-help-title">Las cuentas</h2><div class="tutorial-reading">${calculations}${details}</div><nav class="tutorial-help-navigation" aria-label="Páginas de las cuentas"><button class="quiet" data-testid="tutorial-help-previous" aria-label="Cuenta anterior" title="Cuenta anterior" ${page===0?'disabled':''}>←</button><span role="status">${page+1} / ${pages}</span><button class="quiet" data-testid="tutorial-help-next" aria-label="Cuenta siguiente" title="Cuenta siguiente" ${page>=pages-1?'disabled':''}>→</button></nav></aside>`;
+}
+
 export function veraCoach(state: GameState, selected: 0 | 1 | null): string {
   if (selected === null) return state.step === 0
     ? 'Tocá una urna. Las fichas marcadas son las que buscás; compará qué parte del total representan.'

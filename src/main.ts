@@ -26,7 +26,7 @@ import {createFinale,applyFinaleCommand,finaleChoices,type FinaleChoice,type Fin
 import {tableUnlocked,checkpointCampaign} from './core/campaign/progression';
 import {recordsView} from './ui/records';
 import {endingView} from './ui/ending';
-import { tokenTray, veraCoach, decisionTrack } from './ui/table-experience';
+import { tokenTray, veraCoach, decisionTrack, urnTutorialHelp } from './ui/table-experience';
 import { createContracts, applyContractCommand, type ContractCommand } from './core/tables/contracts';
 import { CONTRACT_IDS, type ContractId } from './core/math/dice';
 import { compareContracts, type ComparisonRun } from './core/math/simulation';
@@ -76,6 +76,8 @@ function beginIntro(): void {
   }, settings.reducedMotion ? 400 : 3300));
 }
 let tutorialStep = 0;
+let tutorialHelpPage = 0;
+let tutorialView: 'choice' | 'help' = 'choice';
 let tutorialFlow=createTutorial();
 let demoChoice: 0 | 1 | null = null;
 let demoCardsVisible=false;
@@ -144,7 +146,7 @@ const intro = INTRO.nodes.map(n=>[n.speaker,INTRO.strings[n.lineId]!] as const);
 function introView(): string {
   const [speaker, line] = intro[introLine]!;
   const dark = introPhase === 'dark';
-  return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><div class="dialogue-heading"><span class="speaker-tag"><span class="speaker-emblem" aria-hidden="true">${dark?'◇':speaker==='Vera'?'V':'A'}</span>${dark ? 'Un momento antes…' : speaker}</span><span class="dialogue-progress" aria-label="Intervención ${introLine+1} de 3">${introLine+1} de 3</span></div><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><div class="dialogue-actions">${btn('intro-next', introLine === 2 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}${btn('skip-intro', 'Saltar introducción', 'quiet')}${btn('intro-history','Volver a leer','dialogue-utility')}${introLine===0&&!dark?btn('remember-street','Recordar cómo llegaste','text-button'):''}</div></section></main>`;
+  return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><div class="dialogue-heading"><span class="speaker-tag"><span class="speaker-emblem" aria-hidden="true">${dark?'◇':speaker==='Vera'?'V':'A'}</span>${dark ? 'Un momento antes…' : speaker}</span><span class="dialogue-progress" aria-label="Intervención ${introLine+1} de ${intro.length}">${introLine+1} de ${intro.length}</span></div><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><nav class="dialogue-actions intro-navigation" aria-label="Navegación de la historia">${btn('intro-back', 'Atrás', 'quiet')}${btn('intro-next', introLine === intro.length - 1 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}</nav></section></main>`;
 }
 function room(): string {
   const entries = [
@@ -166,15 +168,33 @@ function demoInventory():[Urn,Urn]{
 function tutorial(): string {
  const review=tutorialStep===1||tutorialStep===3;
  const cardUrns:[Urn,Urn]=tutorialStep<=1?[{red:3,blue:2},{red:1,blue:1}]:[{red:2,blue:2},{red:1,blue:1}];
- const text=tutorialStep===0?demoChoice===1?'En la urna 2, la mitad es roja; en la urna 1, más de la mitad. Elegí la urna 1.':demoChoice===0?'Elegiste la urna 1: 3 de sus 5 fichas son rojas. Sacá una ficha para ver qué cambia.':'Buscá una roja. Compará las rojas con el total: urna 1, 3 de 5; urna 2, 1 de 2. ¿En cuál ocupan una parte mayor?':tutorialStep===1?'Sacamos una roja de la urna 1 y quedó afuera: ahora hay dos rojas de cuatro fichas. Hay que volver a contar.':tutorialStep===2?'Ahora ambas tienen la mitad roja: 2 de 4 y 1 de 2. Las dos ofrecen la misma posibilidad; elegí cualquiera.':'Salió azul, pero elegiste bien: ambas urnas daban la misma posibilidad. Una buena decisión no garantiza el color buscado.';
+ const text=tutorialStep===0?demoChoice===1?'La urna 2 da 50 % de sacar roja. No es imposible, pero la urna 1 da 60 %. Como 60 es mayor que 50, conviene la urna 1.':demoChoice===0?'La urna 1 es mejor: 60 % frente a 50 %. Todavía hay 40 % de sacar azul. Elegir bien mejora tus chances, pero no asegura el resultado.':'Buscá una roja. La urna 1 tiene 3 de 5: 60 %. La urna 2 tiene 1 de 2: 50 %. Mirá las cuentas y elegí la que ofrece más posibilidades.':tutorialStep===1?'Sacamos una roja de la urna 1 y quedó afuera: ahora hay dos rojas de cuatro fichas. Restamos una roja y una ficha al total: (3 − 1) ÷ (5 − 1) = 2 ÷ 4 = 50 %.':tutorialStep===2?'La urna 1 da 2 ÷ 4 = 50 % y la urna 2 da 1 ÷ 2 = 50 %. Las dos tienen la mitad roja: tener más fichas no da ventaja. Cualquiera es una buena elección.':'Salió azul, pero elegiste bien: antes de sacar, ambas daban 50 % de roja y 50 % de azul. Que salga azul no demuestra que tu decisión fuera mala.';
  const ready=review||tutorialStep===0&&demoChoice===0||tutorialStep===2&&demoChoice!==null;
  const visible=demoCardsVisible||review;
- return `<main class="table-layout tutorial-table"><section class="table-heading"><p class="eyebrow">Mesa I · Vera te acompaña</p><h1>Las urnas</h1><p class="round-context">Demostración preparada · ${tutorialStep+1} de 4 · sin puntos</p></section><aside class="game-panel"><div class="objective-label">${tutorialStep<2?'Primera extracción':'Segunda extracción'}</div><h2 class="objective">Buscá una ficha <span class="red-token">roja ▲</span></h2><p class="rule-tag">↗ La ficha queda afuera</p><div class="tutorial-coach" role="status"><strong>Vera</strong><p>${text}</p></div>${review?`<p class="review-label">Antes de sacar · compará tu elección</p>`:`<button class="cards-toggle" data-testid="toggle-cards" aria-expanded="${visible}" aria-controls="demo-cards">${visible?'Ocultar tarjetas':'Ver tarjetas de las urnas'}</button>`}<div id="demo-cards" class="urn-options" ${visible?'':'hidden'}>${urnChoice(cardUrns[0],0,true)}${urnChoice(cardUrns[1],1,true)}</div>${review?`<section class="result-card"><span class="result-token ${tutorialStep===1?'red':'blue'}-token" aria-hidden="true">${tutorialStep===1?'▲':'●'}</span><h2>${tutorialStep===1?'Salió una roja.':'Salió una azul.'}</h2><p>Resultado preparado para aprender. No cambia tu partida.</p></section>`:''}${tutorialStep===3?`<details class="tutorial-recap"><summary>Volver a leer el tutorial</summary>${tutorialSummary}</details>`:''}${btn('tutorial-next',review?tutorialStep===1?'Volver a decidir':'Empezar partida al azar':demoChoice===null?'Elegí una urna para continuar':`Sacar una ficha de la urna ${demoChoice===0?'1':'2'}`,'primary full',!ready)}${!review?btn('skip-tutorial','Saltar tutorial y jugar','text-button full'):''}</aside></main>`;
+ const summary=tutorialStep===0?demoChoice===1?'Conviene la 1: 60 % frente a 50 %.':'60 % frente a 50 %.':tutorialStep===1?'Ahora: dos rojas de cuatro.':tutorialStep===2?'50 % frente a 50 %: empate.':'Antes: 50 % de roja y 50 % de azul.';
+ return `<main class="table-layout tutorial-table" data-tutorial-view="${tutorialView}">
+  <header class="tutorial-heading"><h1 class="tutorial-badge">Tutorial</h1><p>Las urnas · <span class="tutorial-step">Paso ${tutorialStep+1} de 4</span></p></header>
+  <nav class="tutorial-view-tabs" aria-label="Vista del tutorial"><button data-testid="tutorial-view-choice" class="${tutorialView==='choice'?'active':''}" aria-pressed="${tutorialView==='choice'}">Elegir</button><button data-testid="tutorial-view-help" class="${tutorialView==='help'?'active':''}" aria-pressed="${tutorialView==='help'}">Las cuentas</button></nav>
+  <section class="tutorial-workspace">${urnTutorialHelp(cardUrns,review?demoInventory():undefined,text,tutorialHelpPage)}</section>
+  <div class="tutorial-controls"><aside class="game-panel">
+   ${review?`<section class="result-card"><h2>${tutorialStep===1?'Salió una roja.':'Salió una azul.'}</h2></section>`:'<h2 class="objective">Buscá <span class="red-token">roja ▲</span></h2>'}
+   <div class="tutorial-coach" role="status"><p>${summary}</p></div>
+   ${review?'':`<button class="cards-toggle" data-testid="toggle-cards" aria-expanded="${visible}" aria-controls="demo-cards">${visible?'Ocultar urnas':'Ver urnas'}</button>`}
+   <div id="demo-cards" class="urn-options" ${visible?'':'hidden'}>${urnChoice(cardUrns[0],0,true)}${urnChoice(cardUrns[1],1,true)}</div>
+   ${btn('tutorial-next',review?tutorialStep===1?'Volver a elegir':'Empezar partida':demoChoice===null?'Elegí una urna':'Sacar ficha','primary full',!ready)}
+  </aside></div>
+  <footer class="tutorial-footer"><p>Ejemplo preparado · sin puntos</p>${btn('skip-tutorial','Saltar tutorial','primary')}</footer>
+ </main>`;
 }
 function urnChoice(urn: Urn, index: 0 | 1, demo=false): string {
   const event=demo?'red':state.event;
   const p = probability(urn, event);
   const percent = p.denominator === 0 ? '0' : new Intl.NumberFormat('es-AR', { maximumFractionDigits: 1 }).format(100 * p.numerator / p.denominator);
+  if(demo) {
+    const reviewing=tutorialStep===1||tutorialStep===3;
+    const correct=reviewing&&(tutorialStep===3||index===0);
+    return `<button data-testid="demo-urn-${index}" class="urn-option tutorial-urn ${demoChoice===index?'selected':''} ${reviewing?correct?'answer-correct':'answer-incorrect':''}" aria-label="Urna ${index+1}: ${p.numerator} de ${p.denominator} rojas, ${percent} %" aria-pressed="${demoChoice===index}" ${reviewing?'disabled':''}><span class="urn-option-head"><strong>Urna ${index+1}</strong></span><span class="tutorial-urn-count">${p.numerator}/${p.denominator} rojas</span><strong class="tutorial-urn-percent">${percent} %</strong></button>`;
+  }
   const choosing = demo?(tutorialStep===0||tutorialStep===2):state.phase === 'choose' || state.phase === 'guided';
   const hinted = !demo && choosing && state.assisted && bestChoices(state).includes(index);
   const reviewing = demo?(tutorialStep===1||tutorialStep===3):state.phase === 'revealed' && state.last !== null;
@@ -252,7 +272,7 @@ function updateVisual(): void {
 }
 function selectDemo(index:0|1):void {
  if(screen!=='tutorial'||![0,2].includes(tutorialStep))return;
- demoChoice=index;demoCardsVisible=true;
+ demoChoice=index;demoCardsVisible=true;tutorialHelpPage=0;tutorialView='choice';
  if(tutorialStep===0&&tutorialFlow.phase==='predict'||tutorialStep===2&&tutorialFlow.phase==='explain')tutorialFlow=advanceTutorial(tutorialFlow);
  render('demo-urn-'+index);
 }
@@ -273,12 +293,12 @@ function startNew(preserveCampaign = false): void {
     state.activeTable = 'urns';
   } else state.intro=createDialogue(INTRO); state.settings = structuredClone(settings); persist(); introLine = 0;
   if(preserveCampaign) { setScreen('table','urn-0'); return; }
-  beginIntro(); setScreen('intro', 'skip-intro');
+  beginIntro(); setScreen('intro', 'intro-back');
 }
 function enterTable(): void {
   state.activeTable = 'urns'; persist();
   if (state.phase === 'complete') { setScreen('complete', 'practice-again'); return; }
-  if (!state.history.length) { tutorialStep = 0; tutorialFlow=createTutorial(); demoChoice = null;demoCardsVisible=false; setScreen('tutorial', 'toggle-cards'); }
+  if (!state.history.length) { tutorialStep = 0; tutorialHelpPage=0;tutorialView='choice';tutorialFlow=createTutorial(); demoChoice = null;demoCardsVisible=false; setScreen('tutorial', 'toggle-cards'); }
   else setScreen('table', state.phase === 'revealed' || state.phase === 'roundEnd' ? 'next-step' : 'toggle-cards');
 }
 function finishIntro(skip:boolean):void{
@@ -354,7 +374,19 @@ function showDialog(title: string, content: string, kind=''): HTMLDialogElement 
   dialog.showModal(); return dialog;
 }
 function showSettings(): void {
-  showDialog('Ajustes', `<p class="settings-intro">Los cambios se guardan al instante.</p><div class="settings-tabs" role="tablist" aria-label="Tipo de ajuste">${[['display','Pantalla'],['sound','Sonido']].map(([id,label],i)=>`<button role="tab" id="settings-tab-${id}" aria-selected="${i===0}" aria-controls="settings-${id}" data-settings-tab="${id}">${label}</button>`).join('')}</div><section id="settings-display" role="tabpanel" aria-labelledby="settings-tab-display"><label class="setting-row"><span>Tamaño de texto<small>Incluye explicaciones y subtítulos.</small></span><select data-testid="text-scale">${[1,1.25,1.5,2].map(n=>`<option value="${n}" ${settings.textScale===n?'selected':''}>${n*100} %</option>`).join('')}</select></label><label class="setting-row"><span>Reducir movimiento<small>Sin movimientos de cámara ni animaciones de reposo.</small></span><input type="checkbox" data-testid="reduced-motion" ${settings.reducedMotion?'checked':''}></label><p class="small-note">No hay límite de tiempo para elegir.</p></section><section id="settings-sound" role="tabpanel" aria-labelledby="settings-tab-sound" hidden><label class="setting-row"><span>Volumen<small>En cero, el juego queda en silencio.</small></span><input data-testid="volume" type="range" min="0" max="1" step="0.05" value="${settings.volume}" aria-label="Volumen"></label><p>Las instrucciones también se pueden leer.</p></section><div class="settings-actions">${btn('restore-settings','Restaurar ajustes','secondary')}${btn('delete-save','Borrar progreso…','text-button')}</div>`, 'settings-modal');
+  const volume = Math.round(settings.volume * 100);
+  showDialog('Ajustes', `<p class="settings-intro">Los cambios se guardan al instante.</p>
+    <div class="settings-tabs" role="tablist" aria-label="Tipo de ajuste">${[['display','Pantalla'],['sound','Sonido']].map(([id,label],i)=>`<button role="tab" id="settings-tab-${id}" aria-selected="${i===0}" aria-controls="settings-${id}" data-settings-tab="${id}">${label}</button>`).join('')}</div>
+    <section id="settings-display" role="tabpanel" aria-labelledby="settings-tab-display">
+      <label class="setting-row"><span class="setting-label"><span id="text-scale-label">Tamaño de texto</span><small id="text-scale-description">Incluye explicaciones y subtítulos.</small></span><span class="setting-select"><select data-testid="text-scale" aria-labelledby="text-scale-label" aria-describedby="text-scale-description">${[1,1.25,1.5,2].map(n=>`<option value="${n}" ${settings.textScale===n?'selected':''}>${n*100} %</option>`).join('')}</select></span></label>
+      <label class="setting-row"><span class="setting-label"><span id="motion-label">Reducir movimiento</span><small id="motion-description">Sin movimientos de cámara ni animaciones de reposo.</small></span><span class="setting-switch"><input type="checkbox" role="switch" data-testid="reduced-motion" aria-labelledby="motion-label" aria-describedby="motion-description" ${settings.reducedMotion?'checked':''}><span class="setting-switch-track" aria-hidden="true"></span><span class="setting-switch-state" data-testid="motion-state" aria-hidden="true">${settings.reducedMotion?'Activado':'Desactivado'}</span></span></label>
+      <p class="small-note">No hay límite de tiempo para elegir.</p>
+    </section>
+    <section id="settings-sound" role="tabpanel" aria-labelledby="settings-tab-sound" hidden>
+      <label class="setting-row"><span class="setting-label"><span id="volume-label">Volumen</span><small id="volume-description">En cero, el juego queda en silencio.</small></span><span class="setting-volume-control"><input id="settings-volume" data-testid="volume" type="range" min="0" max="1" step="0.05" value="${settings.volume}" aria-labelledby="volume-label" aria-describedby="volume-description" aria-valuetext="${volume} %" style="--range-progress:${volume}%"><output for="settings-volume" data-testid="volume-value" aria-hidden="true">${volume} %</output></span></label>
+      <p class="small-note">Las instrucciones también se pueden leer.</p>
+    </section>
+    <div class="settings-actions">${btn('restore-settings','Restaurar ajustes','secondary')}${btn('delete-save','Borrar progreso…','text-button')}</div>`, 'settings-modal');
 }
 
 function enterContracts(): void {
@@ -427,7 +459,7 @@ function handleGameClick(event: MouseEvent): void {
   if(id==='intro-history'){showDialog('Lo que dijeron',`<p class="conversation-lead">Podés volver a leer lo que escuchaste hasta ahora.</p><ol class="conversation-list">${intro.slice(0,introLine+1).map(([speaker,line],i)=>`<li><article class="conversation-entry"><header><span class="speaker-emblem" aria-hidden="true">${speaker==='Vera'?'V':'A'}</span><h3>${escapeText(speaker)}</h3><span class="conversation-order">${i+1} de ${introLine+1}</span></header><p>${escapeText(line)}</p></article></li>`).join('')}</ol>`,'conversation-modal');return;}
   if(id==='remember-street'){stopIntro();setScreen('street','street-forward');return;}
   if(id==='street-forward'){state.streetPosition=Math.min(8,(state.streetPosition??0)+1);chime();persist();render('street-forward');return;}
-  if(id==='street-return'){beginIntro();setScreen('intro','skip-intro');return;}
+  if(id==='street-return'){beginIntro();setScreen('intro','intro-back');return;}
   if(id?.startsWith('walk-')){moveRoom(id.slice(5) as InputAction);return;}
   if (id === 'retry-graphics') { void initScene(); return; }
   if (id === 'settings-button') { showSettings(); return; }
@@ -439,14 +471,33 @@ function handleGameClick(event: MouseEvent): void {
     if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p>${btn('confirm-new-game','Empezar de nuevo','primary full')}`); return; }
     startNew(id === 'practice-again'); return;
   }
-  if (id === 'continue-game') { if(state.intro?.ended&&!state.activeTable&&!state.history.length){setScreen('room','enter-urns');return;} if(state.intro&&!state.intro.ended&&!state.activeTable&&!state.history.length){introLine=Math.max(0,INTRO.nodes.findIndex(n=>n.id===state.intro!.node));if(introLine===0)beginIntro();else introPhase='lit';setScreen('intro','skip-intro');return;} if(state.activeTable==='outside'&&state.freed){setScreen('outside','back-room');return;} if(state.activeTable==='records'){enterRecords();return;} if(state.activeTable==='finale'){enterFinale();return;} if(state.activeTable === 'contracts' && state.contracts) { enterContracts(); return; } setScreen(state.phase === 'complete' ? 'complete' : 'table', state.phase === 'choose' || state.phase === 'guided' ? 'toggle-cards' : 'next-step'); return; }
-  if (id === 'skip-intro' || (id === 'intro-next' && introLine === 2)) {finishIntro(id==='skip-intro');return;}
-  if (id === 'intro-next') { stopIntro();introPhase='lit';state.intro??=createDialogue(INTRO);state.intro=applyDialogue(INTRO,state.intro,{id:'intro-'+state.intro.revision,revision:state.intro.revision,type:'next'});introLine=Math.max(0,INTRO.nodes.findIndex(n=>n.id===state.intro!.node));persist();render('intro-next');return;}
+  if (id === 'continue-game') { if(state.intro?.ended&&!state.activeTable&&!state.history.length){setScreen('room','enter-urns');return;} if(state.intro&&!state.intro.ended&&!state.activeTable&&!state.history.length){introLine=Math.max(0,INTRO.nodes.findIndex(n=>n.id===state.intro!.node));if(introLine===0)beginIntro();else introPhase='lit';setScreen('intro',introPhase==='dark'?'intro-back':'intro-next');return;} if(state.activeTable==='outside'&&state.freed){setScreen('outside','back-room');return;} if(state.activeTable==='records'){enterRecords();return;} if(state.activeTable==='finale'){enterFinale();return;} if(state.activeTable === 'contracts' && state.contracts) { enterContracts(); return; } setScreen(state.phase === 'complete' ? 'complete' : 'table', state.phase === 'choose' || state.phase === 'guided' ? 'toggle-cards' : 'next-step'); return; }
+  if (id === 'intro-back' && screen === 'intro') {
+    stopIntro();
+    if (introLine === 0) { setScreen('menu', 'continue-game'); return; }
+    introPhase = 'lit'; introLine--; render('intro-back'); return;
+  }
+  if (id === 'intro-next' && screen === 'intro' && introPhase !== 'dark') {
+    stopIntro(); introPhase = 'lit';
+    if (introLine === intro.length - 1) { finishIntro(false); return; }
+    state.intro ??= createDialogue(INTRO);
+    if (INTRO.nodes[introLine]!.id === state.intro.node) {
+      state.intro = applyDialogue(INTRO, state.intro, { id: 'intro-' + state.intro.revision, revision: state.intro.revision, type: 'next' });
+      persist();
+    }
+    introLine++; render('intro-next'); return;
+  }
   if (id === 'enter-urns') { enterTable(); return; }
+  if(screen==='tutorial'&&id?.startsWith('tutorial-view-')){tutorialView=id==='tutorial-view-help'?'help':'choice';render(id);return;}
+  if(screen==='tutorial'&&(id==='tutorial-help-previous'||id==='tutorial-help-next')){
+    const last=app.querySelectorAll('[data-tutorial-help-page]').length-1;
+    tutorialHelpPage=Math.min(last,Math.max(0,tutorialHelpPage+(id==='tutorial-help-next'?1:-1)));
+    render(tutorialHelpPage===last?'tutorial-help-previous':tutorialHelpPage===0?'tutorial-help-next':id);return;
+  }
   if (id === 'demo-urn-0' || id === 'demo-urn-1') {selectDemo(id==='demo-urn-0'?0:1);return;}
   if (id === 'tutorial-next') {
     if(screen!=='tutorial'||tutorialStep===0&&demoChoice!==0||tutorialStep===2&&demoChoice===null)return;
-    if(tutorialStep<3){tutorialStep++;tutorialFlow=advanceTutorial(tutorialFlow);if(tutorialStep===2){demoChoice=null;demoCardsVisible=false;}chime();render(tutorialStep===2?'toggle-cards':'tutorial-next');}
+    if(tutorialStep<3){tutorialStep++;tutorialHelpPage=0;tutorialFlow=advanceTutorial(tutorialFlow);if(tutorialStep===2){demoChoice=null;demoCardsVisible=false;}chime();render(tutorialStep===2?'toggle-cards':'tutorial-next');}
     else setScreen('table','toggle-cards');
     return;
   }
@@ -467,7 +518,7 @@ function handleGameClick(event: MouseEvent): void {
     else render(state.phase === 'roundEnd' ? 'next-step' : 'toggle-cards'); return;
   }
   if (id === 'back-room') {const table=state.activeTable;persist();setScreen('room',table==='contracts'||table==='records'||table==='finale'?'enter-'+table:'enter-urns');return;}
-  if(id==='repeat-tutorial'){tutorialStep=0;demoChoice=null;demoCardsVisible=false;tutorialFlow=createTutorial();setScreen('tutorial','toggle-cards');return;}
+  if(id==='repeat-tutorial'){tutorialStep=0;tutorialHelpPage=0;tutorialView='choice';demoChoice=null;demoCardsVisible=false;tutorialFlow=createTutorial();setScreen('tutorial','toggle-cards');return;}
   if (id === 'help-button') {const helpId='urns-'+state.round+'-'+state.step;tutorialFlow=requestHelp(tutorialFlow,helpId);state.helpHistory??=[];if(!state.helpHistory.includes(helpId))state.helpHistory.push(helpId);persist();showDialog('Cómo comparar', '<p>Contá las fichas del color pedido y comparalas con el total. Tres rojas de cinco ofrecen más posibilidades que una de dos.</p><p>Si la ficha queda afuera, volvé a contar antes de elegir.</p>');}
 }
 app.addEventListener('click', handleGameClick);
@@ -487,9 +538,24 @@ overlay.addEventListener('click', event => {
   if (id === 'delete-save') { overlay.querySelector('dialog')?.close(); showDialog('Borrar el progreso', `<p>Se eliminarán la partida y su copia de seguridad. Esta acción no se puede deshacer.</p>${btn('confirm-delete','Borrar el progreso','primary full')}`); }
   if (id === 'confirm-delete') { clearGame(); storageConflict=false; hasSave=false; warning=null; state=createGame(); settings=structuredClone(defaultSettings); applySettings(); overlay.querySelector('dialog')?.close(); setScreen('menu','new-game'); }
 });
+overlay.addEventListener('input', event => {
+  const el = event.target as HTMLInputElement;
+  if (el.dataset.testid !== 'volume') return;
+  settings.volume = Number(el.value);
+  const volume = Math.round(settings.volume * 100);
+  el.style.setProperty('--range-progress', `${volume}%`);
+  el.setAttribute('aria-valuetext', `${volume} %`);
+  const output = overlay.querySelector<HTMLOutputElement>('[data-testid="volume-value"]');
+  if (output) output.value = `${volume} %`;
+  gameAudio.setVolume(settings.volume);
+});
 overlay.addEventListener('change', event => {
   const el = event.target as HTMLInputElement;
-  if (el.dataset.testid === 'reduced-motion') settings.reducedMotion = el.checked;
+  if (el.dataset.testid === 'reduced-motion') {
+    settings.reducedMotion = el.checked;
+    const status = overlay.querySelector('[data-testid="motion-state"]');
+    if (status) status.textContent = el.checked ? 'Activado' : 'Desactivado';
+  }
   if (el.dataset.testid === 'text-scale') settings.textScale = Number(el.value);
   if (el.dataset.testid === 'volume') settings.volume = Number(el.value);
   const bindingMap: Record<string, InputAction> = {'bind-forward':'forward','bind-backward':'backward','bind-urn-u':'left','bind-urn-v':'right','bind-confirm':'interact'};

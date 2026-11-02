@@ -24,3 +24,6 @@ playwright-report/
 
 # Full dice regression captures retained locally; selected release evidence is versioned.
 /docs/evidence/dice-combinations/local/
+
+# CreateApp: archivos locales
+.createapp/tools/

@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { createGame, choose, advance, type GameState } from '../../src/core/game';
 import { mkdir } from 'node:fs/promises';
+import { completeIntro } from './story-navigation';
 
 const evidence = process.env.EVIDENCE_DIR ?? 'docs/evidence/urn-feedback';
 async function load(page: Page, state?: GameState) {
@@ -10,7 +11,7 @@ async function load(page: Page, state?: GameState) {
   if(state) await page.getByTestId('continue-game').click();
   else {
     await page.getByTestId('new-game').click();
-    await page.getByTestId('skip-intro').click();
+    await completeIntro(page);
     await page.getByTestId('enter-urns').click();
     await page.getByTestId('skip-tutorial').click();
   }

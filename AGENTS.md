@@ -47,3 +47,9 @@ Núcleo matemático puro, RNG inyectable, decisiones y suerte separadas, progres
 No afirmar diversión, aprendizaje, rendimiento o accesibilidad sin medición y evidencia apropiada.
 Antes de push ejecutar validaciones documentales y matemáticas, revisar secretos/licencias/diff.
 Crear PR sin merge automático. No añadir secretos a carpetas de agentes.
+
+<!-- createapp:start -->
+## CreateApp: reglas de este proyecto
+
+Antes de trabajar, leer `.createapp/POLICY.md`. Ese archivo expresa la selección y las excepciones de proceso elegidas por el usuario. Las skills `ca-*` son perfiles adaptados; las fuentes en `.createapp/vendor/` se consultan por partes. No cargar todos los paquetes ni activar otros coordinadores.
+<!-- createapp:end -->

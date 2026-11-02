@@ -1,5 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
+import {completeIntro} from './story-navigation';
 import {createGame,choose,advance,bestChoices,type GameState} from '../../src/core/game';
 import {createContracts,applyContractCommand,currentObjective} from '../../src/core/tables/contracts';
 import {bestContracts} from '../../src/core/math/dice';
@@ -67,7 +68,7 @@ test('gates, narrow display, text scaling and silent mouse choices',async({page}
 test('another tab changes the save without silently overwriting its progress',async({page})=>{
  await open(page,checkpoint());const raw=JSON.stringify({schemaVersion:99});await page.evaluate(raw=>{localStorage.setItem('thegame.save.v1.current',raw);window.dispatchEvent(new StorageEvent('storage',{key:'thegame.save.v1.current',newValue:raw,oldValue:'previous'}));},raw);
  await beginRecords(page);await expect(page.locator('.save-warning')).toContainText('Otra pestaña');expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(raw);
- await page.getByTestId('settings-button').click();await page.getByTestId('delete-save').click();await page.getByTestId('confirm-delete').click();await page.getByTestId('new-game').click();await page.getByTestId('skip-intro').click();await expect(page.locator('.save-warning')).toHaveCount(0);expect((await saved(page)).intro!.ended).toBe(true);
+ await page.getByTestId('settings-button').click();await page.getByTestId('delete-save').click();await page.getByTestId('confirm-delete').click();await page.getByTestId('new-game').click();await completeIntro(page);await expect(page.locator('.save-warning')).toHaveCount(0);expect((await saved(page)).intro!.ended).toBe(true);
 });
 test('Doble preserves a good decision through a lost roll, reload and reading its accounts',async({page})=>{
  const s=checkpoint();delete s.records;s.contracts=createContracts(1);s.activeTable='contracts';s.seals!.contracts=false;await open(page,s);

@@ -16,9 +16,9 @@
 body[data-screen=menu] #scene,body[data-screen=intro] #scene,body[data-screen=room] #scene,body[data-screen=complete] #scene{opacity:0;pointer-events:none}
 body[data-screen=table] #cast,body[data-screen=tutorial] #cast,body[data-screen=complete] #cast{display:none}
 body[data-screen=room] #captor{right:28%;height:73vh;width:44vw;opacity:.65}
-body[data-screen=intro] #captor{right:3%;height:91vh;width:57vw;animation:none}
+body[data-screen=intro] #captor{right:3%;height:91vh;width:57vw;animation:none;opacity:1;transition:opacity 1.2s ease-out}
 body[data-screen=intro][data-intro-phase=dark] #blackout,body[data-screen=intro][data-intro-phase=reveal] #blackout{opacity:1;transition:none}
-body[data-screen=intro][data-intro-phase=dark] #captor{visibility:hidden}
+body[data-screen=intro][data-intro-phase=dark] #captor{visibility:hidden;opacity:0;transition:none}
 body[data-screen=intro][data-intro-phase=reveal] #captor{filter:drop-shadow(0 0 35px #965faa66);opacity:1}
 body[data-screen=intro] #vignette{background:linear-gradient(90deg,#0f0b18a8,transparent 75%)}
 body[data-screen=intro][data-intro-phase=dark] .topbar{visibility:hidden}
