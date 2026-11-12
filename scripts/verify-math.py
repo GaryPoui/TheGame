@@ -91,6 +91,17 @@ for rounds,threshold,label in [(4,6,'assistant'),(3,4,'final')]:
 check('final worked score and balance', 2+2+2==6 and 1-1==0)
 check('optimal choices progress under worst random payouts',8>=6 and 6>=4)
 
+# New photo diagnostic: each new fair-coin game is independent.
+coin_histories=list(product([0,1],repeat=5))
+for prefix,label in [((1,1,1,1),'wins'),((0,0,0,0),'losses')]:
+    matching=[h for h in coin_histories if h[:4]==prefix]
+    check(f'next win after four {label} remains one half', F(sum(h[4] for h in matching),len(matching))==F(1,2))
+check('four past wins probability is distinct from next-win chance', F(1,16)!=F(1,2))
+
+check('photo album equal proportions', F(2,4)==F(4,8))
+check('photo repeat proportion exceeds larger count', F(3,4)>F(4,8))
+check('two future independent wins', sum(a==b==1 for a,b in product([0,1],repeat=2))==1)
+
 result={'status':'passed','method':'exact rational enumeration and assertions; not gameplay or pedagogical validation','checks':len(checks),'assertions':checks,'dice_counts':dict(sorted(sums.items())),'expected_net':ev,'variance':variances,'objectives':objectives,'optimal_contracts':winners,'urns':urn_evidence,'record_block_outcomes_enumerated':len(block_results),'progression':progression}
 root=Path(__file__).resolve().parents[1]
 output=root/'docs/evidence/math-verification.json'

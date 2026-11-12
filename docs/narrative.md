@@ -1,7 +1,8 @@
 # Narrativa y guion de introducción
 
-Estado actual: apertura breve implementada en el MVP; la secuencia de calle y el final de
-campaña descritos más abajo siguen propuestos. Título provisional: La Casa del Azar. Tensión
+Estado actual (2026-10-27): apertura breve, recuerdo opcional de calle, liberación, tres asistentes
+y epílogo implementados. Las tablas de tiempos más abajo conservan objetivos originales;
+la ejecución real y sus límites están en [campaña](campaign-implementation.md). Título provisional: La Casa del Azar. Tensión
 y humor oscuro moderado, sin violencia gráfica. «Saltar introducción» lleva a la sala, donde
 se recuerda que las manos están libres y la puerta cerrada.
 
@@ -19,8 +20,9 @@ Tiempos, retratos y procedencia en [Teatro de tinta](ink-theatre.md).
 - Vera: «En esta casa una buena decisión puede terminar mal. Eso no la convierte en una
   mala decisión. Te voy a mostrar por qué».
 
-El MVP presenta liberación e ingreso mediante texto y selector de mesa. No contiene aún
-calle caminable, grilletes modelados, actuaciones por cuadros ni final contra el captor.
+La liberación se muestra en texto y se registra una sola vez. La calle es un recuerdo opcional
+de ocho pasos y se reutiliza al amanecer en el epílogo. Sala con selector y plano acotado; final
+contra el captor completo. No se presentan grilletes 3D ni actuación por cuadros como terminados.
 
 ## Premisa y personajes
 

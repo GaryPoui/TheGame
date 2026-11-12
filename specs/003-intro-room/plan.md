@@ -1,5 +1,9 @@
 # Implementation Plan: Introducción y sala
 
+> Ejecución 2026-10-26/27: implementación y correspondencia de módulos en
+> [campaña](../../docs/campaign-implementation.md). Este documento conserva el plan inicial;
+> las tareas y la evidencia distinguen implementación de validación externa pendiente.
+
 **Branch**: `codex/research-specs-skills` | **Date**: 2026-10-22 | **Spec**: [spec.md](spec.md)
 
 ## Summary

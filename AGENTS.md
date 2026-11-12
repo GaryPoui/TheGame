@@ -2,8 +2,8 @@
 
 Leer README, docs/memoria-del-chat.md, docs/continuity.md, docs/original-prompt.md y la constitución antes de trabajar.
 El contexto vigente es TheGame / La Casa del Azar, no el proyecto anterior JuegoFiore.
-Base visual en codex/ink-theatre; revisión del primer juego en codex/urn-feedback (PR #6).
-La build pública se sirve desde gh-pages. Pedido 2026-10-26: concentrarse en urnas antes de otra spec.
+Fuente de campaña en codex/complete-campaign (PR #7), con tinta de codex/ink-theatre y urnas de codex/urn-feedback. Ver docs/campaign-implementation.md.
+La build pública se sirve desde gh-pages. Pedido vigente 2026-10-26: completar specs restantes y final, mantener diseño, commits incrementales.
 Pedido vigente del 2026-10-23: todos los textos sin serifa, incluidos créditos y etiquetas 3D.
 El prompt explícito del usuario tiene prioridad. La fase documental está completada; el 2026-10-23
 el usuario autorizó continuar hasta un MVP y hostearlo. Ver docs/mvp-scope.md y mvp-validation.md.
@@ -47,3 +47,9 @@ Núcleo matemático puro, RNG inyectable, decisiones y suerte separadas, progres
 No afirmar diversión, aprendizaje, rendimiento o accesibilidad sin medición y evidencia apropiada.
 Antes de push ejecutar validaciones documentales y matemáticas, revisar secretos/licencias/diff.
 Crear PR sin merge automático. No añadir secretos a carpetas de agentes.
+
+<!-- createapp:start -->
+## CreateApp: reglas de este proyecto
+
+Antes de trabajar, leer `.createapp/POLICY.md`. Ese archivo expresa la selección y las excepciones de proceso elegidas por el usuario. Las skills `ca-*` son perfiles adaptados; las fuentes en `.createapp/vendor/` se consultan por partes. No cargar todos los paquetes ni activar otros coordinadores.
+<!-- createapp:end -->

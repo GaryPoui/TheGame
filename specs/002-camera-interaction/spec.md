@@ -2,7 +2,7 @@
 
 **Feature Branch**: `codex/research-specs-skills` (entrega documental; spec independiente de rama)
 **Created**: 2026-10-22
-**Status**: Especificada; implementación pendiente de instrucción posterior
+**Status**: Implementada en el teatro de tinta; adaptación y evidencia en [campaña](../../docs/campaign-implementation.md).
 **Input**: Apartado 002 del prompt original y decisiones versionadas.
 
 ## Objetivo y dependencias

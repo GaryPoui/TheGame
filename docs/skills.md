@@ -95,3 +95,27 @@ capturas y regresiones usando Playwright TypeScript ya instalado. Ver docs/ink-t
 
 Revisión 2026-10-26: game-ui-ux, frontend-design y webapp-testing aplicadas a
 selección, cartas y feedback del primer juego. Ver [evidencia](urn-feedback.md).
+
+Campaña 2026-10-26: speckit-implement, game-designer, save-systems, game-ui-ux, frontend-design, webapp-testing; después dialogue-systems, camera-systems, input-systems y audio-design. create-game-assets + imagegen para Ada. performance-optimization se aplica sólo a medición, sin prometer rendimiento físico. Evidencia: [campaña](campaign-implementation.md).
+
+Mesas 2026-10-28: game-ui-ux, frontend-design, create-game-assets, camera-systems y webapp-testing leídas y aplicadas a encuadre, objetos y jerarquía de la partida. Se conserva el Playwright TypeScript instalado. Ver [cambio y evidencia](table-focus.md).
+
+Fotos 2026-10-28: game-designer, game-ui-ux y webapp-testing aplicadas al reemplazo de Ada, diagnóstico local y simplificación de Doble. Ver [reglas y evidencia](photos-redesign.md).
+
+Personajes/desafíos 2026-10-28: imagegen integrada para tres extensiones de cuerpo completo; game-ui-ux/frontend-design para jerarquía de Doble y encuadre. Ver [entrega y procedencia](character-challenge-update.md).
+
+Doble compacto 2026-10-28: game-ui-ux, frontend-design y webapp-testing para tres opciones visibles, combinaciones gráficas y verificación de matemática/escala. Ver [evidencia](dice-combinations.md).
+
+Mesa y tirada 2026-10-29: game-ui-ux, game-feel y webapp-testing para encuadre reservado, giro/rebote amortiguado, lectura del resultado y controles con movimiento reducido. Ver [evidencia](dice-table-roll.md).
+
+Énfasis de Doble 2026-10-29: game-ui-ux y frontend-design para jerarquía centrada en la mesa y fichas compactas. Validación con el Playwright TypeScript existente. Ver [evidencia](doble-table-focus.md).
+
+Dados legibles 2026-10-29: game-ui-ux y frontend-design para caras con puntos y distribución más clara en las cartas, conservando la mesa. Ver [evidencia](clear-dice-combinations.md).
+
+Retrato de Doble 2026-10-29: camera-systems para encuadre del sujeto y game-ui-ux para conservar la mesa y los controles. Ver [evidencia](doble-waist-portrait.md).
+
+Proporciones de Doble 2026-10-29: camera-systems para encuadrar torso y mesa juntos; game-ui-ux para reasignar espacio de la pregunta duplicada y compactar contadores en celular. Ver [evidencia](doble-proportions.md).
+
+Rediseño de Ada 2026-10-29: frontend-design y game-ui-ux para composición compartida, fotos sobre el paño, panel y controles adaptables. Se verifica con Playwright TypeScript existente. Ver [evidencia](ada-table-redesign.md).
+
+Interfaz 2026-10-29: game-ui-ux, frontend-design, webapp-testing e Impeccable (ruta proporcionada por el usuario). Ver [aplicación y evidencia](clear-interface.md).

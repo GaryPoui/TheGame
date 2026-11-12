@@ -1,0 +1,26 @@
+/* A reserved window keeps the original wooden table and both dice visible. */
+.contracts-layout .dice-table{order:-1;width:100%;min-width:0;margin:0;background:#1d172349;border-bottom:1px solid #b59b694d;border-radius:12px;overflow:hidden}
+.dice-viewport{position:relative;width:100%;height:160px;isolation:isolate}
+body[data-screen=contracts] .dice-viewport #scene{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:1}
+.dice-table-caption{text-align:center;color:#fff0d6;font-weight:600;font-size:.9rem;line-height:1.4;padding:.35rem .5rem;margin:0;background:#261d2de8;font-variant-numeric:tabular-nums}
+.dice-table-fallback{position:absolute;inset:22% 4% 8%;background:radial-gradient(ellipse,#315346,#17382c);border:7px solid #805335;border-top:3px solid #bca16c;border-radius:50%;display:grid;place-items:center;box-shadow:0 5px 0 #382a2b}
+.dice-viewport:has(canvas) .dice-table-fallback{display:none}
+body:has(.graphics-warning) .dice-viewport canvas{display:none}
+body:has(.graphics-warning) .dice-viewport .dice-table-fallback{display:grid}
+.contracts-layout .contracts-heading .decision-track,.contracts-layout .dice-mission p{display:none}
+.contracts-layout .dice-mission{padding:.6rem .9rem;margin:.45rem 0}.contracts-layout .dice-mission h2{font-size:1.15rem;line-height:1.3}.contracts-layout .contracts-heading>p{margin-bottom:.4rem}.contracts-layout .contract-stage{gap:.5rem}
+.is-rolling .dice-table-fallback .dice-face{animation:table-die-bounce .85s ease-out both}.is-rolling .dice-table-fallback .dice-face:nth-child(2){animation-delay:.05s}
+.rolling-note{font-weight:600}
+@keyframes table-die-bounce{0%{transform:translate(-65px,-24px) rotate(-160deg)}40%{transform:translate(18px,-32px) rotate(95deg)}70%{transform:translate(-8px,-12px) rotate(-30deg)}100%{transform:translate(0,0) rotate(0)}}
+@media(max-width:1100px){.dice-viewport{height:150px}}
+@media(max-width:760px){
+ .contracts-layout{padding-top:.5rem}.dice-viewport{height:108px}.dice-table-caption{font-size:.75rem;padding:.25rem .3rem}
+ .contracts-layout .contracts-heading h1{margin-bottom:.25rem}.contracts-layout .dice-mission h2{font-size:1rem;line-height:1.25}.contracts-layout .dice-mission{padding:.45rem .65rem;margin:.35rem 0}.contracts-layout .dice-mission>small{font-size:.65rem}.contracts-layout .contracts-heading>p{font-size:.65rem;margin-bottom:.25rem}.contracts-layout .contracts-heading .scoreboard{font-size:.7rem}
+ .contracts-layout .compact-offer{padding:.45rem .55rem;gap:.25rem .5rem;min-height:0}.compact-offer .offer-heading{flex-wrap:nowrap;gap:.3rem}.compact-offer .offer-name{font-size:.82rem}.compact-offer .offer-cost{display:none}.compact-offer .compact-payment{font-size:.75rem;line-height:1.25}.compact-payment small{font-size:.62rem;margin-top:.2rem}.compact-offer .offer-select{padding:.18rem .25rem;font-size:.68rem}.compact-offer .winning-combos{grid-row:1/4;min-width:155px}.contracts-layout .contract-offers{gap:.4rem}
+ .contracts-layout .combo-legend{font-size:.65rem;margin-top:0}
+ .contracts-layout .compact-offer .offer-heading{line-height:1.15;font-size:.8rem}
+ .contracts-layout .compact-offer .compact-payment{font-size:.75rem;line-height:1.25}
+ .contracts-layout .compact-offer .offer-select{font-size:.68rem;line-height:1.1}
+ .enlarged-text .dice-viewport{height:160px}.enlarged-text .compact-offer .winning-combos{min-width:0}.enlarged-text .compact-offer .offer-heading{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){.is-rolling .dice-table-fallback .dice-face{animation:none}}

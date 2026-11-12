@@ -275,3 +275,151 @@ con explicaciones más simples. Rama de revisión codex/urn-feedback sobre fac13
 Se conserva la tipografía sin serifa de bula393 y no se integra codex/doble-contracts.
 Ver [alcance y evidencia](urn-feedback.md); la corrección usa probabilidades antes de extraer,
 ambas cartas quedan verdes en empate y una buena decisión conserva verde aunque salga otro color.
+
+## 12. Implementación de Doble — 23/10/2026
+
+Pedido directo: «implementa la mesa doble». Rama del corte `codex/doble-contracts` sobre la
+fuente de tinta. Doble ya tiene tutorial preparado, personaje SVG original, dados 3D, contratos
+S/C/J, cuatro rondas con dos decisiones, segunda orden hipotética sin tirada, cuadrícula de
+36 pares y simulación separada de 1/100 tiradas. El sello se obtiene con 6/8 o completando dos
+microescenarios guiados; saldo negativo no bloquea ni quita méritos. Repetición cambia el
+umbral de transferencia a 20 y conserva sellos y su método. El guardado compartido usa esquema
+2 con aceptación del esquema legado 1; el resultado revelado no se vuelve a sortear al cargar.
+
+Se conserva el teatro de tinta y toda la tipografía sans vigente. Ada y anfitrión/final no están
+implementados por este pedido. Evidencia y límites en [doble-implementation](doble-implementation.md):
+recorridos manuales, build/typecheck, sin nuevas suites automatizadas ni afirmación de aprendizaje
+validado. T007/T008 de 006 quedan pendientes. El estado de publicación y sus hashes se agregan
+únicamente después de confirmar el push y el despliegue; no inferirlos de esta nota.
+
+## Publicación verificada de Doble — 23/10/2026
+
+- Fuente: `0c039791eb9e07840cf57584ed803239db0d71c7`, rama `codex/doble-contracts`.
+- Revisión abierta: https://github.com/GaryPoui/TheGame/pull/5, base `codex/ink-theatre`, sin merge automático.
+- Build estática: `a5a1977f5125f0e213aaf6a43dc28620735497b1`, rama `gh-pages`, versión `urns-contracts-v1`.
+- GitHub Pages terminó con éxito: https://github.com/GaryPoui/TheGame/actions/runs/39951468045.
+- Juego: https://garypoui.github.io/TheGame/.
+
+Comprobación pública: el guardado anterior abrió Vera completada con 8/8 y 5 fichas; el botón
+«Llevar el sello a Doble» habilitó presentación y primera mesa. Contratos S/C/J, dados y personaje
+cargaron, sin aviso de guardado y sin errores de consola capturados. No se reinició Vera ni se
+confirmó una tirada nueva en el perfil público. Fuentes computadas Arial/Helvetica/sans-serif.
+Captura: `docs/evidence/doble/public-table.png`. La partida completa y la ayuda se recorrieron
+localmente; esta comprobación pública cubre migración, acceso y carga, no todo el recorrido.
+
+La rama de fuente vigente para continuar esta entrega es `codex/doble-contracts`; la rama
+`codex/ink-theatre` conserva la versión previa. El sitio sigue publicando sólo desde `gh-pages`.
+
+## Retrato de Doble, revisión v2 — 23/10/2026
+
+El usuario pidió que el crupier coincidiera con los demás personajes. Se sustituyó el SVG activo
+por `public/art/doble-v2.png`, generado con imagegen usando Vera como referencia principal de
+estilo, el anfitrión como referencia secundaria de acabado/paleta y una captura del Doble previo
+para conservar identidad. Tinta de grosor variable, textura pictórica, ojos expresivos, traje
+ciruela, solapas desiguales y sombrero. El encuadre hasta la cadera permite leer cara y manos
+sobre la mesa. La imagen se comparte entre presentación HTML y plano de Babylon.
+
+PNG 1024×1536 RGBA, 2.236.166 bytes, alfa 0..254 y esquinas transparentes. Copia byte a byte de
+la salida de imagegen, sin edición de píxeles; el SVG anterior permanece histórico. Prompt exacto,
+referencias, hash, herramienta y derechos en `public/doble-art-v2.json` y `docs/doble-art-v2.json`.
+La generación no implica animación nueva. Reglas, puntuación y guardado siguen iguales.
+
+Compilación/typecheck aprobadas; inspección del retrato y de la mesa en escritorio, sin errores
+de consola capturados. Captura en `docs/evidence/doble-art-v2/table-desktop.png`. No se ejecutaron
+suites de tests ni se repitió el recorrido de juego para esta sustitución de arte.
+
+### Publicación de la revisión artística
+
+Fuente `61268d31e1b01e1f284b076126ea79c4b1ce3dfb`, despliegue `80100dc3562495397dffe3f75784762999455665`,
+versión `urns-contracts-doble-art-v2`. GitHub Pages finalizó con éxito:
+https://github.com/GaryPoui/TheGame/actions/runs/39953002366.
+Se abrió el juego público, se retomó el progreso existente y se inspeccionó el nuevo retrato
+detrás de la mesa sin errores de consola capturados. Captura:
+`docs/evidence/doble-art-v2/public-table.png`. PR #5 conserva los cambios sin merge automático.
+
+
+## Jugabilidad más práctica — 2026-10-23 · sólo local
+
+Pedido: mejorar las dos mesas, explicar mientras se juega y hacerlas más atractivas.
+Restricción posterior explícita: **no pushes al repo**. No commit, push ni despliegue en este corte.
+
+Vera: inventarios con fichas contables en el paño; tutorial de tres momentos con elección real,
+extracción roja preparada y comparación de fracciones equivalentes; explicación según urna elegida;
+antes/después de la fracción y manejo de urna vacía. El cierre de ronda se integra en Continuar,
+sin saltar decisiones. Repetir Vera conserva sellos y entra a jugar sin repetir la apertura.
+Doble: distribuciones de 36 casos en cada contrato, cálculo contextual del elegido y ensayo manual
+de dos dados (2,2 inicial; cada botón cambia un dado entre 1 y 6). El ensayo es estado de interfaz,
+no llama al RNG, no modifica campaña/saldo y no se guarda. Recibo visual del mismo par mantiene
+señalado el contrato firmado original, incluso después de la orden hipotética.
+
+Diseño: teatro de tinta, arte existente y textos sans; progreso de decisiones, controles sobre el
+paño, acción principal fija y objetivo visible en celular. Feedback breve después del resultado,
+sin bloqueo de controles y respetando movimiento reducido; las acciones de teclado no lo animan.
+Build/typecheck completadas; inspección visual de escritorio y celular y manipulación del ensayo.
+Sin suites de pruebas automatizadas nuevas ni ejecutadas; diversión y aprendizaje no medidos.
+Detalle y capturas locales: docs/playability-local.md y docs/evidence/playability/.
+
+
+### Autorización posterior de publicación
+
+El usuario pidió «PUSHEA TODO PARA QUE ESTE EN EL PAGES». Esta instrucción reemplaza la
+restricción de no hacer push para el corte de jugabilidad. Se prepara la subida de fuente y build
+a gh-pages; los identificadores finales se registran tras la publicación efectiva.
+
+
+### Publicación efectiva de jugabilidad
+
+Fuente `7b463b0f3c04a73b26dff0020fc94d3d861c0e9e`, despliegue
+`8e64958f8c2c35d8b40666b963dca42731b893ec`, versión `urns-contracts-playability-v1`.
+Workflow https://github.com/GaryPoui/TheGame/actions/runs/39956779863 completado con éxito.
+Se comprobó HTTP 200 del sitio, build-info con fuente/versión correctas y coincidencia del
+bundle público con dist local (incluye rehearse-die-). No se ejecutaron suites de gameplay.
+PR #5 actualizado; sin merge automático. Este registro reemplaza el estado local anterior.
+
+## 14. Campaña completa — 26/10/2026
+
+El usuario autorizó completar todas las specs posibles, integrar el final, mantener diseño y subir avances por commits. Se integró Doble con las mejoras de urnas y después se implementaron Ada y el anfitrión. Rama `codex/complete-campaign`, PR [7](https://github.com/GaryPoui/TheGame/pull/7), sin merge automático. Commits iniciales 4b18e56, 478723b y 0f4bd7a; el historial contiene los siguientes bloques.
+
+Hay tres sellos, final de seis decisiones, ayuda finita y epílogo; practicar conserva libertad. Guardado v3 compatible con v1/v2, detección de otra pestaña, diálogos con IDs y checkpoints, controles reasignables y plano de sala, recuerdo opcional de calle que conserva la apertura a oscuras. Ada tiene arte nuevo con Vera como referencia de familia y manifiesto propio.
+
+La validación de reglas y recorridos no demuestra aprendizaje ni duración. La medición de render se hizo con SwiftShader, no GPU física. Documentación actual, pruebas, perfiles, límites y estado de publicación: [campaña](campaign-implementation.md). Este apartado supera las instrucciones históricas de detenerse en una sola mesa.
+
+Cierre 27/10/2026: la campaña final v5.2 está publicada en https://garypoui.github.io/TheGame/. Fuente 93c7e42, deployment 8ea9003, PR #7. Comprobación de esa versión: 32 unitarias, 24 casos públicos y 143 archivos por hash. Hay 95 tareas implementadas; la T011 agregada de validación externa sigue abierta. La última entrega y evidencias se consultan en delivery.json y docs/campaign-implementation.md.
+
+
+## 15. Mesas protagonistas — 2026-10-28
+
+El usuario pidió que las mesas fueran el centro de atención, con objetos de juego más claros y utilería propia de cada puesto. Se conserva la dirección actual: tablero amplio con marco de madera y paño, personajes en el borde, instrucciones al costado y opciones sobre la superficie. Vera recibe bandeja, pala e inventario; Doble, bandeja de dados, contratos y fichas; Ada, escritorio con archivo y sello; el anfitrión combina urnas, dados y registros en sus tres rondas. Se reutiliza un solo canvas, sin recrear motor ni consumir azar al seleccionar. Las reglas, sellos y guardado se conservan. Validación local: 32 unitarias y 28 recorridos de navegador. Detalle, procedencia y comprobación de publicación en [mesas](table-focus.md).
+
+
+## Vuelta al diseño anterior de mesa — 2026-10-28
+
+El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente la presentación de 2adb98e (campaña v5.2), conservando reglas, progreso y guardado. La revisión de mesas protagonistas queda como antecedente descartado.
+
+
+## Ada: fotos tramposas y diagnóstico — 2026-10-28
+
+El usuario eligió la opción de fotos seleccionadas y pidió una pregunta Sí/No sobre cuatro victorias anteriores. Se aclara independencia y moneda equilibrada: No aumenta la chance siguiente, ni obliga a perder. Diagnóstico local sin puntos, cuatro rondas con fotos y adaptación del final. Textos de Doble más simples. Diseño anterior de mesas conservado. Ver [reglas y compatibilidad](photos-redesign.md).
+
+
+Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.
+
+
+Revisión de carteles y diálogo 2026-10-28: acción principal amplia, utilidades separadas, historial por intervenciones y modales con cabecera clara. Reglas y progreso conservados. Ver [cambio y evidencia](dialogue-polish.md).
+
+
+Corrección 2026-10-28: cuerpo completo sólo en diálogos; durante partidas, personajes detrás de sus mesas, sin duplicados en el cuaderno. Tutorial de Vera integrado a las mismas cartas, selección y extracción de la partida normal, con resultados preparados sin alterar progreso/RNG. Ver [detalle y evidencia](table-tutorial.md).
+
+Revisión de Doble 2026-10-28: el usuario pidió ver todas las opciones sin desplazar y mostrar las combinaciones de dados. Se compactan las tres ofertas y se representan los pares que pagan por suma, aclarando los órdenes inversos. Se mantiene el estilo y la matemática. Ver [detalle y evidencia](dice-combinations.md).
+
+Revisión 2026-10-29: el usuario aprobó la comparación y pidió además ver la mesa, la tirada y los números. Se reserva una ventana para la mesa 3D original, se animan los dados de la única tirada guardada y se muestra cada número con la suma. Se conserva la comparación compacta y la alternativa sin movimiento/3D. Ver [detalle y evidencia](dice-table-roll.md).
+
+Segundo ajuste del 2026-10-29: el usuario pidió dar mucho más énfasis a la mesa y menos a las tarjetas. La mesa de Doble gana altura y las ofertas quedan como fichas cortas debajo, conservando los pares y los controles. Ver [detalle y evidencia](doble-table-focus.md).
+
+Legibilidad del 2026-10-29: el usuario pidió agrandar las combinaciones dentro de las cartas sin reducir la mesa. Los símbolos pequeños se reemplazan por caras dibujadas con puntos y se reserva más ancho a los pares. Mesa conservada en los seis tamaños probados. Ver [detalle y evidencia](clear-dice-combinations.md).
+
+Encuadre final del 2026-10-29: el usuario pidió ver al personaje de Doble desde la cintura y con todo el sombrero. Se ajusta su escala y altura, conservando mesa grande, cámara, combinaciones y animación. Ver [detalle y evidencia](doble-waist-portrait.md).
+
+Corrección del 2026-10-29: el usuario rechazó la escala pequeña del crupier. Se aumenta su tamaño y se redistribuye el encuadre para conservar cintura, sombrero y mesa grande. La prueba comprueba también la proporción del retrato con la mesa. Ver [detalle y evidencia](doble-proportions.md).
+
+Rediseño de Ada del 2026-10-29: el usuario pidió que su partida se asemejara a las demás. Se sustituye la mesa plana y el álbum separado por el canvas compartido, con Ada detrás del paño y las fotos integradas. Se simplifica el texto inicial y se unifican controles y tamaños. Ver [detalle y evidencia](ada-table-redesign.md).

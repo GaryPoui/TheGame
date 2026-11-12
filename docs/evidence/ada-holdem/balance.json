@@ -1,0 +1,11 @@
+{
+  "seeds": 300,
+  "policy": "maximize category probability times award, using own two and public four only; no opponent or future access",
+  "goal": 24,
+  "meanHands": 13.86,
+  "medianHands": 13,
+  "p10": 5,
+  "p90": 24,
+  "minimum": 1,
+  "maximum": 41
+}

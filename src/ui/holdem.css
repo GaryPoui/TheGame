@@ -1,0 +1,24 @@
+.holdem-felt{display:grid;gap:.55rem;color:#fff0d6;text-align:center;padding:.6rem;background:#193e32f2;border:2px solid #b29258;border-radius:12px;max-width:650px;margin:auto}
+.holdem-felt h2{font-size:.85rem;margin:0 0 .3rem;color:#fff0d6}
+.holdem-felt .poker-card{flex-basis:43px;height:60px}.holdem-felt .card-back{background:repeating-linear-gradient(45deg,#39283f 0 5px,#6d5365 5px 7px);border:2px solid #c6a779;color:#f9df9b}
+.holdem-layout.poker-layout .ada-evidence{margin-top:-300px;width:min(94%,650px)}
+.holdem-choices{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;margin-bottom:.7rem}
+.holdem-layout .holdem-choices .archive-choice{display:grid;grid-template-columns:1fr auto;gap:.15rem;padding:.45rem .6rem;min-height:48px;font-size:.8rem;text-align:left}
+.holdem-choices small{grid-column:1/-1;font-size:.7rem}.holdem-choices strong{font-size:.7rem}.holdem-choices button:disabled{opacity:.45}
+.holdem-layout .archive-panel h2{font-size:1.15rem;margin-bottom:.6rem}.holdem-layout .archive-panel p{font-size:.87rem;line-height:1.4;margin-bottom:.65rem}
+.holdem-layout .archive-panel [data-testid=records-feedback]{margin-top:0;border:0;padding-top:0}
+/* Menus and card labels stay bounded so enlarged reading text cannot hide a choice. */
+.enlarged-text .holdem-layout .archive-floor>h1{font-size:32px;margin:0 0 8px}
+.enlarged-text .holdem-layout .scoreboard{font-size:18px;gap:14px;margin:6px 0}
+.enlarged-text .holdem-layout .holdem-felt{gap:6px;padding:8px}
+.enlarged-text .holdem-layout .holdem-felt h2{font-size:17px;margin:0 0 4px}
+.enlarged-text .holdem-layout .poker-card b{font-size:18px}.enlarged-text .holdem-layout .poker-card>span{font-size:24px;margin-top:3px}
+.enlarged-text .holdem-layout .archive-panel{padding:12px}
+.enlarged-text .holdem-layout .archive-panel h2{font-size:23px;margin:0 0 10px}
+.enlarged-text .holdem-layout .archive-panel p{font-size:18px;line-height:1.3;margin:0 0 10px}
+.enlarged-text .holdem-layout .holdem-choices{gap:5px;margin-bottom:8px}
+.enlarged-text .holdem-layout .holdem-choices .archive-choice{display:flex;flex-direction:column;gap:2px;min-height:54px;padding:5px 7px;font-size:17px;line-height:1.15}
+.enlarged-text .holdem-layout .holdem-choices strong,.enlarged-text .holdem-layout .holdem-choices small{font-size:14px;line-height:1.15;margin:0}
+.enlarged-text .holdem-layout .archive-panel>.primary,.enlarged-text .holdem-layout .archive-panel>.text-button{font-size:17px;line-height:1.2;padding:8px;min-height:40px}
+@media(min-width:1000px){.holdem-layout{grid-template-columns:minmax(0,1fr) minmax(350px,390px)}.holdem-layout .ada-viewport{height:clamp(360px,65vh,570px)}.holdem-layout .ada-table-stage{min-height:0}.holdem-layout .archive-panel{padding:.9rem}.holdem-layout .archive-floor>h1{margin-bottom:.4rem}.holdem-layout .scoreboard{margin:.2rem 0}.enlarged-text .holdem-layout.poker-layout .ada-evidence{margin-top:-300px}.holdem-layout .archive-panel .primary{min-height:42px;padding:.6rem}.holdem-layout .archive-panel details summary{min-height:38px;padding:.4rem 0}}
+@media(max-width:999px){.holdem-layout{display:grid;grid-template-columns:1fr}.holdem-layout .ada-viewport{height:370px}.holdem-layout .ada-table-stage{min-height:0}.holdem-layout.poker-layout .ada-evidence{margin-top:-255px}.holdem-layout .archive-panel{margin:.4rem auto 0}.holdem-felt{gap:.35rem}.holdem-felt .poker-card{height:45px;flex-basis:33px}.holdem-layout .holdem-choices .archive-choice{min-height:44px}.holdem-layout .archive-floor>.scoreboard{flex-wrap:wrap;font-size:.8rem}}

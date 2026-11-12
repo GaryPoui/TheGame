@@ -1,0 +1,425 @@
+{
+  "reports": [
+    {
+      "mode": "contracts",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "metrics": {
+        "meshCount": 41,
+        "activeMeshCount": 10,
+        "selectedUrn": null,
+        "highlightedUrnMeshes": 0,
+        "urnTargets": [
+          {
+            "x": 0.42680110610604316,
+            "y": 0.5371324306340416
+          },
+          {
+            "x": 0.5731988504979578,
+            "y": 0.5371324306340416
+          }
+        ],
+        "diceRolling": false,
+        "diceRollCount": 0,
+        "dicePositions": [
+          {
+            "x": -0.6,
+            "y": 2.17,
+            "z": -0.45
+          },
+          {
+            "x": 0.6,
+            "y": 2.17,
+            "z": -0.45
+          }
+        ],
+        "dealerFrame": {
+          "hat": {
+            "x": 0.4999999856760933,
+            "y": 0.07260209260957158
+          },
+          "waist": {
+            "x": 0.4999999856760932,
+            "y": 0.49937620059723975
+          },
+          "width": 0.11646081983866075,
+          "tableWidth": 0.44412129364631336,
+          "tableBack": {
+            "x": 0.4999999860817716,
+            "y": 0.49608650234032137
+          }
+        },
+        "tableHost": "doble",
+        "tableTextureReady": true,
+        "activeNames": [
+          "table-edge",
+          "table-lip",
+          "table-felt",
+          "felt-inlay",
+          "table-pedestal",
+          "pedestal-foot",
+          "pedestal-foot",
+          "vera-ink-portrait",
+          "contract-die-0",
+          "contract-die-1"
+        ],
+        "geometryTriangles": 36692,
+        "fps": 55.897149240422245,
+        "renderWidth": 882,
+        "renderHeight": 288,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "rendering": true,
+        "drawCalls": 19,
+        "frameTimeMs": 1.2999999523162842,
+        "renderTimeMs": 0.7000000476837158,
+        "estimatedTextureBytes": 25166677.333333332
+      },
+      "panels": [
+        {
+          "height": 620,
+          "scroll": 620
+        }
+      ]
+    },
+    {
+      "mode": "contracts-draw",
+      "width": 1366,
+      "diceRollCount": 0,
+      "history": 1
+    },
+    {
+      "mode": "records",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "metrics": {
+        "meshCount": 39,
+        "activeMeshCount": 8,
+        "selectedUrn": null,
+        "highlightedUrnMeshes": 0,
+        "urnTargets": [
+          {
+            "x": 0.35858639446891405,
+            "y": 0.5396747100307848
+          },
+          {
+            "x": 0.641413623825564,
+            "y": 0.5396747100307848
+          }
+        ],
+        "diceRolling": false,
+        "diceRollCount": 0,
+        "dicePositions": [],
+        "dealerFrame": {
+          "hat": {
+            "x": 0.5000000036593225,
+            "y": 0.04334057088600252
+          },
+          "waist": {
+            "x": 0.5000000036593225,
+            "y": 0.4993335123238406
+          },
+          "width": 0.22499178766407696,
+          "tableWidth": 0.8580022561277603,
+          "tableBack": {
+            "x": 0.5000000070937666,
+            "y": 0.49581857515234723
+          }
+        },
+        "tableHost": "ada",
+        "tableTextureReady": true,
+        "activeNames": [
+          "table-edge",
+          "table-lip",
+          "table-felt",
+          "felt-inlay",
+          "table-pedestal",
+          "pedestal-foot",
+          "pedestal-foot",
+          "vera-ink-portrait"
+        ],
+        "geometryTriangles": 36668,
+        "fps": 60.02400959525159,
+        "renderWidth": 813,
+        "renderHeight": 480,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "rendering": true,
+        "drawCalls": 11,
+        "frameTimeMs": 0.9000000953674316,
+        "renderTimeMs": 0.40000009536743164,
+        "estimatedTextureBytes": 25166677.333333332
+      },
+      "panels": [
+        {
+          "height": 344,
+          "scroll": 344
+        }
+      ]
+    },
+    {
+      "mode": "records-decision",
+      "width": 1366,
+      "text": "✓ Buena decisión.\n\nFaltaban las derrotas. Para contar toda la historia hay que mirar todas las fotos, no sólo las que convienen.\n\nAda abrió el álbum completo para que puedas comparar, cualquiera haya sido tu elección."
+    },
+    {
+      "mode": "finale",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "metrics": {
+        "meshCount": 39,
+        "activeMeshCount": 0,
+        "selectedUrn": null,
+        "highlightedUrnMeshes": 0,
+        "urnTargets": [
+          {
+            "x": 0.4401770894126853,
+            "y": 0.39628181293720194
+          },
+          {
+            "x": 0.5468946036611739,
+            "y": 0.42882153260746364
+          }
+        ],
+        "diceRolling": false,
+        "diceRollCount": 0,
+        "dicePositions": [],
+        "dealerFrame": null,
+        "tableHost": "vera",
+        "tableTextureReady": true,
+        "activeNames": [],
+        "geometryTriangles": 36668,
+        "fps": 37.241379310344826,
+        "renderWidth": 1366,
+        "renderHeight": 768,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "rendering": false,
+        "drawCalls": 29,
+        "frameTimeMs": 14.299999952316284,
+        "renderTimeMs": 12,
+        "estimatedTextureBytes": 16778069.333333332
+      },
+      "panels": [
+        {
+          "height": 460,
+          "scroll": 460
+        }
+      ]
+    },
+    {
+      "mode": "contracts",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "scrollHeight": 844,
+      "metrics": {
+        "meshCount": 41,
+        "activeMeshCount": 10,
+        "selectedUrn": null,
+        "highlightedUrnMeshes": 0,
+        "urnTargets": [
+          {
+            "x": 0.41041282734382684,
+            "y": 0.5363072989477716
+          },
+          {
+            "x": 0.5895871749660023,
+            "y": 0.5363072989477716
+          }
+        ],
+        "diceRolling": false,
+        "diceRollCount": 0,
+        "dicePositions": [
+          {
+            "x": -0.6,
+            "y": 2.17,
+            "z": -0.45
+          },
+          {
+            "x": 0.6,
+            "y": 2.17,
+            "z": -0.45
+          }
+        ],
+        "dealerFrame": {
+          "hat": {
+            "x": 0.49999998967273646,
+            "y": 0.08209983475863078
+          },
+          "waist": {
+            "x": 0.4999999896727364,
+            "y": 0.4993900565717652
+          },
+          "width": 0.14253490430633997,
+          "tableWidth": 0.5435544337429672,
+          "tableBack": {
+            "x": 0.5000000006462102,
+            "y": 0.49617347859150507
+          }
+        },
+        "tableHost": "doble",
+        "tableTextureReady": true,
+        "activeNames": [
+          "table-edge",
+          "table-lip",
+          "table-felt",
+          "felt-inlay",
+          "table-pedestal",
+          "pedestal-foot",
+          "pedestal-foot",
+          "vera-ink-portrait",
+          "contract-die-0",
+          "contract-die-1"
+        ],
+        "geometryTriangles": 36692,
+        "fps": 31.87721369539552,
+        "renderWidth": 367,
+        "renderHeight": 150,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "rendering": true,
+        "drawCalls": 19,
+        "frameTimeMs": 1,
+        "renderTimeMs": 0.5,
+        "estimatedTextureBytes": 23966797.333333332
+      },
+      "panels": [
+        {
+          "height": 177,
+          "scroll": 177
+        }
+      ]
+    },
+    {
+      "mode": "contracts-draw",
+      "width": 390,
+      "diceRollCount": 0,
+      "history": 1
+    },
+    {
+      "mode": "records",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "scrollHeight": 844,
+      "metrics": {
+        "meshCount": 39,
+        "activeMeshCount": 8,
+        "selectedUrn": null,
+        "highlightedUrnMeshes": 0,
+        "urnTargets": [
+          {
+            "x": 0.41729021618794865,
+            "y": 0.5419001207743211
+          },
+          {
+            "x": 0.5827097861218806,
+            "y": 0.5419001207743211
+          }
+        ],
+        "diceRolling": false,
+        "diceRollCount": 0,
+        "dicePositions": [],
+        "dealerFrame": {
+          "hat": {
+            "x": 0.49999998967273646,
+            "y": 0.01772628375764468
+          },
+          "waist": {
+            "x": 0.4999999896727364,
+            "y": 0.4992961215043286
+          },
+          "width": 0.13159285602495258,
+          "tableWidth": 0.5018270855102882,
+          "tableBack": {
+            "x": 0.5000000006462102,
+            "y": 0.4955840691321241
+          }
+        },
+        "tableHost": "ada",
+        "tableTextureReady": true,
+        "activeNames": [
+          "table-edge",
+          "table-lip",
+          "table-felt",
+          "felt-inlay",
+          "table-pedestal",
+          "pedestal-foot",
+          "pedestal-foot",
+          "vera-ink-portrait"
+        ],
+        "geometryTriangles": 36668,
+        "fps": 33.774275259210185,
+        "renderWidth": 367,
+        "renderHeight": 120,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "rendering": true,
+        "drawCalls": 11,
+        "frameTimeMs": 0.8999999761581421,
+        "renderTimeMs": 0.5,
+        "estimatedTextureBytes": 23966797.333333332
+      },
+      "panels": [
+        {
+          "height": 363,
+          "scroll": 363
+        }
+      ]
+    },
+    {
+      "mode": "records-decision",
+      "width": 390,
+      "text": "✓ Buena decisión.\n\nFaltaban las derrotas. Para contar toda la historia hay que mirar todas las fotos, no sólo las que convienen.\n\nAda abrió el álbum completo para que puedas comparar, cualquiera haya sido tu elección."
+    },
+    {
+      "mode": "finale",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "scrollHeight": 844,
+      "metrics": {
+        "meshCount": 39,
+        "activeMeshCount": 0,
+        "selectedUrn": null,
+        "highlightedUrnMeshes": 0,
+        "urnTargets": [
+          {
+            "x": 0.26973135884873867,
+            "y": 0.39628179984314477
+          },
+          {
+            "x": 0.6805054438134032,
+            "y": 0.4288215183634023
+          }
+        ],
+        "diceRolling": false,
+        "diceRollCount": 0,
+        "dicePositions": [],
+        "dealerFrame": null,
+        "tableHost": "vera",
+        "tableTextureReady": true,
+        "activeNames": [],
+        "geometryTriangles": 36668,
+        "fps": 39.57037875038684,
+        "renderWidth": 390,
+        "renderHeight": 844,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "rendering": false,
+        "drawCalls": 29,
+        "frameTimeMs": 14,
+        "renderTimeMs": 12.299999952316284,
+        "estimatedTextureBytes": 15578189.333333332
+      },
+      "panels": [
+        {
+          "height": 403,
+          "scroll": 403
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

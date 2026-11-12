@@ -1,8 +1,9 @@
 import { expect, test, type Page } from '@playwright/test';
 import { createGame, choose, advance, type GameState } from '../../src/core/game';
 import { mkdir } from 'node:fs/promises';
+import { completeIntro } from './story-navigation';
 
-const evidence = 'docs/evidence/urn-feedback';
+const evidence = process.env.EVIDENCE_DIR ?? 'docs/evidence/urn-feedback';
 async function load(page: Page, state?: GameState) {
   if(state) await page.addInitScript(raw => localStorage.setItem('thegame.save.v1.current', raw), JSON.stringify({schemaVersion:1,contentVersion:'urns-mvp-v1',state}));
   await page.goto('./');
@@ -10,7 +11,7 @@ async function load(page: Page, state?: GameState) {
   if(state) await page.getByTestId('continue-game').click();
   else {
     await page.getByTestId('new-game').click();
-    await page.getByTestId('skip-intro').click();
+    await completeIntro(page);
     await page.getByTestId('enter-urns').click();
     await page.getByTestId('skip-tutorial').click();
   }
@@ -71,7 +72,7 @@ test('equal chances make both cards correct, using the counts before extraction'
 });
 test('a correct choice stays green when luck draws the other color', async ({page}) => {
   await load(page,fixture('blue'));
-  await page.keyboard.press('a');
+  await page.getByTestId('toggle-cards').click();await page.getByTestId('urn-0').click();
   await expect(page.getByTestId('urn-0')).toHaveAttribute('aria-pressed','true');
   await page.getByTestId('confirm-choice').click();
   await expect(page.getByTestId('urn-0')).toHaveClass(/answer-correct/);

@@ -1,0 +1,30 @@
+{
+  "id": "doble-v2",
+  "path": "art/doble-v2.png",
+  "generated": "2026-10-23",
+  "tool": "OpenAI built-in image_gen.imagegen",
+  "model": "tool default; model identifier not exposed",
+  "prompt": "Use case: production game character sprite, style-matched character redesign.\nReference 1 (vera-v3.png) is the PRIMARY style reference: match its hand-inked contour weight, painted grain, warm shadow shapes, expressive cream and black pie-cut eyes, and illustration finish.\nReference 2 (captor-v3.png) is a SECONDARY style/palette reference only: same game cast and subdued ink/watercolor treatment. Do not copy the captor's character or costume.\nReference 3 (public-table.png) shows the current crude Doble sprite in the game. Redesign THAT male croupier/broker, keeping his recognizable dark swept hair, slender dark mustache, plum suit with asymmetrical lapels, ivory shirt, narrow tie, small plum hat with ochre band, and confident mercantile personality. Upgrade him to the same polished illustrated visual family as Vera.\n\nCreate a single original Doble croupier character cutout on a fully transparent background, vertical 2:3 composition. Waist-up/hip-up framing with the full head, hat, both elbows and large expressive hands inside the image, generous 5% padding. Face and upper torso should fill the frame like Vera's portrait, rather than a tiny full-body figure. Facing player in a subtle three-quarter pose, one eyebrow raised, knowing friendly theatrical smile rather than an enormous squared-off grin. Eyes expressive with cream sclera and black pie-cut pupils. Curved organic anatomy, adult cartoon proportions, gracefully articulated fingers. His asymmetrical lapels are a memorable identifying detail. One hand presents a small blank cream contract sheet with no writing; other open palm at lower edge ready to discuss terms. No dice or table inside the cutout because those are separate interactive objects in the game.\n\nMedium: 1930s hand-drawn animated film character illustration, warm dark brown ink contours with natural line variation, restrained watercolor and gouache fills with fine paper grain INSIDE the silhouette, subtle warm painted shading and garment folds consistent with reference 1. Palette muted plum, charcoal brown, cream, ochre brass accents. Preserve readable silhouette at game size. No flat SVG look, geometric block limbs, photorealism, 3D render, glossy plastic, scene, background wash, opaque rectangle, glow or cast shadow outside silhouette. True alpha transparency right up to the character edge. No text, letters, watermark, logos or border. Finished standalone production sprite, not a sheet or comparison.",
+  "references": [
+    "art/vera-v3.png (primary style)",
+    "art/captor-v3.png (secondary style and palette only)",
+    "docs/evidence/doble/public-table.png (prior Doble identity)"
+  ],
+  "edits": "Copied generated PNG byte-for-byte. No pixel edits; embedded content credentials preserved.",
+  "rights": "AI-generated image; not CC0. New Doble character design; style references are existing project assets. No third-party character licence implied.",
+  "alphaRequired": true,
+  "collision": "none; decorative character portrait",
+  "anchor": "bottom center",
+  "previous": "art/doble.svg (historical original vector; no longer used in current scenes)",
+  "bytes": 2236166,
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    254
+  ],
+  "sha256": "be22b8710a008686d545d5f23de4643d098b5a00d45d1dbd841cf894a3b83c12"
+}

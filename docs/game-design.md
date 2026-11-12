@@ -1,17 +1,22 @@
 # GDD único — La Casa del Azar
 
-Estado: diseño de campaña; primera mesa implementada como MVP y resto pendiente. Autoridad de reglas: [educational-design.md](educational-design.md). No crear otro GDD divergente. Visión: [vision.md](vision.md).
+Actualización vigente 2026-10-29: Ada usa [cartas de póker](ada-poker.md). La [revisión de escritorio](desktop-revision.md) reduce texto, abre explicaciones en ventanas centrales y retira el recorrido, la configuración de controles y el ensayo opcional del cierre. Las versiones anteriores siguen documentadas como historia y para guardados antiguos.
 
-La presentación vigente usa [tinta y acuarela](ink-theatre.md). El MVP tiene estados
-`menu → intro → room → tutorial → table → complete`, sala por selector y una mesa; no incluye
-aún desplazamiento libre, campaña de tres sellos ni final. Las secciones de campaña siguen
-siendo objetivos, no un inventario de funciones ya implementadas.
+
+Estado: campaña implementada con tres mesas y final; ver [evidencia y adaptación](campaign-implementation.md). Autoridad de reglas: [educational-design.md](educational-design.md). No crear otro GDD divergente. Visión: [vision.md](vision.md).
+
+La presentación vigente usa [tinta y acuarela](ink-theatre.md). La campaña tiene menú,
+apertura a oscuras, recuerdo opcional de calle, sala con directorio de mesas, tres asistentes,
+contrato de salida y epílogo. Se mantiene una raíz de progreso y no hay combate.
+Los controles de exploración se adaptaron al teatro pintado; la locomoción FPS libre y la captura
+de mouse de la propuesta inicial no se presentan como implementadas. La duración sigue siendo
+un objetivo a medir con personas.
 
 ## Bucle y controles
 
 Explorar sala → acercarse a mesa → leer objetivo y requisitos → sentarse → predecir colocando un marcador → elegir una acción de juego → observar extracción/contrato/datos → comparar plan y resultado → aplicar en un estado diferente. El marcador es opcional para progreso, útil para reflexión; no hay cuestionarios de opción múltiple que sustituyan la acción.
 
-Exploración: WASD/flechas configurables, mouse para mirar, E/Enter para interactuar, Escape para pausa. Toda interacción de mesa tiene equivalente HTML enfocable, Enter confirma, Escape cancela antes de confirmar. Sin decisiones cronometradas. Cursor liberado en diálogos, pausa y mesa; recuperar captura requiere acción explícita. Configuración de sensibilidad, inversión, subtítulos, escala y movimiento reducido antes de empezar.
+Control vigente: mouse para elegir mesas, seleccionar opciones, confirmar y cerrar ventanas. No hay desplazamiento por la página en escritorio ni decisiones cronometradas. Los ajustes conservan volumen, escala de texto y movimiento reducido. Los controles HTML conservan su comportamiento nativo.
 
 ## Estados y habilitación
 
@@ -31,7 +36,7 @@ Una sala legible con puerta de salida, tres mesas periféricas y mesa del anfitr
 |---|---|---|---|---|
 | Urnas / Vera | Elegir contenedor y volver a elegir tras consumir una ficha | Contenidos, reposición y evento | Cambia probabilidad del sello ficticio | Jugador señala qué ficha cambió su plan y resuelve estado nuevo |
 | Contratos / Doble | Elegir flujo estable o pago variable según encargo | 36 pares, costes, pagos y objetivo | Saldo aleatorio y mérito determinista separados | Cambia elección cuando cambia objetivo sin culpar a una tirada |
-| Registros / Ada | Elegir qué registro auditar y qué decisión autoriza la evidencia | Mecanismos conocidos, procedencia, n, datos y coste de observación | Compra bloque pertinente o cierra informe prudente | Rechaza selección favorable y termina de observar cuando ya cumple la regla |
+| Cartas / Ada | Elegir el montón con mayor probabilidad de cumplir el objetivo | Todas las cartas y el objetivo visibles | Saca una carta uniforme sin reposición y vuelve a comparar | Compara proporciones y actualiza tras retirar la carta |
 
 Los oponentes son presentadores y adversarios retóricos, no jugadores que ocultamente cambian ofertas. No copiar nombres, presentación ni identidad de juegos comerciales. Las mecánicas genéricas de urnas, contratos y auditoría se combinan en una puesta propia.
 
@@ -48,3 +53,9 @@ Cámara estable en exploración; conversación con mirada suave opcional; mesa c
 ## Hipótesis y puerta de producción
 
 Antes de ampliar campaña, observar 5 sesiones exploratorias de primera mesa: tiempo, acciones erróneas, uso de ayuda, identificación de reposición, explicación de mala suerte, disfrute autoinformado. No es ensayo de eficacia. Si predominan clics siguiendo ayudas sin comprensión, revisar mecánica antes de arte final. Tras prototipo, comparar transferencia inmediata y diferida si hay recursos y consentimiento; no recolectar datos personales por defecto.
+
+
+Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.
+
+
+Corrección 2026-10-28: cuerpo completo sólo en diálogos; durante partidas, personajes detrás de sus mesas, sin duplicados en el cuaderno. Tutorial de Vera integrado a las mismas cartas, selección y extracción de la partida normal, con resultados preparados sin alterar progreso/RNG. Ver [detalle y evidencia](table-tutorial.md).

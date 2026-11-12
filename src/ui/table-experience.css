@@ -1,0 +1,88 @@
+/* The playable objects sit on the felt; the notebook only carries the current action. */
+.playable-table{grid-template-columns:minmax(0,1fr) minmax(310px,360px);padding-top:1.5rem}
+.vera-floor{min-width:0;display:flex;flex-direction:column;min-height:calc(100svh - 170px)}
+.playable-table .table-heading{max-width:none}
+.playable-table h1{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700}
+.decision-track{display:flex;gap:6px;margin-top:1rem;flex-wrap:wrap}
+.decision-track span{display:grid;place-items:center;width:25px;height:25px;border:1px solid #bca17a;color:#eddbba;border-radius:50%;font-size:.75rem;font-weight:700}
+.decision-track .earned{background:#e7c58b;color:#302330}
+.decision-track .attempted{background:#4c3b50;color:#fff0d7}
+.vera-playfield{margin-top:auto;padding-top:180px;max-width:680px;width:100%;align-self:center}
+.table-mission{display:flex;align-items:center;justify-content:center;gap:.65rem;flex-wrap:wrap;background:#271e2dea;color:#fff0d7;border:1px solid #c7a875;border-radius:9px 15px 8px 12px;padding:.7rem 1rem;margin:0 auto 1rem;max-width:fit-content;text-align:center}
+.table-mission>span:first-child{font-size:1.7rem;background:#fae9c8;padding:.05rem .45rem;border-radius:5px}
+.table-mission strong{font-size:1rem}
+.table-mission>span:last-child{flex-basis:100%;font-size:.78rem;color:#ecdbc3}
+.playable-table .urn-options{gap:1rem;margin-bottom:0}
+.playable-table .urn-option{padding:1rem;gap:.65rem;border-width:2px;box-shadow:0 9px 18px #140e2166;min-height:210px;justify-content:space-between;transform:rotate(-1deg)}
+.playable-table .urn-option:nth-child(2){transform:rotate(1deg)}
+.playable-table .urn-option.selected{padding:1rem;outline:3px solid #f3c875;outline-offset:3px;transform:translateY(-5px);background:#e8d9e3}
+.playable-table .urn-option:disabled{opacity:1;cursor:default;filter:none}
+.playable-table .urn-option-head strong{font-size:1.2rem}
+.playable-table .urn-option-head>span{font-size:.75rem}
+.playable-table .inventory{font-size:.8rem}
+.token-tray{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;padding:.5rem 0;min-height:48px}
+.counting-token{display:grid;place-items:center;font-style:normal;font-size:1.5rem;width:36px;height:36px;background:#d4c4b6;border:1px solid #9a8375;border-radius:50%;color:#355275}
+.counting-token.red{color:#9c283b}
+.counting-token.wanted{background:#fff4dc;border:2px solid #634b53;box-shadow:0 3px 5px #37233426}
+.playable-table .odds{flex-direction:row;align-items:center;gap:.7rem}
+.playable-table .odds b{font-size:1.6rem;font-weight:700}
+.playable-table .odds>span{font-size:.8rem}
+.table-instruction{font-size:.8rem;color:#f2e1c8;text-align:center;margin:.85rem 0 0;background:#271e2dd9;padding:.4rem;border-radius:4px}
+.mentor-coach{padding:.8rem 0;margin-bottom:1rem;border-block:1px solid #ab9380}
+.mentor-coach>strong{font-size:.82rem;color:#644765}
+.mentor-coach p{font-size:.95rem;line-height:1.55;margin:.4rem 0 0;color:#382c38}
+.vera-notebook .objective{font-size:1.75rem;font-weight:700}
+.vera-notebook .small-note,.vera-notebook .result-card p{font-size:.85rem}
+.vera-notebook .primary{font-size:.9rem;min-height:52px}
+.vera-notebook .panel-footer .text-button{font-size:.78rem}
+.inventory-change,.round-lesson{font-size:.85rem;line-height:1.55;background:#dfd3c0;padding:.8rem;border-radius:5px;margin-bottom:1rem;color:#3b3038}
+.probability-shift{display:flex;align-items:center;justify-content:space-evenly;gap:.6rem;padding:.8rem 0;border-block:1px solid #ae9682;color:#493c48}
+.probability-shift span{font-size:.8rem}
+.probability-shift b{font-size:1.5rem;display:block;color:#382b3c;font-variant-numeric:tabular-nums}
+.result-card .result-token{font-size:3.2rem;background:#f6ead3;border:1px solid #b3997c;border-radius:50%;width:80px;height:80px;margin:auto;line-height:1.2}
+.result-card h2{font-weight:700}
+.contracts-heading .decision-track{margin-top:.8rem}
+.contracts-layout{grid-template-columns:minmax(0,1fr) minmax(340px,390px)}
+.contract-stage{padding-top:65px;min-height:420px}
+.contracts-heading h1{max-width:none;font-size:clamp(1.8rem,2.8vw,2.6rem);margin-bottom:.5rem}
+.contracts-heading>p{margin-bottom:.65rem}
+.mobile-table-objective{display:none}
+body[data-screen=table] .topbar,body[data-screen=contracts] .topbar,body[data-screen=tutorial] .topbar{height:72px}
+.contract-ticket{min-height:230px;gap:.55rem}
+.contract-distribution{display:block}
+.contract-distribution>span{display:grid;grid-template-columns:repeat(12,1fr);gap:2px}
+.contract-distribution i{height:5px;background:#baa8a7;border-radius:1px}
+.contract-distribution i.hit{background:#503753}
+.contract-distribution small{display:block;font-size:.72rem;margin-top:.35rem;color:#473344}
+.contract-ticket .contract-letter{font-size:1.8rem}
+.live-calculation{display:grid;grid-template-columns:1fr 84px;align-items:start;gap:.65rem;margin:.8rem 0 1rem;padding-block:.8rem;border-block:1px solid #ad9782}
+.live-calculation>strong{font-size:1.1rem;line-height:1.35;color:#432e47}
+.live-calculation p{grid-column:1/-1;margin:0;font-size:.83rem;line-height:1.5}
+.outcome-dots{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+.outcome-dots i{width:11px;height:11px;border:1px solid #ad9892;border-radius:2px;background:#e0d0c5}
+.outcome-dots i.hit{background:#573d5b;border-color:#573d5b}
+.contracts-panel h2{font-weight:700;font-size:1.55rem;margin-bottom:.7rem}
+.contracts-panel .mentor-coach{margin-bottom:.65rem;padding:.65rem 0}
+.contracts-panel .mentor-coach p{font-size:.85rem}
+.contracts-panel>.primary,.vera-notebook>.primary{position:sticky;bottom:0;z-index:2;box-shadow:0 5px 12px #30203740}
+.rehearsal{pointer-events:auto;background:#281e2eee;color:#f4e4c9;border:1px solid #b89b76;border-radius:7px;padding:.25rem .8rem}
+.rehearsal summary{cursor:pointer;font-weight:600;font-size:.85rem;padding:.8rem 0;min-height:44px}
+.rehearsal p{font-size:.83rem;line-height:1.5;margin:.3rem 0 .8rem;max-width:65ch}
+.rehearsal-controls{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.rehearsal-die{font:700 1.5rem Arial,sans-serif;border:2px solid #ac8d6c;background:#f3e4c8;color:#3f2b43;padding:.5rem .7rem;border-radius:7px;min-height:58px}
+.rehearsal-die small{display:block;font-size:.72rem;font-weight:400;margin-top:.3rem}
+.rehearsal-controls>strong{font-size:.9rem}
+.rehearsal-payments{display:flex;gap:1rem;justify-content:space-around;margin:.9rem 0 .5rem}
+.rehearsal-payments>span{font-size:.8rem;padding:.5rem;min-width:60px;text-align:center}
+.rehearsal-payments b{display:block;font-size:1.5rem;font-variant-numeric:tabular-nums}
+.rehearsal-payments small{display:block;font-size:.72rem}
+.rehearsal-payments .active{outline:1px solid #eac17e;border-radius:5px;background:#514056}
+.table-receipt{display:flex;gap:.8rem;justify-content:center;align-items:center;flex-wrap:wrap;padding:.85rem;background:#f0e1c6;color:#39283c;border:2px solid #7a6067;border-radius:6px}
+.table-receipt>strong,.table-receipt small{flex-basis:100%;text-align:center;font-size:.8rem}
+.table-receipt>span{font-size:.9rem}
+.table-receipt .signed-contract{font-weight:700;text-decoration:underline;text-underline-offset:4px}
+@media(hover:hover) and (pointer:fine){.playable-table .urn-option:hover:not(:disabled){background:#eee0d7}.rehearsal-die:hover{background:#ffeecf}}
+@media(max-width:1100px){.playable-table{grid-template-columns:minmax(0,1fr) 320px;gap:1rem}.vera-playfield{padding-top:150px}.playable-table .urn-options{gap:.65rem}.playable-table .urn-option{padding:.8rem}.playable-table .urn-option.selected{padding:.8rem}.counting-token{width:29px;height:29px;font-size:1.2rem}.token-tray{gap:5px}.contracts-layout{grid-template-columns:minmax(0,1fr) 340px}.contract-stage{padding-top:65px}}
+@media(max-width:760px){.contracts-layout{display:block;padding-bottom:100px}.contract-stage{padding-top:65px;min-height:350px}.contract-ticket{min-height:225px}.contracts-panel{margin-top:1rem}.contracts-heading h1{font-size:1.6rem}.contract-ticket>span:not(.contract-letter){font-size:.78rem}.contract-distribution>span{grid-template-columns:repeat(6,1fr)}.mobile-table-objective{display:grid;gap:.35rem;background:#281f30ec;padding:.7rem;margin-top:.85rem;border:1px solid #b69b72;border-radius:6px;color:#fff1d8}.mobile-table-objective strong{font-size:1rem;line-height:1.3}.mobile-table-objective span{font-size:.75rem;line-height:1.4}.contracts-panel>.primary{position:fixed;z-index:8;bottom:max(12px,env(safe-area-inset-bottom));left:4%;width:92%;min-height:54px;box-shadow:0 7px 20px #160d23b8;border:2px solid #f0d29b;background:#49334f;color:#fff1d8}.contracts-panel>.primary:disabled{background:#d0c3be;color:#463749;border-color:#625061}}
+@media(max-width:700px){.playable-table{display:block}.vera-floor{min-height:0}.vera-playfield{padding-top:140px}.playable-table .game-panel{margin-top:1.2rem;max-height:none}.playable-table .urn-option{min-height:190px}.playable-table .inventory{font-size:.76rem}.playable-table .odds{align-items:start;flex-direction:column;gap:.15rem}.playable-table .odds>span{font-size:.78rem}.playable-table .urn-option-head{align-items:start;flex-direction:column}.table-mission{margin-bottom:.8rem}.table-mission strong{font-size:.9rem}.vera-notebook .objective{font-size:1.6rem}.decision-track{margin-top:.7rem}.table-instruction{font-size:.76rem}.rehearsal-payments{gap:.3rem}}
+@media(max-width:700px){.playable-table{padding-bottom:100px}.vera-notebook>.primary{position:fixed;z-index:8;bottom:max(12px,env(safe-area-inset-bottom));left:4%;width:92%;min-height:54px;box-shadow:0 7px 20px #160d23b8;border:2px solid #f0d29b}.playable-table .table-heading h1{font-size:1.7rem}.vera-playfield{padding-top:105px}}
