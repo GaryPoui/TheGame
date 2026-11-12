@@ -1,5 +1,10 @@
 # Arquitectura y responsabilidades
 
+Actualización 2026-11-12: guardado v7 / campaign-holdem-v7, lectura compatible
+con v1–6. Ada nueva usa holdem-v1 y replay determinista propio; las sesiones
+históricas conservan su discriminante. Ver [El póker de Ada](ada-holdem.md).
+
+
 Actualización 2026-10-26: la campaña está implementada. La raíz única sigue siendo `GameState`
 en `src/core/game.ts`; gates en `src/core/campaign/progression.ts`, sesiones por mesa
 en `src/core/tables/` y composición HTML en `src/main.ts`. El adaptador de guardado vive

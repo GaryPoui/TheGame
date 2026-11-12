@@ -62,7 +62,7 @@ Se enumeraron las 2.598.960 manos de cinco cartas contra los nueve totales está
 300 manos de siete cartas se contrastaron contra sus 21 subconjuntos de cinco.
 Resultados de calibración en [balance](evidence/ada-holdem/balance.json).
 
-Build y TypeScript aprobados; 53 unitarias con `--maxWorkers=1 --testTimeout=20000`,
+Build y TypeScript aprobados; 54 unitarias con `--maxWorkers=1 --testTimeout=20000`,
 70 verificaciones matemáticas y 92 archivos de skills. Las aserciones de versión de
 guardado se actualizaron a v7; los fixtures históricos se fijaron a `cards-v1`.
 El presupuesto unitario se amplió porque el replay histórico excedió cinco segundos.
@@ -78,3 +78,16 @@ opciones usan tamaños acotados, mientras la lectura de reglas conserva la escal
 La corrección al 200 % se revalidó en 1280 × 720 y 1024 × 640;
 el detalle de las comprobaciones está en [navegador](evidence/ada-holdem/browser.txt)
 y [texto ampliado](evidence/ada-holdem/large-text-browser.txt).
+
+## Publicación
+
+Publicada `ada-holdem-2026-11-12`, fuente `88cb9a8`, gh-pages `83e039a`.
+Los 146 archivos públicos coinciden por SHA-256. Tres casos HTTPS aprobados:
+mesa a 1280 × 720, texto ampliado a 1024 × 640 y continuación con ayuda.
+Ocultación, revelación, persistencia y recarga verificadas en la build pública.
+Se reforzó la comprobación de límites superiores de las opciones; el caso
+1024 × 640 ampliado aprobó sin desplazamiento interno del panel o de la página.
+
+Evidencia: [pruebas públicas](evidence/ada-holdem/public-browser.txt),
+[integridad](evidence/ada-holdem/public-integrity.json) y
+[unitarias](evidence/ada-holdem/unit-tests.txt).

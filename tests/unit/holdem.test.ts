@@ -1,7 +1,7 @@
 import {it,expect} from 'vitest';
 import {evaluateHand,compareHands,handOdds,dealHoldem,resolveHoldem,HAND_POINTS} from '../../src/core/tables/holdem';
 import {pokerDeck,type PokerCard} from '../../src/core/tables/poker-records';
-import {createRecords,applyRecordsCommand,validRecordsState} from '../../src/core/tables/records';
+import {createRecords,applyRecordsCommand,validRecordsState,bestRecords} from '../../src/core/tables/records';
 const cards=(r:number[],s='hearts')=>r.map(rank=>({rank,suit:s} as PokerCard));
 it('ranks the best five, ace-low straights, two triples and board ties',()=>{
  expect(evaluateHand(cards([1,2,3,4,5])).category).toBe('straight-flush');
@@ -38,4 +38,12 @@ it('persists reveals and rejects duplicate actions without rerolling',()=>{
  const c={type:'choose' as const,choice:'pair' as const,commandId:'reveal',expectedRevision:s.revision};
  s=applyRecordsCommand(s,c);expect(s.phase).toBe('feedback');expect(validRecordsState(s)).toBe(true);
  expect(applyRecordsCommand(s,c)).toBe(s);expect(validRecordsState({...s,merit:999})).toBe(false);
+});
+it('awards the independent seal only after reaching 24 and acknowledging the result',()=>{
+ let s=createRecords(71);
+ for(let i=0;i<401&&s.phase!=='complete';i++){
+  const previous=s;s=applyRecordsCommand(s,{type:s.phase==='tutorial'?'begin':s.phase==='choose'?'choose':'next',choice:bestRecords(s)[0],expectedRevision:s.revision,commandId:'goal-'+s.revision});
+  if(s.phase==='complete')expect(previous.merit).toBeGreaterThanOrEqual(24);
+ }
+ expect(s.phase).toBe('complete');expect(s.merit).toBeGreaterThanOrEqual(24);expect(s.assisted).toBe(false);expect(validRecordsState(s)).toBe(true);
 });

@@ -1,5 +1,12 @@
 # Diseño educativo y reglas implementables
 
+Actualización 2026-11-12: las sesiones nuevas de Ada siguen [El póker de Ada](ada-holdem.md).
+Por pedido explícito, su marcador ahora premia categoría exacta y victoria al
+póker, con meta de 24. La calidad de la predicción se registra separada del
+resultado. El contrato común de 6/8 no se aplica a esa nueva sesión; las
+reglas anteriores permanecen para guardados históricos.
+
+
 Estado vigente: campaña implementada. Desde el 2026-10-28, Ada se reemplaza por [Las fotos tramposas](photos-redesign.md), con diagnóstico Sí/No sin puntos y ejemplos preparados de selección de resultados e independencia. Ese documento reemplaza las reglas de la sección 3 para sesiones nuevas y la presentación de registros del final. Las reglas estadísticas anteriores se conservan abajo como compatibilidad de sesiones antiguas. Urnas, costes/pagos de Doble, umbrales de sellos y libertad no cambian.
 
 ## Contrato común a todas las mesas

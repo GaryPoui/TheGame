@@ -1,12 +1,13 @@
 {
-  "phase": "game-menus-2026-11-12",
+  "phase": "ada-holdem-2026-11-12",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "cc28c015297cf1b91a00e0eb72b2a64cdc3f8954",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/cc28c015297cf1b91a00e0eb72b2a64cdc3f8954",
-  "pull_request": "https://github.com/GaryPoui/TheGame/pull/8",
+  "content_commit": "88cb9a83487ac5d4456910e482793d8b22120633",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/88cb9a83487ac5d4456910e482793d8b22120633",
+  "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/ada-holdem.md",
     "docs/game-menu-redesign.md",
     "docs/requirements-review.md",
     "docs/desktop-revision.md",
@@ -32,19 +33,22 @@
   "validation": {
     "build": "PASS",
     "document_validation": "PASS",
-    "unit_tests": 46,
-    "unit_command": "npm test -- --maxWorkers=1",
+    "unit_tests": 54,
     "math_checks": 70,
-    "skill_files_verified": 92,
-    "local_browser_cases_covered": 18,
-    "local_correction_cases_passed": 3,
-    "public_browser_cases_passed": 9,
+    "five_card_hands_enumerated": 2598960,
+    "seven_card_oracle_checks": 300,
+    "simulation_seeds": 300,
+    "simulation_mean_hands": 13.86,
+    "simulation_median_hands": 13,
+    "local_browser_cases_passed": 6,
+    "public_browser_cases_passed": 3,
     "public_asset_hashes": 146,
     "public_asset_mismatches": 0,
-    "public_build_version": "game-menus-2026-11-12",
-    "public_browser_report": "docs/evidence/game-menu-redesign/public-browser.txt",
-    "public_integrity": "docs/evidence/game-menu-redesign/public-integrity.json",
-    "note": "User authorized publishing and then direct merge into campaign. Initial clipped completion button at 200 percent fixed and revalidated. Source separate during development."
+    "save_schema": 7,
+    "skill_files_verified": 92,
+    "public_browser_report": "docs/evidence/ada-holdem/public-browser.txt",
+    "public_integrity": "docs/evidence/ada-holdem/public-integrity.json",
+    "note": "Local network attempts initially blocked; restarted server and browser in the same environment. Card position and enlarged text clipping fixed and revalidated. No new PR requested; source pushed directly to campaign."
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -55,7 +59,7 @@
   "deployed": true,
   "next_step": "Revisión del usuario; pruebas humanas pendientes.",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "a3fb950141e709a404ceb64de78c97b45636409d",
+  "deployment_commit": "83e039ab019d9354f97a0e4cbd5591ffde9536a7",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -63,8 +67,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Game-style options, title menu, chapter selector, confirmations and completion menus; no math, RNG or save schema changes.",
-  "build_source_commit": "cc28c015297cf1b91a00e0eb72b2a64cdc3f8954",
+  "scope": "Ada poker: two private cards, four community cards, two hidden opponent cards, category predictions before the fifth community card, strict win required, 24-point target.",
+  "build_source_commit": "88cb9a83487ac5d4456910e482793d8b22120633",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -724,5 +728,30 @@
       "note": "One static footer text removed. No new tests or gameplay suite rerun; prior review retained above."
     },
     "scope": "Remove the mouse instruction from the main menu footer."
+  },
+  "previous_game_menus_delivery": {
+    "phase": "game-menus-2026-11-12",
+    "branch": "codex/complete-campaign",
+    "content_commit": "cc28c015297cf1b91a00e0eb72b2a64cdc3f8954",
+    "build_source_commit": "cc28c015297cf1b91a00e0eb72b2a64cdc3f8954",
+    "deployment_commit": "a3fb950141e709a404ceb64de78c97b45636409d",
+    "validation": {
+      "build": "PASS",
+      "document_validation": "PASS",
+      "unit_tests": 46,
+      "unit_command": "npm test -- --maxWorkers=1",
+      "math_checks": 70,
+      "skill_files_verified": 92,
+      "local_browser_cases_covered": 18,
+      "local_correction_cases_passed": 3,
+      "public_browser_cases_passed": 9,
+      "public_asset_hashes": 146,
+      "public_asset_mismatches": 0,
+      "public_build_version": "game-menus-2026-11-12",
+      "public_browser_report": "docs/evidence/game-menu-redesign/public-browser.txt",
+      "public_integrity": "docs/evidence/game-menu-redesign/public-integrity.json",
+      "note": "User authorized publishing and then direct merge into campaign. Initial clipped completion button at 200 percent fixed and revalidated. Source separate during development."
+    },
+    "scope": "Game-style options, title menu, chapter selector, confirmations and completion menus; no math, RNG or save schema changes."
   }
 }
