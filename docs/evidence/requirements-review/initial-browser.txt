@@ -1,0 +1,46 @@
+
+Running 24 tests using 1 worker
+
+
+
+[1/24] tests\browser\clear-ui.spec.ts:11:1 › settings inputs support keyboard, live volume, persistence and restoring defaults
+[2/24] tests\browser\clear-ui.spec.ts:36:3 › settings controls fit 1440x900 with text scale 1
+[3/24] tests\browser\clear-ui.spec.ts:36:3 › settings controls fit 1440x900 with text scale 2
+[4/24] tests\browser\clear-ui.spec.ts:36:3 › settings controls fit 1366x768 with text scale 1
+[5/24] tests\browser\clear-ui.spec.ts:36:3 › settings controls fit 1366x768 with text scale 2
+[6/24] tests\browser\clear-ui.spec.ts:36:3 › settings controls fit 390x844 with text scale 1
+[7/24] tests\browser\clear-ui.spec.ts:36:3 › settings controls fit 390x844 with text scale 2
+[8/24] tests\browser\clear-ui.spec.ts:82:1 › clear language, settings tabs and tutorial replay preserve campaign progress
+[9/24] tests\browser\dice-roll.spec.ts:14:1 › visible table rolls once, settles on the saved pair and preserves the canvas
+[10/24] tests\browser\dice-roll.spec.ts:29:1 › reduced motion shows the exact result immediately without a roll animation
+[11/24] tests\browser\dice-roll.spec.ts:34:1 › HTML table and numbered result remain usable when WebGL is unavailable
+[12/24] tests\browser\requirements-review.spec.ts:25:64 › requested changes fit 1024x640 and tutorials preserve progress
+[13/24] tests\browser\requirements-review.spec.ts:25:64 › requested changes fit 1280x720 and tutorials preserve progress
+[14/24] tests\browser\requirements-review.spec.ts:25:64 › requested changes fit 1440x900 and tutorials preserve progress
+[15/24] tests\browser\table-tutorial.spec.ts:21:1 › tutorial no-scroll layout at 1366px
+[16/24] tests\browser\table-tutorial.spec.ts:36:1 › Vera guides a normal table through two prepared draws without changing the campaign
+[17/24] tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 1 and explain its remaining inventory
+[18/24] tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 2 and explain its remaining inventory
+[19/24] tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 1440x900 at text scale 1
+  1) tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 1440x900 at text scale 1 
+
+    Test timeout of 60000ms exceeded.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\november-final-results\table-tutorial-tutorial-he-18900-it-1440x900-at-text-scale-1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\november-final-results\table-tutorial-tutorial-he-18900-it-1440x900-at-text-scale-1\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\november-final-results\table-tutorial-tutorial-he-18900-it-1440x900-at-text-scale-1\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\november-final-results\table-tutorial-tutorial-he-18900-it-1440x900-at-text-scale-1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+[20/24] tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 1440x900 at text scale 2

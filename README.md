@@ -25,6 +25,8 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 
 [Revisión de escritorio y publicación](docs/desktop-revision.md).
 
+[Revisión de la lista de mejoras y tutoriales](docs/requirements-review.md).
+
 ## Mapa de lectura
 
 [Memoria compartible del chat y del proyecto](docs/memoria-del-chat.md), con decisiones,

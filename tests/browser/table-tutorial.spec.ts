@@ -75,6 +75,8 @@ for (const choice of [0,1]) {
 for (const viewport of [{width:1440,height:900},{width:1366,height:768},{width:390,height:844}]) {
  for (const scale of ['1','2']) {
   test(`tutorial help and separate exit fit ${viewport.width}x${viewport.height} at text scale ${scale}`,async({page})=>{
+   // This case visits every reading page and captures both views in all four steps.
+   test.setTimeout(180000);
    await mkdir(evidence,{recursive:true});await page.setViewportSize(viewport);
    await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);
    await page.getByTestId('settings-button').click();await page.getByTestId('reduced-motion').check();await page.getByTestId('text-scale').selectOption(scale);
