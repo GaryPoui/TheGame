@@ -151,9 +151,9 @@ test('replacement dialogs survive close events and deletion can be cancelled', a
   await start(page);
   await page.getByTestId('settings-button').click();
   await page.getByTestId('reduced-motion').check();
-  await page.getByTestId('restore-settings').click();
+  await page.getByRole('tab',{name:'Partida',exact:true}).click();await page.getByTestId('restore-settings').click();
   await expect(page.getByTestId('reduced-motion')).not.toBeChecked();
-  await page.getByTestId('delete-save').click();
+  await page.getByRole('tab',{name:'Partida',exact:true}).click();await page.getByTestId('delete-save').click();
   await expect(page.getByTestId('confirm-delete')).toBeVisible();
   await page.getByTestId('close-dialog').click();
   await expect(page.locator('dialog')).toHaveCount(0);

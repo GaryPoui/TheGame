@@ -27,7 +27,7 @@ test('settings inputs support keyboard, live volume, persistence and restoring d
  await page.getByTestId('close-dialog').click();await page.reload();await page.getByTestId('settings-button').click();
  await expect(page.getByTestId('text-scale')).toHaveValue('1.25');await expect(page.getByTestId('reduced-motion')).toBeChecked();
  await page.getByRole('tab',{name:'Sonido',exact:true}).click();await expect(page.getByTestId('volume-value')).toHaveText('100 %');
- await page.getByTestId('restore-settings').click();await expect(page.getByTestId('text-scale')).toHaveValue(String(defaultSettings.textScale));await expect(page.getByTestId('reduced-motion')).not.toBeChecked();
+ await page.getByRole('tab',{name:'Partida',exact:true}).click();await page.getByTestId('restore-settings').click();await expect(page.getByTestId('text-scale')).toHaveValue(String(defaultSettings.textScale));await expect(page.getByTestId('reduced-motion')).not.toBeChecked();
  await page.getByRole('tab',{name:'Sonido',exact:true}).click();await expect(page.getByTestId('volume-value')).toHaveText(`${Math.round(defaultSettings.volume*100)} %`);
 });
 
@@ -81,7 +81,7 @@ for (const viewport of [{width:1440,height:900},{width:1366,height:768},{width:3
 
 test('clear language, settings tabs and tutorial replay preserve campaign progress',async({page})=>{
  await mkdir(evidence,{recursive:true});await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);
- await expect(page.locator('.topbar')).toHaveText('Ajustes');await expect(page.locator('.menu-copy h1')).not.toContainText('.');
+ await expect(page.getByRole('navigation',{name:'Menú principal'})).toContainText('Opciones');await expect(page.locator('.menu-copy h1')).not.toContainText('.');
  await page.getByTestId('settings-button').click();await page.getByTestId('reduced-motion').check();
  await page.getByRole('tab',{name:'Sonido',exact:true}).click();await page.getByTestId('volume').fill('0');
  await expect(page.getByRole('tab',{name:'Controles',exact:true})).toHaveCount(0);await expect(page.locator('[data-testid^="bind-"]')).toHaveCount(0);

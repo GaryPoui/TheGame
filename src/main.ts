@@ -12,6 +12,8 @@ import './ui/doble-table-focus.css';
 import './ui/ada-table.css';
 import './ui/clear-ui.css';
 import './ui/quiet-desktop.css';
+import './ui/game-menus.css';
+import {settingsMenu,menuIcon,syncSettingSteps,type SettingsSection} from './ui/game-menus';
 import {cleanHeadingPeriods} from './ui/headings';
 import {replaceDisclosures,installInfoDialogs} from './ui/info-dialog';
 import {learningReview, reviewButton, tutorialSummary, type LearningTopic} from './ui/learning';
@@ -136,14 +138,15 @@ function setScreen(next: Screen, focus?: string): void {
   window.scrollTo({top:0,left:0,behavior:'instant'});
 }
 function header(): string {
-  return `<header class="topbar" aria-label="Opciones del juego">${btn('settings-button', 'Ajustes', 'quiet')}</header>`;
+  return screen==='menu'?'<header class="topbar menu-topbar" aria-hidden="true"></header>':`<header class="topbar" aria-label="Opciones del juego">${btn('settings-button', 'Ajustes', 'quiet')}</header>`;
 }
 function badges(): string {
   return `<div class="scoreboard"><span><i aria-hidden="true">✧</i> Decisiones <strong data-testid="merit">${state.merit}/8</strong></span><span><i aria-hidden="true">◈</i> Fichas ganadas <strong data-testid="chance-tokens">${state.tokens}</strong></span></div>`;
 }
 function menu(): string {
-  return `<main class="menu-layout"><section class="menu-copy"><div class="fine-rule"></div><p class="eyebrow">Una invitación poco voluntaria</p><h1>La casa<br>del azar</h1><p class="menu-tagline">La suerte reparte y vos decidís qué hacer con ella.</p><p class="menu-description">Vera cuenta fichas. Doble vende contratos. Ada reparte cartas. Tres sellos y una última mesa para volver a la calle.</p><div class="menu-actions">${hasSave ? btn('continue-game', 'Reanudar partida <span aria-hidden="true">↗</span>', 'primary') : ''}${btn('new-game', hasSave ? 'Nueva partida' : 'Tomar asiento <span aria-hidden="true">↗</span>', hasSave ? 'secondary' : 'primary')}</div><p class="menu-note">Sin prisa. Sin dinero real. Con algo que aprender.</p></section><div class="scene-caption"><span class="caption-line"></span><span>Mesa I <b>Las urnas de Vera</b></span></div></main><footer class="menu-footer"><span>Probabilidad, decisiones y una posible salida.</span><button data-action="credits" class="text-button">Acerca de este capítulo</button></footer>`;
+  return `<main class="menu-layout game-start"><section class="menu-copy"><h1>La casa<br>del azar</h1><p class="menu-tagline">La suerte reparte y vos decidís qué hacer con ella.</p><nav class="menu-actions" aria-label="Menú principal">${hasSave?btn('continue-game',`Reanudar partida ${menuIcon('next')}`,'menu-item menu-item-main'):''}${btn('new-game',`Nueva partida ${menuIcon('next')}`,hasSave?'menu-item':'menu-item menu-item-main')}${btn('settings-button',`Opciones ${menuIcon('next')}`,'menu-item')}<button data-action="credits" class="menu-item">Créditos ${menuIcon('next')}</button></nav></section></main>`;
 }
+
 const intro = INTRO.nodes.map(n=>[n.speaker,INTRO.strings[n.lineId]!] as const);
 function introView(): string {
   const [speaker, line] = intro[introLine]!;
@@ -157,9 +160,9 @@ function room(): string {
     ['records','III','Ada','Las cartas de Ada','Compará las chances de una baraja.','Necesitás el sello de Doble'],
     ['finale','IV','El anfitrión','El contrato de salida','Usá lo aprendido para abrir la puerta.','Necesitás los tres sellos'],
   ] as const;
-  return `<main class="room-layout"><section class="room-copy"><p class="eyebrow">La sala</p><h1>Cada mesa,<br>una forma de mirar.</h1><p>Tus manos están libres. ${state.freed?'La puerta también. Podés volver a practicar.':'Tres sellos y una última partida te separan de la salida.'}</p>${state.freed?btn('exit-house','Volver a la calle','primary'):''}</section><section class="table-directory" aria-label="Mesas de la sala">${entries.map(([id,n,name,title,description,requirement])=>{
+  return `<main class="room-layout"><section class="room-copy"><h1>Elegí una mesa</h1><p>Tus manos están libres. ${state.freed?'La puerta también. Podés volver a practicar.':'Tres sellos y una última partida te separan de la salida.'}</p>${state.freed?btn('exit-house','Volver a la calle','primary'):''}<button class="menu-back text-button" data-action="home">${menuIcon('back')}Volver al inicio</button></section><section class="table-directory" aria-label="Mesas de la sala">${entries.map(([id,n,name,title,description,requirement])=>{
     const unlocked=tableUnlocked(state,id),sealed=id==='finale'?state.freed:id==='urns'?urnsSealed():state.seals?.[id];
-    return `<button class="table-entry ${unlocked?'available':'locked'}" data-testid="enter-${id}" ${unlocked?'':'aria-disabled="true"'}><span class="table-number">${n}</span><span><small>${unlocked?sealed?'Completada · '+name:'Disponible · '+name:requirement}</small><strong>${title}</strong><span>${description}</span></span><span aria-hidden="true">${unlocked?'↗':'◇'}</span></button>`;
+    return `<button class="table-entry ${unlocked?'available':'locked'}" data-testid="enter-${id}" ${unlocked?'':'aria-disabled="true"'}><span class="table-number">${n}</span><span><small>${unlocked?sealed?'Completada · '+name:'Disponible · '+name:requirement}</small><strong>${title}</strong><span>${description}</span></span><img class="table-entry-portrait" src="${import.meta.env.BASE_URL}art/${id==='urns'?'vera-v3.png':id==='contracts'?'doble-v2.png':id==='records'?'ada-v1.png':'captor-v3.png'}" alt="" aria-hidden="true"><span class="table-entry-state">${menuIcon(!unlocked?'lock':sealed?'check':'next')}</span></button>`;
   }).join('')}</section></main>`;
 }
 function demoInventory():[Urn,Urn]{
@@ -378,20 +381,11 @@ function showDialog(title: string, content: string, kind=''): HTMLDialogElement 
   cleanHeadingPeriods(dialog);
   dialog.showModal(); return dialog;
 }
-function showSettings(): void {
-  const volume = Math.round(settings.volume * 100);
-  showDialog('Ajustes', `<p class="settings-intro">Los cambios se guardan al instante.</p>
-    <div class="settings-tabs" role="tablist" aria-label="Tipo de ajuste">${[['display','Pantalla'],['sound','Sonido']].map(([id,label],i)=>`<button role="tab" id="settings-tab-${id}" aria-selected="${i===0}" aria-controls="settings-${id}" data-settings-tab="${id}">${label}</button>`).join('')}</div>
-    <section id="settings-display" role="tabpanel" aria-labelledby="settings-tab-display">
-      <label class="setting-row"><span class="setting-label"><span id="text-scale-label">Tamaño de texto</span><small id="text-scale-description">Incluye explicaciones y subtítulos.</small></span><span class="setting-select"><select data-testid="text-scale" aria-labelledby="text-scale-label" aria-describedby="text-scale-description">${[1,1.25,1.5,2].map(n=>`<option value="${n}" ${settings.textScale===n?'selected':''}>${n*100} %</option>`).join('')}</select></span></label>
-      <label class="setting-row"><span class="setting-label"><span id="motion-label">Reducir movimiento</span><small id="motion-description">Sin movimientos de cámara ni animaciones de reposo.</small></span><span class="setting-switch"><input type="checkbox" role="switch" data-testid="reduced-motion" aria-labelledby="motion-label" aria-describedby="motion-description" ${settings.reducedMotion?'checked':''}><span class="setting-switch-track" aria-hidden="true"></span><span class="setting-switch-state" data-testid="motion-state" aria-hidden="true">${settings.reducedMotion?'Activado':'Desactivado'}</span></span></label>
-      <p class="small-note">No hay límite de tiempo para elegir.</p>
-    </section>
-    <section id="settings-sound" role="tabpanel" aria-labelledby="settings-tab-sound" hidden>
-      <label class="setting-row"><span class="setting-label"><span id="volume-label">Volumen</span><small id="volume-description">En cero, el juego queda en silencio.</small></span><span class="setting-volume-control"><input id="settings-volume" data-testid="volume" type="range" min="0" max="1" step="0.05" value="${settings.volume}" aria-labelledby="volume-label" aria-describedby="volume-description" aria-valuetext="${volume} %" style="--range-progress:${volume}%"><output for="settings-volume" data-testid="volume-value" aria-hidden="true">${volume} %</output></span></label>
-      <p class="small-note">Las instrucciones también se pueden leer.</p>
-    </section>
-    <div class="settings-actions">${btn('restore-settings','Restaurar ajustes','secondary')}${btn('delete-save','Borrar progreso…','text-button')}</div>`, 'settings-modal');
+function updateSettingsOrientation():void {overlay.querySelector('[role=tablist]')?.setAttribute('aria-orientation',matchMedia('(max-width:700px)').matches?'horizontal':'vertical');}
+window.addEventListener('resize',updateSettingsOrientation);
+function showSettings(section:SettingsSection='display'): void {
+  showDialog('Opciones',settingsMenu(settings,section,screen!=='menu'),'settings-modal');
+  syncSettingSteps(overlay);updateSettingsOrientation();
 }
 
 function enterContracts(): void {
@@ -470,10 +464,10 @@ function handleGameClick(event: MouseEvent): void {
   if (id === 'settings-button') { showSettings(); return; }
   if (target.dataset.action === 'home') { event.preventDefault(); setScreen('menu'); return; }
   if (target.dataset.action === 'credits') {
-    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Esta versión incluye las urnas de Vera, los contratos de Doble, las fotos tramposas de Ada y el contrato de salida del anfitrión.</p><p>Nueva dirección de animación de los años treinta: sala y personajes ilustrados con generación de imágenes. Captor adaptado de las referencias de Gambito aportadas por el usuario; Cuphead es referencia estética. Sin afiliación con Marvel ni Studio MDHR. Mesa y urnas interactivas propias. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
+    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Esta versión incluye las urnas de Vera, los contratos de Doble, las cartas de Ada y el contrato de salida del anfitrión.</p><p>Nueva dirección de animación de los años treinta: sala y personajes ilustrados con generación de imágenes. Captor adaptado de las referencias de Gambito aportadas por el usuario; Cuphead es referencia estética. Sin afiliación con Marvel ni Studio MDHR. Mesa y urnas interactivas propias. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
   }
   if (id === 'new-game' || id === 'practice-again') {
-    if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p>${btn('confirm-new-game','Empezar de nuevo','primary full')}`); return; }
+    if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p><div class="confirmation-actions">${btn('cancel-dialog','Conservar partida','secondary full')}${btn('confirm-new-game','Empezar de nuevo','primary full')}</div>`,'confirmation-modal'); return; }
     startNew(id === 'practice-again'); return;
   }
   if (id === 'continue-game') { if(state.intro?.ended&&!state.activeTable&&!state.history.length){setScreen('room','enter-urns');return;} if(state.intro&&!state.intro.ended&&!state.activeTable&&!state.history.length){introLine=Math.max(0,INTRO.nodes.findIndex(n=>n.id===state.intro!.node));if(introLine===0)beginIntro();else introPhase='lit';setScreen('intro',introPhase==='dark'?'intro-back':'intro-next');return;} if(state.activeTable==='outside'&&state.freed){setScreen('outside','back-room');return;} if(state.activeTable==='records'){enterRecords();return;} if(state.activeTable==='finale'){enterFinale();return;} if(state.activeTable === 'contracts' && state.contracts) { enterContracts(); return; } setScreen(state.phase === 'complete' ? 'complete' : 'table', state.phase === 'choose' || state.phase === 'guided' ? 'toggle-cards' : 'next-step'); return; }
@@ -530,19 +524,24 @@ app.addEventListener('click', handleGameClick);
 overlay.addEventListener('click', event => {
   const utility=(event.target as HTMLElement).closest<HTMLElement>('button')?.dataset.testid;
   if(utility&&['help-button','repeat-tutorial','back-room'].includes(utility)){overlay.querySelector('dialog')?.close();handleGameClick(event);return;}
+  const step=(event.target as HTMLElement).closest<HTMLElement>('[data-setting-step]');
+  if(step){const input=overlay.querySelector<HTMLInputElement|HTMLSelectElement>('[data-testid="'+step.dataset.settingStep+'"]')!;const delta=Number(step.dataset.delta);if(input instanceof HTMLSelectElement){input.selectedIndex=Math.max(0,Math.min(input.options.length-1,input.selectedIndex+delta));}else input.value=String(Math.max(0,Math.min(1,Math.round((Number(input.value)+delta*.05)*100)/100)));input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));return;}
   const tab=(event.target as HTMLElement).closest<HTMLElement>('[data-settings-tab]')?.dataset.settingsTab;
   if(tab){
-    overlay.querySelectorAll<HTMLElement>('[data-settings-tab]').forEach(el=>el.setAttribute('aria-selected',String(el.dataset.settingsTab===tab)));
+    overlay.querySelectorAll<HTMLElement>('[data-settings-tab]').forEach(el=>{const active=el.dataset.settingsTab===tab;el.setAttribute('aria-selected',String(active));el.tabIndex=active?0:-1;});
     overlay.querySelectorAll<HTMLElement>('[role="tabpanel"]').forEach(el=>el.hidden=el.id!=='settings-'+tab);
     return;
   }
   const id = (event.target as HTMLElement).closest<HTMLElement>('button')?.dataset.testid;
-  if (id === 'close-dialog' || id === 'resume-game') overlay.querySelector('dialog')?.close();
+  if (id === 'close-dialog' || id === 'resume-game' || id==='settings-return' || id==='cancel-dialog') overlay.querySelector('dialog')?.close();
   if (id === 'confirm-new-game') { overlay.querySelector('dialog')?.close(); startNew(); }
   if (id === 'restore-settings') { settings = structuredClone(defaultSettings); applySettings(); if(hasSave)persist(); overlay.querySelector('dialog')?.close(); showSettings(); }
-  if (id === 'delete-save') { overlay.querySelector('dialog')?.close(); showDialog('Borrar el progreso', `<p>Se eliminarán la partida y su copia de seguridad. Esta acción no se puede deshacer.</p>${btn('confirm-delete','Borrar el progreso','primary full')}`); }
+  if(id==='return-main-menu'){overlay.querySelector('dialog')?.close();if(hasSave)persist();setScreen('menu',hasSave?'continue-game':'new-game');return;}
+  if(id==='cancel-delete'){overlay.querySelector('dialog')?.close();showSettings('session');return;}
+  if (id === 'delete-save') { overlay.querySelector('dialog')?.close(); showDialog('Borrar el progreso', `<p>Se eliminarán la partida y su copia de seguridad. Esta acción no se puede deshacer.</p><div class="confirmation-actions">${btn('cancel-delete','Conservar partida','secondary full')}${btn('confirm-delete','Borrar el progreso','primary full')}</div>`,'confirmation-modal'); }
   if (id === 'confirm-delete') { clearGame(); storageConflict=false; hasSave=false; warning=null; state=createGame(); settings=structuredClone(defaultSettings); applySettings(); overlay.querySelector('dialog')?.close(); setScreen('menu','new-game'); }
 });
+overlay.addEventListener('keydown',event=>{const tab=(event.target as HTMLElement).closest<HTMLButtonElement>('[data-settings-tab]');if(!tab||!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;const tabs=[...overlay.querySelectorAll<HTMLButtonElement>('[data-settings-tab]')];const index=event.key==='Home'?0:event.key==='End'?tabs.length-1:(tabs.indexOf(tab)+(['ArrowDown','ArrowRight'].includes(event.key)?1:tabs.length-1))%tabs.length;event.preventDefault();tabs[index]?.click();tabs[index]?.focus();});
 overlay.addEventListener('input', event => {
   const el = event.target as HTMLInputElement;
   if (el.dataset.testid !== 'volume') return;
@@ -572,7 +571,7 @@ overlay.addEventListener('change', event => {
     settings.keys=rebound;
     if (message) message.textContent = 'Atajo actualizado.';
   }
-  applySettings(); if(hasSave)persist();
+  applySettings(); if(hasSave)persist();syncSettingSteps(overlay);
 });
 
 installInfoDialogs(showDialog);
