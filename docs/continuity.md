@@ -232,3 +232,6 @@ Revisión de lista 2026-11-12: pull seguro a 90dd4d8, conservando tutorial y aju
 Publicación de la revisión: requirements-review-2026-11-12, fuente 67c860d, deployment 102e605. Recorrido HTTPS a 1280×720 aprobado y 146/146 hashes coincidentes; una descarga temporal 503 quedó revalidada con 200. Cambios subidos a la rama de campaña y PR #7 conservado sin merge.
 
 Limpieza de menú 2026-11-12: retirado «Para jugar con el mouse». Fuente 222b095, deployment 09f904c, versión menu-cleanup-2026-11-12. Build y verificaciones documentales/matemáticas aprobadas; bundle principal público coincidente y frase ausente.
+
+
+Propuesta de menús 2026-11-12 en codex/game-menu-redesign, basada en 3bd7282: opciones con categorías y regreso fijo, inicio, selector de mesas, confirmaciones y cierres con marco de juego. Rama para revisión sin merge ni despliegue. Build, 46 unitarias con un worker, 70 verificaciones matemáticas y 18 casos de navegador cubiertos con corrección revalidada del cierre al 200 %. Ver docs/game-menu-redesign.md.

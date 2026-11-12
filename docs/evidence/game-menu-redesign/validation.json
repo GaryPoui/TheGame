@@ -1,0 +1,25 @@
+{
+  "status": "branch for review; not merged or deployed",
+  "branch": "codex/game-menu-redesign",
+  "base": "3bd7282",
+  "unitTestsPassed": 46,
+  "unitCommand": "npm test -- --maxWorkers=1",
+  "mathChecks": 70,
+  "browserCasesCovered": 18,
+  "secondReviewPassed": 17,
+  "secondReviewClippedCompletionButton": 1,
+  "correctionCasesPassed": 3,
+  "newOptionsViewports": [
+    "1024x640",
+    "1440x900",
+    "390x844"
+  ],
+  "textScales": [
+    1,
+    2
+  ],
+  "browser": "Chrome headless on Windows; isolated profile",
+  "coreMathRngSaveSchemaChanged": false,
+  "newDependenciesOrExternalAssets": false,
+  "pagesCommitUnchanged": "09f904ce6163d5d3a2c9a2d897e8934aad6eadc8"
+}
