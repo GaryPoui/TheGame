@@ -1,12 +1,13 @@
 {
-  "phase": "desktop-poker-2026-10-30",
+  "phase": "requirements-review-2026-11-12",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "7a9ed907361207a0238233c0fb12232d3e2b5164",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/7a9ed907361207a0238233c0fb12232d3e2b5164",
+  "content_commit": "67c860d18293c89becb44512a34dd068d1873fef",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/67c860d18293c89becb44512a34dd068d1873fef",
   "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
   "documentation": [
+    "docs/requirements-review.md",
     "docs/desktop-revision.md",
     "docs/ada-poker.md",
     "docs/doble-proportions.md",
@@ -29,34 +30,29 @@
   "snapshot_note": "Chat links below are historical immutable snapshots. The current continuity is the repository memory and campaign documentation.",
   "validation": {
     "unit_tests": 46,
-    "local_browser_suite_passed": 38,
-    "local_browser_suite_initial_failure": 1,
-    "failed_case_fixed_and_retested": "PASS: header with 200 percent text at 390x844",
-    "local_browser_cases_covered": 39,
-    "public_completed_browser_cases": 4,
-    "public_capture_free_dice_actions": "PASS: one saved animated roll and second decision without reroll",
-    "public_capture_timeouts": 2,
-    "public_note": "Long public 1280 campaign and screenshot-based animated dice cases exceeded browser/teardown timeouts. Public 1366 campaign, 200 percent narrow text, reduced-motion dice and HTML fallback completed; animated actions passed separately without image capture. Do not claim the entire public suite passed.",
+    "browser_cases_covered": 24,
+    "initial_block_completed": 18,
+    "reading_cases_retested_and_passed": 6,
+    "reading_test_budget_seconds": 180,
+    "public_browser_cases_passed": 1,
     "public_asset_hashes": 146,
     "public_asset_mismatches": 0,
+    "temporary_public_asset_errors_retried": 1,
     "exact_design_math_checks": 70,
     "skill_files_verified": 92,
-    "normal_desktop_no_scroll_viewports": [
+    "desktop_viewports": [
+      "1024x640",
       "1280x720",
-      "1366x768",
-      "1920x1080"
+      "1440x900"
     ],
-    "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU benchmark",
-    "local_browser_report": "docs/evidence/desktop-poker/local-browser-results.txt",
-    "correction_report": "docs/evidence/desktop-poker/correction-browser-results.txt",
-    "public_browser_report": "docs/evidence/desktop-poker/public-browser-results.txt",
-    "public_interrupted_report": "docs/evidence/desktop-poker/public-browser-interrupted.txt",
-    "public_actions": "docs/evidence/desktop-poker/public-actions.json",
-    "public_integrity": "docs/evidence/desktop-poker/public-integrity.json",
-    "source_ci": {
-      "status_observed": "in_progress",
-      "url": "https://github.com/GaryPoui/TheGame/actions/runs/41063226522"
-    }
+    "settings_and_Vera_text_scales": [
+      1,
+      2
+    ],
+    "browser": "Chrome 157.0.8103.52 headless on Windows, isolated profile; no physical GPU benchmark",
+    "public_browser_report": "docs/evidence/requirements-review/public-browser.txt",
+    "public_integrity": "docs/evidence/requirements-review/public-integrity.json",
+    "scope": "Layout, actual table canvas, settings inputs and persistence, heading punctuation, tutorials without changing state, dice animation and HTML fallback. Complete reading cases re-run after increasing the test-wide capture budget; original assertions unchanged."
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -67,7 +63,7 @@
   "deployed": true,
   "next_step": "Revisión del usuario; pruebas humanas de comprensión y rendimiento en hardware real pendientes.",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "013e7a42c7af52ebbcab23f23a9875706d37ff59",
+  "deployment_commit": "102e6058514b48e8f4ddc17e5ab5133aee9850af",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -75,8 +71,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Poker probability game for Ada, table legs and larger dice stage, brief cards, centered reading dialogs, mouse play and desktop layouts without page scrolling. Removes room walking panel, control remapping tab, superimposed final table and optional closing exercises.",
-  "build_source_commit": "7a9ed907361207a0238233c0fb12232d3e2b5164",
+  "scope": "Pulled 90dd4d8 and preserved incoming settings and Vera tutorial. Completed heading punctuation, clearer dice payments, removed duplicated desktop objective and added a three-step poker tutorial without modifying progress or RNG.",
+  "build_source_commit": "67c860d18293c89becb44512a34dd068d1873fef",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -224,7 +220,7 @@
     "deployment_commit": "1e6bfd4ffcadec61979ba4999123dfa1b791999a",
     "next_step": "Playtest humano del primer juego y ajustes según feedback del usuario; mantener foco en urnas."
   },
-  "completion_date": "2026-10-30",
+  "completion_date": "2026-11-12",
   "previous_campaign_delivery": {
     "phase": "campaign-complete-v5.2",
     "content_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
@@ -432,7 +428,7 @@
     },
     "scope": "Compact Doble offers with graphical paying dice pairs and reverse-order counts; five normal-text viewports show all offers without scrolling; enlarged text grows vertically."
   },
-  "last_update_date": "2026-10-30",
+  "last_update_date": "2026-11-12",
   "previous_visible_dice_table_delivery": {
     "phase": "visible-dice-table-v12",
     "content_commit": "afc296333ab422f026e2ae9ba91f8efe31de6308",
@@ -648,5 +644,43 @@
       }
     },
     "scope": "Large waist-up Doble in proportion with the table, lower camera angle and extra headroom. Projected hat, waist and width measured across six viewports."
+  },
+  "previous_desktop_poker_delivery": {
+    "phase": "desktop-poker-2026-10-30",
+    "content_commit": "7a9ed907361207a0238233c0fb12232d3e2b5164",
+    "build_source_commit": "7a9ed907361207a0238233c0fb12232d3e2b5164",
+    "deployment_commit": "013e7a42c7af52ebbcab23f23a9875706d37ff59",
+    "validation": {
+      "unit_tests": 46,
+      "local_browser_suite_passed": 38,
+      "local_browser_suite_initial_failure": 1,
+      "failed_case_fixed_and_retested": "PASS: header with 200 percent text at 390x844",
+      "local_browser_cases_covered": 39,
+      "public_completed_browser_cases": 4,
+      "public_capture_free_dice_actions": "PASS: one saved animated roll and second decision without reroll",
+      "public_capture_timeouts": 2,
+      "public_note": "Long public 1280 campaign and screenshot-based animated dice cases exceeded browser/teardown timeouts. Public 1366 campaign, 200 percent narrow text, reduced-motion dice and HTML fallback completed; animated actions passed separately without image capture. Do not claim the entire public suite passed.",
+      "public_asset_hashes": 146,
+      "public_asset_mismatches": 0,
+      "exact_design_math_checks": 70,
+      "skill_files_verified": 92,
+      "normal_desktop_no_scroll_viewports": [
+        "1280x720",
+        "1366x768",
+        "1920x1080"
+      ],
+      "renderer_tested": "Chromium headless ANGLE SwiftShader on Windows; no physical GPU benchmark",
+      "local_browser_report": "docs/evidence/desktop-poker/local-browser-results.txt",
+      "correction_report": "docs/evidence/desktop-poker/correction-browser-results.txt",
+      "public_browser_report": "docs/evidence/desktop-poker/public-browser-results.txt",
+      "public_interrupted_report": "docs/evidence/desktop-poker/public-browser-interrupted.txt",
+      "public_actions": "docs/evidence/desktop-poker/public-actions.json",
+      "public_integrity": "docs/evidence/desktop-poker/public-integrity.json",
+      "source_ci": {
+        "status_observed": "in_progress",
+        "url": "https://github.com/GaryPoui/TheGame/actions/runs/41063226522"
+      }
+    },
+    "scope": "Poker probability game for Ada, table legs and larger dice stage, brief cards, centered reading dialogs, mouse play and desktop layouts without page scrolling. Removes room walking panel, control remapping tab, superimposed final table and optional closing exercises."
   }
 }

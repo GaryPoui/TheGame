@@ -51,4 +51,9 @@ tutorial. Capturas revisadas: [dados](evidence/requirements-review/dice-1024.png
 [cartas](evidence/requirements-review/cards-tutorial-1024.png).
 
 La fuente y la publicación se conservan en la rama de campaña y `gh-pages`, sin
-fusionar el PR. El registro público se completa después de comprobar la nueva build.
+fusionar el PR. Publicada y comprobada como `requirements-review-2026-11-12`, fuente `67c860d`,
+deployment `102e605`. El recorrido público a 1280 × 720 aprobó: tutoriales, dados,
+cartas, títulos, ajustes y cuatro patas activas. Los 146 archivos coinciden por hash;
+una respuesta temporal 503 se repitió y pasó con 200 y el hash esperado.
+Evidencia: [recorrido público](evidence/requirements-review/public-browser.txt) e
+[integridad](evidence/requirements-review/public-integrity.json).

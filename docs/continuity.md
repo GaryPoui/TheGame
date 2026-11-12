@@ -228,3 +228,5 @@ Revisión 2026-10-30: [escritorio y cartas](desktop-revision.md). Ada nueva usa 
 
 
 Revisión de lista 2026-11-12: pull seguro a 90dd4d8, conservando tutorial y ajustes entrantes. Completados títulos sin puntos, claridad de pagos de Doble, eliminación de objetivo duplicado y tutorial de cartas de Ada en tres pasos sin modificar progreso. Patas y tipografía ya estaban. Build, 46 unitarias, 70 verificaciones matemáticas, 92 archivos de skills y 24 casos de navegador comprobados; los seis casos largos de lectura aprobaron con presupuesto de prueba ampliado sin quitar aserciones. Ver docs/requirements-review.md.
+
+Publicación de la revisión: requirements-review-2026-11-12, fuente 67c860d, deployment 102e605. Recorrido HTTPS a 1280×720 aprobado y 146/146 hashes coincidentes; una descarga temporal 503 quedó revalidada con 200. Cambios subidos a la rama de campaña y PR #7 conservado sin merge.
