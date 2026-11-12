@@ -62,6 +62,13 @@ accesibilidad integral ni rendimiento de GPU.
 
 ## Estado de entrega
 
-Implementación terminada en su propia rama, sin fusionar la rama de campaña.
-Publicación en `gh-pages` autorizada por el usuario; se registran el commit y la
-comprobación pública al terminar la entrega.
+El usuario autorizó publicar y después integrar directamente en la rama de campaña.
+Fuente publicada `cc28c01`, versión `game-menus-2026-11-12`, commit de `gh-pages`
+`a3fb950`. Los 146 archivos públicos coinciden por SHA-256; aprobaron nueve casos
+HTTPS: opciones en escritorio y móvil al 100 % y 200 %, confirmaciones, regreso,
+selector de mesas, cierre y recorrido de tutoriales, dados, cartas y patas de mesa.
+La revisión [PR #8](https://github.com/GaryPoui/TheGame/pull/8) se había creado antes
+de la autorización de integración directa.
+
+Evidencia: [navegador público](evidence/game-menu-redesign/public-browser.txt) e
+[integridad pública](evidence/game-menu-redesign/public-integrity.json).

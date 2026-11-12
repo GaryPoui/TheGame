@@ -1,12 +1,13 @@
 {
-  "phase": "menu-cleanup-2026-11-12",
+  "phase": "game-menus-2026-11-12",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/complete-campaign",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "222b095407d390152bab095cfbd053ec7238c175",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/222b095407d390152bab095cfbd053ec7238c175",
-  "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
+  "content_commit": "cc28c015297cf1b91a00e0eb72b2a64cdc3f8954",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/cc28c015297cf1b91a00e0eb72b2a64cdc3f8954",
+  "pull_request": "https://github.com/GaryPoui/TheGame/pull/8",
   "documentation": [
+    "docs/game-menu-redesign.md",
     "docs/requirements-review.md",
     "docs/desktop-revision.md",
     "docs/ada-poker.md",
@@ -31,11 +32,19 @@
   "validation": {
     "build": "PASS",
     "document_validation": "PASS",
+    "unit_tests": 46,
+    "unit_command": "npm test -- --maxWorkers=1",
     "math_checks": 70,
-    "public_build_version": "menu-cleanup-2026-11-12",
-    "public_main_bundle_matches_local": true,
-    "removed_text_absent_from_public_bundle": true,
-    "note": "One static footer text removed. No new tests or gameplay suite rerun; prior review retained above."
+    "skill_files_verified": 92,
+    "local_browser_cases_covered": 18,
+    "local_correction_cases_passed": 3,
+    "public_browser_cases_passed": 9,
+    "public_asset_hashes": 146,
+    "public_asset_mismatches": 0,
+    "public_build_version": "game-menus-2026-11-12",
+    "public_browser_report": "docs/evidence/game-menu-redesign/public-browser.txt",
+    "public_integrity": "docs/evidence/game-menu-redesign/public-integrity.json",
+    "note": "User authorized publishing and then direct merge into campaign. Initial clipped completion button at 200 percent fixed and revalidated. Source separate during development."
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -44,9 +53,9 @@
   ],
   "game_implemented": true,
   "deployed": true,
-  "next_step": "Revisión del usuario; pruebas humanas de comprensión y rendimiento en hardware real pendientes.",
+  "next_step": "Revisión del usuario; pruebas humanas pendientes.",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "09f904ce6163d5d3a2c9a2d897e8934aad6eadc8",
+  "deployment_commit": "a3fb950141e709a404ceb64de78c97b45636409d",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -54,8 +63,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Remove the mouse instruction from the main menu footer.",
-  "build_source_commit": "222b095407d390152bab095cfbd053ec7238c175",
+  "scope": "Game-style options, title menu, chapter selector, confirmations and completion menus; no math, RNG or save schema changes.",
+  "build_source_commit": "cc28c015297cf1b91a00e0eb72b2a64cdc3f8954",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -698,5 +707,22 @@
       "scope": "Layout, actual table canvas, settings inputs and persistence, heading punctuation, tutorials without changing state, dice animation and HTML fallback. Complete reading cases re-run after increasing the test-wide capture budget; original assertions unchanged."
     },
     "scope": "Pulled 90dd4d8 and preserved incoming settings and Vera tutorial. Completed heading punctuation, clearer dice payments, removed duplicated desktop objective and added a three-step poker tutorial without modifying progress or RNG."
+  },
+  "previous_menu_cleanup_delivery": {
+    "phase": "menu-cleanup-2026-11-12",
+    "branch": "codex/complete-campaign",
+    "content_commit": "222b095407d390152bab095cfbd053ec7238c175",
+    "build_source_commit": "222b095407d390152bab095cfbd053ec7238c175",
+    "deployment_commit": "09f904ce6163d5d3a2c9a2d897e8934aad6eadc8",
+    "validation": {
+      "build": "PASS",
+      "document_validation": "PASS",
+      "math_checks": 70,
+      "public_build_version": "menu-cleanup-2026-11-12",
+      "public_main_bundle_matches_local": true,
+      "removed_text_absent_from_public_bundle": true,
+      "note": "One static footer text removed. No new tests or gameplay suite rerun; prior review retained above."
+    },
+    "scope": "Remove the mouse instruction from the main menu footer."
   }
 }

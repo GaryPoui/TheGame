@@ -235,3 +235,5 @@ Limpieza de menú 2026-11-12: retirado «Para jugar con el mouse». Fuente 222b0
 
 
 Propuesta de menús 2026-11-12 en codex/game-menu-redesign, basada en 3bd7282: opciones con categorías y regreso fijo, inicio, selector de mesas, confirmaciones y cierres con marco de juego. Rama para revisión sin merge ni despliegue. Build, 46 unitarias con un worker, 70 verificaciones matemáticas y 18 casos de navegador cubiertos con corrección revalidada del cierre al 200 %. Ver docs/game-menu-redesign.md.
+
+Publicación e integración de menús 2026-11-12 autorizadas después de crear la rama aparte: fuente cc28c01, gh-pages a3fb950, versión game-menus-2026-11-12. Nueve casos HTTPS y 146/146 hashes aprobados. El usuario autorizó merge directo en campaña; revisión #8 creada previamente. Ver docs/game-menu-redesign.md y delivery.json.

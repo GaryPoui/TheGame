@@ -1,0 +1,17 @@
+
+Running 9 tests using 1 worker
+
+
+
+(node:11932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/9] tests\browser\game-menus.spec.ts:18:88 › game options fit 1440x900, text 1
+[2/9] tests\browser\game-menus.spec.ts:18:88 › game options fit 1440x900, text 2
+[3/9] tests\browser\game-menus.spec.ts:18:88 › game options fit 390x844, text 1
+[4/9] tests\browser\game-menus.spec.ts:18:88 › game options fit 390x844, text 2
+[5/9] tests\browser\game-menus.spec.ts:38:1 › menu confirmations and return to title protect the save
+[6/9] tests\browser\game-menus.spec.ts:46:1 › chapter menu keeps locks and provides a path back
+[7/9] tests\browser\game-menus.spec.ts:53:26 › seal and confirmation menus fit text 1
+[8/9] tests\browser\game-menus.spec.ts:53:26 › seal and confirmation menus fit text 2
+[9/9] tests\browser\requirements-review.spec.ts:25:64 › requested changes fit 1280x720 and tutorials preserve progress
+  9 passed (56.9s)
