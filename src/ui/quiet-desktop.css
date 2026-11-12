@@ -154,3 +154,8 @@ body[data-screen=tutorial] .tutorial-table { height: calc(100svh - 52px); min-he
   .completion-card .seal { width: 52px; height: 52px; font-size: 2rem; margin-bottom: .7rem; }
   .modal { max-height: calc(100svh - 24px); }
 }
+
+/* The objective is already visible in the decision panel on desktop. */
+@media (min-width: 1000px) {
+  .contracts-layout .contracts-heading .dice-mission { display: none; }
+}

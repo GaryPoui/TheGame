@@ -15,8 +15,22 @@ function pilesView(s:RecordsState,selected:RecordsChoice|null):string {
  const review=s.phase==='feedback',piles=review?s.cards!.last!.before:s.cards!.piles;
  return `<div class="poker-piles" aria-label="Cartas de los dos montones">${piles.map((pile,i)=>`<section class="poker-pile ${selected===(i===0?'K':'V')?'poker-selected':''}" aria-label="Montón ${i+1}"><h2>Montón ${i+1} <small>${pile.length} cartas</small></h2><div class="poker-hand">${pile.map(card=>cardView(card,review&&pokerMatches(card,pokerRound(s)))).join('')}</div></section>`).join('')}</div>`;
 }
-export function pokerRecordsView(s:RecordsState,selected:RecordsChoice|null):string {
- if(s.phase==='tutorial')return `<main class="archive-layout ada-table-layout poker-layout"><section class="archive-floor"><h1>Las cartas de Ada</h1>${adaTableStage(pilesView(s,null))}</section><aside class="game-panel archive-panel"><h2>Elegí dónde sacar</h2><p>Ada reparte cartas de póker en dos montones. Elegí el que dé más chances de cumplir el objetivo.</p><p>Sacás una carta al azar y queda afuera. Después volvés a elegir con las cartas que quedan.</p><p>Seis buenas decisiones de ocho te dan el sello. Si hace falta, Ada te ayuda.</p>${button('records-begin','Jugar con Ada',s.revision)}<button class="text-button full" data-testid="back-room">Volver a la sala</button></aside></main>`;
+function pokerTutorial(s:RecordsState,step:number):string {
+ const page=Math.max(0,Math.min(2,step)),example=structuredClone(s);
+ const before=[pokerOdds(s,0),pokerOdds(s,1)];
+ const best:0|1=before[0]!.wins*before[1]!.total>=before[1]!.wins*before[0]!.total?0:1;
+ if(page===2){const pile=example.cards!.piles[best];pile.splice(pile.findIndex(c=>pokerMatches(c,0)),1);}
+ const odds=[pokerOdds(example,0),pokerOdds(example,1)];
+ const pages=[
+  ['Reconocé los colores','Corazones ♥ y diamantes ♦ son rojos. Tréboles ♣ y picas ♠ son negros. No necesitás saber jugar al póker.','Cada montón usa algunas cartas de una baraja de 52, sin comodines. Todas las cartas que ves pueden salir.'],
+  ['Elegí la mayor proporción',`Buscamos una roja. El montón ${best+1} tiene más cartas rojas en proporción a su total. Compará las cuentas de abajo.`, 'Dividí las cartas que sirven por todas las cartas del montón. Elegir mejor aumenta las chances; no asegura la carta.'],
+  ['Actualizá después de sacar',`En este ejemplo retiramos una roja del montón ${best+1}. Hay una roja menos y una carta menos en total.`, 'La carta no vuelve. Antes de elegir otra vez, contá lo que queda. En la partida ganás puntos por elegir bien, aunque salga otro color.'],
+ ];
+ const content=pages[page]!;
+ return `<main class="archive-layout ada-table-layout poker-layout poker-tutorial"><section class="archive-floor"><h1>Las cartas de Ada</h1><p data-testid="records-tutorial-step">Tutorial · paso ${page+1} de 3</p>${adaTableStage(pilesView(example,null))}</section><aside class="game-panel archive-panel"><h2>${content[0]}</h2><p>${content[1]}</p>${page>0?`<div class="tutorial-accounts" aria-label="Cuentas del ejemplo">${odds.map((o,i)=>`<p>Montón ${i+1}: <strong>${o.wins} ÷ ${o.total}</strong> rojas</p>`).join('')}</div>`:''}<p>${content[2]}</p><p class="small-note">Ejemplo preparado · no cambia tu progreso</p>${page<2?button('records-tutorial-next','Continuar tutorial',s.revision):button('records-begin','Jugar con Ada',s.revision)}${page>0?'<button class="text-button full" data-testid="records-tutorial-back">Volver al paso anterior</button>':''}${page<2?'<button class="text-button full" data-testid="records-begin">Saltar tutorial y jugar</button>':''}<button class="text-button full" data-testid="back-room">Volver a la sala</button></aside></main>`;
+}
+export function pokerRecordsView(s:RecordsState,selected:RecordsChoice|null,tutorialStep=0):string {
+ if(s.phase==='tutorial')return pokerTutorial(s,tutorialStep);
  if(s.phase==='complete')return `<main class="completion-layout"><section class="completion-card" data-testid="records-completion"><div class="seal">III</div><h1>Ada te entrega su sello.</h1><p>${s.assisted?'Completaste los ejemplos con ayuda.':`${s.merit} buenas decisiones de ocho.`}</p><p>La carta que sale depende del azar. Tus puntos dependen de elegir con las mejores chances.</p>${button('enter-finale','Ir al contrato de salida',s.revision)}<button class="text-button full" data-testid="records-replay">Volver a jugar con cartas</button><button class="text-button full" data-testid="back-room">Volver a la sala</button></section></main>`;
  const review=s.phase==='feedback',last=s.history.at(-1),optimal=review?last!.optimal:bestRecords(s),draw=s.cards!.last;
  const odds=[pokerOdds(s,0,review),pokerOdds(s,1,review)];

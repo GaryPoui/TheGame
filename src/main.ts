@@ -12,6 +12,7 @@ import './ui/doble-table-focus.css';
 import './ui/ada-table.css';
 import './ui/clear-ui.css';
 import './ui/quiet-desktop.css';
+import {cleanHeadingPeriods} from './ui/headings';
 import {replaceDisclosures,installInfoDialogs} from './ui/info-dialog';
 import {learningReview, reviewButton, tutorialSummary, type LearningTopic} from './ui/learning';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
@@ -50,6 +51,7 @@ let screen: Screen = 'menu';
 let selected: 0 | 1 | null = null;
 let cardsVisible = false;
 let selectedRecord: RecordsChoice|null=null;
+let adaTutorialStep=0;
 let selectedFinale: FinaleChoice|null=null;
 let storageConflict=false;
 let introLine = Math.max(0,INTRO.nodes.findIndex(n=>n.id===state.intro?.node));
@@ -249,10 +251,11 @@ function render(focusId?: string): void {
   document.body.dataset.doblePhase = state.contracts?.phase ?? 'tutorial';
   document.body.dataset.introPhase = introPhase;
   document.body.dataset.speaker = screen === 'intro' && introLine === 2 ? 'vera' : 'captor';
-  app.innerHTML = header() + ({ menu, intro: introView, room, tutorial, table, complete, contracts: dobleScreen, records:()=>state.records?recordsView(state.records,selectedRecord):room(), finale:()=>state.finale?endingView(state.finale,selectedFinale,state.freed===true):room(), outside:outsideView, street:streetView }[screen])() +
+  app.innerHTML = header() + ({ menu, intro: introView, room, tutorial, table, complete, contracts: dobleScreen, records:()=>state.records?recordsView(state.records,selectedRecord,adaTutorialStep):room(), finale:()=>state.finale?endingView(state.finale,selectedFinale,state.freed===true):room(), outside:outsideView, street:streetView }[screen])() +
     (warning ? `<div class="save-warning" role="status">${escapeText(warning)}</div>` : '') +
     (sceneWarning ? `<div class="graphics-warning">${sceneWarning} ${btn('retry-graphics','Reintentar 3D','quiet')}</div>` : '');
   for(const name of expanded) app.querySelector<HTMLDetailsElement>(`details[data-keep-open="${name}"]`)?.setAttribute('open','');
+  cleanHeadingPeriods(app);
   replaceDisclosures(app);
   updateVisual();
   if (focusId) document.querySelector<HTMLButtonElement>(`[data-testid="${focusId}"]`)?.focus({preventScroll:true});
@@ -323,7 +326,7 @@ function outsideView():string {
 }
 function enterRecords():void {
  if(!tableUnlocked(state,'records'))return;
- state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience?.startsWith('photos-')&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
+ adaTutorialStep=0;state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience?.startsWith('photos-')&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
 }
 function enterFinale():void {
  if(!tableUnlocked(state,'finale'))return;
@@ -334,10 +337,11 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(id==='exit-house'&&state.freed){state.activeTable='outside';persist();setScreen('outside','back-room');return true;}
  if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
  if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
- if((id==='records-replay'||id==='records-upgrade')&&state.records){state.records=createRecords(Date.now(),true);persist();selectedRecord=null;setScreen('records','records-begin');return true;}
+ if((id==='records-replay'||id==='records-upgrade')&&state.records){adaTutorialStep=0;state.records=createRecords(Date.now(),true);persist();selectedRecord=null;setScreen('records','records-begin');return true;}
  if(id==='finale-replay'&&state.finale){state.finale=createFinale();persist();setScreen('finale','finale-U');return true;}
  if(screen==='records'&&state.records){
    const current=state.records;
+   if(current.phase==='tutorial'&&current.experience==='cards-v1'&&(id==='records-tutorial-next'||id==='records-tutorial-back')){adaTutorialStep=Math.max(0,Math.min(2,adaTutorialStep+(id==='records-tutorial-next'?1:-1)));render(adaTutorialStep===2?'records-begin':'records-tutorial-next');return true;}
    if(id==='records-diagnostic-yes'||id==='records-diagnostic-no'){
      const next=applyRecordsCommand(current,{type:'diagnose',choice:id.endsWith('yes')?'yes':'no',expectedRevision:Number(target.dataset.revision),commandId:'ada-diagnostic-'+target.dataset.revision});
      if(next!==current){state.records=next;persist();render('records-begin');}return true;
@@ -371,6 +375,7 @@ function showDialog(title: string, content: string, kind=''): HTMLDialogElement 
     const restore=document.activeElement===document.body||dialog.contains(document.activeElement);
     dialog.remove(); if(restore)previous?.focus({preventScroll:true});
   });
+  cleanHeadingPeriods(dialog);
   dialog.showModal(); return dialog;
 }
 function showSettings(): void {
