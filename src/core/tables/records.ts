@@ -1,23 +1,26 @@
+import {HANDS,dealHoldem,resolveHoldem,choosePrediction,type HoldemTable,type HandCategory} from './holdem';
 import {photoChoices,photoBest,preparePhotos,revealPhotos} from './photo-records';
 import {preparePoker,pokerBest,drawPoker,type PokerTable} from './poker-records';
 import { uniform, type GameState } from '../game';
-export type RecordsChoice = 'archive' | 'album' | 'observe' | 'close' | 'K' | 'V' | 'both' | 'certainty' | 'yes' | 'no';
-export interface RecordsCommand { commandId: string; expectedRevision: number; type: 'begin' | 'choose' | 'next' | 'diagnose'; choice?: RecordsChoice }
+export type RecordsChoice = HandCategory | 'archive' | 'album' | 'observe' | 'close' | 'K' | 'V' | 'both' | 'certainty' | 'yes' | 'no';
+export interface RecordsCommand { commandId: string; expectedRevision: number; type: 'begin' | 'choose' | 'next' | 'diagnose' | 'assist'; choice?: RecordsChoice }
 export interface RecordsDecision { round: number; step: number; choice: RecordsChoice; optimal: RecordsChoice[]; correct: boolean; assisted: boolean }
 export interface RecordsState {
-  experience?:'photos-v1'|'photos-v2'|'cards-v1'; diagnostic?:'yes'|'no'|null; cards?:PokerTable;
+  experience?:'photos-v1'|'photos-v2'|'cards-v1'|'holdem-v1'; holdem?:HoldemTable; diagnostic?:'yes'|'no'|null; cards?:PokerTable;
   variant?:'repeat';
   seed: number; rng: GameState['rng']; phase: 'tutorial' | 'choose' | 'feedback' | 'complete';
   round: number; step: number; assisted: boolean; merit: number; source: 'album' | 'complete';
   observations: number[]; audit: number; history: RecordsDecision[]; revision: number; journal: RecordsCommand[];
 }
-export function createRecords(seed = Date.now(),repeat=false,experience:'photos-v1'|'photos-v2'|'cards-v1'|'legacy'='cards-v1'): RecordsState {
+export function createRecords(seed = Date.now(),repeat=false,experience:'photos-v1'|'photos-v2'|'cards-v1'|'holdem-v1'|'legacy'='holdem-v1'): RecordsState {
   const value = (seed>>>0)||0x9e3779b9;
   const base:RecordsState={...(repeat?{variant:'repeat' as const}:{}),seed:value,rng:{algorithm:'xorshift32-v1',state:value,count:0},phase:'tutorial',round:0,step:0,assisted:false,merit:0,source:'album',observations:[4,4,4,4],audit:2,history:[],revision:0,journal:[]};
+  if(experience==='holdem-v1'){base.experience=experience;const deal=dealHoldem(base.rng);base.holdem=deal.table;base.rng=deal.rng;return base;}
   if(experience==='cards-v1'){base.experience=experience;preparePoker(base);return base;}
   return experience==='legacy'?base:{...base,experience,diagnostic:null};
 }
 export function recordsChoices(s: RecordsState): RecordsChoice[] {
+  if(s.experience==='holdem-v1')return [...HANDS];
   if(s.experience==='cards-v1')return ['K','V'];
   if(s.experience?.startsWith('photos-'))return photoChoices(s);
   const round=s.assisted ? s.round===0?0:1 : s.round;
@@ -27,6 +30,7 @@ export function recordsChoices(s: RecordsState): RecordsChoice[] {
   return ['observe','close'];
 }
 export function bestRecords(s: RecordsState): RecordsChoice[] {
+  if(s.experience==='holdem-v1')return [choosePrediction(s.holdem!.player,s.holdem!.board)];
   if(s.experience==='cards-v1')return pokerBest(s);
   if(s.experience?.startsWith('photos-'))return photoBest(s);
   const round=s.assisted ? s.round===0?0:1 : s.round;
@@ -43,6 +47,7 @@ function prepareRound(s: RecordsState): void {
 }
 export function applyRecordsCommand(s: RecordsState, c: RecordsCommand): RecordsState {
   if(!c || typeof c.commandId!=='string' || !c.commandId.length || c.commandId.length>80 || c.expectedRevision!==s.revision || s.journal.some(x=>x.commandId===c.commandId)) return s;
+  if(c.type==='assist'){if(s.experience!=='holdem-v1'||s.round<23||s.phase==='complete')return s;const next=structuredClone(s);next.assisted=true;next.phase='complete';next.revision++;next.journal.push(structuredClone(c));return next;}
   if(c.type==='diagnose'){
     if(!s.experience?.startsWith('photos-')||s.phase!=='tutorial'||s.diagnostic!==null||!['yes','no'].includes(c.choice!))return s;
     const next=structuredClone(s);next.diagnostic=c.choice as 'yes'|'no';next.revision++;next.journal.push(structuredClone(c));return next;
@@ -50,6 +55,19 @@ export function applyRecordsCommand(s: RecordsState, c: RecordsCommand): Records
   if(c.type==='begin'&&s.experience?.startsWith('photos-')&&s.diagnostic===null)return s;
   if(c.type==='begin' && s.phase!=='tutorial' || c.type==='choose' && (s.phase!=='choose' || !recordsChoices(s).includes(c.choice!)) || c.type==='next' && s.phase!=='feedback' || !['begin','choose','next'].includes(c.type)) return s;
   const next=structuredClone(s);
+  if(s.experience==='holdem-v1'){
+    if(c.type==='begin')next.phase='choose';
+    if(c.type==='choose'){
+      const resolved=resolveHoldem(s.holdem!,s.rng,c.choice as HandCategory);next.holdem=resolved.table;next.rng=resolved.rng;
+      const optimal=bestRecords(s);next.history.push({round:s.round,step:0,choice:c.choice!,optimal,correct:optimal.includes(c.choice!),assisted:false});
+      next.merit+=resolved.table.result!.points;next.phase='feedback';
+    }
+    if(c.type==='next'){
+      if(s.merit>=24)next.phase='complete';
+      else {next.round++;const deal=dealHoldem(s.rng,s.holdem!.opponentPoints);next.rng=deal.rng;next.holdem=deal.table;next.phase='choose';}
+    }
+    next.revision++;next.journal.push(structuredClone(c));return next;
+  }
   if(c.type==='begin') next.phase='choose';
   if(c.type==='choose') {
     const optimal=bestRecords(s), correct=optimal.includes(c.choice!);
@@ -82,8 +100,8 @@ export function applyRecordsCommand(s: RecordsState, c: RecordsCommand): Records
 export function validRecordsState(value: unknown): value is RecordsState {
   if(!value||typeof value!=='object') return false;
   const s=value as RecordsState;
-  if(!Number.isInteger(s.seed)||s.seed<1||s.seed>0xffffffff||!Array.isArray(s.journal)||s.journal.length>28) return false;
+  if(!Number.isInteger(s.seed)||s.seed<1||s.seed>0xffffffff||!Array.isArray(s.journal)||s.journal.length>(s.experience==='holdem-v1'?2001:28)) return false;
   if(s.variant!==undefined&&s.variant!=='repeat')return false;
-  if(s.experience!==undefined&&!['photos-v1','photos-v2','cards-v1'].includes(s.experience))return false;
+  if(s.experience!==undefined&&!['photos-v1','photos-v2','cards-v1','holdem-v1'].includes(s.experience))return false;
   try {let replay=createRecords(s.seed,s.variant==='repeat',s.experience??'legacy');for(const c of s.journal){const next=applyRecordsCommand(replay,c);if(next===replay)return false;replay=next;}return JSON.stringify(replay)===JSON.stringify(s);}catch{return false;}
 }

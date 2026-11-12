@@ -21,7 +21,7 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 
 [Registro de la revisión de mesas y vuelta al diseño anterior](docs/table-focus.md).
 
-[Juego actual de Ada con cartas de póker](docs/ada-poker.md).
+[Juego actual de Ada: predecir manos de póker](docs/ada-holdem.md).
 
 [Revisión de escritorio y publicación](docs/desktop-revision.md).
 

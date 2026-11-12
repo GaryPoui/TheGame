@@ -1,3 +1,4 @@
+import {holdemView} from './holdem';
 import {reviewButton} from './learning';
 import {tableAda} from './table-hosts';
 import {photoRecordsView} from './photo-records';
@@ -19,6 +20,7 @@ function legacyRecordsView(s:RecordsState,selected:RecordsChoice|null):string {
 }
 
 export function recordsView(s:RecordsState,selected:RecordsChoice|null,tutorialStep=0):string {
- if(s.experience==='cards-v1')return pokerRecordsView(s,selected,tutorialStep);
+ if(s.experience==='holdem-v1')return holdemView(s,selected);
+ if(s.experience==='cards-v1')return '<div class="legacy-records-note"><span>Tu partida anterior sigue guardada hasta que cambies de juego.</span><button class="quiet" data-testid="records-upgrade">Jugar al nuevo póker de Ada</button></div>'+pokerRecordsView(s,selected,tutorialStep);
  return `<div class="legacy-records-note"><span>Tu partida anterior de Ada sigue guardada.</span><button class="quiet" data-testid="records-replay">Jugar con cartas de póker</button></div>`+(s.experience?.startsWith('photos-')?photoRecordsView(s,selected):legacyRecordsView(s,selected));
 }

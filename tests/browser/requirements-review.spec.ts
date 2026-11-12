@@ -10,7 +10,7 @@ function fixture(table:'contracts'|'records'):GameState {
  let s=createGame(8);s.settings.reducedMotion=true;s.settings.volume=0;
  for(let i=0;i<35&&s.phase!=='complete';i++)s=['choose','guided'].includes(s.phase)?choose(s,bestChoices(s)[0] as 0|1):advance(s);
  s.seals={urns:true,contracts:table==='records'};s.activeTable=table;
- if(table==='contracts')s.contracts=createContracts(1);else s.records=createRecords(11);
+ if(table==='contracts')s.contracts=createContracts(1);else s.records=createRecords(11,false,'cards-v1');
  return s;
 }
 async function open(page:Page,s:GameState){

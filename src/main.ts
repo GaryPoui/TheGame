@@ -350,8 +350,8 @@ function handleCampaignClick(target:HTMLElement):boolean {
      if(next!==current){state.records=next;persist();render('records-begin');}return true;
    }
    if(id?.startsWith('records-')&&current.phase==='choose'&&recordsChoices(current).includes(id.slice(8) as RecordsChoice)){selectedRecord=id.slice(8) as RecordsChoice;render(id);return true;}
-   if(['records-begin','records-confirm','records-next'].includes(id??'')){
-     const command:RecordsCommand={type:id==='records-begin'?'begin':id==='records-confirm'?'choose':'next',...(selectedRecord?{choice:selectedRecord}:{}),expectedRevision:Number(target.dataset.revision),commandId:'ada-'+target.dataset.revision+'-'+id};
+   if(['records-begin','records-confirm','records-next','records-assist'].includes(id??'')){
+     const command:RecordsCommand={type:id==='records-assist'?'assist':id==='records-begin'?'begin':id==='records-confirm'?'choose':'next',...(selectedRecord?{choice:selectedRecord}:{}),expectedRevision:Number(target.dataset.revision),commandId:'ada-'+target.dataset.revision+'-'+id};
      const next=applyRecordsCommand(current,command);if(next===current){announce('Seguí la opción indicada por la ayuda.');return true;}
      state.records=next;selectedRecord=null;persist();render(next.phase==='feedback'?'records-next':next.phase==='complete'?'enter-finale':'records-'+recordsChoices(next)[0]);if(current.phase==='tutorial'||next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
    }

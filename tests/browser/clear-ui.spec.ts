@@ -115,7 +115,7 @@ test('capture all primary screens and report viewport fit at desktop and mobile 
     for(let i=0;i<35&&s.phase!=='complete';i++)Object.assign(s,['choose','guided'].includes(s.phase)?choose(s,bestChoices(s)[0] as 0|1):advance(s));
     s.seals={urns:true,contracts:true};
     if(mode==='contracts'){s.contracts=createContracts(1);s.activeTable='contracts';}
-    else {s.records=createRecords(1);s.activeTable='records';}
+    else {s.records=createRecords(1,false,'cards-v1');s.activeTable='records';}
    }
    await page.addInitScript(raw=>localStorage.setItem('thegame.save.v1.current',raw),JSON.stringify({schemaVersion:5,contentVersion:'campaign-challenge-v5',state:s}));
    await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);

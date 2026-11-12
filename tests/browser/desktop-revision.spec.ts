@@ -14,7 +14,7 @@ function fixture(table:'urns'|'contracts'|'records'|'finale'):GameState {
  s.seals={urns:true,contracts:false};s.contracts=createContracts(1);
  if(table!=='contracts'){
   while(s.contracts.phase!=='complete'){const c=s.contracts;s.contracts=applyContractCommand(c,{type:c.phase==='tutorial'?'begin':['offer','order'].includes(c.phase)?'sign':'next',contract:bestContracts(currentObjective(c))[0],expectedRevision:c.revision,commandId:'c'+c.revision});}
-  s.seals.contracts=true;s.records=createRecords(11);
+  s.seals.contracts=true;s.records=createRecords(11,false,'cards-v1');
  }
  if(table==='finale'){while(s.records!.phase!=='complete'){const r=s.records!;s.records=applyRecordsCommand(r,{type:r.phase==='tutorial'?'begin':r.phase==='choose'?'choose':'next',choice:bestRecords(r)[0],expectedRevision:r.revision,commandId:'r'+r.revision});}s.seals.records=true;s.finale=createFinale(1);}
  s.activeTable=table;return s;

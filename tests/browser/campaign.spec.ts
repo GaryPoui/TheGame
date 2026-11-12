@@ -15,7 +15,7 @@ function checkpoint():GameState {
   const c=s.contracts,type=c.phase==='tutorial'?'begin':['offer','order'].includes(c.phase)?'sign':'next';
   s.contracts=applyContractCommand(c,{commandId:`c${c.revision}`,expectedRevision:c.revision,type,contract:bestContracts(currentObjective(c))[0]!});
  }
- s.seals={urns:true,contracts:true,urnsMethod:'independent',contractsMethod:'independent'};s.activeTable='records';s.records=createRecords(12);return s;
+ s.seals={urns:true,contracts:true,urnsMethod:'independent',contractsMethod:'independent'};s.activeTable='records';s.records=createRecords(12,false,'cards-v1');return s;
 }
 async function open(page:Page,s:GameState){
  await mkdir(evidence,{recursive:true});
