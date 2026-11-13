@@ -1,0 +1,13 @@
+{
+  "baseURL": "https://garypoui.github.io/TheGame/",
+  "date": "2026-11-13T17:46:27.097Z",
+  "filesChecked": 146,
+  "matches": 146,
+  "errors": [],
+  "retryHistory": [
+    {
+      "path": "dist/assets/glowMapMerge.fragment-E4YwFGds.js",
+      "status": 503
+    }
+  ]
+}

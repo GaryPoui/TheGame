@@ -46,3 +46,17 @@ Las aserciones originales de límites y selección se conservaron. Evidencia:
 [correcciones](evidence/boss-urns/correction-browser.txt),
 [carga y clic directo](evidence/boss-urns/ready-browser.txt) y
 [unitarias](evidence/boss-urns/unit-tests.txt).
+
+## Publicación
+
+Publicada `boss-urns-ui-2026-11-13`, fuente `040afe5`, gh-pages `71d0a82`.
+El caso HTTPS de 1280 × 720 aprobó con el canvas real y clic sobre la urna: dos
+recipientes visibles, selección luminosa, tarjetas compartidas y recuento conservado.
+Los 146 archivos coinciden por SHA-256. La primera comprobación se adelantó a la
+propagación de Pages; después, un 503 temporal del shader se repitió y coincidió.
+
+Evidencia: [navegador público](evidence/boss-urns/public-browser.txt),
+[integridad](evidence/boss-urns/public-integrity.json) y
+[captura pública](evidence/boss-urns/public/boss-urns-1280-1.png).
+El conector de GitHub siguió devolviendo 403 para crear PR; la rama existente
+`codex/boss-finale` y su comparación conservan el trabajo sin merge.
