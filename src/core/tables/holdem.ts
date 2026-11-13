@@ -28,6 +28,16 @@ export function evaluateHand(cards:readonly PokerCard[]):HandValue {
  return {category:'high-card',tie:ranks.slice(0,5)};
 }
 export function compareHands(a:HandValue,b:HandValue):number {const category=HANDS.indexOf(a.category)-HANDS.indexOf(b.category);if(category)return category;for(let i=0;i<a.tie.length;i++)if(a.tie[i]!==b.tie[i])return a.tie[i]!-b.tie[i]!;return 0;}
+/** The actual five cards, for a visible explanation of a seven-card showdown. */
+export function bestFive(cards:readonly PokerCard[]):PokerCard[]{
+ if(cards.length<5||cards.length>7)throw new Error('Expected five to seven cards');
+ let best:PokerCard[]=[];let value:HandValue|undefined;
+ for(let a=0;a<cards.length-4;a++)for(let b=a+1;b<cards.length-3;b++)for(let c=b+1;c<cards.length-2;c++)for(let d=c+1;d<cards.length-1;d++)for(let e=d+1;e<cards.length;e++){
+  const candidate=[cards[a]!,cards[b]!,cards[c]!,cards[d]!,cards[e]!],v=evaluateHand(candidate);
+  if(!value||compareHands(v,value)>0){best=candidate;value=v;}
+ }
+ return best;
+}
 const same=(a:PokerCard,b:PokerCard)=>a.rank===b.rank&&a.suit===b.suit;
 /** Information available to this player only: six known cards, 46 possible rivers. */
 export function handOdds(hole:readonly PokerCard[],board:readonly PokerCard[]){

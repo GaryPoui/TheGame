@@ -1,5 +1,10 @@
 # Arquitectura y responsabilidades
 
+Actualización 2026-11-13: guardado v8 / campaign-boss-v8, compatible con v1–7.
+El discriminante boss-v1 del final tiene reductor puro y replay propio;
+los finales históricos conservan su reductor. Ver [jefe combinado](boss-finale.md).
+
+
 Actualización 2026-11-12: guardado v7 / campaign-holdem-v7, lectura compatible
 con v1–6. Ada nueva usa holdem-v1 y replay determinista propio; las sesiones
 históricas conservan su discriminante. Ver [El póker de Ada](ada-holdem.md).

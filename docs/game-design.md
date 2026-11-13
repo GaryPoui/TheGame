@@ -1,5 +1,11 @@
 # GDD único — La Casa del Azar
 
+Actualización 2026-11-13: [Ada predice manos de póker](ada-holdem.md), ahora
+con mejores manos visibles; la mesa IV pasa a [jefe combinado](boss-finale.md),
+con ataques de urnas, dados y cartas y carga compartida. Las notas posteriores
+sobre registros, fotos y contrato 4/6 son históricas para sesiones anteriores.
+
+
 Actualización vigente 2026-10-29: Ada usa [cartas de póker](ada-poker.md). La [revisión de escritorio](desktop-revision.md) reduce texto, abre explicaciones en ventanas centrales y retira el recorrido, la configuración de controles y el ensayo opcional del cierre. Las versiones anteriores siguen documentadas como historia y para guardados antiguos.
 
 

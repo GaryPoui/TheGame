@@ -1,0 +1,12 @@
+
+Running 4 tests using 1 worker
+
+(node:38696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1280x720 text 1
+[2/4] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 2
+[3/4] tests\browser\boss.spec.ts:37:26 › Ada polish shows both best hands and preserves scoring, text 2
+[4/4] tests\browser\boss.spec.ts:62:1 › boss keeps its character and playable choices without WebGL
+  4 passed (1.8m)

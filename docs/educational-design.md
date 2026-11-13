@@ -1,5 +1,10 @@
 # Diseño educativo y reglas implementables
 
+Actualización 2026-11-13: el nuevo final es [un jefe combinado](boss-finale.md),
+con 36 de resistencia, seis defensas y combo de urnas, dados y póker. Sustituye
+el umbral histórico de 4/6 para sesiones nuevas y conserva una salida guiada finita.
+
+
 Actualización 2026-11-12: las sesiones nuevas de Ada siguen [El póker de Ada](ada-holdem.md).
 Por pedido explícito, su marcador ahora premia categoría exacta y victoria al
 póker, con meta de 24. La calidad de la predicción se registra separada del

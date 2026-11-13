@@ -66,8 +66,9 @@ export class GameScene {
   private contractFelt: StandardMaterial;
   private originalFelt: PBRMaterial;
   private dobleTexture: Texture | null = null;
+  private captorTexture: Texture | null = null;
   private adaTexture: Texture | null = null;
-  private tableHost:'doble'|'ada'='doble';
+  private tableHost:'doble'|'ada'|'captor'='doble';
   private veraTexture: Texture | null = null;
   private resize = () => this.resizeCanvas();
 
@@ -253,7 +254,7 @@ export class GameScene {
       die.rotation.set(spin,spin*.65*(i===0?1:-1),spin*.4);
     });
   }
-  setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'='doble'): void {
+  setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'|'captor'='doble'): void {
     const changed = enabled !== this.contractsMode||host!==this.tableHost;
     this.contractsMode = enabled;
     this.tableHost=host;
@@ -263,7 +264,7 @@ export class GameScene {
     if(enabled) this.rings.forEach(mesh => mesh.isVisible = false);
     const portrait = this.scene.getMeshByName('vera-ink-portrait');
     const material = portrait?.material as StandardMaterial | null;
-    if(changed && portrait) { portrait.scaling.set(enabled ? .9 : 1,enabled ? .9 : 1,1); portrait.position.y = enabled ? 2.8 : 3.3; }
+    if(changed && portrait) {const scale=enabled?host==='captor'?1.3:.9:1;portrait.scaling.set(scale,scale,1);portrait.position.y=enabled?host==='captor'?2.25:2.8:3.3;}
     if(enabled){
       this.frameContracts();
     } else if(changed){this.setMode(this.mode);this.camera.fov=65*Math.PI/180;this.stopDiceRoll();}
@@ -274,14 +275,15 @@ export class GameScene {
     if(changed && material) {
       if(enabled&&host==='doble'&&!this.dobleTexture) { this.dobleTexture = new Texture(import.meta.env.BASE_URL+'art/doble-v2.png',this.scene); this.dobleTexture.hasAlpha = true; }
       if(enabled&&host==='ada'&&!this.adaTexture){this.adaTexture=new Texture(import.meta.env.BASE_URL+'art/ada-v1.png',this.scene);this.adaTexture.hasAlpha=true;}
-      material.diffuseTexture = enabled ? host==='ada'?this.adaTexture:this.dobleTexture : this.veraTexture;
+      if(enabled&&host==='captor'&&!this.captorTexture){this.captorTexture=new Texture(import.meta.env.BASE_URL+'art/captor-v3.png',this.scene);this.captorTexture.hasAlpha=true;}
+      material.diffuseTexture = enabled ? host==='captor'?this.captorTexture:host==='ada'?this.adaTexture:this.dobleTexture : this.veraTexture;
     }
     const key = enabled ? host+JSON.stringify(pair) : 'off';
     if(key === this.diceKey) return;
     this.diceKey = key;
     this.diceProps.forEach(mesh => { this.shadows.removeShadowCaster(mesh); mesh.dispose(); }); this.diceProps = [];
     this.diceRoots=[];
-    if(!enabled||host==='ada') return;
+    if(!enabled||host!=='doble') return;
     const start = this.scene.meshes.length;
     const patterns: Record<number, number[]> = {1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
     for(let i=0;i<2;i++) {

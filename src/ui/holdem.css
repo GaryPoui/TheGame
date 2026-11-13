@@ -7,6 +7,11 @@
 .holdem-choices small{grid-column:1/-1;font-size:.7rem}.holdem-choices strong{font-size:.7rem}.holdem-choices button:disabled{opacity:.45}
 .holdem-layout .archive-panel h2{font-size:1.15rem;margin-bottom:.6rem}.holdem-layout .archive-panel p{font-size:.87rem;line-height:1.4;margin-bottom:.65rem}
 .holdem-layout .archive-panel [data-testid=records-feedback]{margin-top:0;border:0;padding-top:0}
+.ada-progress{display:block;width:100%;height:7px;accent-color:#e8c17a;margin:8px 0;border:0}
+.best-card{outline:3px solid #e8c17a;outline-offset:1px}.river-card{box-shadow:0 0 0 4px #fff0d640,0 4px 10px #0007}
+.showdown-hands{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}.showdown-hands h3{font-size:13px!important;margin:0 0 4px!important}
+.showdown-hands .poker-hand{gap:2px}.showdown-hands .poker-card{flex-basis:22px;height:32px}.showdown-hands .poker-card b{font-size:11px!important}.showdown-hands .poker-card>span{font-size:14px!important;margin-top:2px!important}
+.enlarged-text .holdem-layout .showdown-hands{font-size:14px}
 /* Menus and card labels stay bounded so enlarged reading text cannot hide a choice. */
 .enlarged-text .holdem-layout .archive-floor>h1{font-size:32px;margin:0 0 8px}
 .enlarged-text .holdem-layout .scoreboard{font-size:18px;gap:14px;margin:6px 0}

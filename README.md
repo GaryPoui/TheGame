@@ -23,6 +23,8 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 
 [Juego actual de Ada: predecir manos de póker](docs/ada-holdem.md).
 
+[Pulido de Ada y jefe final combinado](docs/boss-finale.md).
+
 [Revisión de escritorio y publicación](docs/desktop-revision.md).
 
 [Revisión de la lista de mejoras y tutoriales](docs/requirements-review.md).

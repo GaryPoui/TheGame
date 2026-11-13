@@ -1,5 +1,5 @@
 import {it,expect} from 'vitest';
-import {evaluateHand,compareHands,handOdds,dealHoldem,resolveHoldem,HAND_POINTS} from '../../src/core/tables/holdem';
+import {evaluateHand,compareHands,handOdds,dealHoldem,resolveHoldem,HAND_POINTS,bestFive} from '../../src/core/tables/holdem';
 import {pokerDeck,type PokerCard} from '../../src/core/tables/poker-records';
 import {createRecords,applyRecordsCommand,validRecordsState,bestRecords} from '../../src/core/tables/records';
 const cards=(r:number[],s='hearts')=>r.map(rank=>({rank,suit:s} as PokerCard));
@@ -16,6 +16,12 @@ it('counts all 46 unseen rivers without consulting the opponent and deals distin
  const odds=handOdds(deal.table.player,deal.table.board);expect(odds.reduce((n,o)=>n+o.count,0)).toBe(46);
  expect(deal.table.board).toHaveLength(4);expect(deal.table.deck).toHaveLength(44);
  expect(pokerDeck()).toHaveLength(52);
+});
+it('highlights five real cards whose value matches the evaluated seven-card hand',()=>{
+ for(let seed=1;seed<=80;seed++){
+  const deal=dealHoldem({algorithm:'xorshift32-v1',state:seed*7789,count:0}),r=resolveHoldem(deal.table,deal.rng,'pair');
+  for(const hole of [r.table.player,r.table.opponent]){const seven=[...hole,...r.table.board],five=bestFive(seven);expect(five).toHaveLength(5);expect(new Set(five.map(c=>c.suit+c.rank)).size).toBe(5);expect(evaluateHand(five)).toEqual(evaluateHand(seven));}
+ }
 });
 it('requires a correct category AND a strictly winning poker hand to score',()=>{
  const t=dealHoldem({algorithm:'xorshift32-v1',state:22,count:0});

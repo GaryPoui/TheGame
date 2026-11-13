@@ -158,7 +158,7 @@ function room(): string {
     ['urns','I','Vera','Las urnas','Contá las chances y mirá qué cambia.','Disponible'],
     ['contracts','II','Doble','Los contratos','Elegí entre promedio, garantía y riesgo.','Necesitás el sello de Vera'],
     ['records','III','Ada','Las cartas de Ada','Compará las chances de una baraja.','Necesitás el sello de Doble'],
-    ['finale','IV','El anfitrión','El contrato de salida','Usá lo aprendido para abrir la puerta.','Necesitás los tres sellos'],
+    ['finale','IV','El anfitrión','El último duelo','Combiná urnas, dados y póker.','Necesitás los tres sellos'],
   ] as const;
   return `<main class="room-layout"><section class="room-copy"><h1>Elegí una mesa</h1><p>Tus manos están libres. ${state.freed?'La puerta también. Podés volver a practicar.':'Tres sellos y una última partida te separan de la salida.'}</p>${state.freed?btn('exit-house','Volver a la calle','primary'):''}<button class="menu-back text-button" data-action="home">${menuIcon('back')}Volver al inicio</button></section><section class="table-directory" aria-label="Mesas de la sala">${entries.map(([id,n,name,title,description,requirement])=>{
     const unlocked=tableUnlocked(state,id),sealed=id==='finale'?state.freed:id==='urns'?urnsSealed():state.seals?.[id];
@@ -268,10 +268,11 @@ function updateVisual(): void {
   const viewport=app.querySelector<HTMLElement>('.dice-viewport,.ada-viewport');
   if(canvas&&viewport){viewport.append(canvas);scene?.resizeCanvas();}
   else scene?.resizeCanvas();
+  const playingBoss=screen==='finale'&&!!app.querySelector('.boss-layout .ada-viewport');
   const playingAda=screen==='records'&&!!app.querySelector('.ada-viewport');
-  scene?.setRendering(playingAda||screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
+  scene?.setRendering(playingBoss||playingAda||screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
   const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
-  scene?.setContractMode(playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : null,playingAda?'ada':'doble');
+  scene?.setContractMode(playingBoss||playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : null,playingBoss?'captor':playingAda?'ada':'doble');
   if (playingContracts||screen==='records'||screen==='finale'||screen==='outside') return;
   const urns: Urn[] = screen === 'tutorial' ? demoInventory() : state.urns;
   scene?.updateUrns(urns, screen==='tutorial'?demoChoice:screen === 'table' && state.phase === 'revealed' ? state.last?.urn ?? null : selected, screen === 'tutorial' ? tutorialStep===1?'red':tutorialStep===3?'blue':undefined : state.phase === 'revealed' ? state.last?.color : undefined);
@@ -331,9 +332,10 @@ function enterRecords():void {
  if(!tableUnlocked(state,'records'))return;
  adaTutorialStep=0;state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience?.startsWith('photos-')&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
 }
+function finaleFocus(s:Parameters<typeof finaleChoices>[0]):string {return s.phase==='complete'?'exit-house':s.phase==='feedback'?'finale-next':s.boss&&!s.boss.started?'finale-begin':s.boss?.needsHelp?'finale-assist':'finale-'+finaleChoices(s)[0];}
 function enterFinale():void {
  if(!tableUnlocked(state,'finale'))return;
- state.finale??=createFinale();state.activeTable='finale';persist();setScreen('finale',state.finale.phase==='complete'?'exit-house':state.finale.phase==='feedback'?'finale-next':'finale-'+finaleChoices(state.finale)[0]);
+ state.finale??=createFinale(Date.now(),'boss-v1');state.activeTable='finale';persist();setScreen('finale',finaleFocus(state.finale));
 }
 function handleCampaignClick(target:HTMLElement):boolean {
  const id=target.dataset.testid;
@@ -341,7 +343,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
  if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
  if((id==='records-replay'||id==='records-upgrade')&&state.records){adaTutorialStep=0;state.records=createRecords(Date.now(),true);persist();selectedRecord=null;setScreen('records','records-begin');return true;}
- if(id==='finale-replay'&&state.finale){state.finale=createFinale();persist();setScreen('finale','finale-U');return true;}
+ if(id==='finale-replay'&&state.finale){state.finale=createFinale(Date.now(),'boss-v1');persist();setScreen('finale',finaleFocus(state.finale));return true;}
  if(screen==='records'&&state.records){
    const current=state.records;
    if(current.phase==='tutorial'&&current.experience==='cards-v1'&&(id==='records-tutorial-next'||id==='records-tutorial-back')){adaTutorialStep=Math.max(0,Math.min(2,adaTutorialStep+(id==='records-tutorial-next'?1:-1)));render(adaTutorialStep===2?'records-begin':'records-tutorial-next');return true;}
@@ -359,10 +361,10 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(screen==='finale'&&state.finale){
    const current=state.finale;
    if(id?.startsWith('finale-')&&current.phase==='choose'&&finaleChoices(current).includes(id.slice(7) as FinaleChoice)){selectedFinale=id.slice(7) as FinaleChoice;render(id);return true;}
-   if(id==='finale-confirm'||id==='finale-next'){
-     const command:FinaleCommand={type:id==='finale-confirm'?'choose':'next',...(selectedFinale?{choice:selectedFinale}:{}),expectedRevision:Number(target.dataset.revision),commandId:'host-'+target.dataset.revision+'-'+id};
+   if(['finale-confirm','finale-next','finale-begin','finale-assist'].includes(id??'')){
+     const command:FinaleCommand={type:id==='finale-begin'?'begin':id==='finale-assist'?'assist':id==='finale-confirm'?'choose':'next',...(selectedFinale?{choice:selectedFinale}:{}),expectedRevision:Number(target.dataset.revision),commandId:'host-'+target.dataset.revision+'-'+id};
      const next=applyFinaleCommand(current,command);if(next===current){announce('Revisá los datos e intentá otra respuesta.');return true;}
-     state.finale=next;selectedFinale=null;persist();render(next.phase==='feedback'?'finale-next':next.phase==='complete'?'exit-house':'finale-'+finaleChoices(next)[0]);if(next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
+     state.finale=next;selectedFinale=null;persist();render(finaleFocus(next));if(next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
    }
  }
  return false;
