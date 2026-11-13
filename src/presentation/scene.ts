@@ -61,6 +61,7 @@ export class GameScene {
   private contractsMode = false;
   private diceKey = '';
   private rendering=true;
+  private bossUrnsVisible=false;
   private diceInk!: PBRMaterial;
   private contractInk: StandardMaterial;
   private contractFelt: StandardMaterial;
@@ -254,14 +255,15 @@ export class GameScene {
       die.rotation.set(spin,spin*.65*(i===0?1:-1),spin*.4);
     });
   }
-  setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'|'captor'='doble'): void {
+  setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'|'captor'='doble',showUrns=false): void {
     const changed = enabled !== this.contractsMode||host!==this.tableHost;
     this.contractsMode = enabled;
+    this.bossUrnsVisible=enabled&&showUrns;
     this.tableHost=host;
-    this.urnProps.forEach(mesh => mesh.isVisible = !enabled);
+    this.urnProps.forEach(mesh => mesh.isVisible = !enabled||this.bossUrnsVisible);
     this.decorProps.forEach(mesh => mesh.isVisible = !enabled);
-    this.tokens.forEach(mesh => mesh.isVisible = !enabled);
-    if(enabled) this.rings.forEach(mesh => mesh.isVisible = false);
+    this.tokens.forEach(mesh => mesh.isVisible = !enabled||this.bossUrnsVisible);
+    if(enabled&&!this.bossUrnsVisible){this.rings.forEach(mesh=>mesh.isVisible=false);this.selectionGlow.removeAllMeshes();}
     const portrait = this.scene.getMeshByName('vera-ink-portrait');
     const material = portrait?.material as StandardMaterial | null;
     if(changed && portrait) {const scale=enabled?host==='captor'?1.3:.9:1;portrait.scaling.set(scale,scale,1);portrait.position.y=enabled?host==='captor'?2.25:2.8:3.3;}
@@ -357,7 +359,7 @@ export class GameScene {
       tableBack:project(new Vector3(0,1.825,2.4)),
     }:null;
     return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,
-      selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
+      bossUrnsVisible:this.bossUrnsVisible,visibleUrnVessels:this.urnProps.filter(mesh=>mesh.name==='thick-glass-urn'&&mesh.isVisible).length,visibleUrnTokens:this.tokens.filter(mesh=>mesh.isVisible&&mesh.metadata?.urn!==undefined).length,selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
       diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),
       dealerFrame,
       tableHost:this.contractsMode?this.tableHost:'vera',

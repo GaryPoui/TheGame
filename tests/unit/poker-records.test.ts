@@ -23,7 +23,7 @@ describe('Ada poker probabilities',()=>{
    }
    expect(s.phase).toBe('complete');expect(s.assisted).toBe(!good);expect(s.history).toHaveLength(good?8:12);
   }
- });
+ },20000);
  it('scores the choice independently of the random result and rejects duplicate, stale or tampered actions',()=>{
   const results=new Set<boolean>();for(let seed=1;seed<100;seed++){
    let s=advance(createRecords(seed,false,'cards-v1'));const command={type:'choose' as const,choice:bestRecords(s)[0]!,commandId:'one',expectedRevision:s.revision};

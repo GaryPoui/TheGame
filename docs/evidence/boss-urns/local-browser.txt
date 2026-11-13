@@ -1,0 +1,144 @@
+
+Running 6 tests using 1 worker
+
+
+
+(node:30788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/6] tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1280x720 text 1
+  1) tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1280x720 text 1 ─
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  getByTestId('finale-U')
+    Expected: "true"
+    Received: "false"
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toHaveAttribute" getByTestId('finale-U') with timeout 15000ms
+      - waiting for getByTestId('finale-U')
+        33 × locator resolved to <button aria-pressed="false" class="urn-option   " data-testid="finale-U">…</button>
+           - unexpected value "false"
+
+
+      20 |  if(width!>=1000){const m=await metrics(page),rect=await page.locator('.ada-viewport canvas').boundingBox();await page.mouse.click(rect!.x+m.urnTargets[0]!.x*rect!.width,rect!.y+m.urnTargets[0]!.y*rect!.height);}
+      21 |  else await page.getByTestId('finale-U').click();
+    > 22 |  await expect(page.getByTestId('finale-U')).toHaveAttribute('aria-pressed','true');expect((await metrics(page)).selectedUrn).toBe(0);expect((await metrics(page)).highlightedUrnMeshes).toBeGreaterThan(0);
+         |                                             ^
+      23 |  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.finale.rng)).toEqual(before.rng);
+      24 |  await page.getByTestId('finale-confirm').click();await expect(page.getByTestId('finale-feedback')).toBeVisible();expect((await metrics(page)).visibleUrnTokens).toBe(10);await fits(page);
+      25 |  await page.getByTestId('finale-next').click();expect((await metrics(page)).visibleUrnTokens).toBe(10);await fits(page);
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-urns.spec.ts:22:45
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-urns-results\boss-urns-boss-uses-Vera-g-6638e-and-tickets-1280x720-text-1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-urns-results\boss-urns-boss-uses-Vera-g-6638e-and-tickets-1280x720-text-1\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-urns-results\boss-urns-boss-uses-Vera-g-6638e-and-tickets-1280x720-text-1\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-urns-results\boss-urns-boss-uses-Vera-g-6638e-and-tickets-1280x720-text-1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:44356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/6] tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1024x640 text 2
+  2) tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1024x640 text 2 ─
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Guardar y volver a la sala",
+    + ]
+
+      12 | }
+      13 | async function metrics(page:Page){return page.evaluate(()=>window.__THEGAME_METRICS__!() as {visibleUrnVessels:number;visibleUrnTokens:number;selectedUrn:number|null;highlightedUrnMeshes:number;urnTargets:{x:number;y:number}[]});}
+    > 14 | async function fits(page:Page){if(page.viewportSize()!.width<1000)return;expect(await page.locator('main button,main progress').evaluateAll(es=>es.filter(e=>e.checkVisibility()).filter(e=>{const r=e.getBoundingClientRect();return r.top<0||r.bottom>innerHeight+1||r.left<0||r.right>innerWidth+1;}).map(e=>e.textContent))).toEqual([]);}
+         |                                                                                                                                                                                                                                                                                                                                  ^
+      15 | for(const [width,height,scale] of [[1280,720,1],[1024,640,2],[390,844,1]])test(`boss uses Vera glass urns and tickets ${width}x${height} text ${scale}`,async({page})=>{
+      16 |  test.setTimeout(90000);await page.setViewportSize({width:width!,height:height!});await open(page,true,scale);
+      17 |  expect((await metrics(page)).visibleUrnVessels).toBe(2);expect((await metrics(page)).visibleUrnTokens).toBe(11);
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-urns.spec.ts:14:322)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-urns.spec.ts:18:138
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-urns-results\boss-urns-boss-uses-Vera-g-ca561-and-tickets-1024x640-text-2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-urns-results\boss-urns-boss-uses-Vera-g-ca561-and-tickets-1024x640-text-2\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-urns-results\boss-urns-boss-uses-Vera-g-ca561-and-tickets-1024x640-text-2\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-urns-results\boss-urns-boss-uses-Vera-g-ca561-and-tickets-1024x640-text-2\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:36704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/6] tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 390x844 text 1
+[4/6] tests\browser\boss-urns.spec.ts:28:1 › Vera still uses the same urns and shared controls
+  3) tests\browser\boss-urns.spec.ts:28:1 › Vera still uses the same urns and shared controls ──────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByTestId('feedback')
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByTestId('feedback') with timeout 15000ms
+      - waiting for getByTestId('feedback')
+
+
+      29 |  await open(page,false);await page.getByTestId('toggle-cards').click();await expect(page.getByTestId('urn-0')).toHaveClass(/urn-option/);await expect(page.getByTestId('urn-1')).toContainText('Urna 2');
+      30 |  await page.getByTestId('urn-0').click();expect((await metrics(page)).visibleUrnVessels).toBe(2);expect((await metrics(page)).selectedUrn).toBe(0);
+    > 31 |  await page.getByTestId('confirm-choice').click();await expect(page.getByTestId('feedback')).toBeVisible();
+         |                                                                                              ^
+      32 | });
+      33 |
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-urns.spec.ts:31:94
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-urns-results\boss-urns-Vera-still-uses-the-same-urns-and-shared-controls\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-urns-results\boss-urns-Vera-still-uses-the-same-urns-and-shared-controls\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-urns-results\boss-urns-Vera-still-uses-the-same-urns-and-shared-controls\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-urns-results\boss-urns-Vera-still-uses-the-same-urns-and-shared-controls\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:26896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[5/6] tests\browser\boss.spec.ts:37:26 › Ada polish shows both best hands and preserves scoring, text 2
+[6/6] tests\browser\boss.spec.ts:62:1 › boss keeps its character and playable choices without WebGL
+  3 failed
+    tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1280x720 text 1 ──
+    tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1024x640 text 2 ──
+    tests\browser\boss-urns.spec.ts:28:1 › Vera still uses the same urns and shared controls ───────
+  3 passed (1.4m)

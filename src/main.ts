@@ -1,3 +1,5 @@
+import {urnChoiceCard} from './ui/urn-choice';
+import {bossMechanic} from './core/tables/boss';
 import './style.css';
 import './ui/contracts.css';
 import './ui/table-experience.css';
@@ -13,6 +15,7 @@ import './ui/ada-table.css';
 import './ui/clear-ui.css';
 import './ui/quiet-desktop.css';
 import './ui/game-menus.css';
+import './ui/combat-polish.css';
 import {settingsMenu,menuIcon,syncSettingSteps,type SettingsSection} from './ui/game-menus';
 import {cleanHeadingPeriods} from './ui/headings';
 import {replaceDisclosures,installInfoDialogs} from './ui/info-dialog';
@@ -205,9 +208,7 @@ function urnChoice(urn: Urn, index: 0 | 1, demo=false): string {
   const reviewing = demo?(tutorialStep===1||tutorialStep===3):state.phase === 'revealed' && state.last !== null;
   const picked = demo?demoChoice===index:choosing ? selected === index : reviewing && state.last!.urn === index;
   const correct = reviewing && (demo?tutorialStep===3||index===0:state.last!.optimal.includes(index));
-  const verdict = reviewing ? correct ? '✓ Correcta' : '✕ Menos posibilidades' : hinted ? 'Elegí esta' : picked ? '✓ Elegida' : 'Elegir';
-  const colorPlural = event === 'red' ? 'rojas' : 'azules';
-  return `<button data-testid="${demo?'demo-urn-':'urn-'}${index}" class="urn-option ${picked ? 'selected' : ''} ${hinted ? 'hinted' : ''} ${reviewing ? correct ? 'answer-correct' : 'answer-incorrect' : ''}" aria-pressed="${picked}" ${!choosing ? 'disabled' : ''}><span class="urn-option-head"><strong>Urna ${index === 0 ? '1' : '2'}</strong><span>${verdict}</span></span>${reviewing&&picked ? '<span class="choice-caption">Tu elección</span>' : ''}<span class="inventory"><span class="red-token">▲</span> ${urn.red} ${urn.red === 1 ? 'roja' : 'rojas'} <span class="blue-token">●</span> ${urn.blue} ${urn.blue === 1 ? 'azul' : 'azules'}</span><span class="odds"><b>${p.numerator} de ${p.denominator} fichas ${p.numerator === 1 ? 'es' : 'son'} ${p.numerator === 1 ? colorName(event) : colorPlural}</b><span>${!demo && state.round === 3 && !state.assisted && !helpOpen && !reviewing ? 'Compará cuánto hay del color que buscás' : `${percent} % de posibilidades de sacar ${colorName(event)}`}</span></span></button>`;
+  return urnChoiceCard({urn,index,event,testId:`urn-${index}`,selected:picked,disabled:!choosing,review:reviewing,correct,hinted,showPercent:!(state.round===3&&!state.assisted&&!helpOpen&&!reviewing)});
 }
 function urnCards(): string {
   const reviewing = state.phase === 'revealed';
@@ -269,10 +270,12 @@ function updateVisual(): void {
   if(canvas&&viewport){viewport.append(canvas);scene?.resizeCanvas();}
   else scene?.resizeCanvas();
   const playingBoss=screen==='finale'&&!!app.querySelector('.boss-layout .ada-viewport');
+  const bossUrns=playingBoss&&state.finale?.experience==='boss-v1'&&bossMechanic(state.finale)==='urns';
   const playingAda=screen==='records'&&!!app.querySelector('.ada-viewport');
   scene?.setRendering(playingBoss||playingAda||screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
   const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
-  scene?.setContractMode(playingBoss||playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : null,playingBoss?'captor':playingAda?'ada':'doble');
+  scene?.setContractMode(playingBoss||playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : null,playingBoss?'captor':playingAda?'ada':'doble',bossUrns);
+  if(bossUrns&&state.finale){const f=state.finale,review=f.phase==='feedback',last=f.history.at(-1);scene?.updateUrns(f.urns,review?last?.choice==='U'?0:1:selectedFinale==='U'?0:selectedFinale==='V'?1:null,review?f.lastColor??undefined:undefined);return;}
   if (playingContracts||screen==='records'||screen==='finale'||screen==='outside') return;
   const urns: Urn[] = screen === 'tutorial' ? demoInventory() : state.urns;
   scene?.updateUrns(urns, screen==='tutorial'?demoChoice:screen === 'table' && state.phase === 'revealed' ? state.last?.urn ?? null : selected, screen === 'tutorial' ? tutorialStep===1?'red':tutorialStep===3?'blue':undefined : state.phase === 'revealed' ? state.last?.color : undefined);
@@ -285,6 +288,7 @@ function selectDemo(index:0|1):void {
 }
 function commitSelection(index: 0 | 1): void {
   if(screen==='tutorial'){selectDemo(index);return;}
+  if(screen==='finale'&&state.finale?.experience==='boss-v1'&&state.finale.phase==='choose'&&state.finale.boss?.started&&!state.finale.boss.needsHelp&&bossMechanic(state.finale)==='urns'){selectedFinale=index===0?'U':'V';render('finale-'+selectedFinale);return;}
   if (screen !== 'table' || !['choose','guided'].includes(state.phase)) return;
   selected = index; cardsVisible = true; render(`urn-${index}`);
 }
