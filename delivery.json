@@ -1,12 +1,13 @@
 {
-  "phase": "ada-holdem-2026-11-12",
+  "phase": "boss-finale-2026-11-13",
   "repository": "https://github.com/GaryPoui/TheGame",
-  "branch": "codex/complete-campaign",
+  "branch": "codex/boss-finale",
   "base_commit": "8bf9f0467dddb442595a585440d55c97f0774de1",
-  "content_commit": "88cb9a83487ac5d4456910e482793d8b22120633",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/88cb9a83487ac5d4456910e482793d8b22120633",
-  "pull_request": "https://github.com/GaryPoui/TheGame/pull/7",
+  "content_commit": "577f191128ed7bc1ea05329da925e1257454bfb2",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/577f191128ed7bc1ea05329da925e1257454bfb2",
+  "pull_request": null,
   "documentation": [
+    "docs/boss-finale.md",
     "docs/ada-holdem.md",
     "docs/game-menu-redesign.md",
     "docs/requirements-review.md",
@@ -33,22 +34,25 @@
   "validation": {
     "build": "PASS",
     "document_validation": "PASS",
-    "unit_tests": 54,
+    "unit_tests": 60,
+    "unit_command": "npm test -- --maxWorkers=1 --testTimeout=40000",
     "math_checks": 70,
     "five_card_hands_enumerated": 2598960,
     "seven_card_oracle_checks": 300,
-    "simulation_seeds": 300,
-    "simulation_mean_hands": 13.86,
-    "simulation_median_hands": 13,
-    "local_browser_cases_passed": 6,
-    "public_browser_cases_passed": 3,
+    "local_browser_cases_covered": 9,
+    "local_initial_passed": 7,
+    "local_final_complete_passed": 4,
+    "local_polish_passed": 4,
+    "public_html_browser_cases_passed": 3,
+    "public_3d_status": "One case timed out in the test browser during a click; remaining GPU run interrupted. Public 3D scene captured, not reported as a completed playthrough. Local canvas and texture checks passed.",
     "public_asset_hashes": 146,
     "public_asset_mismatches": 0,
-    "save_schema": 7,
+    "save_schema": 8,
     "skill_files_verified": 92,
-    "public_browser_report": "docs/evidence/ada-holdem/public-browser.txt",
-    "public_integrity": "docs/evidence/ada-holdem/public-integrity.json",
-    "note": "Local network attempts initially blocked; restarted server and browser in the same environment. Card position and enlarged text clipping fixed and revalidated. No new PR requested; source pushed directly to campaign."
+    "public_browser_report": "docs/evidence/boss-finale/public-html-browser.txt",
+    "public_interrupted_report": "docs/evidence/boss-finale/public-3d-interrupted.txt",
+    "public_integrity": "docs/evidence/boss-finale/public-integrity.json",
+    "pull_request_status": "Not created: connector 403; normal browser attempts timed out. Branch uploaded, compare URL available. No credentials extracted and no merge performed."
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -59,7 +63,7 @@
   "deployed": true,
   "next_step": "Revisión del usuario; pruebas humanas pendientes.",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "83e039ab019d9354f97a0e4cbd5591ffde9536a7",
+  "deployment_commit": "fe1bde7a89474838deb025b387c9a755c6248c16",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -67,8 +71,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Ada poker: two private cards, four community cards, two hidden opponent cards, category predictions before the fifth community card, strict win required, 24-point target.",
-  "build_source_commit": "88cb9a83487ac5d4456910e482793d8b22120633",
+  "scope": "Ada showdown polish and a rotating combined urns, dice and poker boss with shared combo, 36 resistance, six defences and finite help.",
+  "build_source_commit": "577f191128ed7bc1ea05329da925e1257454bfb2",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -216,7 +220,7 @@
     "deployment_commit": "1e6bfd4ffcadec61979ba4999123dfa1b791999a",
     "next_step": "Playtest humano del primer juego y ajustes según feedback del usuario; mantener foco en urnas."
   },
-  "completion_date": "2026-11-12",
+  "completion_date": "2026-11-13",
   "previous_campaign_delivery": {
     "phase": "campaign-complete-v5.2",
     "content_commit": "93c7e429d716b891bdccd0e8e874b10001f612f9",
@@ -753,5 +757,34 @@
       "note": "User authorized publishing and then direct merge into campaign. Initial clipped completion button at 200 percent fixed and revalidated. Source separate during development."
     },
     "scope": "Game-style options, title menu, chapter selector, confirmations and completion menus; no math, RNG or save schema changes."
-  }
+  },
+  "previous_ada_holdem_delivery": {
+    "phase": "ada-holdem-2026-11-12",
+    "branch": "codex/complete-campaign",
+    "content_commit": "88cb9a83487ac5d4456910e482793d8b22120633",
+    "build_source_commit": "88cb9a83487ac5d4456910e482793d8b22120633",
+    "deployment_commit": "83e039ab019d9354f97a0e4cbd5591ffde9536a7",
+    "validation": {
+      "build": "PASS",
+      "document_validation": "PASS",
+      "unit_tests": 54,
+      "math_checks": 70,
+      "five_card_hands_enumerated": 2598960,
+      "seven_card_oracle_checks": 300,
+      "simulation_seeds": 300,
+      "simulation_mean_hands": 13.86,
+      "simulation_median_hands": 13,
+      "local_browser_cases_passed": 6,
+      "public_browser_cases_passed": 3,
+      "public_asset_hashes": 146,
+      "public_asset_mismatches": 0,
+      "save_schema": 7,
+      "skill_files_verified": 92,
+      "public_browser_report": "docs/evidence/ada-holdem/public-browser.txt",
+      "public_integrity": "docs/evidence/ada-holdem/public-integrity.json",
+      "note": "Local network attempts initially blocked; restarted server and browser in the same environment. Card position and enlarged text clipping fixed and revalidated. No new PR requested; source pushed directly to campaign."
+    },
+    "scope": "Ada poker: two private cards, four community cards, two hidden opponent cards, category predictions before the fifth community card, strict win required, 24-point target."
+  },
+  "review_url": "https://github.com/GaryPoui/TheGame/compare/codex%2Fcomplete-campaign...codex%2Fboss-finale"
 }

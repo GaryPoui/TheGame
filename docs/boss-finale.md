@@ -73,3 +73,26 @@ Resultados: [unitarias](evidence/boss-finale/unit-tests.txt),
 Chrome headless de escritorio en Windows; estas pruebas no son una medición de GPU.
 La spec activa no estaba disponible en `.specify/feature.json`; no se dedujo de Git
 ni se marcaron pendientes documentales como gameplay completado.
+
+## Publicación
+
+Versión `boss-finale-2026-11-13`, fuente `577f191`, rama `codex/boss-finale`.
+La rama estática `gh-pages` quedó en `fe1bde7`. Los 146 archivos publicados
+coinciden por SHA-256 con la build revisada.
+
+La creación de PR se intentó por el conector (403, sin permiso de la integración)
+y por la sesión normal del navegador (sin respuesta). No se extrajeron credenciales
+ni se fusionaron ramas. [Comparación preparada para revisión](https://github.com/GaryPoui/TheGame/compare/codex%2Fcomplete-campaign...codex%2Fboss-finale).
+La publicación de Pages y la rama de código no dependen de crear ese PR.
+
+Tres casos públicos por la alternativa HTML aprobaron: resultado de Ada al 200 %,
+duelo independiente completo con libertad conservada y controles sin WebGL.
+El recorrido público 3D agotó 180 segundos durante un clic y la limpieza del contexto
+también se demoró; se interrumpió el resto de ese bloque. No se afirma que el recorrido
+3D público haya aprobado. La escena 3D se verificó localmente y la captura pública
+muestra al anfitrión y la mesa. La alternativa se ejecutó con GPU desactivada en
+el navegador de prueba, sin cambiar el código publicado.
+
+Evidencia: [integridad pública](evidence/boss-finale/public-integrity.json),
+[recorrido público HTML](evidence/boss-finale/public-html-browser.txt) y
+[recorrido 3D interrumpido](evidence/boss-finale/public-3d-interrupted.txt).
