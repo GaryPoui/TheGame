@@ -15,7 +15,7 @@ Running 12 tests using 1 worker
 [8/12] tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 640x360
 [9/12] tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 512x320
 [10/12] tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
-  1) tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom 
+  1) tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
 
     Error: expect(received).toEqual(expected) // deep equality
 
@@ -60,5 +60,5 @@ Running 12 tests using 1 worker
 [11/12] tests\browser\boss-focus.spec.ts:62:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space
 [12/12] tests\browser\boss-focus.spec.ts:70:1 › zoom density and viewport changes resize once and keep the saved fight
   1 failed
-    tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom 
+    tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
   11 passed (1.8m)

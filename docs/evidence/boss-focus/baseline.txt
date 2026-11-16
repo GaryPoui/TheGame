@@ -6,7 +6,7 @@ Running 2 tests using 1 worker
 (node:47724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 [1/2] tests\browser\boss-focus.spec.ts:16:1 › selecting a boss urn keeps the viewport node and its mounted canvas
-  1) tests\browser\boss-focus.spec.ts:16:1 › selecting a boss urn keeps the viewport node and its mounted canvas 
+  1) tests\browser\boss-focus.spec.ts:16:1 › selecting a boss urn keeps the viewport node and its mounted canvas
 
     Error: expect(received).toBe(expected) // Object.is equality
 
@@ -42,7 +42,7 @@ Running 2 tests using 1 worker
 (Use `node --trace-warnings ...` to show where the warning was created)
 
 [2/2] tests\browser\boss-focus.spec.ts:20:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent
-  2) tests\browser\boss-focus.spec.ts:20:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent 
+  2) tests\browser\boss-focus.spec.ts:20:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent
 
     Error: expect(received).toEqual(expected) // deep equality
 
@@ -84,5 +84,5 @@ Running 2 tests using 1 worker
 
 
   2 failed
-    tests\browser\boss-focus.spec.ts:16:1 › selecting a boss urn keeps the viewport node and its mounted canvas 
-    tests\browser\boss-focus.spec.ts:20:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent 
+    tests\browser\boss-focus.spec.ts:16:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+    tests\browser\boss-focus.spec.ts:20:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent

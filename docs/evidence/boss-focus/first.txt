@@ -6,7 +6,7 @@ Running 13 tests using 1 worker
 (node:6624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 [1/13] tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
-  1) tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas 
+  1) tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
 
     Error: expect(received).toEqual(expected) // deep equality
 
@@ -468,7 +468,7 @@ Running 13 tests using 1 worker
 [12/13] tests\browser\boss-focus.spec.ts:40:1 › boss resource help is contextual and does not alter the fight
 [13/13] tests\browser\boss-focus.spec.ts:44:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent
   10 failed
-    tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas 
+    tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
     tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 1280x720 ────────────
     tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 960x540 ─────────────
     tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 853x480 ─────────────

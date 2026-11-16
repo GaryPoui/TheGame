@@ -128,7 +128,7 @@ dist/assets/index-DJsRg5V5.js                                     160.64 kB │ 
 dist/assets/scene-UlUHS0HE.js                                   1,085.31 kB │ gzip: 263.28 kB
 
 ✓ built in 3.20s
-[plugin builtin:vite-reporter] 
+[plugin builtin:vite-reporter]
 (!) Some chunks are larger than 900 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
@@ -137,4 +137,3 @@ dist/assets/scene-UlUHS0HE.js                                   1,085.31 kB │ 
 1 callback is listed without a time. Its calls overlapped, so the time inside one call includes work from other calls. To find its cost, profile the build with `node --cpu-prof`:
   - plugin vite:css-post renderChunk (113 calls)
 See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
-

@@ -9,7 +9,7 @@ Running 4 tests using 1 worker
 [2/4] tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 512x320
 [3/4] tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 512x320
 [4/4] tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
-  1) tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom 
+  1) tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
 
     Error: expect(received).toEqual(expected) // deep equality
 
@@ -47,5 +47,5 @@ Running 4 tests using 1 worker
 
 
   1 failed
-    tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom 
+    tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
   3 passed (47.2s)
