@@ -39,3 +39,11 @@ La acción siguiente y el objetivo deben ser visibles. Los tutoriales deben corr
 - Se usan game-ui-ux, frontend-design y webapp-testing para presentación y recorridos; game-designer para revisar decisiones y separar evidencia de hipótesis; ca-web-review y ca-security para revisión final y preferencias. Un coordinador, sin dependencias ni recursos externos nuevos. La spec activa no se infirió de la rama: `.specify/feature.json` no existe en este checkout.
 
 La inspección y las pruebas automáticas no acreditan diversión, aprendizaje ni comprensión por jugadores. Sigue pendiente una sesión con personas que no conozcan el juego: pedir que expliquen el objetivo de cada mesa, el neto, la categoría exacta y el combo sin ayuda del facilitador; registrar dudas y decisiones antes de sacar conclusiones. Continúa pendiente la validación humana histórica de las specs; no se marca como completada.
+
+## Publicación verificada
+
+Versión `deep-polish-2026-11-16` publicada en [el juego público](https://garypoui.github.io/TheGame/). Fuente `1028bcc`, rama `codex/deep-game-polish`; despliegue `2f78fe1` en `gh-pages`, [publicación completada](https://github.com/GaryPoui/TheGame/actions/runs/43891187880).
+
+Los 146 archivos públicos coinciden por SHA-256 con la build local. Tres casos HTTPS aprobados: dados 3D con puntos antes/después de tirar y caras iguales al par guardado; práctica de Ada y las nueve categorías; preferencias previas a una campaña conservadas al recargar. Evidencia en [comprobación pública](evidence/deep-polish/public-browser.txt), [integridad](evidence/deep-polish/public-integrity.json) y [datos de entrega](evidence/deep-polish/publication.json).
+
+La rama fuente está subida. El conector de GitHub volvió a rechazar crear el PR con `403 Resource not accessible by integration`; se conserva la [comparación preparada](https://github.com/GaryPoui/TheGame/compare/codex%2Fboss-finale...codex%2Fdeep-game-polish), sin merge. Esto no bloquea la versión pública comprobada.

@@ -2,6 +2,8 @@
 
 Pulido integral 2026-11-16 en `codex/deep-game-polish`: dados con caras visibles antes de la primera tirada y contorno corregido; preferencias previas a la partida persistentes; práctica de póker sin consumir azar/progreso; nueve manos ilustradas y reglas de letras/palos; guía del jefe y objetivos más claros; explicaciones paginadas y ajustadas a texto ampliado. Se conservan reglas y campaña v8. Recorrido completo hasta salida y reanudación aprobado. Ver [hallazgos y evidencia](deep-game-polish.md).
 
+Publicada `deep-polish-2026-11-16`: fuente `1028bcc`, Pages `2f78fe1`. 62 unitarias, 70 comprobaciones matemáticas, 40 casos locales cubiertos con correcciones revalidadas, tres casos HTTPS y 146/146 hashes. Dados 3D vistos con puntos en la página pública. Fuente subida en rama separada; PR bloqueado por 403 del conector, comparación preparada y sin merge. Ver [entrega](deep-game-polish.md#publicación-verificada) y `delivery.json`.
+
 Actualización 2026-10-28: Ada pasa a [Las fotos tramposas](photos-redesign.md), con pregunta inicial sin puntos sobre independencia, fotos completas frente a seleccionadas y textos sencillos. Doble conserva sus reglas con consignas más simples. Las mesas mantienen el diseño anterior solicitado. Las sesiones antiguas conservan progreso y pueden empezar el álbum nuevo.
 
 

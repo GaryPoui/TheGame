@@ -1,0 +1,11 @@
+
+Running 3 tests using 1 worker
+
+
+
+(node:36876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/3] tests\browser\deep-polish.spec.ts:9:1 › 3D dice have visible pips before the first roll
+[2/3] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 1280 text 1 without altering progress
+[3/3] tests\browser\deep-polish.spec.ts:42:1 › settings made before starting a game survive reload without creating a game
+  3 passed (11.3s)
