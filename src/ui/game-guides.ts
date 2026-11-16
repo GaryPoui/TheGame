@@ -3,7 +3,7 @@ import type {PokerCard} from '../core/tables/poker-records';
 import {holdemFelt,pokerCardView} from './poker-cards';
 import './game-guides.css';
 export type Guide='urns'|'dice'|'poker'|'boss';
-export const guideButton=(guide:Guide,label='Cómo jugar')=>`<button class="text-button full" data-guide="${guide}">${label}</button>`;
+export const guideButton=(guide:Guide,label='Cómo jugar',start=0)=>`<button class="text-button full" data-guide="${guide}" data-guide-start="${start}">${label}</button>`;
 const c=(rank:number,suit:PokerCard['suit']):PokerCard=>({rank,suit});
 const samples:Record<HandCategory,PokerCard[]>={
  'high-card':[c(1,'spades'),c(11,'hearts'),c(8,'clubs'),c(5,'diamonds'),c(2,'clubs')],
@@ -26,6 +26,10 @@ const lessons:Record<Exclude<Guide,'poker'>,readonly [string,string][]>={
  boss:[['Una buena decisión también golpea','Bajá la resistencia de 36 a cero. Elegir la opción con mejor cuenta hace dos de daño, incluso con mala suerte. Elegir una inferior gasta una de tus seis defensas. No hay reloj.'],['Cargá y descargá el combo','Una ficha del color pedido carga uno; una tirada favorable carga dos. Podés guardar hasta seis. En póker, acertar tu categoría exacta y ganar convierte sus puntos en daño y suma la carga. Por ejemplo: pareja de cuatro puntos + tres de combo = siete de daño, además de dos si tu elección fue óptima.'],['Cómo comparar en póker','Compará cuántas cartas completan cada categoría y el daño que paga. Con combo tres: pareja paga siete y trío paga trece. Si hay 30 cartas para pareja y dos para trío, compará 30 × 7 = 210 con 2 × 13 = 26. Elegir pareja es mejor en ese ejemplo; no garantiza ganar el duelo.'],['El orden cambia, el progreso queda','Cada asalto combina urnas, dados y póker en otro orden. En urnas sacás dos veces sin devolver. Si agotás las defensas o seis asaltos, podés reintentar o completar las tres mecánicas con ayuda. Conservás los sellos.']],
 };
 const demo=():HoldemTable=>({player:[c(13,'spades'),c(13,'hearts')],opponent:[c(1,'hearts'),c(12,'spades')],board:[c(13,'clubs'),c(2,'diamonds'),c(7,'clubs'),c(9,'hearts')],deck:[],opponentChoice:'pair',opponentPoints:0});
+function bossExample(page:number):string {
+ const examples=[['Buena decisión','+2 de daño','Mala suerte','No pierde defensa'],['Urna +1','Dados +2','Combo guardado','3 de 6'],['Pareja + combo','4 + 3 = 7 de daño','Buena decisión','+2 adicionales'],['Sin defensas','Reintentar o pedir ayuda','Tus tres sellos','Se conservan']];
+ const e=examples[page]!;return `<div class="guide-example" aria-label="Ejemplo del duelo"><span>${e[0]}<strong>${e[1]}</strong></span><span>${e[2]}<strong>${e[3]}</strong></span></div>`;
+}
 type Show=(title:string,html:string,kind:string)=>HTMLDialogElement;
 /** Prepared teaching data only: no commands, save writes or campaign RNG. */
 export function installGameGuides(show:Show):void {
@@ -35,7 +39,7 @@ export function installGameGuides(show:Show):void {
   if(!kind||!['urns','dice','poker','boss'].includes(kind))return;
   const dialog=show(kind==='poker'?'Una mano con Ada':'Cómo jugar', '<div class="guide-content"></div>','guide-modal');
   const body=dialog.querySelector<HTMLElement>('.guide-content')!;
-  let page=0,choice:HandCategory|null=null,revealed=false;
+  let page=kind==='boss'?Math.max(0,Math.min(3,Number(trigger?.dataset.guideStart)||0)):0,choice:HandCategory|null=null,revealed=false;
   const draw=()=>{
    if(kind==='poker'){
     const t=demo();if(revealed)t.board.push(c(2,'clubs'));
@@ -45,7 +49,7 @@ export function installGameGuides(show:Show):void {
     body.innerHTML=`<p class="guide-caption">Ejemplo preparado · sin puntos ni cambios en tu partida</p>${holdemFelt(t,revealed)}${revealed?`<section class="guide-result" role="status"><h3>${hit&&win?`Acertaste: ${HAND_POINTS[player.category]} puntos en una partida real`:'Esta elección no daría puntos'}</h3><p>${hit?'Acertaste full house.':`Elegiste ${HAND_NAMES[choice!]}; salió full house: trío de reyes y pareja de doses.`} Tu full house supera la pareja de Ada. ${hit?'Se cumplen las dos condiciones: acertar y ganar.':'Ganar con una categoría distinta no alcanza.'}</p></section><button class="secondary full" data-demo-reset>Probar otra predicción</button>`:`<p>Tenés dos reyes y otro en la mesa: ya hay un trío. Elegí qué categoría exacta tendrás cuando aparezca la quinta carta.</p><div class="demo-choices">${odds.map(o=>`<button class="secondary ${choice===o.category?'selected':''}" aria-pressed="${choice===o.category}" data-demo-choice="${o.category}">${HAND_NAMES[o.category]}<small>${o.count} de 46 cartas</small></button>`).join('')}</div><button class="primary full" data-demo-reveal ${choice===null?'disabled':''}>Revelar la quinta carta</button>`}`;
    }else{
     const pages=lessons[kind],lesson=pages[page]!;
-    body.innerHTML=`<p class="guide-caption">${page+1} de ${pages.length}</p><h3 tabindex="-1">${lesson[0]}</h3><p>${lesson[1]}</p><nav class="reading-nav" aria-label="Pasos del tutorial"><button class="secondary" data-guide-page="previous" ${page===0?'disabled':''}>Anterior</button><span role="status">${page+1} de ${pages.length}</span><button class="primary" data-guide-page="next" ${page===pages.length-1?'disabled':''}>Siguiente</button></nav>`;
+    body.innerHTML=`<p class="guide-caption">${page+1} de ${pages.length}</p><h3 tabindex="-1">${lesson[0]}</h3><p>${lesson[1]}</p>${kind==='boss'?bossExample(page):''}<nav class="reading-nav" aria-label="Pasos del tutorial"><button class="secondary" data-guide-page="previous" ${page===0?'disabled':''}>Anterior</button><span role="status">${page+1} de ${pages.length}</span><button class="primary" data-guide-page="next" ${page===pages.length-1?'disabled':''}>Siguiente</button></nav>`;
    }
   };
   dialog.addEventListener('click',e=>{

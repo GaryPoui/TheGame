@@ -20,6 +20,7 @@ import {settingsMenu,menuIcon,syncSettingSteps,type SettingsSection} from './ui/
 import {cleanHeadingPeriods} from './ui/headings';
 import {replaceDisclosures,installInfoDialogs,showReading} from './ui/info-dialog';
 import {installGameGuides,guideButton} from './ui/game-guides';
+import {renderSurface} from './ui/stable-stage';
 import {learningReview, reviewButton, tutorialSummary, type LearningTopic} from './ui/learning';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
@@ -38,11 +39,12 @@ import { tokenTray, veraCoach, decisionTrack, urnTutorialHelp } from './ui/table
 import { createContracts, applyContractCommand, type ContractCommand } from './core/tables/contracts';
 import { CONTRACT_IDS, type ContractId } from './core/math/dice';
 import { compareContracts, type ComparisonRun } from './core/math/simulation';
-import { contractsTutorial, contractsView, contractsComplete } from './ui/contracts';
+import { contractsTutorial, contractsView, contractsComplete,contractCombinationsGuide } from './ui/contracts';
 import {
   createGame, choose, advance, bestChoices, probability, loadGame, saveGame, defaultSettings,
   clearGame, type GameState, type Settings, type Urn,
 } from './core/game';
+import './ui/boss-focus.css';
 import type { GameScene } from './presentation/scene';
 
 declare global { interface Window { __THEGAME_READY__: boolean; __THEGAME_METRICS__?: () => unknown } }
@@ -247,9 +249,6 @@ function dobleScreen(): string {
   return c.phase === 'tutorial' ? contractsTutorial(c, dobleTutorialStep) : c.phase === 'complete' ? contractsComplete(c) : contractsView(c, selectedContract, comparisonResult, rehearsalPair, diceRolling, diceCombinationsVisible);
 }
 function render(focusId?: string): void {
-  // Preserve the one WebGL canvas when replacing the surrounding HTML.
-  const canvas=document.querySelector<HTMLCanvasElement>('#scene');
-  if(canvas&&app.contains(canvas))document.body.prepend(canvas);
   const expanded = [...app.querySelectorAll<HTMLDetailsElement>('details[data-keep-open][open]')].map(el => el.dataset.keepOpen);
   document.body.dataset.screen = screen;
   document.documentElement.style.setProperty('--street-progress',String(state.streetPosition??0));
@@ -258,9 +257,9 @@ function render(focusId?: string): void {
   document.body.dataset.doblePhase = state.contracts?.phase ?? 'tutorial';
   document.body.dataset.introPhase = introPhase;
   document.body.dataset.speaker = screen === 'intro' && introLine === 2 ? 'vera' : 'captor';
-  app.innerHTML = header() + ({ menu, intro: introView, room, tutorial, table, complete, contracts: dobleScreen, records:()=>state.records?recordsView(state.records,selectedRecord,adaTutorialStep):room(), finale:()=>state.finale?endingView(state.finale,selectedFinale,state.freed===true):room(), outside:outsideView, street:streetView }[screen])() +
+  renderSurface(app,header() + ({ menu, intro: introView, room, tutorial, table, complete, contracts: dobleScreen, records:()=>state.records?recordsView(state.records,selectedRecord,adaTutorialStep):room(), finale:()=>state.finale?endingView(state.finale,selectedFinale,state.freed===true):room(), outside:outsideView, street:streetView }[screen])() +
     (warning ? `<div class="save-warning" role="status">${escapeText(warning)}</div>` : '') +
-    (sceneWarning ? `<div class="graphics-warning">${sceneWarning} ${btn('retry-graphics','Reintentar 3D','quiet')}</div>` : '');
+    (sceneWarning ? `<div class="graphics-warning">${sceneWarning} ${btn('retry-graphics','Reintentar 3D','quiet')}</div>` : ''),screen);
   for(const name of expanded) app.querySelector<HTMLDetailsElement>(`details[data-keep-open="${name}"]`)?.setAttribute('open','');
   cleanHeadingPeriods(app);
   replaceDisclosures(app);
@@ -270,7 +269,7 @@ function render(focusId?: string): void {
 function updateVisual(): void {
   const canvas=document.querySelector<HTMLCanvasElement>('#scene');
   const viewport=app.querySelector<HTMLElement>('.dice-viewport,.ada-viewport');
-  if(canvas&&viewport){viewport.append(canvas);scene?.resizeCanvas();}
+  if(canvas&&viewport){if(canvas.parentElement!==viewport)viewport.append(canvas);scene?.resizeCanvas();}
   else scene?.resizeCanvas();
   const playingBoss=screen==='finale'&&!!app.querySelector('.boss-layout .ada-viewport');
   const bossUrns=playingBoss&&state.finale?.experience==='boss-v1'&&bossMechanic(state.finale)==='urns';
@@ -394,7 +393,10 @@ function showDialog(title: string, content: string, kind=''): HTMLDialogElement 
   cleanHeadingPeriods(dialog);
   dialog.showModal(); return dialog;
 }
-function updateSettingsOrientation():void {overlay.querySelector('[role=tablist]')?.setAttribute('aria-orientation',matchMedia('(max-width:700px)').matches?'horizontal':'vertical');}
+function updateSettingsOrientation():void {
+ const compactLandscape=matchMedia('(min-width:500px) and (max-height:600px)').matches;
+ overlay.querySelector('[role=tablist]')?.setAttribute('aria-orientation',!compactLandscape&&matchMedia('(max-width:700px)').matches?'horizontal':'vertical');
+}
 window.addEventListener('resize',updateSettingsOrientation);
 function showSettings(section:SettingsSection='display'): void {
   showDialog('Opciones',settingsMenu(settings,section,screen!=='menu'),'settings-modal');
@@ -449,7 +451,10 @@ function handleGameClick(event: MouseEvent): void {
   if(handleCampaignClick(target))return;
   if(id === 'enter-contracts') { enterContracts(); return; }
   if(screen === 'contracts' && state.contracts) {
-    if(id==='toggle-dice-combinations'){diceCombinationsVisible=!diceCombinationsVisible;render('toggle-dice-combinations');return;}
+    if(id==='toggle-dice-combinations'){
+      if(matchMedia('(min-width:500px) and (max-height:600px)').matches){showReading(showDialog,'Combinaciones de los dados',contractCombinationsGuide());return;}
+      diceCombinationsVisible=!diceCombinationsVisible;render('toggle-dice-combinations');return;
+    }
     if(id === 'rehearse-die-0' || id === 'rehearse-die-1') {
       const die = id === 'rehearse-die-0' ? 0 : 1;
       rehearsalPair[die] = rehearsalPair[die] % 6 + 1; render(id);

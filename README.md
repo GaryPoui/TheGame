@@ -29,6 +29,8 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 
 [Pulido integral, tutoriales y dados legibles](docs/deep-game-polish.md).
 
+[Duelo final, zoom y fluidez de la interfaz](docs/boss-focus-motion.md).
+
 [Revisión de escritorio y publicación](docs/desktop-revision.md).
 
 [Revisión de la lista de mejoras y tutoriales](docs/requirements-review.md).

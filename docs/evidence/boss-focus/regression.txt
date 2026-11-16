@@ -1,0 +1,142 @@
+
+Running 46 tests using 1 worker
+
+
+
+(node:26632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/46] tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+[2/46] tests\browser\boss-focus.spec.ts:27:71 › all boss mechanics and result fit 1280x720
+[3/46] tests\browser\boss-focus.spec.ts:27:71 › all boss mechanics and result fit 960x540
+[4/46] tests\browser\boss-focus.spec.ts:27:71 › all boss mechanics and result fit 853x480
+[5/46] tests\browser\boss-focus.spec.ts:27:71 › all boss mechanics and result fit 640x360
+  1) tests\browser\boss-focus.spec.ts:27:71 › all boss mechanics and result fit 640x360 ────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 5
+
+    - Array []
+    + Array [
+    +   "finale-next",
+    +   "Reglas del duelo",
+    +   "back-room",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:32:201
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-regression\boss-focus-all-boss-mechanics-and-result-fit-640x360\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-regression\boss-focus-all-boss-mechanics-and-result-fit-640x360\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-regression\boss-focus-all-boss-mechanics-and-result-fit-640x360\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-regression\boss-focus-all-boss-mechanics-and-result-fit-640x360\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:45268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[6/46] tests\browser\boss-focus.spec.ts:37:108 › urns choices and feedback fit 853x480
+[7/46] tests\browser\boss-focus.spec.ts:37:108 › urns choices and feedback fit 640x360
+[8/46] tests\browser\boss-focus.spec.ts:37:108 › contracts choices and feedback fit 853x480
+[9/46] tests\browser\boss-focus.spec.ts:37:108 › contracts choices and feedback fit 640x360
+[10/46] tests\browser\boss-focus.spec.ts:37:108 › records choices and feedback fit 853x480
+[11/46] tests\browser\boss-focus.spec.ts:37:108 › records choices and feedback fit 640x360
+[12/46] tests\browser\boss-focus.spec.ts:41:1 › boss resource help is contextual and does not alter the fight
+[13/46] tests\browser\boss-focus.spec.ts:45:1 › options and chapter menu fit compact zoom with text enlarged and reduced motion
+[14/46] tests\browser\boss-focus.spec.ts:51:1 › compact dice combinations use a window instead of extending the table
+[15/46] tests\browser\boss-focus.spec.ts:54:1 › zoom density and viewport changes resize once and keep the saved fight
+[16/46] tests\browser\boss-focus.spec.ts:60:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent
+[17/46] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1280x720 text 1
+[18/46] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 1
+[19/46] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 2
+  2) tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 2 ──────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "6♦",
+    +   "5♠",
+    + ]
+
+      14 | async function fits(page:Page){
+      15 |  if(page.viewportSize()!.width<1000)return;
+    > 16 |  expect(await page.locator('main button, main .poker-card, main progress').evaluateAll(es=>es.filter(e=>e.checkVisibility()).filter(e=>{const b=e.getBoundingClientRect();return b.top<0||b.bottom>innerHeight+1||b.left<0||b.right>innerWidth+1;}).map(e=>e.getAttribute('data-testid')??e.textContent))).toEqual([]);
+         |                                                                                                                                                                                                                                                                                                            ^
+      17 |  expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.querySelector('#app')!.scrollTop===0)).toBe(true);
+      18 | }
+      19 | for(const [width,height,scale] of [[1280,720,1],[1024,640,1],[1024,640,2],[390,844,1]])test(`boss combines urns dice and poker ${width}x${height} text ${scale}`,async({page})=>{
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss.spec.ts:16:300)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss.spec.ts:24:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-regression\boss-boss-combines-urns-dice-and-poker-1024x640-text-2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-regression\boss-boss-combines-urns-dice-and-poker-1024x640-text-2\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-regression\boss-boss-combines-urns-dice-and-poker-1024x640-text-2\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-regression\boss-boss-combines-urns-dice-and-poker-1024x640-text-2\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:20452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[20/46] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 390x844 text 1
+[21/46] tests\browser\boss.spec.ts:37:26 › Ada polish shows both best hands and preserves scoring, text 1
+[22/46] tests\browser\boss.spec.ts:37:26 › Ada polish shows both best hands and preserves scoring, text 2
+[23/46] tests\browser\boss.spec.ts:43:1 › boss defeat offers finite help, opens the door and keeps freedom on practice
+[24/46] tests\browser\boss.spec.ts:53:1 › complete independent boss duel opens the ending and preserves freedom on replay
+[25/46] tests\browser\boss.spec.ts:62:1 › boss keeps its character and playable choices without WebGL
+[26/46] tests\browser\deep-campaign.spec.ts:11:1 › new campaign reaches every tutorial, seal and the saved ending using the mouse
+[27/46] tests\browser\deep-polish.spec.ts:9:1 › 3D dice have visible pips before the first roll
+[28/46] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 1280 text 1 without altering progress
+[29/46] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 1024 text 2 without altering progress
+[30/46] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 390 text 2 without altering progress
+[31/46] tests\browser\deep-polish.spec.ts:37:1 › boss teaching pages explain defence, combo and the comparison without changing the fight
+[32/46] tests\browser\deep-polish.spec.ts:42:1 › settings made before starting a game survive reload without creating a game
+[33/46] tests\browser\deep-polish.spec.ts:47:1 › nested dice accounts fit enlarged text and return focus to the table after resize
+[34/46] tests\browser\dice-roll.spec.ts:14:1 › visible table rolls once, settles on the saved pair and preserves the canvas
+[35/46] tests\browser\dice-roll.spec.ts:29:1 › reduced motion shows the exact result immediately without a roll animation
+[36/46] tests\browser\dice-roll.spec.ts:34:1 › HTML table and numbered result remain usable when WebGL is unavailable
+[37/46] tests\browser\game-menus.spec.ts:18:88 › game options fit 1024x640, text 1
+[38/46] tests\browser\game-menus.spec.ts:18:88 › game options fit 1024x640, text 2
+[39/46] tests\browser\game-menus.spec.ts:18:88 › game options fit 1440x900, text 1
+[40/46] tests\browser\game-menus.spec.ts:18:88 › game options fit 1440x900, text 2
+[41/46] tests\browser\game-menus.spec.ts:18:88 › game options fit 390x844, text 1
+[42/46] tests\browser\game-menus.spec.ts:18:88 › game options fit 390x844, text 2
+[43/46] tests\browser\game-menus.spec.ts:38:1 › menu confirmations and return to title protect the save
+[44/46] tests\browser\game-menus.spec.ts:46:1 › chapter menu keeps locks and provides a path back
+[45/46] tests\browser\game-menus.spec.ts:53:26 › seal and confirmation menus fit text 1
+[46/46] tests\browser\game-menus.spec.ts:53:26 › seal and confirmation menus fit text 2
+  2 failed
+    tests\browser\boss-focus.spec.ts:27:71 › all boss mechanics and result fit 640x360 ─────────────
+    tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 2 ───────────
+  44 passed (2.1m)

@@ -1,0 +1,137 @@
+
+Running 6 tests using 1 worker
+
+
+
+(node:33632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/6] tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 512x320
+  1) tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 512x320 ────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Reglas del duelo",
+    +   "back-room",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:32:201
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-zoom-verified\boss-focus-all-boss-mechanics-and-result-fit-512x320\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-zoom-verified\boss-focus-all-boss-mechanics-and-result-fit-512x320\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-zoom-verified\boss-focus-all-boss-mechanics-and-result-fit-512x320\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-zoom-verified\boss-focus-all-boss-mechanics-and-result-fit-512x320\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:16396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/6] tests\browser\boss-focus.spec.ts:37:118 › urns choices and feedback fit 512x320
+[3/6] tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 512x320
+  2) tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 512x320 ──────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+    - Array []
+    + Array [
+    +   "contract-C",
+    +   "contract-J",
+    +   "toggle-dice-combinations",
+    +   "Cómo contar los pares",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:38:258
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-zoom-verified\boss-focus-contracts-choices-and-feedback-fit-512x320\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-zoom-verified\boss-focus-contracts-choices-and-feedback-fit-512x320\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-zoom-verified\boss-focus-contracts-choices-and-feedback-fit-512x320\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-zoom-verified\boss-focus-contracts-choices-and-feedback-fit-512x320\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:53504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/6] tests\browser\boss-focus.spec.ts:37:118 › records choices and feedback fit 512x320
+[5/6] tests\browser\boss-focus.spec.ts:51:1 › chapter menu fits the smallest desktop zoom space
+[6/6] tests\browser\boss-focus.spec.ts:54:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space
+  3) tests\browser\boss-focus.spec.ts:54:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: locator.click: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Aprender el duelo', exact: true })
+
+
+      54 | test('prepared tutorials and boss reading stay reachable in the smallest zoom space',async({page})=>{
+      55 |  await open(page,512,320,'contracts');const before=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));for(let i=0;i<3;i++){await fits(page);if(i<2)await page.getByTestId('doble-tutorial-next').click();}expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);
+    > 56 |  await page.getByTestId('doble-begin').click();await page.getByTestId('back-room').click();await page.getByTestId('enter-finale').click();await page.getByRole('button',{name:'Aprender el duelo',exact:true}).click();
+         |                                                                                                                                                                                                                ^
+      57 |  for(let i=0;i<4;i++){expect(await page.getByRole('dialog').evaluate(d=>{const r=d.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight+1&&d.scrollHeight<=d.clientHeight+1&&[...d.querySelectorAll('button')].filter(b=>b.checkVisibility()).every(b=>b.getBoundingClientRect().bottom<=innerHeight+1);})).toBe(true);if(i<3)await page.locator('[data-guide-page=next]').click();}
+      58 | });
+      59 | test('compact dice combinations use a window instead of extending the table',async({page})=>{
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:56:208
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-zoom-verified\boss-focus-prepared-tutori-abf1e--in-the-smallest-zoom-space\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-zoom-verified\boss-focus-prepared-tutori-abf1e--in-the-smallest-zoom-space\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-zoom-verified\boss-focus-prepared-tutori-abf1e--in-the-smallest-zoom-space\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-zoom-verified\boss-focus-prepared-tutori-abf1e--in-the-smallest-zoom-space\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  3 failed
+    tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 512x320 ─────────────
+    tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 512x320 ───────────
+    tests\browser\boss-focus.spec.ts:54:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space 
+  3 passed (1.3m)

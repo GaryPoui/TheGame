@@ -1,0 +1,12 @@
+
+ RUN  v5.0.5 C:/Users/facub/Documents/TheGame
+
+
+ Test Files  12 passed (12)
+      Tests  63 passed (63)
+   Start at  17:40:24
+   Duration  37.22s (tests 91%, import 5%, transform 3%, worker 1%)
+
+    Isolate  12 workers spawned · ~628ms startup each (spawn + environment, per file)
+             at least ~6.91s faster with isolate: false — reuses workers across files instead of one per file
+

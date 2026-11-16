@@ -1,5 +1,7 @@
 # Skills: investigación, selección e instalación
 
+Duelo, zoom y fluidez 2026-11-16: game-ui-ux y frontend-design para jerarquía y retículas; camera-systems para encuadre; animate para transiciones breves; ca-performance para estabilidad medida de viewport, fichas y reajustes; webapp-testing con el runner TypeScript existente para la campaña y ventanas. [Evidencia](boss-focus-motion.md). Sin nuevas dependencias ni otros coordinadores.
+
 Pulido integral 2026-11-16: game-ui-ux y frontend-design para jerarquía, cartas y ventanas; game-designer para revisar comprensión sin inventar resultados de jugadores; webapp-testing con el runner TypeScript existente; ca-web-review y ca-security para contraste, foco y preferencias locales. Evidencia en [pulido integral](deep-game-polish.md). Sin nuevos paquetes ni coordinación paralela.
 
 Consulta: **2026-10-23**, zona America/Buenos_Aires. Alcance: documentación y preparación; ninguna skill demuestra que el videojuego esté implementado.

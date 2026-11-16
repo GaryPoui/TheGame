@@ -60,6 +60,12 @@ export class GameScene {
   private diceRollCount = 0;
   private contractsMode = false;
   private diceKey = '';
+  private canvasSizeKey='';
+  private framingKey='';
+  private urnGeometryKey='';
+  private canvasResizeCount=0;
+  private urnGeometryBuilds=0;
+  private hardwareScale=1;
   private rendering=true;
   private bossUrnsVisible=false;
   private diceInk!: PBRMaterial;
@@ -75,7 +81,8 @@ export class GameScene {
 
   constructor(canvas: HTMLCanvasElement, onUrn: (index: 0 | 1) => void) {
     this.engine = new Engine(canvas, true, { stencil: true, preserveDrawingBuffer: true, antialias: true });
-    this.engine.setHardwareScalingLevel(Math.max(1, window.devicePixelRatio / 1.5));
+    this.hardwareScale=Math.max(1,window.devicePixelRatio/1.5);
+    this.engine.setHardwareScalingLevel(this.hardwareScale);
     this.scene = new Scene(this.engine);
     this.instrumentation=new SceneInstrumentation(this.scene);
     this.instrumentation.captureFrameTime=true;
@@ -225,11 +232,23 @@ export class GameScene {
     this.focus=mode==='table'?new Vector3(1.1,2.3,.1):new Vector3(0,2.4,1.2);
   }
   setRendering(active:boolean):void {this.rendering=active;}
-  resizeCanvas():void {this.engine.resize();this.frameContracts();}
+  resizeCanvas():void {
+    const canvas=this.engine.getRenderingCanvas();if(!canvas)return;
+    const key=`${canvas.clientWidth}:${canvas.clientHeight}:${window.devicePixelRatio}`;
+    if(key!==this.canvasSizeKey){
+      this.canvasSizeKey=key;this.canvasResizeCount++;
+      const scale=Math.max(1,window.devicePixelRatio/1.5);
+      if(scale!==this.hardwareScale){this.hardwareScale=scale;this.engine.setHardwareScalingLevel(scale);}else this.engine.resize();
+    }
+    this.frameContracts();
+  }
   private frameContracts():void {
     if(!this.contractsMode)return;
     const height=this.engine.getRenderingCanvas()?.clientHeight??420;
     const width=this.engine.getRenderingCanvas()?.clientWidth??900;
+    const key=`${width}:${height}:${this.tableHost}`;
+    if(key===this.framingKey)return;
+    this.framingKey=key;
     this.destination.set(0,4.6,-10);this.focus.set(0,2.25,0);
     this.camera.fov=Math.max(.44,2*Math.atan(Math.max(2.6/10.7,3.85*height/(10.7*Math.max(1,width)))));
     this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);
@@ -258,6 +277,7 @@ export class GameScene {
   setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'|'captor'='doble',showUrns=false): void {
     const changed = enabled !== this.contractsMode||host!==this.tableHost;
     this.contractsMode = enabled;
+    if(changed)this.framingKey='';
     this.bossUrnsVisible=enabled&&showUrns;
     this.tableHost=host;
     this.urnProps.forEach(mesh => mesh.isVisible = !enabled||this.bossUrnsVisible);
@@ -266,7 +286,7 @@ export class GameScene {
     if(enabled&&!this.bossUrnsVisible){this.rings.forEach(mesh=>mesh.isVisible=false);this.selectionGlow.removeAllMeshes();}
     const portrait = this.scene.getMeshByName('vera-ink-portrait');
     const material = portrait?.material as StandardMaterial | null;
-    if(changed && portrait) {const scale=enabled?host==='captor'?1.3:.9:1;portrait.scaling.set(scale,scale,1);portrait.position.y=enabled?host==='captor'?2.25:2.8:3.3;}
+    if(changed && portrait) {const scale=enabled?host==='captor'?1.5:.9:1;portrait.scaling.set(scale,scale,1);portrait.position.y=enabled?host==='captor'?2.05:2.8:3.3;}
     if(enabled){
       this.frameContracts();
     } else if(changed){this.setMode(this.mode);this.camera.fov=65*Math.PI/180;this.stopDiceRoll();}
@@ -315,6 +335,8 @@ export class GameScene {
     this.diceProps = this.scene.meshes.slice(start).filter((mesh): mesh is Mesh => mesh instanceof Mesh);
   }
   updateUrns(urns:readonly {red:number;blue:number}[],selected:number|null,revealed?:'red'|'blue'):void {
+    const key=JSON.stringify([urns,revealed??null]);
+    if(key!==this.urnGeometryKey){this.urnGeometryKey=key;this.urnGeometryBuilds++;
     this.tokens.forEach(m=>{this.shadows.removeShadowCaster(m);m.dispose();});this.tokens=[];
     urns.slice(0,2).forEach((urn,i)=>{
       const x=i===0?-1.05:1.05;
@@ -329,18 +351,21 @@ export class GameScene {
         token.receiveShadows=true;this.shadows.addShadowCaster(token);this.tokens.push(token);
       });
     });
-    this.rings.forEach((r,i)=>r.isVisible=i===selected);
-    this.selectedUrn=selected;
-    this.selectionGlow.removeAllMeshes();
-    if(selected!==null) this.urnFrames[selected]?.forEach(mesh=>this.selectionGlow.addMesh(mesh,Color3.FromHexString('#FFE3A0')));
     if(revealed){
       const t=CreateCylinder('revealed-'+revealed,{diameter:.53,height:.15,tessellation:revealed==='red'?3:32},this.scene);
       t.position.set(0,1.85,-1.5);t.material=revealed==='red'?this.red:this.blue;t.isPickable=false;
       t.receiveShadows=true;this.shadows.addShadowCaster(t);this.tokens.push(t);
     }
+    }
+    this.rings.forEach((r,i)=>r.isVisible=i===selected);
+    this.selectedUrn=selected;
+    this.selectionGlow.removeAllMeshes();
+    if(selected!==null) this.urnFrames[selected]?.forEach(mesh=>this.selectionGlow.addMesh(mesh,Color3.FromHexString('#FFE3A0')));
   }
   setSettings(settings:{reducedMotion:boolean;sensitivity:number;fov:number}):void {
-    this.reduced=settings.reducedMotion;this.camera.fov=Math.min(95,Math.max(45,settings.fov))*Math.PI/180;
+    this.reduced=settings.reducedMotion;
+    if(this.contractsMode){this.framingKey='';this.resizeCanvas();}
+    else this.camera.fov=Math.min(95,Math.max(45,settings.fov))*Math.PI/180;
   }
   /** A point-in-time renderer sample; no claim about other devices or a frame-time percentile. */
   metrics() {
@@ -361,7 +386,7 @@ export class GameScene {
       tableWidth:project(new Vector3(3.34,1.825,0)).x-project(new Vector3(-3.34,1.825,0)).x,
       tableBack:project(new Vector3(0,1.825,2.4)),
     }:null;
-    return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,
+    return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,canvasResizeCount:this.canvasResizeCount,urnGeometryBuilds:this.urnGeometryBuilds,cameraFov:this.camera.fov,hardwareScale:this.hardwareScale,
       bossUrnsVisible:this.bossUrnsVisible,visibleUrnVessels:this.urnProps.filter(mesh=>mesh.name==='thick-glass-urn'&&mesh.isVisible).length,visibleUrnTokens:this.tokens.filter(mesh=>mesh.isVisible&&mesh.metadata?.urn!==undefined).length,selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
       diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),diceFaces:this.diceRoots.map(die=>die.metadata.faces as number[]),
       dealerFrame,
