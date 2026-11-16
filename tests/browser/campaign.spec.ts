@@ -78,7 +78,7 @@ test('Doble preserves a good decision through a lost roll, reload and reading it
  await page.getByRole('button',{name:/Practicar y ver las cuentas/}).click();await page.getByRole('button',{name:/Ver los 36 pares y comparar contratos/}).click();await expect(page.locator('.pair-grid')).toBeVisible();expect((await saved(page)).contracts).toEqual(prior);await page.getByTestId('close-dialog').click();
  await page.screenshot({path:`${evidence}/doble-good-unlucky.png`});
  for(let i=0;i<36;i++){const c=(await saved(page)).contracts!;if(c.phase==='complete')break;if(c.phase==='offer'||c.phase==='order'){await page.getByTestId('contract-'+bestContracts(currentObjective(c))[0]).click();await page.getByTestId('doble-sign').click();}else await page.getByTestId('doble-next').click();}
- await expect(page.getByTestId('doble-completion')).toBeVisible();await page.getByTestId('enter-records').click();await expect(page.getByTestId('records-begin')).toBeVisible();await expect(page.getByRole('heading',{name:'Las cartas de Ada'})).toBeVisible();
+ await expect(page.getByTestId('doble-completion')).toBeVisible();await page.getByTestId('enter-records').click();await expect(page.getByTestId('records-begin')).toBeVisible();await expect(page.getByRole('heading',{name:'El póker de Ada'})).toBeVisible();
 });
 test('all campaign panels remain usable at 200 percent text in a narrow window',async({page})=>{
  test.setTimeout(120_000);

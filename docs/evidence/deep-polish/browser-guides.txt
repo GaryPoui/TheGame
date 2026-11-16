@@ -1,0 +1,54 @@
+
+Running 6 tests using 1 worker
+
+
+(node:54164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/6] tests\browser\deep-polish.spec.ts:9:1 › 3D dice have visible pips before the first roll
+[2/6] tests\browser\deep-polish.spec.ts:18:75 › guided poker and nine hand examples fit 1280 text 1 without altering progress
+[3/6] tests\browser\deep-polish.spec.ts:18:75 › guided poker and nine hand examples fit 1024 text 2 without altering progress
+  1) tests\browser\deep-polish.spec.ts:18:75 › guided poker and nine hand examples fit 1024 text 2 without altering progress 
+
+    Error: {"bottom":628,"top":12,"height":640,"overflow":0,"bodyOverflow":20,"buttons":[]}
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 1
+    Received:    20
+
+      30 | async function fitsDialog(page:Page){
+      31 |  const fit=await page.getByRole('dialog').evaluate(d=>{const r=d.getBoundingClientRect();return {bottom:r.bottom,top:r.top,height:innerHeight,overflow:d.scrollHeight-d.clientHeight,bodyOverflow:(d.querySelector('.modal-body')!.scrollHeight-d.querySelector('.modal-body')!.clientHeight),buttons:[...d.querySelectorAll('button')].filter(b=>b.checkVisibility()).filter(b=>b.getBoundingClientRect().bottom>innerHeight||b.getBoundingClientRect().top<0).map(b=>b.textContent)};});
+    > 32 |  expect(fit.top,JSON.stringify(fit)).toBeGreaterThanOrEqual(0);expect(fit.bottom,JSON.stringify(fit)).toBeLessThanOrEqual(fit.height);expect(fit.overflow,JSON.stringify(fit)).toBeLessThanOrEqual(1);expect(fit.bodyOverflow,JSON.stringify(fit)).toBeLessThanOrEqual(1);expect(fit.buttons).toEqual([]);
+         |                                                                                                                                                                                                                                                    ^
+      33 | }
+      34 | test('boss teaching pages explain defence, combo and the comparison without changing the fight',async({page})=>{
+      35 |  const s=createGame(18);s.seals={urns:true,contracts:true,records:true};s.finale=createFinale(3,'boss-v1');s.activeTable='finale';s.settings.reducedMotion=true;s.settings.volume=0;s.settings.textScale=2;
+        at fitsDialog (C:\Users\facub\Documents\TheGame\tests\browser\deep-polish.spec.ts:32:244)
+        at C:\Users\facub\Documents\TheGame\tests\browser\deep-polish.spec.ts:27:111
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\polish-guides-results\deep-polish-guided-poker-a-6749d-2-without-altering-progress\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\polish-guides-results\deep-polish-guided-poker-a-6749d-2-without-altering-progress\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\polish-guides-results\deep-polish-guided-poker-a-6749d-2-without-altering-progress\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\polish-guides-results\deep-polish-guided-poker-a-6749d-2-without-altering-progress\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:48576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/6] tests\browser\deep-polish.spec.ts:18:75 › guided poker and nine hand examples fit 390 text 2 without altering progress
+[5/6] tests\browser\deep-polish.spec.ts:34:1 › boss teaching pages explain defence, combo and the comparison without changing the fight
+[6/6] tests\browser\deep-polish.spec.ts:39:1 › settings made before starting a game survive reload without creating a game
+  1 failed
+    tests\browser\deep-polish.spec.ts:18:75 › guided poker and nine hand examples fit 1024 text 2 without altering progress 
+  5 passed (26.0s)

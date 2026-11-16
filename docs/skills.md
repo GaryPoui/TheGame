@@ -1,5 +1,7 @@
 # Skills: investigación, selección e instalación
 
+Pulido integral 2026-11-16: game-ui-ux y frontend-design para jerarquía, cartas y ventanas; game-designer para revisar comprensión sin inventar resultados de jugadores; webapp-testing con el runner TypeScript existente; ca-web-review y ca-security para contraste, foco y preferencias locales. Evidencia en [pulido integral](deep-game-polish.md). Sin nuevos paquetes ni coordinación paralela.
+
 Consulta: **2026-10-23**, zona America/Buenos_Aires. Alcance: documentación y preparación; ninguna skill demuestra que el videojuego esté implementado.
 
 Se investigaron los repositorios primarios con búsqueda web y se descargaron checkouts para revisar contenido antes de instalar. Se usó el **instalador real del entorno**, `skill-installer/scripts/install-skill-from-github.py`, con `--ref` SHA exacto, `--method download` y `--dest .agents/skills`. No se ejecutaron scripts de modelado ni se descargaron modelos mediante las skills.

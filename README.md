@@ -27,6 +27,8 @@ Autorización de implementación y hosting: 2026-10-23. [Alcance del corte](docs
 
 [Urnas compartidas y acabado de combate](docs/boss-urns-interface.md).
 
+[Pulido integral, tutoriales y dados legibles](docs/deep-game-polish.md).
+
 [Revisión de escritorio y publicación](docs/desktop-revision.md).
 
 [Revisión de la lista de mejoras y tutoriales](docs/requirements-review.md).

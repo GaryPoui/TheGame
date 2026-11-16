@@ -9,7 +9,7 @@ async function open(page:Page,finale?:FinaleState,scale=1){
  const s=createGame(44);s.seals={urns:true,contracts:true,records:true};s.settings.reducedMotion=true;s.settings.volume=0;s.settings.textScale=scale;
  if(finale){s.finale=finale;s.activeTable='finale';}else{s.records=createRecords(123);s.activeTable='records';}
  await page.addInitScript(s=>{if(!localStorage.getItem('thegame.save.v1.current'))localStorage.setItem('thegame.save.v1.current',JSON.stringify({schemaVersion:8,contentVersion:'campaign-boss-v8',state:s}));},s);
- await page.goto('./');await page.getByTestId('continue-game').click();
+ await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();
 }
 async function fits(page:Page){
  if(page.viewportSize()!.width<1000)return;

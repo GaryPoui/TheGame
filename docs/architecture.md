@@ -1,5 +1,7 @@
 # Arquitectura y responsabilidades
 
+Actualización 2026-11-16: `src/platform/preferences.ts` guarda sólo volumen, texto y movimiento en `thegame.preferences.v1`, incluso antes de crear campaña. Lee valores permitidos de versión 1, limita el tamaño y tolera errores; versiones desconocidas se ignoran. Las preferencias válidas prevalecen sobre las de la campaña restaurada. No cambia el guardado de campaña v8. Guías preparadas y ventanas de lectura son presentación: no llaman comandos ni RNG. Ver [pulido integral](deep-game-polish.md).
+
 Actualización 2026-11-13: guardado v8 / campaign-boss-v8, compatible con v1–7.
 El discriminante boss-v1 del final tiene reductor puro y replay propio;
 los finales históricos conservan su reductor. Ver [jefe combinado](boss-finale.md).

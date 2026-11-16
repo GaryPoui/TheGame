@@ -241,7 +241,7 @@ export class GameScene {
   }
   stopDiceRoll():void {
     this.diceRollStart=null;
-    this.diceRoots.forEach((die,i)=>{die.position.set(i===0?-.6:.6,2.17,-.45);die.rotation.set(0,0,0);});
+    this.diceRoots.forEach((die,i)=>{die.position.set(i===0?-.6:.6,2.17,-.45);die.rotation.set(0,i===0?.22:-.28,0);});
   }
   private updateDiceRoll():void {
     if(this.diceRollStart===null)return;
@@ -252,7 +252,7 @@ export class GameScene {
       const rest=i===0?-.6:.6;
       die.position.set(rest+(i===0?-1.3:1.5)*(1-q),2.17+Math.abs(Math.sin(q*Math.PI*3))*.9*(1-q),-.45+1.1*(1-q));
       const spin=(1-q)*Math.PI*4;
-      die.rotation.set(spin,spin*.65*(i===0?1:-1),spin*.4);
+      die.rotation.set(spin,(i===0?.22:-.28)+spin*.65*(i===0?1:-1),spin*.4);
     });
   }
   setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'|'captor'='doble',showUrns=false): void {
@@ -291,17 +291,20 @@ export class GameScene {
     for(let i=0;i<2;i++) {
       const x = i===0 ? -.6 : .6;
       const die = this.box('contract-die-'+i,[.65,.65,.65],[x,2.17,-.45],this.ivory);
-      die.renderOutline=true;die.outlineWidth=.018;die.outlineColor=Color3.FromHexString('#30252c');
+      die.rotation.y=i===0?.22:-.28;
+      // An inflated outline covers the flush pips in the depth buffer.
+      die.renderOutline=false;
       this.shadows.addShadowCaster(die);
       this.diceRoots.push(die);
-      const top=pair?.[i];
-      if(top===undefined)continue;
+      // Recognisable dice at rest; these sample faces do not predict the next roll.
+      const top=pair?.[i]??(i===0?3:5);
       const other=[1,2,3,4,5,6].filter(n=>n!==top&&n!==7-top);
       const values=[top,7-top,other[0]!,7-other[0]!,other.find(n=>n!==other[0]&&n!==7-other[0]!)!];
       values.push(7-values[4]!);
+      die.metadata={faces:values};
       for(let face=0;face<6;face++)for(const pos of patterns[values[face]!]!) {
         const u=((pos%3)-1)*.18,v=(Math.floor(pos/3)-1)*.18;
-        const at=face<2?[u,face===0?.36:-.36,v]:face<4?[face===2?.36:-.36,u,v]:[u,v,face===4?.36:-.36];
+        const at=face<2?[u,face===0?.328:-.328,v]:face<4?[face===2?.328:-.328,u,v]:[u,v,face===4?.328:-.328];
         const pip=this.cylinder('contract-pip',.10,.014,[0,0,0],this.diceInk);
         pip.material=this.contractInk;
         pip.parent=die;pip.position.set(at[0]!,at[1]!,at[2]!);
@@ -360,7 +363,7 @@ export class GameScene {
     }:null;
     return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,
       bossUrnsVisible:this.bossUrnsVisible,visibleUrnVessels:this.urnProps.filter(mesh=>mesh.name==='thick-glass-urn'&&mesh.isVisible).length,visibleUrnTokens:this.tokens.filter(mesh=>mesh.isVisible&&mesh.metadata?.urn!==undefined).length,selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
-      diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),
+      diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),diceFaces:this.diceRoots.map(die=>die.metadata.faces as number[]),
       dealerFrame,
       tableHost:this.contractsMode?this.tableHost:'vera',
       tableTextureReady:!!(portrait?.material as StandardMaterial|null)?.diffuseTexture?.isReady(),

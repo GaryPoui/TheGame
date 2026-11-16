@@ -10,7 +10,7 @@ export const CONTRACTS = {
 export const OBJECTIVES: Record<ObjectiveId, { title: string; short: string; explanation: string }> = {
   expected: { title: 'Si jugás muchas veces, ¿cuál deja más fichas en promedio?', short: 'Mayor promedio', explanation: 'Imaginá muchas tiradas. Compará cuántas fichas te quedarían en promedio, después de pagar. En una sola tirada podés perder.' },
   guarantee1: { title: '¿Cuál te asegura ganar al menos una ficha?', short: 'Garantía de al menos 1', explanation: 'Necesitás que te quede al menos una ficha, salga lo que salga. Mirá también cuánto cuesta jugar.' },
-  atLeast20: { title: 'Buscá la mayor chance de ganar al menos 20', short: 'Neto ≥ 20', explanation: 'Transferencia repetida: el objetivo ahora son veinte fichas netas. Revisá otra vez qué pagos alcanzan la meta.' },
+  atLeast20: { title: 'Buscá la mayor chance de ganar al menos 20', short: 'Neto ≥ 20', explanation: 'Ahora necesitás que te queden veinte fichas o más después de pagar. Compará las ofertas que pueden alcanzar esa meta.' },
   atLeast1: { title: 'Buscá la mayor chance de ganar al menos 1', short: 'Neto ≥ 1', explanation: '¿Con cuál es más fácil que te quede al menos una ficha? Primero descontá lo que cuesta jugar.' },
   atLeast4: { title: 'Buscá la mayor chance de ganar al menos 4', short: 'Neto ≥ 4', explanation: 'Necesitás que te queden cuatro fichas o más después de pagar. Un premio enorme puede ser más difícil de conseguir.' },
   atLeast10: { title: 'Buscá la mayor chance de ganar al menos 10', short: 'Neto ≥ 10', explanation: 'Ahora necesitás que te queden diez fichas o más. Mirá qué ofertas pueden darte esa cantidad.' },

@@ -1,0 +1,18 @@
+
+Running 10 tests using 1 worker
+
+
+
+(node:27816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/10] tests\browser\campaign.spec.ts:73:1 › Doble preserves a good decision through a lost roll, reload and reading its accounts
+[2/10] tests\browser\deep-polish.spec.ts:9:1 › 3D dice have visible pips before the first roll
+[3/10] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 1280 text 1 without altering progress
+[4/10] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 1024 text 2 without altering progress
+[5/10] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 390 text 2 without altering progress
+[6/10] tests\browser\deep-polish.spec.ts:37:1 › boss teaching pages explain defence, combo and the comparison without changing the fight
+[7/10] tests\browser\deep-polish.spec.ts:42:1 › settings made before starting a game survive reload without creating a game
+[8/10] tests\browser\deep-polish.spec.ts:47:1 › nested dice accounts fit enlarged text and return focus to the table after resize
+[9/10] tests\browser\table-tutorial.spec.ts:21:1 › tutorial no-scroll layout at 1366px
+[10/10] tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 1366x768 at text scale 2
+  10 passed (49.4s)

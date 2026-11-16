@@ -18,10 +18,12 @@ import './ui/game-menus.css';
 import './ui/combat-polish.css';
 import {settingsMenu,menuIcon,syncSettingSteps,type SettingsSection} from './ui/game-menus';
 import {cleanHeadingPeriods} from './ui/headings';
-import {replaceDisclosures,installInfoDialogs} from './ui/info-dialog';
+import {replaceDisclosures,installInfoDialogs,showReading} from './ui/info-dialog';
+import {installGameGuides,guideButton} from './ui/game-guides';
 import {learningReview, reviewButton, tutorialSummary, type LearningTopic} from './ui/learning';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
+import {loadPreferences,savePreferences,resetPreferences} from './platform/preferences';
 import {INTRO} from './content/intro';
 import {createDialogue,applyDialogue} from './core/dialogue/runner';
 import {CameraController} from './presentation/camera-controller';
@@ -100,7 +102,8 @@ let sceneWarning = '';
 window.addEventListener('blur',()=>gameAudio.suspend());
 document.querySelector('#scene')?.addEventListener('webglcontextlost',event=>{event.preventDefault();sceneWarning='Se interrumpió la sala 3D. Tu progreso sigue disponible en los controles de la página.';render();});
 document.querySelector('#scene')?.addEventListener('webglcontextrestored',()=>{sceneWarning='';render();});
-let settings: Settings = structuredClone(restored.state?.settings ?? defaultSettings);
+let settings: Settings = loadPreferences(restored.state?.settings ?? defaultSettings);
+let preferencesSaved=true;
 const gameAudio=new GameAudio();
 let helpOpen = false;
 const chapterNames = ['Elegí dónde sacar', 'La ficha vuelve', 'La ficha queda afuera', 'Probá sin pistas'];
@@ -185,7 +188,7 @@ function tutorial(): string {
   <nav class="tutorial-view-tabs" aria-label="Vista del tutorial"><button data-testid="tutorial-view-choice" class="${tutorialView==='choice'?'active':''}" aria-pressed="${tutorialView==='choice'}">Elegir</button><button data-testid="tutorial-view-help" class="${tutorialView==='help'?'active':''}" aria-pressed="${tutorialView==='help'}">Las cuentas</button></nav>
   <section class="tutorial-workspace">${urnTutorialHelp(cardUrns,review?demoInventory():undefined,text,tutorialHelpPage)}</section>
   <div class="tutorial-controls"><aside class="game-panel">
-   ${review?`<section class="result-card"><h2>${tutorialStep===1?'Salió una roja.':'Salió una azul.'}</h2></section>`:'<h2 class="objective">Buscá <span class="red-token">roja ▲</span></h2>'}
+   ${review?`<section class="result-card"><h2>${tutorialStep===1?'Salió una roja':'Salió una azul'}</h2></section>`:'<h2 class="objective">Buscá <span class="red-token">roja ▲</span></h2>'}
    <div class="tutorial-coach" role="status"><p>${summary}</p></div>
    ${review?'':`<button class="cards-toggle" data-testid="toggle-cards" aria-expanded="${visible}" aria-controls="demo-cards">${visible?'Ocultar urnas':'Ver urnas'}</button>`}
    <div id="demo-cards" class="urn-options" ${visible?'':'hidden'}>${urnChoice(cardUrns[0],0,true)}${urnChoice(cardUrns[1],1,true)}</div>
@@ -232,7 +235,7 @@ function table(): string {
   const choosing = state.phase === 'choose' || state.phase === 'guided';
   const isSummary = state.phase === 'roundEnd';
   const title = state.assisted ? `Práctica guiada ${state.round + 1}/2` : chapterNames[state.round];
-  return `<main class="table-layout"><section class="table-heading"><p class="eyebrow">Mesa I · Vera, la inventarista</p><h1>Las urnas</h1><p class="round-context" data-testid="round-label">${state.assisted ? title : `Ronda ${state.round + 1} de 4 · ${title}`}</p>${badges()}</section><aside class="game-panel"><div class="round-progress" aria-label="${state.assisted ? 'Práctica guiada' : `Ronda ${state.round + 1} de cuatro`}">${[0,1,2,3].map(i => `<span class="${i <= state.round ? 'filled' : ''}"></span>`).join('')}</div><div class="objective-label">${state.assisted ? 'Demostración preparada · con ayuda' : `Extracción ${state.step + 1} de 2`}</div><h2 class="objective">Buscá una ficha <span class="${state.event}-token">${colorName(state.event)} ${symbol(state.event)}</span></h2><p class="rule-tag">${state.replacement ? '↻ La ficha vuelve' : '↗ La ficha queda afuera'} <span>${state.replacement ? 'Cada ficha vuelve a la urna.' : 'La ficha extraída queda afuera.'}</span></p>${choosing ? `<p class="decision-prompt">${state.step === 0 ? '¿Qué urna te da más posibilidades? Tocá una urna o mostrá sus tarjetas.' : state.replacement ? 'Devolvimos la ficha. Las cantidades siguen iguales: elegí otra vez.' : 'Hay una ficha menos. Mirá lo que queda y elegí otra vez.'}</p>${urnCards()}${btn('confirm-choice', selected === null ? 'Elegí una urna para continuar' : `Sacar una ficha de la urna ${selected === 0 ? '1' : '2'}`, 'primary full', selected === null)}<p class="small-note">${state.assisted ? 'La ayuda resalta una elección válida. Completá cuatro acciones para continuar.' : 'Ganás un punto por elegir bien, aunque salga otro color.'}</p>` : `${isSummary ? `<section class="round-summary"><span class="summary-mark" aria-hidden="true">✧</span><h2>Una ronda más clara.</h2><p>${state.assisted ? 'Terminaste este escenario preparado.' : state.round === 3 ? state.merit >= 6 ? 'Tus decisiones alcanzaron el sello de Vera.' : 'Te falta un poco de práctica. Vera preparó dos escenarios cortos para ayudarte.' : 'La próxima ronda empieza con fichas nuevas. Podés usar lo que aprendiste.'}</p>${badges()}${!state.assisted&&state.round===3&&state.merit<6?reviewButton('urns'):''}</section>` : urnCards() + feedback()}${btn('next-step', isSummary ? state.round === 3 || (state.assisted && state.round === 1) ? 'Ver mi resultado' : 'Siguiente ronda' : state.step === 0 ? 'Volver a decidir' : 'Cerrar la ronda', 'primary full')}`}${helpOpen ? `<div class="help-note"><strong>La cuenta de Vera</strong><p>Contá las fichas del color que buscás y todas las fichas de la urna. Por ejemplo: 3 rojas entre 5 fichas significa 3 de 5. Elegí la urna donde ese color ocupe una parte mayor. Si la parte es igual en ambas, las dos sirven. ${state.replacement ? 'Si devolvés la ficha, las cantidades no cambian.' : 'Si la ficha queda afuera, contá sólo las que quedan.'}</p></div>` : ''}<details class="panel-tools" data-keep-open="urn-tools"><summary>Ayuda y opciones</summary><div class="panel-footer">${btn('help-button', helpOpen ? 'Cerrar ayuda' : '¿Cómo comparo?', 'text-button')}${btn('repeat-tutorial','Repetir demostración','text-button')}${btn('back-room', 'Volver a la sala', 'text-button')}</div></details></aside><div class="table-bottom-note"><span class="speaker-dot"></span> Vera <span>«Una ficha no sabe nada de tus méritos».</span></div></main>`;
+  return `<main class="table-layout"><section class="table-heading"><p class="eyebrow">Mesa I · Vera, la inventarista</p><h1>Las urnas</h1><p class="round-context" data-testid="round-label">${state.assisted ? title : `Ronda ${state.round + 1} de 4 · ${title}`}</p>${badges()}</section><aside class="game-panel"><div class="round-progress" aria-label="${state.assisted ? 'Práctica guiada' : `Ronda ${state.round + 1} de cuatro`}">${[0,1,2,3].map(i => `<span class="${i <= state.round ? 'filled' : ''}"></span>`).join('')}</div><div class="objective-label">${state.assisted ? 'Demostración preparada · con ayuda' : `Extracción ${state.step + 1} de 2`}</div><h2 class="objective">Buscá una ficha <span class="${state.event}-token">${colorName(state.event)} ${symbol(state.event)}</span></h2><p class="rule-tag">${state.replacement ? '↻ La ficha vuelve' : '↗ La ficha queda afuera'} <span>${state.replacement ? 'Cada ficha vuelve a la urna.' : 'La ficha extraída queda afuera.'}</span></p>${choosing ? `<p class="decision-prompt">${state.step === 0 ? '¿Qué urna te da más posibilidades? Tocá una urna o mostrá sus tarjetas.' : state.replacement ? 'Devolvimos la ficha. Las cantidades siguen iguales: elegí otra vez.' : 'Hay una ficha menos. Mirá lo que queda y elegí otra vez.'}</p>${urnCards()}${btn('confirm-choice', selected === null ? 'Elegí una urna para continuar' : `Sacar una ficha de la urna ${selected === 0 ? '1' : '2'}`, 'primary full', selected === null)}<p class="small-note">${state.assisted ? 'La ayuda resalta una elección válida. Completá cuatro acciones para continuar.' : 'Ganás un punto por elegir bien, aunque salga otro color.'}</p>` : `${isSummary ? `<section class="round-summary"><span class="summary-mark" aria-hidden="true">✧</span><h2>Una ronda más clara.</h2><p>${state.assisted ? 'Terminaste este escenario preparado.' : state.round === 3 ? state.merit >= 6 ? 'Tus decisiones alcanzaron el sello de Vera.' : 'Te falta un poco de práctica. Vera preparó dos escenarios cortos para ayudarte.' : 'La próxima ronda empieza con fichas nuevas. Podés usar lo que aprendiste.'}</p>${badges()}${!state.assisted&&state.round===3&&state.merit<6?reviewButton('urns'):''}</section>` : urnCards() + feedback()}${btn('next-step', isSummary ? state.round === 3 || (state.assisted && state.round === 1) ? 'Ver mi resultado' : 'Siguiente ronda' : state.step === 0 ? 'Volver a decidir' : 'Cerrar la ronda', 'primary full')}`}${helpOpen ? `<div class="help-note"><strong>La cuenta de Vera</strong><p>Contá las fichas del color que buscás y todas las fichas de la urna. Por ejemplo: 3 rojas entre 5 fichas significa 3 de 5. Elegí la urna donde ese color ocupe una parte mayor. Si la parte es igual en ambas, las dos sirven. ${state.replacement ? 'Si devolvés la ficha, las cantidades no cambian.' : 'Si la ficha queda afuera, contá sólo las que quedan.'}</p></div>` : ''}<details class="panel-tools" data-keep-open="urn-tools"><summary>Ayuda y opciones</summary>${guideButton('urns','Repasar cómo jugar')}<div class="panel-footer">${btn('help-button', helpOpen ? 'Cerrar ayuda' : '¿Cómo comparo?', 'text-button')}${btn('repeat-tutorial','Repetir demostración','text-button')}${btn('back-room', 'Volver a la sala', 'text-button')}</div></details></aside><div class="table-bottom-note"><span class="speaker-dot"></span> Vera <span>«Una ficha no sabe nada de tus méritos».</span></div></main>`;
 }
 function complete(): string {
   return `<main class="completion-layout" data-testid="completion"><section class="completion-card"><div class="seal" aria-hidden="true">✧</div><h1>Vera te entrega su sello.</h1>${badges()}<p>${state.assisted ? 'Completaste los ejemplos con ayuda.' : 'Lograste el sello con tus decisiones.'}</p><p>La próxima mesa usa dados y contratos.</p>${btn('enter-contracts', 'Jugar con Doble', 'primary full')}${btn('practice-again', 'Volver a jugar con Vera', 'text-button full')}${btn('back-room', 'Volver a la sala', 'text-button full')}</section></main>`;
@@ -374,8 +377,12 @@ function handleCampaignClick(target:HTMLElement):boolean {
  return false;
 }
 window.addEventListener('storage',event=>{if(event.key==='thegame.save.v1.current'&&event.newValue!==event.oldValue){storageConflict=true;warning='Otra pestaña cambió el progreso. Esta partida sigue en memoria. Recargá para cargar el guardado más reciente.';render();}});
+let dialogReturnFocus:HTMLElement|null=null;
 function showDialog(title: string, content: string, kind=''): HTMLDialogElement {
-  const previous = document.activeElement as HTMLElement | null;
+  const active=document.activeElement as HTMLElement|null;
+  const previous=active&&overlay.contains(active)?dialogReturnFocus:active;
+  dialogReturnFocus=previous;
+  overlay.querySelector<HTMLDialogElement>('dialog[open]')?.close();
   overlay.innerHTML = `<dialog class="modal ${kind}" aria-labelledby="modal-title"><div class="modal-heading"><h2 id="modal-title">${title}</h2>${btn('close-dialog', 'Cerrar <span aria-hidden="true">×</span>', 'quiet modal-close')}</div><div class="modal-body">${content}</div></dialog>`;
   const dialog = overlay.querySelector('dialog')!;
   dialog.addEventListener('close', () => {
@@ -391,6 +398,7 @@ function updateSettingsOrientation():void {overlay.querySelector('[role=tablist]
 window.addEventListener('resize',updateSettingsOrientation);
 function showSettings(section:SettingsSection='display'): void {
   showDialog('Opciones',settingsMenu(settings,section,screen!=='menu'),'settings-modal');
+  if(!preferencesSaved)overlay.querySelector('.settings-save-state')!.textContent='Ajustes aplicados sólo en esta pestaña';
   syncSettingSteps(overlay);updateSettingsOrientation();
 }
 
@@ -434,7 +442,7 @@ function handleGameClick(event: MouseEvent): void {
   const target = (event.target as HTMLElement).closest<HTMLElement>('button, [data-action]');
   if (!target) return;
   const id = target.dataset.testid;
-  if(target.dataset.review){showDialog('Repasar conceptos',learningReview(target.dataset.review as LearningTopic),'learning-modal');return;}
+  if(target.dataset.review){showReading(showDialog,'Repasar conceptos',learningReview(target.dataset.review as LearningTopic));return;}
 
   if(id === 'enter-records') {enterRecords();return;}
   if(id === 'enter-finale') {enterFinale();return;}
@@ -541,11 +549,11 @@ overlay.addEventListener('click', event => {
   const id = (event.target as HTMLElement).closest<HTMLElement>('button')?.dataset.testid;
   if (id === 'close-dialog' || id === 'resume-game' || id==='settings-return' || id==='cancel-dialog') overlay.querySelector('dialog')?.close();
   if (id === 'confirm-new-game') { overlay.querySelector('dialog')?.close(); startNew(); }
-  if (id === 'restore-settings') { settings = structuredClone(defaultSettings); applySettings(); if(hasSave)persist(); overlay.querySelector('dialog')?.close(); showSettings(); }
+  if (id === 'restore-settings') { settings = structuredClone(defaultSettings); applySettings(); preferencesSaved=savePreferences(settings); if(hasSave)persist(); overlay.querySelector('dialog')?.close(); showSettings(); }
   if(id==='return-main-menu'){overlay.querySelector('dialog')?.close();if(hasSave)persist();setScreen('menu',hasSave?'continue-game':'new-game');return;}
   if(id==='cancel-delete'){overlay.querySelector('dialog')?.close();showSettings('session');return;}
   if (id === 'delete-save') { overlay.querySelector('dialog')?.close(); showDialog('Borrar el progreso', `<p>Se eliminarán la partida y su copia de seguridad. Esta acción no se puede deshacer.</p><div class="confirmation-actions">${btn('cancel-delete','Conservar partida','secondary full')}${btn('confirm-delete','Borrar el progreso','primary full')}</div>`,'confirmation-modal'); }
-  if (id === 'confirm-delete') { clearGame(); storageConflict=false; hasSave=false; warning=null; state=createGame(); settings=structuredClone(defaultSettings); applySettings(); overlay.querySelector('dialog')?.close(); setScreen('menu','new-game'); }
+  if (id === 'confirm-delete') { clearGame(); resetPreferences(); storageConflict=false; hasSave=false; warning=null; state=createGame(); settings=structuredClone(defaultSettings); applySettings(); overlay.querySelector('dialog')?.close(); setScreen('menu','new-game'); }
 });
 overlay.addEventListener('keydown',event=>{const tab=(event.target as HTMLElement).closest<HTMLButtonElement>('[data-settings-tab]');if(!tab||!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;const tabs=[...overlay.querySelectorAll<HTMLButtonElement>('[data-settings-tab]')];const index=event.key==='Home'?0:event.key==='End'?tabs.length-1:(tabs.indexOf(tab)+(['ArrowDown','ArrowRight'].includes(event.key)?1:tabs.length-1))%tabs.length;event.preventDefault();tabs[index]?.click();tabs[index]?.focus();});
 overlay.addEventListener('input', event => {
@@ -577,10 +585,12 @@ overlay.addEventListener('change', event => {
     settings.keys=rebound;
     if (message) message.textContent = 'Atajo actualizado.';
   }
-  applySettings(); if(hasSave)persist();syncSettingSteps(overlay);
+  applySettings();preferencesSaved=savePreferences(settings);if(hasSave)persist();syncSettingSteps(overlay);
+  const status=overlay.querySelector('.settings-save-state');if(status)status.textContent=preferencesSaved?'Ajustes guardados':'Ajustes aplicados sólo en esta pestaña';
 });
 
 installInfoDialogs(showDialog);
+installGameGuides(showDialog);
 async function initScene(): Promise<void> {
   try {
     scene?.dispose(); scene = null;

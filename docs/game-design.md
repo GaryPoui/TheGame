@@ -1,5 +1,7 @@
 # GDD único — La Casa del Azar
 
+Pulido 2026-11-16: [práctica de póker, repaso del jefe y revisión integral](deep-game-polish.md). Los ejemplos son preparados y no cambian azar, puntos ni progreso. Se conserva el diseño y las reglas actuales.
+
 Actualización 2026-11-13: [Ada predice manos de póker](ada-holdem.md), ahora
 con mejores manos visibles; la mesa IV pasa a [jefe combinado](boss-finale.md),
 con ataques de urnas, dados y cartas y carga compartida. Las notas posteriores
