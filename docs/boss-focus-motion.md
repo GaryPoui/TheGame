@@ -35,3 +35,11 @@ Espacios CSS cubiertos: 1280 × 720, 1024 × 640, 1024 × 576, 960 × 540, 853 �
 La inspección y la automatización no acreditan diversión, comprensión por jugadores, conformidad integral de accesibilidad ni mejora de FPS. La validación humana de las specs continúa pendiente. No se activaron nuevos servicios, coordinadores o dependencias.
 
 Capturas del [jefe](evidence/boss-focus/release-final/urns-1280.png), [póker en escritorio](evidence/boss-focus/release-final/poker-1280.png) y [póker en el espacio de zoom más pequeño](evidence/boss-focus/release-final/poker-512.png). La [última verificación](evidence/boss-focus/final-check.txt) comprueba la salida guiada y el reajuste de densidad después de las correcciones de la pantalla de victoria.
+
+## Publicación comprobada
+
+Versión `boss-focus-motion-2026-11-16` en [el juego público](https://garypoui.github.io/TheGame/), fuente `8683884`, rama `codex/boss-focus-motion`, Pages `c4151ac`. La [publicación terminó correctamente](https://github.com/GaryPoui/TheGame/actions/runs/43966513646) y los [146 archivos coinciden por SHA-256](evidence/boss-focus/public-integrity.json).
+
+Cinco casos HTTPS cubiertos: escenario estable y encuadre al ampliar texto, las tres mecánicas con sus resultados, ayuda contextual, salida guiada en 512 × 320 y clic real proyectado sobre las urnas de cristal. En la [primera pasada](evidence/boss-focus/public-browser.txt), cuatro aprobaron y la selección de la segunda urna agotó la espera; la [repetición sólo de ese caso aprobó](evidence/boss-focus/public-browser-retry.txt). Se conservan ambos informes sin atribuir una causa no medida al timeout. El [jefe publicado](evidence/boss-focus/public/urns-1280.png) y la [salida guiada publicada](evidence/boss-focus/public/guided-ending.png) se inspeccionaron visualmente.
+
+La rama está subida. El conector de GitHub volvió a responder `403 Resource not accessible by integration` al crear la revisión. Se conserva la [comparación preparada](https://github.com/GaryPoui/TheGame/compare/codex%2Fdeep-game-polish...codex%2Fboss-focus-motion), sin merge. Los detalles de entrega quedan en `delivery.json` y [publicación](evidence/boss-focus/publication.json).

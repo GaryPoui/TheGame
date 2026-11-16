@@ -1,0 +1,51 @@
+
+Running 5 tests using 1 worker
+
+(node:14952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/5] tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+  1) tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+
+    Test timeout of 60000ms exceeded.
+
+    Error: locator.click: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for getByTestId('finale-V')
+        - locator resolved to <button aria-pressed="false" class="urn-option   " data-testid="finale-V">…</button>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+
+
+      21 |  const sample=()=>page.evaluate(()=>{const m=window.__THEGAME_METRICS__!() as {canvasResizeCount:number;urnGeometryBuilds:number;cameraFov:number};return {canvasResizeCount:m.canvasResizeCount,urnGeometryBuilds:m.urnGeometryBuilds,cameraFov:m.cameraFov};});const before=await sample();
+      22 |  await page.getByTestId('finale-U').click();expect(await page.locator('.ada-viewport').evaluate((node,old)=>node===old,viewport)).toBe(true);expect(await page.locator('.ada-viewport canvas').evaluate((node,old)=>node===old,canvas)).toBe(true);
+    > 23 |  await page.getByTestId('finale-V').click();expect(await sample()).toEqual(before);
+         |                                     ^
+      24 |  await mkdir(evidence,{recursive:true});await writeFile(`${evidence}/scene-stability.json`,JSON.stringify({before,afterTwoSelections:await sample(),viewportPreserved:true,canvasPreserved:true},null,2));
+      25 |  await page.getByTestId('settings-button').click();await page.getByTestId('text-scale').selectOption('2');await page.getByTestId('close-dialog').click();expect((await sample()).cameraFov).toBeCloseTo(before.cameraFov,5);
+      26 | });
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:23:37
+
+    Error Context: .tools\boss-focus-public\boss-focus-selecting-a-bos-a7a7e-node-and-its-mounted-canvas\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-public\boss-focus-selecting-a-bos-a7a7e-node-and-its-mounted-canvas\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-public\boss-focus-selecting-a-bos-a7a7e-node-and-its-mounted-canvas\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:25388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/5] tests\browser\boss-focus.spec.ts:27:92 › all boss mechanics and result fit 1280x720
+[3/5] tests\browser\boss-focus.spec.ts:42:1 › boss resource help is contextual and does not alter the fight
+[4/5] tests\browser\boss-focus.spec.ts:56:1 › boss guided choices remain labelled and reach the exit at maximum zoom
+[5/5] tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1280x720 text 1
+  1 failed
+    tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+  4 passed (3.3m)
