@@ -34,7 +34,7 @@ describe('Ada poker probabilities',()=>{
  it('saves cards in a version-eight envelope and still accepts version-five sessions',()=>{
   const data=new Map<string,string>(),store:SaveStorage={getItem:k=>data.get(k)??null,setItem:(k,v)=>{data.set(k,v);},removeItem:k=>{data.delete(k);}};
   const s=createGame(7);s.seals={urns:true,contracts:true};s.records=advance(createRecords(7,false,'cards-v1'));s.activeTable='records';
-  expect(saveGame(s,store)).toBeNull();expect(JSON.parse(data.get('thegame.save.v1.current')!).schemaVersion).toBe(8);expect(loadGame(store).state).toEqual(s);
+  expect(saveGame(s,store)).toBeNull();expect(JSON.parse(data.get('thegame.save.v1.current')!).schemaVersion).toBe(9);expect(loadGame(store).state).toEqual(s);
   s.records=createRecords(7,false,'photos-v2');data.set('thegame.save.v1.current',JSON.stringify({schemaVersion:5,contentVersion:'campaign-challenge-v5',state:s}));expect(loadGame(store).state).toEqual(s);
  });
 });

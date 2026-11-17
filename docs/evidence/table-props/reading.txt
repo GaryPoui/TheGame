@@ -1,0 +1,137 @@
+
+Running 10 tests using 1 worker
+
+(node:58680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\browser\table-tutorial.spec.ts:21:1 › tutorial no-scroll layout at 1366px (7.2s)
+  ok  2 tests\browser\table-tutorial.spec.ts:36:1 › Vera guides a normal table through two prepared draws without changing the campaign (8.5s)
+  x   3 tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 1 and explain its remaining inventory (23.3s)
+(node:29980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   4 tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 2 and explain its remaining inventory (24.8s)
+(node:30324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  5 tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 1440x900 at text scale 1 (32.4s)
+  ok  6 tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 1440x900 at text scale 2 (28.3s)
+  ok  7 tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 1366x768 at text scale 1 (28.1s)
+  ok  8 tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 1366x768 at text scale 2 (24.5s)
+  ok  9 tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 390x844 at text scale 1 (17.7s)
+  x  10 tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 390x844 at text scale 2 (4.8s)
+
+
+  1) tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 1 and explain its remaining inventory
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.answer-correct')
+    Expected: 2
+    Received: 0
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('.answer-correct') with timeout 15000ms
+      - waiting for locator('.answer-correct')
+        33 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      65 |   await expect(page.getByTestId('tutorial-comparison')).toContainText('50 % = 50 %');
+      66 |   await page.getByTestId('toggle-cards').click();await page.getByTestId(`demo-urn-${choice}`).click();await expect(page.getByTestId('tutorial-next')).toBeEnabled();await page.getByTestId('tutorial-next').click();
+    > 67 |   await expect(page.locator('.answer-correct')).toHaveCount(2);await expect(page.locator('.tutorial-coach')).toContainText('50 % de roja y 50 % de azul');
+         |                                                 ^
+      68 |     await expect(page.locator('.tutorial-math-note')).toContainText('La elección anterior se juzga con las cuentas de antes');
+      69 |   await expect(page.getByTestId(`tutorial-calculation-${choice}`)).toContainText(choice===0?'2 ÷ 3 × 100 ≈ 66,7 %':'1 ÷ 1 × 100 = 100 %');
+      70 |   await page.getByTestId('skip-tutorial').click();await expect(page.locator('body')).toHaveAttribute('data-screen','table');
+        at C:\Users\facub\Documents\TheGame\tests\browser\table-tutorial.spec.ts:67:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\table-tutorial-equal-tutor-f53f6-ain-its-remaining-inventory\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\table-tutorial-equal-tutor-f53f6-ain-its-remaining-inventory\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\table-tutorial-equal-tutor-f53f6-ain-its-remaining-inventory\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\table-tutorial-equal-tutor-f53f6-ain-its-remaining-inventory\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 2 and explain its remaining inventory
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.answer-correct')
+    Expected: 2
+    Received: 0
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('.answer-correct') with timeout 15000ms
+      - waiting for locator('.answer-correct')
+        33 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      65 |   await expect(page.getByTestId('tutorial-comparison')).toContainText('50 % = 50 %');
+      66 |   await page.getByTestId('toggle-cards').click();await page.getByTestId(`demo-urn-${choice}`).click();await expect(page.getByTestId('tutorial-next')).toBeEnabled();await page.getByTestId('tutorial-next').click();
+    > 67 |   await expect(page.locator('.answer-correct')).toHaveCount(2);await expect(page.locator('.tutorial-coach')).toContainText('50 % de roja y 50 % de azul');
+         |                                                 ^
+      68 |     await expect(page.locator('.tutorial-math-note')).toContainText('La elección anterior se juzga con las cuentas de antes');
+      69 |   await expect(page.getByTestId(`tutorial-calculation-${choice}`)).toContainText(choice===0?'2 ÷ 3 × 100 ≈ 66,7 %':'1 ÷ 1 × 100 = 100 %');
+      70 |   await page.getByTestId('skip-tutorial').click();await expect(page.locator('body')).toHaveAttribute('data-screen','table');
+        at C:\Users\facub\Documents\TheGame\tests\browser\table-tutorial.spec.ts:67:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\table-tutorial-equal-tutor-b8ce4-ain-its-remaining-inventory\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\table-tutorial-equal-tutor-b8ce4-ain-its-remaining-inventory\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\table-tutorial-equal-tutor-b8ce4-ain-its-remaining-inventory\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\table-tutorial-equal-tutor-b8ce4-ain-its-remaining-inventory\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 390x844 at text scale 2
+
+    Error: {"name":"table-layout tutorial-table","width":390,"scrollWidth":390,"height":788,"scrollHeight":790,"left":0,"top":56,"right":390,"bottom":844,"aboveFooter":true}
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 789
+    Received:    790
+
+      12 |  for(const element of fit.elements){
+      13 |   expect(element.scrollWidth,JSON.stringify(element)).toBeLessThanOrEqual(element.width+1);
+    > 14 |   expect(element.scrollHeight,JSON.stringify(element)).toBeLessThanOrEqual(element.height+1);
+         |                                                        ^
+      15 |   expect(element.left,JSON.stringify(element)).toBeGreaterThanOrEqual(0);expect(element.top,JSON.stringify(element)).toBeGreaterThanOrEqual(0);
+      16 |   expect(element.right,JSON.stringify(element)).toBeLessThanOrEqual(fit.width+1);expect(element.bottom,JSON.stringify(element)).toBeLessThanOrEqual(fit.height+1);
+      17 |   expect(element.aboveFooter,JSON.stringify(element)).toBe(true);
+        at expectTutorialFits (C:\Users\facub\Documents\TheGame\tests\browser\table-tutorial.spec.ts:14:56)
+        at C:\Users\facub\Documents\TheGame\tests\browser\table-tutorial.spec.ts:98:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\table-tutorial-tutorial-he-c5615-fit-390x844-at-text-scale-2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\table-tutorial-tutorial-he-c5615-fit-390x844-at-text-scale-2\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\table-tutorial-tutorial-he-c5615-fit-390x844-at-text-scale-2\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\table-tutorial-tutorial-he-c5615-fit-390x844-at-text-scale-2\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 1 and explain its remaining inventory
+    tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 2 and explain its remaining inventory
+    tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 390x844 at text scale 2
+  7 passed (3.6m)

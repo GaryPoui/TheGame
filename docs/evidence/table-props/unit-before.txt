@@ -1,0 +1,47 @@
+
+ RUN  v5.0.5 C:/Users/facub/Documents/TheGame
+
+ ❯ tests/unit/poker-decision-bonus.test.ts (2 tests | 2 failed) 30ms
+   × adds two for every tied maximum of probability times prize, independently of the river or duel 17ms
+   × upgrades an existing journal without recalculating previous points or changing its deal 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/poker-decision-bonus.test.ts > adds two for every tied maximum of probability times prize, independently of the river or duel
+AssertionError: expected undefined to be true // Object.is equality
+
+- Expected:
+true
+
++ Received:
+undefined
+
+ ❯ tests/unit/poker-decision-bonus.test.ts:8:77
+      6|  const outcomes=new Set<string>();
+      7|  for(let seed=1;seed<=120;seed++){
+      8|   let s=command(createRecords(seed),'enable-bonus');expect(s.decisionB…
+       |                                                                             ^
+      9|   const odds=handOdds(s.holdem!.player,s.holdem!.board),max=Math.max(.…
+     10|   expect(bestRecords(s)).toEqual(odds.filter(o=>o.count*HAND_POINTS[o.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/poker-decision-bonus.test.ts > upgrades an existing journal without recalculating previous points or changing its deal
+AssertionError: expected undefined to be true // Object.is equality
+
+- Expected:
+true
+
++ Received:
+undefined
+
+ ❯ tests/unit/poker-decision-bonus.test.ts:22:62
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  15:25:41
+   Duration  1.03s (transform 57%, import 27%, tests 9%, worker 7%)

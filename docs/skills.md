@@ -125,3 +125,5 @@ Rediseño de Ada 2026-10-29: frontend-design y game-ui-ux para composición comp
 Interfaz 2026-10-29: game-ui-ux, frontend-design, webapp-testing e Impeccable (ruta proporcionada por el usuario). Ver [aplicación y evidencia](clear-interface.md).
 
 Corrección de zoom y Vera 2026-11-17: game-ui-ux, frontend-design, camera-systems y webapp-testing, con el runner existente. Ver [evidencia](urns-zoom-repair.md).
+
+Objetos de mesa y bonus 2026-11-17: game-designer, save-systems, game-ui-ux, frontend-design, create-game-assets, camera-systems y webapp-testing. Regla confirmada de extra +2, reanudación de sesiones antiguas, objetos procedimentales y lectura del estado real. Ver [evidencia](table-props-poker-bonus.md).

@@ -45,11 +45,11 @@ test('Vera guides a normal table through two prepared draws without changing the
  await page.getByTestId('toggle-cards').click();await page.getByTestId('demo-urn-1').click();await expect(page.getByTestId('tutorial-next')).toBeDisabled();await expect(page.locator('.tutorial-coach')).toContainText('50 %');await expect(page.locator('.tutorial-coach')).toContainText('60 %');
  await page.waitForTimeout(1000);const target=await page.evaluate(()=>(window.__THEGAME_METRICS__!() as {urnTargets:{x:number;y:number}[]}).urnTargets[0]!);const canvas=(await page.locator('#scene').boundingBox())!;
  await page.mouse.click(canvas.x+target.x*canvas.width,canvas.y+target.y*canvas.height);await expect(page.getByTestId('demo-urn-0')).toHaveAttribute('aria-pressed','true');await expect(page.getByTestId('tutorial-next')).toBeEnabled();
- await page.screenshot({path:`${evidence}/tutorial-choice.png`});await page.getByTestId('tutorial-next').click();await expect(page.getByTestId('demo-urn-0')).toHaveClass(/answer-correct/);await expect(page.getByTestId('demo-urn-1')).toHaveClass(/answer-incorrect/);
+ await page.screenshot({path:`${evidence}/tutorial-choice.png`});await page.getByTestId('tutorial-next').click();await expect(page.getByTestId('demo-urn-0')).toContainText('2/4');await expect(page.getByTestId('demo-urn-1')).toContainText('1/2');
  await expect(page.locator('.tutorial-coach')).toContainText('dos rojas de cuatro');await page.getByTestId('tutorial-next').click();await page.getByTestId('toggle-cards').click();await page.getByTestId('demo-urn-1').click();await expect(page.getByTestId('demo-urn-1')).toHaveAttribute('aria-pressed','true');await page.getByTestId('tutorial-next').click();
  await expect(page.getByTestId('tutorial-comparison')).toContainText('50 % = 50 %');
  await expect(page.getByTestId('tutorial-calculation-1')).toContainText('1 ÷ 1 × 100 = 100 %');
- await expect(page.locator('.answer-correct')).toHaveCount(2);await expect(page.locator('.result-card')).toContainText('azul');await page.screenshot({path:`${evidence}/tutorial-second-draw.png`});
+ await expect(page.getByTestId('demo-urn-1')).toContainText('100 %');await expect(page.locator('.result-card')).toContainText('azul');await page.screenshot({path:`${evidence}/tutorial-second-draw.png`});
  await page.getByTestId('tutorial-next').click();await expect(page.locator('body')).toHaveAttribute('data-screen','table');await expect(page.getByTestId('urn-0')).toBeHidden();expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);
 });
 
@@ -64,7 +64,7 @@ for (const choice of [0,1]) {
   await expect(page.getByTestId('skip-tutorial')).toBeVisible();await page.getByTestId('tutorial-next').click();
   await expect(page.getByTestId('tutorial-comparison')).toContainText('50 % = 50 %');
   await page.getByTestId('toggle-cards').click();await page.getByTestId(`demo-urn-${choice}`).click();await expect(page.getByTestId('tutorial-next')).toBeEnabled();await page.getByTestId('tutorial-next').click();
-  await expect(page.locator('.answer-correct')).toHaveCount(2);await expect(page.locator('.tutorial-coach')).toContainText('50 % de roja y 50 % de azul');
+  await expect(page.getByTestId(`demo-urn-${choice}`)).toContainText(choice===0?'2/3':'1/1');await expect(page.locator('.answer-incorrect')).toHaveCount(0);await expect(page.locator('.tutorial-coach')).toContainText('50 % de roja y 50 % de azul');
     await expect(page.locator('.tutorial-math-note')).toContainText('La elección anterior se juzga con las cuentas de antes');
   await expect(page.getByTestId(`tutorial-calculation-${choice}`)).toContainText(choice===0?'2 ÷ 3 × 100 ≈ 66,7 %':'1 ÷ 1 × 100 = 100 %');
   await page.getByTestId('skip-tutorial').click();await expect(page.locator('body')).toHaveAttribute('data-screen','table');
@@ -97,7 +97,7 @@ for (const viewport of [{width:1440,height:900},{width:1366,height:768},{width:3
     }
     await expectTutorialFits(page);
     await page.screenshot({path:`${evidence}/tutorial-choice-${viewport.width}-${scale}-step-${step+1}.png`});
-    if(viewport.width<1000)await page.getByTestId('tutorial-view-help').click();
+    if(await page.getByTestId('tutorial-view-help').isVisible())await page.getByTestId('tutorial-view-help').click();
     let readings='';let helpPage=0;
     while(true){
      await expectTutorialFits(page);
@@ -114,7 +114,7 @@ for (const viewport of [{width:1440,height:900},{width:1366,height:768},{width:3
     await expect(page.getByTestId('tutorial-help-previous')).toBeFocused();
     await page.getByTestId('tutorial-help-previous').click();
     await expect(page.locator('[data-tutorial-help-page]:visible')).toHaveAttribute('data-tutorial-help-page',String(helpPage-1));
-    if(viewport.width<1000)await page.getByTestId('tutorial-view-choice').click();
+    if(await page.getByTestId('tutorial-view-help').isVisible())await page.getByTestId('tutorial-view-choice').click();
     const next=(await page.getByTestId('tutorial-next').boundingBox())!;
     expect(next.y).toBeGreaterThanOrEqual(0);expect(next.y+next.height).toBeLessThanOrEqual(viewport.height);
     await page.getByTestId('tutorial-next').click();

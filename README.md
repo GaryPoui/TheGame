@@ -79,3 +79,5 @@ pendiente del nuevo corte están en docs/doble-implementation.md. Enumerar coman
 no significa que se hayan ejecutado en esta entrega.
 
 [Corrección de zoom y tarjetas de Vera](docs/urns-zoom-repair.md).
+
+[Tutorial actualizado, extra de Ada y objetos del jefe](docs/table-props-poker-bonus.md).

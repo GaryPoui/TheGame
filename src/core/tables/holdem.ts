@@ -7,7 +7,7 @@ export const HAND_POINTS:Record<HandCategory,number>={'high-card':2,pair:4,'two-
 export const HAND_HELP:Record<HandCategory,string>={'high-card':'Cinco cartas sin otra combinación.',pair:'Dos cartas del mismo valor.','two-pair':'Dos parejas de valores distintos.','three-kind':'Tres cartas del mismo valor.',straight:'Cinco valores seguidos; el as puede ir al principio o al final.',flush:'Cinco cartas del mismo palo.','full-house':'Un trío y una pareja.','four-kind':'Cuatro cartas del mismo valor.','straight-flush':'Cinco valores seguidos del mismo palo; incluye la escalera real.'};
 export interface HandValue {category:HandCategory;tie:number[]}
 type Rng=GameState['rng'];
-export interface HoldemTable {player:PokerCard[];opponent:PokerCard[];board:PokerCard[];deck:PokerCard[];opponentChoice:HandCategory;opponentPoints:number;result?:{choice:HandCategory;player:HandValue;opponent:HandValue;winner:'player'|'opponent'|'tie';points:number;opponentAward:number}}
+export interface HoldemTable {player:PokerCard[];opponent:PokerCard[];board:PokerCard[];deck:PokerCard[];opponentChoice:HandCategory;opponentPoints:number;result?:{choice:HandCategory;player:HandValue;opponent:HandValue;winner:'player'|'opponent'|'tie';points:number;opponentAward:number;decisionBonus?:number}}
 const rank=(c:PokerCard)=>c.rank===1?14:c.rank;
 function straight(values:number[]):number {const v=new Set(values);if(v.has(14))v.add(1);for(let high=14;high>=5;high--)if([0,1,2,3,4].every(d=>v.has(high-d)))return high;return 0;}
 /** Direct best-of-seven evaluator; tie vectors are the five-card poker tie breakers. */
@@ -46,6 +46,11 @@ export function handOdds(hole:readonly PokerCard[],board:readonly PokerCard[]){
  return HANDS.map(category=>({category,count:counts[category],total:46}));
 }
 export function choosePrediction(hole:readonly PokerCard[],board:readonly PokerCard[]):HandCategory {return handOdds(hole,board).reduce((best,o)=>o.count*HAND_POINTS[o.category]>best.count*HAND_POINTS[best.category]?o:best).category;}
+/** Exact integer comparison, with all ties; only the player's six visible cards. */
+export function effectivePredictions(hole:readonly PokerCard[],board:readonly PokerCard[]):HandCategory[] {
+ const odds=handOdds(hole,board),best=Math.max(...odds.map(o=>o.count*HAND_POINTS[o.category]));
+ return odds.filter(o=>o.count*HAND_POINTS[o.category]===best).map(o=>o.category);
+}
 export function dealHoldem(rng:Rng,opponentPoints=0):{table:HoldemTable;rng:Rng}{
  const deck=pokerDeck(),dealt:PokerCard[]=[];for(let i=0;i<8;i++){const d=uniform(rng,deck.length);rng=d.rng;dealt.push(deck.splice(d.value,1)[0]!);}
  const player=dealt.slice(0,2),opponent=dealt.slice(2,4),board=dealt.slice(4);

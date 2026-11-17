@@ -46,6 +46,7 @@ import {
 } from './core/game';
 import './ui/boss-focus.css';
 import './ui/urns-zoom.css';
+import './ui/table-props.css';
 import type { GameScene } from './presentation/scene';
 
 declare global { interface Window { __THEGAME_READY__: boolean; __THEGAME_METRICS__?: () => unknown } }
@@ -181,7 +182,8 @@ function demoInventory():[Urn,Urn]{
 }
 function tutorial(): string {
  const review=tutorialStep===1||tutorialStep===3;
- const cardUrns:[Urn,Urn]=tutorialStep<=1?[{red:3,blue:2},{red:1,blue:1}]:[{red:2,blue:2},{red:1,blue:1}];
+ const cardUrns=demoInventory();
+ const beforeUrns:[Urn,Urn]=tutorialStep<=1?[{red:3,blue:2},{red:1,blue:1}]:[{red:2,blue:2},{red:1,blue:1}];
  const text=tutorialStep===0?demoChoice===1?'La urna 2 da 50 % de sacar roja. No es imposible, pero la urna 1 da 60 %. Como 60 es mayor que 50, conviene la urna 1.':demoChoice===0?'La urna 1 es mejor: 60 % frente a 50 %. Todavía hay 40 % de sacar azul. Elegir bien mejora tus chances, pero no asegura el resultado.':'Buscá una roja. La urna 1 tiene 3 de 5: 60 %. La urna 2 tiene 1 de 2: 50 %. Mirá las cuentas y elegí la que ofrece más posibilidades.':tutorialStep===1?'Sacamos una roja de la urna 1 y quedó afuera: ahora hay dos rojas de cuatro fichas. Restamos una roja y una ficha al total: (3 − 1) ÷ (5 − 1) = 2 ÷ 4 = 50 %.':tutorialStep===2?'La urna 1 da 2 ÷ 4 = 50 % y la urna 2 da 1 ÷ 2 = 50 %. Las dos tienen la mitad roja: tener más fichas no da ventaja. Cualquiera es una buena elección.':'Salió azul, pero elegiste bien: antes de sacar, ambas daban 50 % de roja y 50 % de azul. Que salga azul no demuestra que tu decisión fuera mala.';
  const ready=review||tutorialStep===0&&demoChoice===0||tutorialStep===2&&demoChoice!==null;
  const visible=demoCardsVisible||review;
@@ -189,8 +191,8 @@ function tutorial(): string {
  return `<main class="table-layout tutorial-table" data-tutorial-view="${tutorialView}">
   <header class="tutorial-heading"><h1 class="tutorial-badge">Tutorial</h1><p>Las urnas · <span class="tutorial-step">Paso ${tutorialStep+1} de 4</span></p></header>
   <nav class="tutorial-view-tabs" aria-label="Vista del tutorial"><button data-testid="tutorial-view-choice" class="${tutorialView==='choice'?'active':''}" aria-pressed="${tutorialView==='choice'}">Elegir</button><button data-testid="tutorial-view-help" class="${tutorialView==='help'?'active':''}" aria-pressed="${tutorialView==='help'}">Las cuentas</button></nav>
-  <section class="tutorial-workspace">${urnTutorialHelp(cardUrns,review?demoInventory():undefined,text,tutorialHelpPage)}</section>
-  <div class="tutorial-controls"><aside class="game-panel">
+  <section class="tutorial-workspace">${urnTutorialHelp(beforeUrns,review?cardUrns:undefined,text,tutorialHelpPage)}</section>
+  <div class="vera-viewport tutorial-viewport" aria-label="Mesa de Vera y urnas del ejemplo"></div><div class="tutorial-controls"><aside class="game-panel">
    ${review?`<section class="result-card"><h2>${tutorialStep===1?'Salió una roja':'Salió una azul'}</h2></section>`:'<h2 class="objective">Buscá <span class="red-token">roja ▲</span></h2>'}
    <div class="tutorial-coach" role="status"><p>${summary}</p></div>
    ${review?'':`<button class="cards-toggle" data-testid="toggle-cards" aria-expanded="${visible}" aria-controls="demo-cards">${visible?'Ocultar urnas':'Ver urnas'}</button>`}
@@ -207,7 +209,7 @@ function urnChoice(urn: Urn, index: 0 | 1, demo=false): string {
   if(demo) {
     const reviewing=tutorialStep===1||tutorialStep===3;
     const correct=reviewing&&(tutorialStep===3||index===0);
-    return `<button data-testid="demo-urn-${index}" class="urn-option tutorial-urn ${demoChoice===index?'selected':''} ${reviewing?correct?'answer-correct':'answer-incorrect':''}" aria-label="Urna ${index+1}: ${p.numerator} de ${p.denominator} rojas, ${percent} %" aria-pressed="${demoChoice===index}" ${reviewing?'disabled':''}><span class="urn-option-head"><strong>Urna ${index+1}</strong></span><span class="tutorial-urn-count">${p.numerator}/${p.denominator} rojas</span><strong class="tutorial-urn-percent">${percent} %</strong></button>`;
+    return `<button data-testid="demo-urn-${index}" class="urn-option tutorial-urn ${demoChoice===index?'selected':''}" aria-label="Urna ${index+1}: ${p.numerator} de ${p.denominator} rojas, ${percent} %" aria-pressed="${demoChoice===index}" ${reviewing?'disabled':''}><span class="urn-option-head"><strong>Urna ${index+1}</strong></span><span class="tutorial-urn-count">${reviewing?'Ahora: ':''}${p.numerator}/${p.denominator} rojas</span><strong class="tutorial-urn-percent">${percent} %</strong></button>`;
   }
   const choosing = demo?(tutorialStep===0||tutorialStep===2):state.phase === 'choose' || state.phase === 'guided';
   const hinted = !demo && choosing && state.assisted && bestChoices(state).includes(index);
@@ -277,7 +279,8 @@ function updateVisual(): void {
   const playingAda=screen==='records'&&!!app.querySelector('.ada-viewport');
   scene?.setRendering(playingBoss||playingAda||screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
   const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
-  scene?.setContractMode(playingBoss||playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : null,playingBoss?'captor':playingAda?'ada':'doble',bossUrns);
+  scene?.setContractMode(playingBoss||playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : playingBoss ? state.finale?.pair ?? null : null,playingBoss?'captor':playingAda?'ada':'doble',playingBoss&&state.finale?.boss?bossMechanic(state.finale):playingAda?'poker':'dice');
+  scene?.setPokerTable(playingBoss&&state.finale?.boss&&bossMechanic(state.finale)==='poker'?state.finale.boss.poker??null:null,state.finale?.phase==='feedback');
   if(bossUrns&&state.finale){const f=state.finale,review=f.phase==='feedback',last=f.history.at(-1);scene?.updateUrns(f.urns,review?last?.choice==='U'?0:1:selectedFinale==='U'?0:selectedFinale==='V'?1:null,review?f.lastColor??undefined:undefined);return;}
   if (playingContracts||screen==='records'||screen==='finale'||screen==='outside') return;
   const urns: Urn[] = screen === 'tutorial' ? demoInventory() : state.urns;
@@ -337,7 +340,7 @@ function outsideView():string {
 }
 function enterRecords():void {
  if(!tableUnlocked(state,'records'))return;
- adaTutorialStep=0;state.records??=createRecords();state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience?.startsWith('photos-')&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
+ adaTutorialStep=0;state.records??=createRecords();state.records=applyRecordsCommand(state.records,{type:'enable-bonus',expectedRevision:state.records.revision,commandId:'bonus-'+state.records.revision});state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience?.startsWith('photos-')&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
 }
 function finaleFocus(s:Parameters<typeof finaleChoices>[0]):string {return s.phase==='complete'?'exit-house':s.phase==='feedback'?'finale-next':s.boss&&!s.boss.started?'finale-begin':s.boss?.needsHelp?'finale-assist':'finale-'+finaleChoices(s)[0];}
 function enterFinale():void {
@@ -349,7 +352,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(id==='exit-house'&&state.freed){state.activeTable='outside';persist();setScreen('outside','back-room');return true;}
  if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
  if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
- if((id==='records-replay'||id==='records-upgrade')&&state.records){adaTutorialStep=0;state.records=createRecords(Date.now(),true);persist();selectedRecord=null;setScreen('records','records-begin');return true;}
+ if((id==='records-replay'||id==='records-upgrade')&&state.records){adaTutorialStep=0;state.records=createRecords(Date.now(),true);selectedRecord=null;enterRecords();return true;}
  if(id==='finale-replay'&&state.finale){state.finale=createFinale(Date.now(),'boss-v1');persist();setScreen('finale',finaleFocus(state.finale));return true;}
  if(screen==='records'&&state.records){
    const current=state.records;
@@ -371,7 +374,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
    if(['finale-confirm','finale-next','finale-begin','finale-assist'].includes(id??'')){
      const command:FinaleCommand={type:id==='finale-begin'?'begin':id==='finale-assist'?'assist':id==='finale-confirm'?'choose':'next',...(selectedFinale?{choice:selectedFinale}:{}),expectedRevision:Number(target.dataset.revision),commandId:'host-'+target.dataset.revision+'-'+id};
      const next=applyFinaleCommand(current,command);if(next===current){announce('Revisá los datos e intentá otra respuesta.');return true;}
-     state.finale=next;selectedFinale=null;persist();render(finaleFocus(next));if(next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
+     state.finale=next;selectedFinale=null;persist();render(finaleFocus(next));if(command.type==='choose'&&bossMechanic(current)==='dice')scene?.rollDice();if(next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
    }
  }
  return false;

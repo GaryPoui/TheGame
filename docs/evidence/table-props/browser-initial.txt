@@ -1,0 +1,176 @@
+
+Running 8 tests using 1 worker
+
+(node:46432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\table-props.spec.ts:13:72 › Vera tutorial updates the same stage and remaining cards 1280x720 (4.7s)
+  ok 2 tests\browser\table-props.spec.ts:13:72 › Vera tutorial updates the same stage and remaining cards 1093x615 (3.3s)
+  ok 3 tests\browser\table-props.spec.ts:13:72 › Vera tutorial updates the same stage and remaining cards 640x360 (2.8s)
+  ok 4 tests\browser\table-props.spec.ts:13:72 › Vera tutorial updates the same stage and remaining cards 390x844 (3.0s)
+  ok 5 tests\browser\table-props.spec.ts:20:62 › boss swaps actual urns dice and cards on the felt 1280x720 (5.8s)
+  ok 6 tests\browser\table-props.spec.ts:20:62 › boss swaps actual urns dice and cards on the felt 1093x615 (5.4s)
+  ok 7 tests\browser\table-props.spec.ts:20:62 › boss swaps actual urns dice and cards on the felt 640x360 (4.2s)
+  x  8 tests\browser\table-props.spec.ts:34:1 › Ada awards the decision bonus separately and preserves it on reload (5.8s)
+
+
+  1) tests\browser\table-props.spec.ts:34:1 › Ada awards the decision bonus separately and preserves it on reload
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 56
+    + Received  + 10
+
+    @@ -1,22 +1,11 @@
+      Object {
+        "assisted": false,
+        "audit": 2,
+        "decisionBonus": true,
+        "experience": "holdem-v1",
+    -   "history": Array [
+    -     Object {
+    -       "assisted": false,
+    -       "choice": "pair",
+    -       "correct": true,
+    -       "optimal": Array [
+    -         "pair",
+    -       ],
+    -       "round": 0,
+    -       "step": 0,
+    -     },
+    -   ],
+    +   "history": Array [],
+        "holdem": Object {
+          "board": Array [
+            Object {
+              "rank": 6,
+              "suit": "hearts",
+    @@ -31,14 +20,10 @@
+            },
+            Object {
+              "rank": 1,
+              "suit": "spades",
+            },
+    -       Object {
+    -         "rank": 9,
+    -         "suit": "clubs",
+    -       },
+          ],
+          "deck": Array [
+            Object {
+              "rank": 1,
+              "suit": "hearts",
+    @@ -158,10 +143,14 @@
+            Object {
+              "rank": 8,
+              "suit": "clubs",
+            },
+            Object {
+    +         "rank": 9,
+    +         "suit": "clubs",
+    +       },
+    +       Object {
+              "rank": 10,
+              "suit": "clubs",
+            },
+            Object {
+              "rank": 11,
+    @@ -230,68 +219,33 @@
+              "suit": "spades",
+            },
+            Object {
+              "rank": 5,
+              "suit": "diamonds",
+    -       },
+    -     ],
+    -     "result": Object {
+    -       "choice": "pair",
+    -       "decisionBonus": 2,
+    -       "opponent": Object {
+    -         "category": "pair",
+    -         "tie": Array [
+    -           13,
+    -           14,
+    -           9,
+    -           6,
+    -         ],
+            },
+    -       "opponentAward": 0,
+    -       "player": Object {
+    -         "category": "two-pair",
+    -         "tie": Array [
+    -           9,
+    -           5,
+    -           14,
+          ],
+    -       },
+    -       "points": 2,
+    -       "winner": "player",
+        },
+    -   },
+        "journal": Array [
+          Object {
+            "commandId": "bonus-0",
+            "expectedRevision": 0,
+            "type": "enable-bonus",
+    -     },
+    -     Object {
+    -       "commandId": "ada-1-records-begin",
+    -       "expectedRevision": 1,
+    -       "type": "begin",
+    -     },
+    -     Object {
+    -       "choice": "pair",
+    -       "commandId": "ada-2-records-confirm",
+    -       "expectedRevision": 2,
+    -       "type": "choose",
+          },
+        ],
+    -   "merit": 2,
+    +   "merit": 0,
+        "observations": Array [
+          4,
+          4,
+          4,
+          4,
+        ],
+    -   "phase": "feedback",
+    -   "revision": 3,
+    +   "phase": "tutorial",
+    +   "revision": 1,
+        "rng": Object {
+          "algorithm": "xorshift32-v1",
+    -     "count": 9,
+    -     "state": 1834579151,
+    +     "count": 8,
+    +     "state": 3114636470,
+        },
+        "round": 0,
+        "seed": 123,
+        "source": "album",
+        "step": 0,
+
+      34 | test('Ada awards the decision bonus separately and preserves it on reload',async({page})=>{
+      35 |  await open(page,'records');await page.getByTestId('records-begin').click();const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.records);const s=await read();expect(s.decisionBonus).toBe(true);const choice=bestRecords(s)[0]!;
+    > 36 |  await page.getByTestId('records-'+choice).click();await page.getByTestId('records-confirm').click();const n=await read();expect(n.holdem.result.decisionBonus).toBe(2);expect(n).toEqual(applyRecordsCommand(s,n.journal.at(-1)));await expect(page.getByTestId('poker-points-breakdown')).toContainText('Decisión: +2');await fits(page);await page.reload();await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();expect(await read()).toEqual(n);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^
+      37 | });
+      38 |
+        at C:\Users\facub\Documents\TheGame\tests\browser\table-props.spec.ts:36:478
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\table-props-Ada-awards-the-dcc23--and-preserves-it-on-reload\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\table-props-Ada-awards-the-dcc23--and-preserves-it-on-reload\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\table-props-Ada-awards-the-dcc23--and-preserves-it-on-reload\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\table-props-Ada-awards-the-dcc23--and-preserves-it-on-reload\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\browser\table-props.spec.ts:34:1 › Ada awards the decision bonus separately and preserves it on reload
+  7 passed (39.6s)

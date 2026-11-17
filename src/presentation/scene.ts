@@ -24,6 +24,8 @@ import { CreateTube } from '@babylonjs/core/Meshes/Builders/tubeBuilder';
 import { CreateCylinder } from '@babylonjs/core/Meshes/Builders/cylinderBuilder';
 import { CreateTorus } from '@babylonjs/core/Meshes/Builders/torusBuilder';
 import { CreatePlane } from '@babylonjs/core/Meshes/Builders/planeBuilder';
+import type {HoldemTable} from '../core/tables/holdem';
+import type {PokerCard} from '../core/tables/poker-records';
 import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents';
 import '@babylonjs/core/Shaders/pbr.vertex';
 import '@babylonjs/core/Shaders/pbr.fragment';
@@ -60,6 +62,11 @@ export class GameScene {
   private diceRollCount = 0;
   private contractsMode = false;
   private diceKey = '';
+  private pokerKey='';
+  private pokerProps:Mesh[]=[];
+  private pokerMaterials:StandardMaterial[]=[];
+  private pokerTextures:DynamicTexture[]=[];
+  private tableMechanic:'urns'|'dice'|'poker'='urns';
   private canvasSizeKey='';
   private framingKey='';
   private urnGeometryKey='';
@@ -276,11 +283,12 @@ export class GameScene {
       die.rotation.set(spin,(i===0?.22:-.28)+spin*.65*(i===0?1:-1),spin*.4);
     });
   }
-  setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'|'captor'='doble',showUrns=false): void {
+  setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'|'captor'='doble',mechanic:'urns'|'dice'|'poker'='dice'): void {
     const changed = enabled !== this.contractsMode||host!==this.tableHost;
     this.contractsMode = enabled;
     if(changed)this.framingKey='';
-    this.bossUrnsVisible=enabled&&showUrns;
+    this.tableMechanic=enabled?mechanic:'urns';
+    this.bossUrnsVisible=enabled&&host==='captor'&&mechanic==='urns';
     this.tableHost=host;
     this.urnProps.forEach(mesh => mesh.isVisible = !enabled||this.bossUrnsVisible);
     this.decorProps.forEach(mesh => mesh.isVisible = !enabled);
@@ -302,12 +310,13 @@ export class GameScene {
       if(enabled&&host==='captor'&&!this.captorTexture){this.captorTexture=new Texture(import.meta.env.BASE_URL+'art/captor-v3.png',this.scene);this.captorTexture.hasAlpha=true;}
       material.diffuseTexture = enabled ? host==='captor'?this.captorTexture:host==='ada'?this.adaTexture:this.dobleTexture : this.veraTexture;
     }
-    const key = enabled ? host+JSON.stringify(pair) : 'off';
+    const diceVisible=enabled&&(host==='doble'||host==='captor'&&mechanic==='dice');
+    const key = diceVisible ? host+JSON.stringify(pair) : 'off';
     if(key === this.diceKey) return;
     this.diceKey = key;
     this.diceProps.forEach(mesh => { this.shadows.removeShadowCaster(mesh); mesh.dispose(); }); this.diceProps = [];
     this.diceRoots=[];
-    if(!enabled||host!=='doble') return;
+    if(!diceVisible) return;
     const start = this.scene.meshes.length;
     const patterns: Record<number, number[]> = {1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
     for(let i=0;i<2;i++) {
@@ -335,6 +344,30 @@ export class GameScene {
       }
     }
     this.diceProps = this.scene.meshes.slice(start).filter((mesh): mesh is Mesh => mesh instanceof Mesh);
+  }
+  /** Visible cards only: face-down opponent cards are never painted before the reveal. */
+  setPokerTable(table:HoldemTable|null,reveal=false):void {
+    const cards:(PokerCard|undefined)[]=table?[...table.board,...table.player,...table.opponent.map(c=>reveal?c:undefined)]:[];
+    const key=table?JSON.stringify(cards):'';if(key===this.pokerKey)return;this.pokerKey=key;
+    this.pokerProps.forEach(mesh=>mesh.dispose());this.pokerProps=[];
+    this.pokerMaterials.forEach(mat=>mat.dispose());this.pokerMaterials=[];
+    this.pokerTextures.forEach(texture=>texture.dispose());this.pokerTextures=[];
+    if(!table)return;
+    const card=(name:string,x:number,z:number,value?:PokerCard,y=1.87)=>{
+      const body=this.box(name,[.58,.025,.82],[x,y,z],this.ivory);body.isPickable=false;body.renderOutline=false;this.pokerProps.push(body);
+      const texture=new DynamicTexture(name+'-print',{width:256,height:384},this.scene,false),ctx=texture.getContext();
+      const ink=value&&['hearts','diamonds'].includes(value.suit)?'#a83143':'#292332';
+      ctx.fillStyle=value?'#fff2d7':'#513653';ctx.fillRect(0,0,256,384);ctx.strokeStyle='#c6a066';ctx.lineWidth=10;ctx.strokeRect(12,12,232,360);
+      ctx.fillStyle=value?ink:'#f6d39b';ctx.font='bold 85px Arial, Helvetica, sans-serif';
+      const rank=value?value.rank===1?'A':value.rank===11?'J':value.rank===12?'Q':value.rank===13?'K':String(value.rank):'✧';
+      ctx.fillText(rank,(256-ctx.measureText(rank).width)/2,125);ctx.font='bold 150px Arial, Helvetica, sans-serif';const suit=value?{hearts:'♥',diamonds:'♦',clubs:'♣',spades:'♠'}[value.suit]:'✧';ctx.fillText(suit,(256-ctx.measureText(suit).width)/2,290);texture.update();
+      const material=new StandardMaterial(name+'-material',this.scene);material.diffuseTexture=texture;material.emissiveColor=new Color3(.45,.45,.45);material.specularColor=Color3.Black();this.pokerMaterials.push(material);this.pokerTextures.push(texture);
+      const face=CreatePlane(name+'-face',{width:.56,height:.80},this.scene);face.position.set(x,y+.014,z);face.rotation.x=Math.PI/2;face.material=material;face.isPickable=false;this.pokerProps.push(face);
+    };
+    for(let i=0;i<5;i++)card('boss-community-'+i,(i-2)*.69,0,table.board[i]);
+    table.player.forEach((c,i)=>card('boss-player-'+i,(i-.5)*.72,-1.25,c));
+    table.opponent.forEach((c,i)=>card('boss-opponent-'+i,(i-.5)*.72,1.22,reveal?c:undefined));
+    for(let i=0;i<4;i++)card('boss-deck-'+i,2.55,.10,undefined,1.87+i*.035);
   }
   updateUrns(urns:readonly {red:number;blue:number}[],selected:number|null,revealed?:'red'|'blue'):void {
     const key=JSON.stringify([urns,revealed??null]);
@@ -390,6 +423,7 @@ export class GameScene {
     }:null;
     return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,canvasResizeCount:this.canvasResizeCount,urnGeometryBuilds:this.urnGeometryBuilds,cameraFov:this.camera.fov,hardwareScale:this.hardwareScale,
       bossUrnsVisible:this.bossUrnsVisible,visibleUrnVessels:this.urnProps.filter(mesh=>mesh.name==='thick-glass-urn'&&mesh.isVisible).length,visibleUrnTokens:this.tokens.filter(mesh=>mesh.isVisible&&mesh.metadata?.urn!==undefined).length,selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
+      pokerReady:this.pokerTextures.length>0&&this.pokerTextures.every(t=>t.isReady()),tableMechanic:this.tableMechanic,pokerCardCount:this.pokerProps.filter(m=>m.name.endsWith('-face')&&!m.name.startsWith('boss-deck')).length,pokerDeckCount:this.pokerProps.filter(m=>m.name.startsWith('boss-deck')&&m.name.endsWith('-face')).length,
       diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),diceFaces:this.diceRoots.map(die=>die.metadata.faces as number[]),
       dealerFrame,tableFrame:[...Array.from({length:16},(_,i)=>new Vector3(3.5*Math.cos(i*Math.PI/8),1.5,2.52*Math.sin(i*Math.PI/8))),...[-2.25,2.25].flatMap(x=>[-1.2,1.2].map(z=>new Vector3(x,.03,z)))].map(point=>project(point)),
       tableHost:this.contractsMode?this.tableHost:'vera',

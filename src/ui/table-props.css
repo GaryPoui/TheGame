@@ -1,0 +1,57 @@
+/* The tutorial uses the same bounded 3D surface as Vera's playable table. */
+.tutorial-table .tutorial-viewport{grid-column:2;grid-row:2;align-self:stretch;min-width:0;min-height:0}
+.tutorial-view-tabs{gap:4px;pointer-events:auto}.tutorial-view-tabs button{min-width:0;padding:5px 10px;border:1px solid #b89a64;border-radius:5px;background:#241e2a;color:#f0e2c4;line-height:1.2}.tutorial-view-tabs button.active{background:#e3bb75;color:#2b202b}
+body[data-screen=tutorial] .tutorial-viewport #scene{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:1;pointer-events:auto}
+@media(max-width:999px){
+ body[data-screen=tutorial] .tutorial-table{grid-template-columns:minmax(0,1fr) minmax(240px,44%);grid-template-rows:auto auto minmax(0,1fr) auto}
+ .tutorial-table .tutorial-heading,.tutorial-table .tutorial-footer{grid-column:1/-1}
+ .tutorial-table .tutorial-view-tabs{grid-column:2;grid-row:2}
+ .tutorial-table .tutorial-workspace,.tutorial-table .tutorial-controls{grid-column:2;grid-row:3}
+ .tutorial-table .tutorial-viewport{grid-column:1;grid-row:2/4;display:block}
+}
+@media(min-width:500px) and (max-height:760px){
+ body[data-screen=tutorial] .topbar{height:38px}
+ body[data-screen=tutorial] .tutorial-table{height:calc(100svh - 38px);grid-template-columns:minmax(0,1fr) minmax(245px,44%);grid-template-rows:auto auto minmax(0,1fr) auto;padding:6px 12px;gap:4px 10px}
+ .tutorial-table .tutorial-heading,.tutorial-table .tutorial-footer{grid-column:1/-1}
+ .tutorial-table .tutorial-badge{font-size:22px}.tutorial-heading>p{font-size:12px;margin:2px 0}
+ .tutorial-table .tutorial-view-tabs{display:flex;grid-column:2;grid-row:2}
+ .tutorial-table .tutorial-view-tabs button{font-size:12px;min-height:28px}
+ .tutorial-table .tutorial-viewport{grid-column:1;grid-row:2/4}
+ .tutorial-table .tutorial-workspace,.tutorial-table .tutorial-controls{grid-column:2;grid-row:3}
+ .tutorial-table[data-tutorial-view=choice] .tutorial-workspace,.tutorial-table[data-tutorial-view=help] .tutorial-controls{display:none}
+ .tutorial-table .tutorial-controls .game-panel{padding:6px;gap:4px}
+ .tutorial-table .tutorial-coach p,.tutorial-table .tutorial-urn-count,.tutorial-help-navigation>span{font-size:12px}
+ .tutorial-table .tutorial-urn-percent{font-size:15px}.tutorial-table .tutorial-urn{padding:5px;gap:3px}
+ .tutorial-table .game-panel .objective,.tutorial-help>h2{font-size:15px}
+ .tutorial-table .game-panel .primary,.tutorial-table .cards-toggle,.tutorial-footer .primary{font-size:12px;min-height:30px;padding:5px}
+ .tutorial-table .tutorial-footer .primary{min-height:44px}
+ .tutorial-table .tutorial-reading p{font-size:12px;line-height:1.25}.tutorial-reading h3{font-size:13px;margin-bottom:5px}
+ .tutorial-table .tutorial-reading .tutorial-equation{font-size:13px}.tutorial-help-navigation button{height:30px;width:32px;font-size:13px}
+}
+@media(max-width:499px){
+ body[data-screen=tutorial] .tutorial-table{grid-template-columns:1fr;grid-template-rows:auto auto minmax(110px,1fr) auto auto}
+ .tutorial-table .tutorial-heading{grid-row:1}.tutorial-table .tutorial-view-tabs{grid-column:1;grid-row:2}
+ .tutorial-table .tutorial-viewport{grid-column:1;grid-row:3}.tutorial-table .tutorial-controls,.tutorial-table .tutorial-workspace{grid-column:1;grid-row:4}.tutorial-table .tutorial-footer{grid-row:5}
+ .enlarged-text .tutorial-table .tutorial-badge{font-size:32px}
+ .enlarged-text .tutorial-heading>p{font-size:18px;line-height:1.2}
+ .enlarged-text .tutorial-view-tabs button{font-size:18px;min-height:44px}
+ .enlarged-text .tutorial-table .game-panel .objective{font-size:26px}
+ .enlarged-text .tutorial-table .tutorial-coach p{font-size:20px;line-height:1.3}
+}
+/* Real dice carry the result on the felt; keep the HTML version for graphics fallback. */
+.boss-layout[data-mechanic=dice] .ada-table-stage:has(canvas) .boss-dice{display:none}
+body:has(.graphics-warning) .boss-layout[data-mechanic=dice] .boss-dice{display:block}
+@media(min-height:600px){
+ .boss-layout[data-mechanic=poker] .ada-table-stage{display:grid;grid-template-rows:minmax(0,1fr) auto;grid-template-columns:minmax(0,1fr);height:calc(100svh - 230px);min-height:0}
+ .boss-layout[data-mechanic=poker] .ada-viewport{grid-area:1/1;height:100%!important;min-height:0}
+ .boss-layout[data-mechanic=poker] .ada-evidence{grid-area:2/1;position:relative;inset:auto;margin:0!important}
+}
+.boss-layout .boss-dice-caption{font-size:12px}
+.boss-cards-more{display:none}
+@media(max-height:599px){
+ .boss-layout .ada-table-stage:has(canvas) .boss-cards-inline{display:none}
+ .boss-layout .ada-table-stage:has(canvas) .boss-cards-more{display:block}
+ .boss-cards-more .info-trigger{width:100%;padding:5px 8px;min-height:28px;font-size:12px;text-align:center;background:#2b202dec;color:#f6d79e;border:1px solid #b89a64;border-radius:5px}
+ body:has(.graphics-warning) .boss-layout .boss-cards-inline{display:block}
+ body:has(.graphics-warning) .boss-layout .boss-cards-more{display:none}
+}

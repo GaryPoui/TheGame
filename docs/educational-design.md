@@ -129,3 +129,5 @@ Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.m
 
 
 Actualización 2026-10-29: Ada nueva usa [cartas de póker](ada-poker.md), con proporciones, actualización sin reposición y unión de eventos. Las fotos anteriores se conservan sólo para partidas antiguas y el final. El usuario pidió retirar el ensayo opcional del cierre y usar únicamente el mouse. Esta instrucción prevalece sobre los atajos y ejercicios previstos en documentos históricos.
+
+Actualización 2026-11-17: en el póker actual de Ada, elegir una de las categorías que maximizan probabilidad × premio da dos puntos extra, sumados al premio por acertar y ganar. El extra se conserva con fallo, derrota o empate. El jefe conserva sus reglas de daño. Ver [regla, guardado y evidencia](table-props-poker-bonus.md).

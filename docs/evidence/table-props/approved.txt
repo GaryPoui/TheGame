@@ -1,0 +1,13 @@
+
+Running 6 tests using 1 worker
+
+(node:54564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\table-props.spec.ts:20:62 › boss swaps actual urns dice and cards on the felt 1280x720 (6.7s)
+  ok 2 tests\browser\table-props.spec.ts:20:62 › boss swaps actual urns dice and cards on the felt 1093x615 (5.0s)
+  ok 3 tests\browser\table-props.spec.ts:20:62 › boss swaps actual urns dice and cards on the felt 640x360 (4.1s)
+  ok 4 tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 1 and explain its remaining inventory (5.1s)
+  ok 5 tests\browser\table-tutorial.spec.ts:57:2 › equal tutorial chances accept urn 2 and explain its remaining inventory (4.8s)
+  ok 6 tests\browser\table-tutorial.spec.ts:77:3 › tutorial help and separate exit fit 390x844 at text scale 2 (17.6s)
+
+  6 passed (46.7s)

@@ -1,0 +1,315 @@
+
+ RUN  v5.0.5 C:/Users/facub/Documents/TheGame
+
+ ❯ tests/unit/poker-decision-bonus.test.ts (3 tests | 1 failed) 1524ms
+   × loads a v8 campaign and writes the enabled bonus in a protected v9 envelope 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/poker-decision-bonus.test.ts > loads a v8 campaign and writes the enabled bonus in a protected v9 envelope
+AssertionError: expected null to deeply equal { phase: 'choose', round: +0, …(13) }
+
+- Expected:
+{
+  "activeTable": "records",
+  "assisted": false,
+  "event": "red",
+  "history": [],
+  "last": null,
+  "merit": 0,
+  "phase": "choose",
+  "records": {
+    "assisted": false,
+    "audit": 2,
+    "experience": "holdem-v1",
+    "history": [],
+    "holdem": {
+      "board": [
+        {
+          "rank": 13,
+          "suit": "hearts",
+        },
+        {
+          "rank": 6,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 6,
+          "suit": "hearts",
+        },
+        {
+          "rank": 4,
+          "suit": "spades",
+        },
+      ],
+      "deck": [
+        {
+          "rank": 1,
+          "suit": "hearts",
+        },
+        {
+          "rank": 3,
+          "suit": "hearts",
+        },
+        {
+          "rank": 5,
+          "suit": "hearts",
+        },
+        {
+          "rank": 7,
+          "suit": "hearts",
+        },
+        {
+          "rank": 8,
+          "suit": "hearts",
+        },
+        {
+          "rank": 9,
+          "suit": "hearts",
+        },
+        {
+          "rank": 10,
+          "suit": "hearts",
+        },
+        {
+          "rank": 11,
+          "suit": "hearts",
+        },
+        {
+          "rank": 12,
+          "suit": "hearts",
+        },
+        {
+          "rank": 1,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 3,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 4,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 5,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 7,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 8,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 9,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 10,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 11,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 12,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 13,
+          "suit": "diamonds",
+        },
+        {
+          "rank": 2,
+          "suit": "clubs",
+        },
+        {
+          "rank": 3,
+          "suit": "clubs",
+        },
+        {
+          "rank": 4,
+          "suit": "clubs",
+        },
+        {
+          "rank": 5,
+          "suit": "clubs",
+        },
+        {
+          "rank": 6,
+          "suit": "clubs",
+        },
+        {
+          "rank": 7,
+          "suit": "clubs",
+        },
+        {
+          "rank": 8,
+          "suit": "clubs",
+        },
+        {
+          "rank": 9,
+          "suit": "clubs",
+        },
+        {
+          "rank": 10,
+          "suit": "clubs",
+        },
+        {
+          "rank": 11,
+          "suit": "clubs",
+        },
+        {
+          "rank": 12,
+          "suit": "clubs",
+        },
+        {
+          "rank": 13,
+          "suit": "clubs",
+        },
+        {
+          "rank": 1,
+          "suit": "spades",
+        },
+        {
+          "rank": 2,
+          "suit": "spades",
+        },
+        {
+          "rank": 3,
+          "suit": "spades",
+        },
+        {
+          "rank": 5,
+          "suit": "spades",
+        },
+        {
+          "rank": 6,
+          "suit": "spades",
+        },
+        {
+          "rank": 7,
+          "suit": "spades",
+        },
+        {
+          "rank": 8,
+          "suit": "spades",
+        },
+        {
+          "rank": 9,
+          "suit": "spades",
+        },
+        {
+          "rank": 10,
+          "suit": "spades",
+        },
+        {
+          "rank": 11,
+          "suit": "spades",
+        },
+        {
+          "rank": 12,
+          "suit": "spades",
+        },
+        {
+          "rank": 13,
+          "suit": "spades",
+        },
+      ],
+      "opponent": [
+        {
+          "rank": 2,
+          "suit": "hearts",
+        },
+        {
+          "rank": 2,
+          "suit": "diamonds",
+        },
+      ],
+      "opponentChoice": "two-pair",
+      "opponentPoints": 0,
+      "player": [
+        {
+          "rank": 1,
+          "suit": "clubs",
+        },
+        {
+          "rank": 4,
+          "suit": "hearts",
+        },
+      ],
+    },
+    "journal": [],
+    "merit": 0,
+    "observations": [
+      4,
+      4,
+      4,
+      4,
+    ],
+    "phase": "tutorial",
+    "revision": 0,
+    "rng": {
+      "algorithm": "xorshift32-v1",
+      "count": 8,
+      "state": 4050837846,
+    },
+    "round": 0,
+    "seed": 22,
+    "source": "album",
+    "step": 0,
+  },
+  "replacement": false,
+  "rng": {
+    "algorithm": "xorshift32-v1",
+    "count": 0,
+    "state": 5,
+  },
+  "round": 0,
+  "settings": {
+    "keys": {
+      "backward": "KeyS",
+      "forward": "KeyW",
+      "interact": "KeyE",
+      "left": "KeyA",
+      "right": "KeyD",
+    },
+    "reducedMotion": false,
+    "sensitivity": 1,
+    "textScale": 1,
+    "volume": 0.35,
+  },
+  "step": 0,
+  "tokens": 0,
+  "urns": [
+    {
+      "blue": 2,
+      "red": 3,
+    },
+    {
+      "blue": 1,
+      "red": 1,
+    },
+  ],
+}
+
++ Received:
+null
+
+ ❯ tests/unit/poker-decision-bonus.test.ts:24:53
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 12 passed (13)
+      Tests  1 failed | 65 passed (66)
+   Start at  15:34:20
+   Duration  59.85s (tests 95%, import 3%, transform 2%, worker 1%)
+
+    Isolate  13 workers spawned · ~658ms startup each (spawn + environment, per file)
+             at least ~7.90s faster with isolate: false — reuses workers across files instead of one per file
