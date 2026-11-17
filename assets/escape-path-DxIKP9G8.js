@@ -1,0 +1,1 @@
+var e=6400;function t(t){let n=Math.max(0,Math.min(1,t/e)),r=n*n*(3-2*n),i=Math.sin(n*Math.PI*12)*Math.sin(n*Math.PI);return{progress:n,x:i*.035,y:1.65+Math.abs(i)*.025,z:-7.5+12*r,doorAngle:Math.min(1,n/.48)*Math.PI*.6}}export{t as n,e as t};

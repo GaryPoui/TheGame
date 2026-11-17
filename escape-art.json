@@ -1,0 +1,14 @@
+{
+  "asset": "art/escape-dawn-v1.png",
+  "sha256": "11cfe25ed655e039f034f49cadabd6de81ba7105524cad6eb21163438d4a082d",
+  "date": "2026-11-17",
+  "tool": "OpenAI built-in imagegen",
+  "mode": "New opaque background with local style reference; original room unmodified",
+  "reference": "art/parlour-v3.png",
+  "dimensions": {
+    "width": 1672,
+    "height": 941
+  },
+  "license": "AI-generated project artwork; not declared CC0",
+  "prompt": "Create a NEW wide landscape 16:9 game background illustration, no text, no UI. Use the attached room painting only as a STYLE REFERENCE: hand inked outlines, watercolor and gouache on aged paper, 1930s theatrical animation, soft hand painted grain, warm sepia/plum shadows and brass gold light. New scene: the player has just escaped an enchanted gambling house at dawn, first person eye level from a stone threshold looking out onto a quiet narrow cobblestoned street. The ornate plum wooden casino double doors frame the extreme left/right edges, open outward, with small subtle brass heart/spade ornaments; warm sunlight streams from the far end of the winding street. Charming crooked old town houses with arched windows, wrought iron street lamps, no modern objects, no people, no cars, no readable writing or letters, no logos. Composition: richly detailed edges and foreground paving, broad calm luminous central region to support a victory overlay. The atmosphere is relief and freedom after a long magical night. Cohesive professional background painting, similar ink thickness and tactile paper patina to the reference. Full bleed, opaque image."
+}

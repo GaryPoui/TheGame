@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "release": "campaign-photos-v4",
+  "version": 4,
+  "release": "casino-finale-2026-11-17",
   "assets": [
     {
       "id": "ink-art-family",
@@ -98,6 +98,14 @@
         0,
         254
       ]
+    },
+    {
+      "id": "escape-dawn-v1",
+      "source": "art/escape-dawn-v1.png",
+      "origin": "Generated with built-in imagegen for this project, using parlour-v3.png as a style reference",
+      "license": "AI-generated project artwork; not declared CC0",
+      "sha256": "11cfe25ed655e039f034f49cadabd6de81ba7105524cad6eb21163438d4a082d",
+      "manifest": "escape-art.json"
     }
   ],
   "engine": {
