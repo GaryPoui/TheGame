@@ -1,0 +1,20 @@
+
+Running 13 tests using 1 worker
+
+(node:48176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\browser\casino-finale.spec.ts:17:62 › eight varied Doble questions and feedback fit 1280x720 (5.5s)
+  ok  2 tests\browser\casino-finale.spec.ts:17:62 › eight varied Doble questions and feedback fit 1093x615 (3.6s)
+  ok  3 tests\browser\casino-finale.spec.ts:17:62 › eight varied Doble questions and feedback fit 640x360 (2.7s)
+  ok  4 tests\browser\casino-finale.spec.ts:22:62 › boss proportions stay fixed between all mechanics 1280x720 (3.2s)
+  ok  5 tests\browser\casino-finale.spec.ts:22:62 › boss proportions stay fixed between all mechanics 1093x615 (3.0s)
+  ok  6 tests\browser\casino-finale.spec.ts:22:62 › boss proportions stay fixed between all mechanics 640x360 (2.4s)
+  ok  7 tests\browser\casino-finale.spec.ts:29:51 › Ada cards are dealt and the reading dock stays below the scene 1280x720 (1.9s)
+  ok  8 tests\browser\casino-finale.spec.ts:29:51 › Ada cards are dealt and the reading dock stays below the scene 640x360 (1.3s)
+  ok  9 tests\browser\casino-finale.spec.ts:32:51 › Doble portrait fits the presentation and tutorial 1280x720 (2.1s)
+  ok 10 tests\browser\casino-finale.spec.ts:32:51 › Doble portrait fits the presentation and tutorial 640x360 (1.4s)
+  ok 11 tests\browser\casino-finale.spec.ts:35:1 › golden victory with reduced motion survives reload and fits compact view (1.5s)
+  ok 12 tests\browser\casino-finale.spec.ts:38:1 › first person escape advances, can be skipped and preserves freedom (3.3s)
+  ok 13 tests\browser\casino-finale.spec.ts:41:1 › first person escape finishes automatically (7.5s)
+
+  13 passed (42.0s)

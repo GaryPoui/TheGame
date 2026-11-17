@@ -1,0 +1,24 @@
+
+ RUN  v5.0.5 C:/Users/facub/Documents/TheGame
+
+ ❯ tests/unit/varied-contracts.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/varied-contracts.test.ts [ tests/unit/varied-contracts.test.ts ]
+Error: Cannot find module '../../src/core/tables/contract-challenges' imported from C:/Users/facub/Documents/TheGame/tests/unit/varied-contracts.test.ts
+ ❯ tests/unit/varied-contracts.test.ts:3:1
+      1| import {it,expect} from 'vitest';
+      2| import {createContracts,applyContractCommand,validContractsState,type …
+      3| import {challengeTask,challengeOffers,challengeBest,challengeNet,chall…
+       | ^
+      4| const cmd=(s:ContractsState,type:'begin'|'sign'|'next',contract?:'S'|'…
+      5| it('provides eight distinct questions, four different offers and exact…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  16:58:05
+   Duration  345ms (worker 98%, environment 2%)

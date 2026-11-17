@@ -1,0 +1,8 @@
+
+Running 1 test using 1 worker
+
+(node:35052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\boss-focus.spec.ts:27:92 › all boss mechanics and result fit 960x540 (43.6s)
+
+  1 passed (48.1s)

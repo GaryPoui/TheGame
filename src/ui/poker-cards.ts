@@ -14,3 +14,6 @@ export function holdemFelt(t:HoldemTable,review:boolean,opponent='Ada'):string {
 export function showdownHands(t:HoldemTable):string {
  return `<div class="showdown-hands" aria-label="Las cinco cartas de cada mano">${([['Vos',t.player],['Rival',t.opponent]] as const).map(([label,hole])=>`<section><h3>${label}</h3><div class="poker-hand">${bestFive([...hole,...t.board]).map(c=>pokerCardView(c)).join('')}</div></section>`).join('')}</div>`;
 }
+export function pokerReading(t:HoldemTable,review:boolean,opponent='Ada'):string {
+ return `<div class="poker-reading"><div class="cards-dock-inline">${holdemFelt(t,review,opponent)}</div><details><summary>Ver las cartas de cerca</summary>${holdemFelt(t,review,opponent)}</details></div>`;
+}

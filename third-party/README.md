@@ -22,3 +22,5 @@ Los recursos documentales que no figuran en el manifiesto integrado siguen siend
 No reproducir recursos encontrados por enlace sin revisar
 permiso por archivo. El pipeline define registro de origen, autor, licencia, modificaciones,
 hash, fuente editable y salida GLB. No confundir licencia del código de un sitio con sus assets.
+
+Arte de cierre 2026-11-17: public/art/escape-dawn-v1.png generado con imagegen integrado, usando parlour-v3.png sólo como referencia de estilo. Sin declarar CC0. Prompt, dimensiones y SHA256 en public/escape-art.json; integrado también en public/asset-manifest.json. Puerta, pasillo, mesas y utilería son geometría original del proyecto.

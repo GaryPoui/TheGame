@@ -81,3 +81,5 @@ no significa que se hayan ejecutado en esta entrega.
 [Corrección de zoom y tarjetas de Vera](docs/urns-zoom-repair.md).
 
 [Tutorial actualizado, extra de Ada y objetos del jefe](docs/table-props-poker-bonus.md).
+
+[Mesas con identidad, nuevos contratos de Doble y victoria](docs/casino-tables-finale.md).

@@ -1,0 +1,70 @@
+/* One stage, one dock: props change while the host and table keep their frame. */
+:root{--playbar:52px;--reading-dock:76px}
+body:has(.casino-stage) .topbar{height:var(--playbar)}
+body[data-screen] .ada-table-layout:has(.casino-stage){display:grid!important;grid-template-columns:minmax(0,1fr) minmax(300px,36%);grid-template-rows:minmax(0,1fr);height:calc(100svh - var(--playbar));min-height:0;padding:8px 3%!important;gap:14px;align-items:stretch}
+.ada-table-layout:has(.casino-stage) .archive-floor{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto minmax(0,1fr) var(--reading-dock);height:100%;min-height:0;margin:0}
+.boss-layout:has(.casino-stage) .archive-floor{grid-template-rows:auto auto auto auto minmax(0,1fr) var(--reading-dock)}
+body[data-screen] .ada-table-layout .casino-stage{display:block!important;height:100%!important;min-height:0;margin:0;min-width:0;position:relative}
+body[data-screen] .casino-stage .ada-viewport{height:100%!important;min-height:0;position:relative}
+body[data-screen] .ada-table-layout:has(.casino-stage) .ada-evidence{position:relative;inset:auto;grid-area:auto;align-self:stretch;width:100%;max-width:none;height:var(--reading-dock);margin:0!important;min-width:0;display:grid;align-items:center}
+.ada-table-layout:has(.casino-stage) .archive-panel{margin:0;min-width:0;align-self:start}
+.ada-table-layout:has(.casino-stage) .archive-floor>h1{font-size:26px;line-height:1.15;margin-bottom:6px}
+.poker-reading{display:flex;align-items:center;gap:8px;min-width:0;width:100%}
+.cards-dock-inline{min-width:0;flex:1}.cards-dock-inline .holdem-felt{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr) minmax(0,1fr);gap:8px;padding:5px 8px;max-width:none;margin:0;border:1px solid #9f835b;background:#231c29e8;border-radius:6px}
+.cards-dock-inline .holdem-felt>section{min-width:0}.cards-dock-inline .poker-hand{flex-wrap:nowrap;min-width:0}
+.cards-dock-inline .holdem-felt h2{font-size:10px!important;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 0 3px}
+.cards-dock-inline .holdem-felt .poker-card{height:37px!important;flex-basis:27px!important;max-width:29px;min-width:0;padding:2px!important}
+.cards-dock-inline .holdem-felt .poker-card b{font-size:12px!important}.cards-dock-inline .holdem-felt .poker-card>span{font-size:15px!important;line-height:1;margin-top:1px!important}.cards-dock-inline .poker-hand{gap:4px}
+.poker-reading>.info-trigger{flex:0 0 74px;min-height:44px;max-width:84px;line-height:1.25;font-size:12px;padding:5px;text-align:center;background:#2c2232e8;border:1px solid #a88c62;border-radius:5px;color:#f3d49c}
+.boss-layout:has(canvas) .boss-urn-fallback,.boss-layout:has(canvas) .boss-dice{display:none}
+body:has(.graphics-warning) .boss-layout .boss-urn-fallback,body:has(.graphics-warning) .boss-layout .boss-dice{display:grid}
+@media(min-width:500px) and (max-height:760px){:root{--playbar:38px}.ada-table-layout:has(.casino-stage) .archive-floor>h1{font-size:23px}}
+@media(max-width:900px), (max-height:520px){:root{--reading-dock:44px}.cards-dock-inline{display:none}.poker-reading{justify-content:center}.poker-reading>.info-trigger{flex:1;max-width:none;min-height:32px;width:100%;font-size:12px;padding:5px}}
+@media(max-width:499px){body[data-screen] .ada-table-layout:has(.casino-stage){grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(200px,1fr) auto;gap:6px;padding:6px!important}.ada-table-layout:has(.casino-stage) .archive-panel{width:100%;padding:8px}}
+
+/* Doble stands beside the reading, with his entire silhouette inside the frame. */
+body[data-screen] .contracts-tutorial{display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);height:calc(100svh - var(--playbar));min-height:0;padding:12px 6%;gap:16px;align-items:center;overflow:hidden}
+body[data-screen] .contracts-tutorial .doble-intro{position:static;inset:auto;width:100%;height:100%;max-height:calc(100svh - var(--playbar) - 24px);object-fit:contain;object-position:center;align-self:center;transform:translateY(-2%);z-index:0}
+body[data-screen] .contracts-tutorial .dialogue-card{position:relative;z-index:1;width:100%;min-width:0;max-width:none;padding:20px;margin:0;max-height:100%;overflow:hidden}
+.contracts-tutorial .dialogue-card h1{font-size:clamp(23px,2.8vw,38px);line-height:1.1}
+@media(max-height:600px){body[data-screen] .contracts-tutorial{padding:8px 4%;grid-template-columns:30% minmax(0,1fr);gap:12px}body[data-screen] .contracts-tutorial .dialogue-card{padding:10px}.contracts-tutorial .dialogue-card h1{font-size:22px}.contracts-tutorial .dialogue-card p:not(.eyebrow){font-size:13px;line-height:1.3;margin-bottom:7px}}
+
+.varied-contracts .contract-offers{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.varied-contracts .compact-offer{display:grid;grid-template-columns:1fr;gap:4px;padding:9px!important;align-content:start;transform:none}
+.varied-contracts .compact-offer .offer-heading{grid-column:1;justify-content:space-between;white-space:normal}.varied-contracts .varied-price{font-size:13px;color:#70513b}.varied-contracts .varied-rule{font-size:13px;line-height:1.3}
+.varied-contracts .challenge-seal{display:block;color:#e3c080;font-size:12px;padding-bottom:8px;margin-bottom:9px;border-bottom:1px solid #9e815c80}
+.varied-contracts .contracts-panel h2{font-size:23px;line-height:1.2}.varied-contracts .challenge-context{font-size:14px;line-height:1.35}
+.varied-contracts .contract-settlement{display:flex;justify-content:space-between;align-items:center;gap:8px}.varied-contracts .contract-settlement strong{font-size:18px}
+body.enlarged-text .contracts-layout.varied-contracts .contracts-floor{display:flex;flex-direction:column;height:100%;min-height:0}
+body.enlarged-text .contracts-layout.varied-contracts .contracts-heading h1{font-size:24px!important}
+body.enlarged-text .contracts-layout.varied-contracts .scoreboard{font-size:13px!important;gap:8px;margin:5px 0!important}
+body.enlarged-text .contracts-layout.varied-contracts .scoreboard strong{font-size:16px!important}
+body.enlarged-text .contracts-layout.varied-contracts .contract-stage{display:flex;flex-direction:column;flex:1;min-height:0;padding:0}
+body.enlarged-text .contracts-layout.varied-contracts .dice-table{display:flex;flex-direction:column;flex:1;min-height:0}
+body.enlarged-text .contracts-layout.varied-contracts .dice-viewport{flex:1;height:auto!important;min-height:60px!important}
+body.enlarged-text .contracts-layout.varied-contracts .contract-offers{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;flex:0 0 auto;gap:6px;min-height:0}
+body.enlarged-text .contracts-layout.varied-contracts .compact-offer{grid-template-columns:1fr!important;padding:7px!important;min-height:0!important;gap:4px;align-content:start}
+body.enlarged-text .contracts-layout.varied-contracts .compact-offer .offer-name{font-size:15px!important;line-height:1.2}
+body.enlarged-text .contracts-layout.varied-contracts .compact-offer .varied-price,body.enlarged-text .contracts-layout.varied-contracts .compact-offer .varied-rule{font-size:13px!important;line-height:1.25}
+@media(max-height:600px){.varied-contracts .compact-offer{padding:6px!important;gap:3px}.varied-contracts .varied-price,.varied-contracts .varied-rule{font-size:11px;line-height:1.2}.varied-contracts .challenge-seal{font-size:10px;padding-bottom:5px;margin-bottom:6px}.varied-contracts .contracts-panel h2{font-size:18px}.varied-contracts .contracts-panel .challenge-context{font-size:12px;line-height:1.25}}
+
+body[data-screen=outside] #painted-set,body[data-screen=outside] #cast,body[data-screen=outside] #scene,body[data-screen=outside] #vignette{display:none}
+.victory-layout{height:calc(100svh - var(--playbar));min-height:0;display:grid;place-items:center;padding:20px;isolation:isolate}
+.victory-layout .street-dawn{background:linear-gradient(#251b2c22,#251b2c55),url('/art/escape-dawn-v1.png') center/cover no-repeat}
+.victory-layout .street-houses,.victory-layout .street-lamp,.victory-layout .street-road{display:none}
+.victory-layout .street-houses{opacity:.72;filter:sepia(.25)}.victory-layout .street-road{background:linear-gradient(#a16c5e,#463348)}
+.victory-card{width:min(620px,100%);text-align:center;color:#f8e8c7;padding:26px 36px;background:linear-gradient(150deg,#322337ed,#1e1926ed);border:2px solid #c49c5d;border-radius:8px;box-shadow:0 0 0 6px #201a2680,0 20px 70px #1d162c80;pointer-events:auto}
+.victory-emblem{display:block;color:#e5ba70;font-size:42px;line-height:1}.victory-card h1,.golden-win{font-size:clamp(48px,7vw,84px)!important;line-height:1.05;margin:8px 0!important;letter-spacing:-.045em;color:#f5ce7d;background:linear-gradient(#fff0bd 10%,#e6b75f 48%,#ad7738);background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 4px 25px #d8a35833}
+.victory-subtitle{font-size:20px;color:#f7d89f;margin:6px 0 18px}.victory-card>p:last-of-type{font-size:15px;line-height:1.4;margin:14px 0}
+.victory-seals{display:flex;justify-content:center;gap:12px;padding:12px 0;border-block:1px solid #c39a5e66}.victory-seals span{color:#f3ce8b;border:1px solid #c39a5e;border-radius:50%;width:62px;height:62px;display:grid;place-items:center;font-size:13px}
+.victory-card .primary{justify-content:center;margin:10px 0 0;min-height:44px;font-size:16px}.victory-card .text-button{font-size:14px;min-height:36px}
+@media(max-height:550px){.victory-card{padding:12px 22px;max-width:620px}.victory-emblem{display:none}.victory-card h1{font-size:44px!important}.victory-subtitle{font-size:16px;margin:4px 0 8px}.victory-seals{padding:6px}.victory-seals span{width:40px;height:40px;font-size:11px}.victory-card>p:last-of-type{font-size:12px;margin:7px 0}.victory-card .primary{min-height:32px;margin-top:6px;padding:6px}.victory-card .text-button{min-height:28px;font-size:12px;padding:4px}}
+@media(max-height:550px){.completion-card .golden-win{font-size:36px!important}}
+
+body[data-screen=escape] #painted-set,body[data-screen=escape] #cast,body[data-screen=escape] #vignette{display:none}
+body[data-screen=escape]{background:#261d2b;overflow:hidden}body[data-screen=escape] #scene{display:block;position:fixed;inset:0;width:100%;height:100%;opacity:1;z-index:0;pointer-events:none}
+.escape-layout{position:fixed;inset:0;z-index:2;pointer-events:none}.escape-caption{position:absolute;left:0;right:0;top:7%;text-align:center;color:#ffe6ae;font-size:clamp(18px,2vw,28px);text-shadow:0 3px 8px #1c1525}
+.escape-layout>button{position:absolute;right:4%;bottom:5%;pointer-events:auto;background:#251d2ce0;color:#ffe2a6;border-color:#c3a06a;font-size:15px;min-height:44px}
+.escape-hands{position:absolute;left:0;bottom:-10%;width:100%;height:30%;opacity:.95;animation:escape-walk 850ms ease-in-out infinite alternate}
+@keyframes escape-walk{from{transform:translateY(5px) rotate(-.4deg)}to{transform:translateY(-5px) rotate(.4deg)}}
+@media(prefers-reduced-motion:reduce){.escape-hands{animation:none}}

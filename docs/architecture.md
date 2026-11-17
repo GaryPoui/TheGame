@@ -118,3 +118,5 @@ documental según docs/spec-kit.md; los registros visual y educativo identifican
 Actualización 2026-10-28: esquema v5 / campaign-challenge-v5 acepta v1–4. Ada nueva usa photos-v2, conservando replay photos-v1 y legado; ver docs/character-challenge-update.md.
 
 Actualización 2026-11-17: guardado v9 / campaign-bonus-v9, compatible con versiones 1–8. Un comando enable-bonus activa el extra de Ada sin reconstruir decisiones antiguas con reglas nuevas ni modificar el reparto. Las texturas de cartas y el intercambio de objetos del jefe son presentación; no consumen RNG. Ver [detalle](table-props-poker-bonus.md).
+
+Actualización 2026-11-17: guardado v10 / campaign-casino-v10, compatible con v1–9. ContractsState.variant varied usa contract-challenges.ts; base/repeat reconstruyen sus reglas anteriores. La cinemática en Babylon es presentación: el checkpoint outside se guarda antes, se puede saltar y movimiento reducido va directo al cierre. Ver [detalle](casino-tables-finale.md).

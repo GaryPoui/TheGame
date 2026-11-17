@@ -36,6 +36,6 @@ it('offers finite help after inferior choices without erasing campaign history',
 it('saves the boss in version eight while retaining version seven legacy finales',()=>{
  const map=new Map<string,string>(),storage:SaveStorage={getItem:k=>map.get(k)??null,setItem:(k,v)=>{map.set(k,v);},removeItem:k=>{map.delete(k);}};
  const s=createGame(4);s.seals={urns:true,contracts:true,records:true};s.finale=createFinale(3,'boss-v1');s.activeTable='finale';
- expect(saveGame(s,storage)).toBeNull();expect(JSON.parse(map.get('thegame.save.v1.current')!).schemaVersion).toBe(9);expect(loadGame(storage).state).toEqual(s);
+ expect(saveGame(s,storage)).toBeNull();expect(JSON.parse(map.get('thegame.save.v1.current')!).schemaVersion).toBe(10);expect(loadGame(storage).state).toEqual(s);
  s.finale=createFinale(6);map.set('thegame.save.v1.current',JSON.stringify({schemaVersion:7,contentVersion:'campaign-holdem-v7',state:s}));expect(loadGame(storage).state).toEqual(s);
 });

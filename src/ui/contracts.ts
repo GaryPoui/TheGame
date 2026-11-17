@@ -1,3 +1,4 @@
+import {variedContractsView} from './varied-contracts';
 import {guideButton} from './game-guides';
 import {reviewButton} from './learning';
 import {dieFace,combinationFace} from './dice-face';
@@ -55,6 +56,7 @@ export function contractsTutorial(state: ContractsState, step: number): string {
   return `<main class="contracts-tutorial"><img src="${import.meta.env.BASE_URL}art/doble-full-v1.png" alt="Doble, corredor de contratos con solapas desiguales" class="doble-intro"><section class="dialogue-card"><h1>${page[0]}</h1><p>${page[1]}</p>${step===1 ? `<div class="dice-pair">${dieFace(2,'D1')}${dieFace(2,'D2')}<strong>Suma 4</strong></div>` : ''}<details><summary>Cómo calcular el promedio</summary><p>Dos dados tienen 36 pares posibles. Justo siete gana 23 fichas en 6 pares y pierde 1 en los otros 30.</p><p>(6 × 23 − 30 × 1) ÷ 36 = 3 fichas por tirada en promedio. Seguro deja 2 siempre. El mayor promedio puede perder en una tirada.</p></details><p class="small-note">${step === 1 ? 'Demostración preparada · no usa el azar de campaña' : `Presentación de Doble · ${step+1}/3`}</p><div class="dialogue-actions">${button('doble-tutorial-next',step===2?'Ir a la partida':'Continuar',state.revision)}${button('doble-begin','Saltar tutorial y jugar',state.revision,false,'text-button')}</div></section></main>`;
 }
 export function contractsView(state: ContractsState, selected: ContractId | null, experiment: ComparisonRun | null, rehearsalPair: readonly [number,number] = [2,2], rolling = false, showCombinations = false): string {
+  if(state.variant==='varied')return variedContractsView(state,selected,rolling);
   const choosing = state.phase === 'offer' || state.phase === 'order';
   const objective = currentObjective(state);
   const last = state.history.at(-1);

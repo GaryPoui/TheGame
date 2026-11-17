@@ -127,3 +127,5 @@ Interfaz 2026-10-29: game-ui-ux, frontend-design, webapp-testing e Impeccable (r
 Corrección de zoom y Vera 2026-11-17: game-ui-ux, frontend-design, camera-systems y webapp-testing, con el runner existente. Ver [evidencia](urns-zoom-repair.md).
 
 Objetos de mesa y bonus 2026-11-17: game-designer, save-systems, game-ui-ux, frontend-design, create-game-assets, camera-systems y webapp-testing. Regla confirmada de extra +2, reanudación de sesiones antiguas, objetos procedimentales y lectura del estado real. Ver [evidencia](table-props-poker-bonus.md).
+
+Mesas y cierre 2026-11-17: game-designer, game-ui-ux, frontend-design, save-systems, camera-systems, create-game-assets, game-feel y webapp-testing. imagegen integrado para calle al amanecer; cinemática en el motor Babylon elegido por el proyecto. Ver [alcance y evidencia](casino-tables-finale.md).

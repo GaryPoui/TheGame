@@ -1,23 +1,25 @@
 import { uniform } from '../game';
 import type { GameState } from '../game';
 import { bestContracts, CONTRACT_IDS, netPayout, type ContractId, type DicePair, type ObjectiveId } from '../math/dice';
+import {challengeBest,challengeNet,challengeTask} from './contract-challenges';
 
 export const CONTRACT_ROUNDS: readonly (readonly [ObjectiveId, ObjectiveId])[] = [
   ['expected', 'guarantee1'], ['atLeast4', 'expected'], ['atLeast1', 'atLeast4'], ['atLeast10', 'range'],
 ];
 export type ContractsPhase = 'tutorial' | 'offer' | 'result' | 'order' | 'review' | 'complete';
-export interface ContractDecision { round: number; step: 0 | 1; contract: ContractId; objective: ObjectiveId; correct: boolean; assisted: boolean }
+export interface ContractDecision { round: number; step: 0 | 1; contract: ContractId; objective: ObjectiveId; correct: boolean; assisted: boolean; challenge?:string }
 export interface ContractCommand { commandId: string; expectedRevision: number; type: 'begin' | 'sign' | 'next'; contract?: ContractId }
 export interface ContractsState {
-  variant: 'base' | 'repeat'; phase: ContractsPhase; round: number; assisted: boolean; merit: number; balance: number;
+  variant: 'base' | 'repeat' | 'varied'; phase: ContractsPhase; round: number; assisted: boolean; merit: number; balance: number;
   pair: DicePair | null; history: ContractDecision[]; rng: GameState['rng']; seed: number;
   revision: number; journal: ContractCommand[];
 }
-export function createContracts(seed = Date.now(), variant: 'base' | 'repeat' = 'base'): ContractsState {
+export function createContracts(seed = Date.now(), variant: ContractsState['variant'] = 'base'): ContractsState {
   const initialSeed = (seed >>> 0) || 0x9e3779b9;
   return { variant, phase: 'tutorial', round: 0, assisted: false, merit: 0, balance: 0, pair: null, history: [], rng: { algorithm: 'xorshift32-v1', state: initialSeed, count: 0 }, seed: initialSeed, revision: 0, journal: [] };
 }
 export function currentObjective(state: ContractsState): ObjectiveId {
+  if(state.variant==='varied')return challengeTask(state).objective;
   if(state.assisted) return (state.round === 0 ? ['expected','guarantee1'] as const : ['atLeast4','range'] as const)[state.phase === 'order' || state.phase === 'review' ? 1 : 0];
   if(state.variant === 'repeat' && state.round === 3 && state.phase !== 'order' && state.phase !== 'review') return 'atLeast20';
   return CONTRACT_ROUNDS[state.round]![state.phase === 'order' || state.phase === 'review' ? 1 : 0];
@@ -37,16 +39,16 @@ export function applyContractCommand(state: ContractsState, command: ContractCom
   if (command.type === 'sign') {
     const contract = command.contract!;
     const objective = currentObjective(state);
-    const correct = bestContracts(objective).includes(contract);
+    const correct = (state.variant==='varied'?challengeBest(state):bestContracts(objective)).includes(contract);
     if (state.assisted && !correct) return state;
-    next.history.push({ round: state.round, step: state.phase === 'offer' ? 0 : 1, contract, objective, correct, assisted: state.assisted });
+    next.history.push({ round: state.round, step: state.phase === 'offer' ? 0 : 1, contract, objective, correct, assisted: state.assisted,...(state.variant==='varied'?{challenge:challengeTask(state).id}:{}) });
     if (correct && !state.assisted) next.merit++;
     if (state.phase === 'offer') {
       if (state.assisted) next.pair = state.round === 0 ? [2, 2] : [3, 4];
       else {
         const first = uniform(state.rng, 6), second = uniform(first.rng, 6);
         next.pair = [first.value + 1, second.value + 1]; next.rng = second.rng;
-        next.balance += netPayout(contract, next.pair);
+        next.balance += state.variant==='varied'?challengeNet(state,contract,next.pair):netPayout(contract, next.pair);
       }
       next.phase = 'result';
     } else next.phase = 'review';
@@ -68,7 +70,7 @@ export function applyContractCommand(state: ContractsState, command: ContractCom
 export function validContractsState(value: unknown): value is ContractsState {
   if (!value || typeof value !== 'object') return false;
   const saved = value as ContractsState;
-  if (!['base','repeat'].includes(saved.variant) || !Number.isInteger(saved.seed) || saved.seed < 1 || saved.seed > 0xffffffff || !Array.isArray(saved.journal) || saved.journal.length > 40) return false;
+  if (!['base','repeat','varied'].includes(saved.variant) || !Number.isInteger(saved.seed) || saved.seed < 1 || saved.seed > 0xffffffff || !Array.isArray(saved.journal) || saved.journal.length > 40) return false;
   try {
     let reconstructed = createContracts(saved.seed, saved.variant);
     for (const command of saved.journal) {

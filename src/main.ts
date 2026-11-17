@@ -47,10 +47,13 @@ import {
 import './ui/boss-focus.css';
 import './ui/urns-zoom.css';
 import './ui/table-props.css';
+import './ui/casino-finale.css';
+import {escapeView,victoryCard} from './ui/victory';
+import {ESCAPE_DURATION} from './presentation/escape-path';
 import type { GameScene } from './presentation/scene';
 
 declare global { interface Window { __THEGAME_READY__: boolean; __THEGAME_METRICS__?: () => unknown } }
-type Screen = 'menu' | 'intro' | 'room' | 'tutorial' | 'table' | 'complete' | 'contracts' | 'records' | 'finale' | 'outside' | 'street';
+type Screen = 'menu' | 'intro' | 'room' | 'tutorial' | 'table' | 'complete' | 'contracts' | 'records' | 'finale' | 'outside' | 'street' | 'escape';
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const overlay = document.querySelector<HTMLDivElement>('#overlay')!;
 const announcer = document.querySelector<HTMLDivElement>('#announcer')!;
@@ -59,6 +62,12 @@ let state: GameState = restored.state ?? createGame();
 let hasSave = restored.state !== null;
 let warning = restored.warning;
 let screen: Screen = 'menu';
+let escapeTimer:ReturnType<typeof setTimeout>|undefined;
+function beginEscape():void {
+ state.activeTable='outside';persist();
+ if(settings.reducedMotion||matchMedia('(prefers-reduced-motion: reduce)').matches||!scene){setScreen('outside','back-room');return;}
+ setScreen('escape','skip-escape');escapeTimer=setTimeout(()=>{if(screen==='escape')setScreen('outside','back-room');},ESCAPE_DURATION);
+}
 let selected: 0 | 1 | null = null;
 let cardsVisible = false;
 let selectedRecord: RecordsChoice|null=null;
@@ -139,6 +148,7 @@ function shortcutSelect(id: string, value: string): string {
 }
 function setScreen(next: Screen, focus?: string): void {
   if(next !== 'intro') stopIntro();
+  if(next!=='escape'){clearTimeout(escapeTimer);escapeTimer=undefined;}
   if(next!=='contracts'){clearTimeout(diceRollTimer);diceRolling=false;scene?.stopDiceRoll();}
   cameraController.setMode(next==='room'?'exploration':next==='intro'?'dialogue':['table','contracts','records','finale','tutorial'].includes(next)?'table':'cinematic');
   gameAudio.setAmbience(next==='intro'||next==='room'||next==='finale'||next==='street');
@@ -148,7 +158,7 @@ function setScreen(next: Screen, focus?: string): void {
   window.scrollTo({top:0,left:0,behavior:'instant'});
 }
 function header(): string {
-  return screen==='menu'?'<header class="topbar menu-topbar" aria-hidden="true"></header>':`<header class="topbar" aria-label="Opciones del juego">${btn('settings-button', 'Ajustes', 'quiet')}</header>`;
+  return screen==='menu'||screen==='escape'?'<header class="topbar menu-topbar" aria-hidden="true"></header>':`<header class="topbar" aria-label="Opciones del juego">${btn('settings-button', 'Ajustes', 'quiet')}</header>`;
 }
 function badges(): string {
   return `<div class="scoreboard"><span><i aria-hidden="true">✧</i> Decisiones <strong data-testid="merit">${state.merit}/8</strong></span><span><i aria-hidden="true">◈</i> Fichas ganadas <strong data-testid="chance-tokens">${state.tokens}</strong></span></div>`;
@@ -260,7 +270,7 @@ function render(focusId?: string): void {
   document.body.dataset.doblePhase = state.contracts?.phase ?? 'tutorial';
   document.body.dataset.introPhase = introPhase;
   document.body.dataset.speaker = screen === 'intro' && introLine === 2 ? 'vera' : 'captor';
-  renderSurface(app,header() + ({ menu, intro: introView, room, tutorial, table, complete, contracts: dobleScreen, records:()=>state.records?recordsView(state.records,selectedRecord,adaTutorialStep):room(), finale:()=>state.finale?endingView(state.finale,selectedFinale,state.freed===true):room(), outside:outsideView, street:streetView }[screen])() +
+  renderSurface(app,header() + ({ menu, intro: introView, room, tutorial, table, complete, contracts: dobleScreen, records:()=>state.records?recordsView(state.records,selectedRecord,adaTutorialStep):room(), finale:()=>state.finale?endingView(state.finale,selectedFinale,state.freed===true):room(), outside:outsideView, street:streetView, escape:escapeView }[screen])() +
     (warning ? `<div class="save-warning" role="status">${escapeText(warning)}</div>` : '') +
     (sceneWarning ? `<div class="graphics-warning">${sceneWarning} ${btn('retry-graphics','Reintentar 3D','quiet')}</div>` : ''),screen);
   for(const name of expanded) app.querySelector<HTMLDetailsElement>(`details[data-keep-open="${name}"]`)?.setAttribute('open','');
@@ -270,6 +280,8 @@ function render(focusId?: string): void {
   if (focusId) document.querySelector<HTMLButtonElement>(`[data-testid="${focusId}"]`)?.focus({preventScroll:true});
 }
 function updateVisual(): void {
+  if(screen==='escape'){scene?.setEscapeMode(true);scene?.setRendering(true);return;}
+  scene?.setEscapeMode(false);
   const canvas=document.querySelector<HTMLCanvasElement>('#scene');
   const viewport=app.querySelector<HTMLElement>('.dice-viewport,.ada-viewport,.vera-viewport');
   if(canvas&&viewport){if(canvas.parentElement!==viewport)viewport.append(canvas);scene?.resizeCanvas();}
@@ -280,7 +292,7 @@ function updateVisual(): void {
   scene?.setRendering(playingBoss||playingAda||screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
   const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
   scene?.setContractMode(playingBoss||playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : playingBoss ? state.finale?.pair ?? null : null,playingBoss?'captor':playingAda?'ada':'doble',playingBoss&&state.finale?.boss?bossMechanic(state.finale):playingAda?'poker':'dice');
-  scene?.setPokerTable(playingBoss&&state.finale?.boss&&bossMechanic(state.finale)==='poker'?state.finale.boss.poker??null:null,state.finale?.phase==='feedback');
+  scene?.setPokerTable(playingBoss&&state.finale?.boss&&bossMechanic(state.finale)==='poker'?state.finale.boss.poker??null:playingAda?state.records?.holdem??null:null,playingAda?state.records?.phase==='feedback':state.finale?.phase==='feedback');
   if(bossUrns&&state.finale){const f=state.finale,review=f.phase==='feedback',last=f.history.at(-1);scene?.updateUrns(f.urns,review?last?.choice==='U'?0:1:selectedFinale==='U'?0:selectedFinale==='V'?1:null,review?f.lastColor??undefined:undefined);return;}
   if (playingContracts||screen==='records'||screen==='finale'||screen==='outside') return;
   const urns: Urn[] = screen === 'tutorial' ? demoInventory() : state.urns;
@@ -336,8 +348,9 @@ function streetView():string {
  return `<main class="street-layout">${streetScenery(false)}<section class="dialogue-card"><p class="eyebrow">Un recuerdo · un momento antes</p><h1>${position<8?'Sólo faltaba una cuadra.':'Un paso detrás. Después, oscuridad.'}</h1><p>${position<8?'Una calle tranquila. La lámpara titila. Podés avanzar unos pasos; alguien camina detrás de vos.':'No hubo una pelea. Un roce de cartas, la luz se apaga y despertás en la casa. El recuerdo termina acá.'}</p><p>Camino ${position} de 8</p>${btn('street-forward','Dar un paso','primary',position>=8)}${btn('street-return',position>=8?'Volver al despertar':'Saltar el recuerdo','quiet')}</section></main>`;
 }
 function outsideView():string {
- return `<main class="outside-layout">${streetScenery(true)}<section class="completion-card"><p class="eyebrow">La calle · amanecer</p><h1>Esta vez, vos elegís.</h1><p>La puerta se cierra a tus espaldas. Llevás tres sellos, un contrato cumplido y una idea: una buena decisión no necesita que la suerte le dé la razón.</p><p>Tu libertad queda guardada. Podés visitar las mesas otra vez sin perderla.</p>${btn('back-room','Volver a practicar en la casa','primary full')}</section></main>`;
+ return `<main class="outside-layout victory-layout">${streetScenery(true)}${victoryCard()}</main>`;
 }
+
 function enterRecords():void {
  if(!tableUnlocked(state,'records'))return;
  adaTutorialStep=0;state.records??=createRecords();state.records=applyRecordsCommand(state.records,{type:'enable-bonus',expectedRevision:state.records.revision,commandId:'bonus-'+state.records.revision});state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience?.startsWith('photos-')&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
@@ -349,7 +362,9 @@ function enterFinale():void {
 }
 function handleCampaignClick(target:HTMLElement):boolean {
  const id=target.dataset.testid;
- if(id==='exit-house'&&state.freed){state.activeTable='outside';persist();setScreen('outside','back-room');return true;}
+ if(id==='exit-house'&&state.freed){beginEscape();return true;}
+ if(id==='replay-escape'&&state.freed){beginEscape();return true;}
+ if(id==='skip-escape'&&screen==='escape'){setScreen('outside','back-room');return true;}
  if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
  if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
  if((id==='records-replay'||id==='records-upgrade')&&state.records){adaTutorialStep=0;state.records=createRecords(Date.now(),true);selectedRecord=null;enterRecords();return true;}
@@ -410,7 +425,8 @@ function showSettings(section:SettingsSection='display'): void {
 
 function enterContracts(): void {
   if(!urnsSealed()) return;
-  if(!state.contracts) state.contracts = createContracts();
+  if(!state.contracts) state.contracts = createContracts(Date.now(), 'varied');
+  else if(state.contracts.variant!=='varied'&&state.contracts.phase==='tutorial'&&state.contracts.history.length===0)state.contracts=createContracts(state.contracts.seed,'varied');
   state.activeTable = 'contracts'; persist();
   setScreen('contracts', state.contracts.phase === 'tutorial' ? 'doble-tutorial-next' : state.contracts.phase === 'offer' || state.contracts.phase === 'order' ? 'contract-S' : state.contracts.phase === 'complete' ? 'back-room' : 'doble-next');
 }
@@ -470,7 +486,7 @@ function handleGameClick(event: MouseEvent): void {
     if(id === 'doble-tutorial-next' && state.contracts.phase === 'tutorial' && dobleTutorialStep < 2) { dobleTutorialStep++; render(id); return; }
     if(id === 'doble-begin' || id === 'doble-tutorial-next') { commandDoble('begin',Number(target.dataset.revision)); return; }
     if(id === 'doble-sign' || id === 'doble-next') { commandDoble(id === 'doble-sign' ? 'sign' : 'next',Number(target.dataset.revision),event.detail > 0); return; }
-    if(id === 'doble-replay') { state.contracts = createContracts(Date.now(), 'repeat'); dobleTutorialStep = 0; comparisonResult = null; persist(); render('doble-tutorial-next'); return; }
+    if(id === 'doble-replay') { state.contracts = createContracts(Date.now(), 'varied'); dobleTutorialStep = 0; comparisonResult = null; persist(); render('doble-tutorial-next'); return; }
     if(id === 'simulate-1' || id === 'simulate-100') {
       const seed = Number(document.querySelector<HTMLInputElement>('#simulation-seed')?.value);
       try { comparisonResult = compareContracts(seed,id === 'simulate-1' ? 1 : 100); render(id); announce('Comparación terminada. La campaña no cambió.'); }

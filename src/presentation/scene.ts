@@ -1,3 +1,4 @@
+import {EscapeSequence} from './escape-sequence';
 import { Engine } from '@babylonjs/core/Engines/engine';
 import { Scene } from '@babylonjs/core/scene';
 import {SceneInstrumentation} from '@babylonjs/core/Instrumentation/sceneInstrumentation';
@@ -57,6 +58,8 @@ export class GameScene {
   private urnProps: Mesh[] = [];
   private decorProps: Mesh[] = [];
   private diceProps: Mesh[] = [];
+  private hostProps:Record<'doble'|'ada'|'captor',Mesh[]>={doble:[],ada:[],captor:[]};
+  private hostFelts:Partial<Record<'doble'|'ada'|'captor',StandardMaterial>>={};
   private diceRoots: Mesh[] = [];
   private diceRollStart: number | null = null;
   private diceRollCount = 0;
@@ -74,6 +77,7 @@ export class GameScene {
   private urnGeometryBuilds=0;
   private hardwareScale=1;
   private rendering=true;
+  private escape:EscapeSequence|null=null;
   private bossUrnsVisible=false;
   private diceInk!: PBRMaterial;
   private contractInk: StandardMaterial;
@@ -140,12 +144,9 @@ export class GameScene {
     const top=this.cylinder('table-felt',6.68,.05,[0,1.70,0],felt); top.scaling.z=.72; top.receiveShadows=true;
     const inset=CreateTorus('felt-inlay',{diameter:6.2,thickness:.016,tessellation:80},this.scene);
     inset.position.y=1.735; inset.scaling.z=.7; inset.material=this.brass;
-    this.cylinder('table-pedestal',.85,1.3,[0,.69,0],wood);
-    for(const x of [-2.25,2.25]) for(const z of [-1.2,1.2]) {
-      this.cylinder('table-leg',.22,1.4,[x,.74,z],wood);
-      this.cylinder('table-leg-foot',.32,.14,[x,.10,z],this.brass);
-    }
-    for(const x of [-1,1]) this.box('pedestal-foot',[2.2,.18,.34],[x*.5,.12,0],wood).rotation.y=x*.6;
+    this.cylinder('table-pedestal',1.15,1.3,[0,.69,0],wood);
+    const base=this.cylinder('pedestal-foot',2.7,.18,[0,.09,0],wood,2.35);base.scaling.z=.72;
+    this.cylinder('pedestal-collar',1.25,.10,[0,1.26,0],this.brass);
     const urnStart = this.scene.meshes.length;
     for(const x of [-1.05,1.05]) this.makeUrn(x);
     this.urnProps = this.scene.meshes.slice(urnStart).filter((mesh): mesh is Mesh => mesh instanceof Mesh);
@@ -171,6 +172,7 @@ export class GameScene {
     for(const mesh of this.scene.meshes) {
       if(['table-edge','die','record-file','urn-base'].includes(mesh.name))this.shadows.addShadowCaster(mesh);
     }
+    this.makeHostProps();
     this.updateUrns([{red:3,blue:2},{red:1,blue:1}],null);
     this.scene.onPointerObservable.add(info=>{
       if(info.type!==PointerEventTypes.POINTERPICK || this.mode!=='table')return;
@@ -181,9 +183,11 @@ export class GameScene {
     this.engine.runRenderLoop(()=>{
       const dt=Math.min(this.engine.getDeltaTime()/1000,.05);
       const t=this.reduced?1:1-Math.exp(-8*dt);
+      if(this.escape)this.escape.update(performance.now());else {
       this.camera.position=Vector3.Lerp(this.camera.position,this.destination,t);
       this.currentFocus=Vector3.Lerp(this.currentFocus,this.focus,t);
       this.camera.setTarget(this.currentFocus);
+      }
       this.updateDiceRoll();
       if(this.rendering)this.scene.render();
     });
@@ -239,6 +243,7 @@ export class GameScene {
     this.destination=mode==='menu'?new Vector3(7,5.5,-10):mode==='room'?new Vector3(0,4.6,-9):new Vector3(1.1,5.2,-7.8);
     this.focus=mode==='table'?new Vector3(1.1,2.3,.1):new Vector3(0,2.4,1.2);
   }
+  setEscapeMode(active:boolean):void {if(active&&!this.escape)this.escape=new EscapeSequence(this.scene,this.camera);if(!active&&this.escape){this.escape.dispose();this.escape=null;this.framingKey='';this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);}}
   setRendering(active:boolean):void {this.rendering=active;}
   resizeCanvas():void {
     const canvas=this.engine.getRenderingCanvas();if(!canvas)return;
@@ -290,6 +295,7 @@ export class GameScene {
     this.tableMechanic=enabled?mechanic:'urns';
     this.bossUrnsVisible=enabled&&host==='captor'&&mechanic==='urns';
     this.tableHost=host;
+    for(const h of ['doble','ada','captor'] as const)this.hostProps[h].forEach(m=>m.setEnabled(enabled&&h===host));
     this.urnProps.forEach(mesh => mesh.isVisible = !enabled||this.bossUrnsVisible);
     this.decorProps.forEach(mesh => mesh.isVisible = !enabled);
     this.tokens.forEach(mesh => mesh.isVisible = !enabled||this.bossUrnsVisible);
@@ -301,7 +307,7 @@ export class GameScene {
       this.frameContracts();
     } else if(changed){this.setMode(this.mode);this.camera.fov=65*Math.PI/180;this.stopDiceRoll();this.frameContracts();}
     const felt=this.scene.getMeshByName('table-felt');
-    if(felt){felt.material=enabled?this.contractFelt:this.originalFelt;felt.position.y=enabled?1.8:1.7;}
+    if(felt){felt.material=enabled?this.hostFelts[host]??this.contractFelt:this.originalFelt;felt.position.y=enabled?1.8:1.7;}
     const inlay=this.scene.getMeshByName('felt-inlay');if(inlay)inlay.position.y=enabled?1.835:1.735;
     const lip=this.scene.getMeshByName('table-lip');if(lip instanceof Mesh)lip.renderOutline=!enabled;
     if(changed && material) {
@@ -344,6 +350,23 @@ export class GameScene {
       }
     }
     this.diceProps = this.scene.meshes.slice(start).filter((mesh): mesh is Mesh => mesh instanceof Mesh);
+  }
+  private makeHostProps():void {
+    for(const host of ['doble','ada','captor'] as const){
+      const start=this.scene.meshes.length,mat=new StandardMaterial(host+'-signature-felt',this.scene);mat.diffuseColor=Color3.FromHexString(host==='doble'?'#15384d':host==='ada'?'#164638':'#3b1c31');mat.emissiveColor=mat.diffuseColor;mat.disableLighting=true;mat.specularColor=Color3.Black();this.hostFelts[host]=mat;
+      const chips=(x:number,z:number)=>{for(let i=0;i<5;i++)this.cylinder(host+'-chip',.32,.055,[x,1.88+i*.06,z],i%2?this.brass:host==='ada'?this.blue:this.red);};
+      if(host==='doble'){
+        this.cylinder('doble-dice-cup',.68,.85,[-2.5,2.25,.65],this.blue,.82);this.cylinder('doble-cup-rim',.86,.07,[-2.5,2.70,.65],this.brass);this.cylinder('doble-cup-opening',.71,.012,[-2.5,2.74,.65],this.red);
+        chips(2.5,.6);chips(2.8,.1);this.box('doble-score-slip',[.65,.025,.95],[2.25,1.86,-.7],this.ivory).rotation.y=.12;
+      }else if(host==='ada'){
+        chips(-2.65,-.6);this.box('ada-notebook',[.65,.07,.85],[-2.5,1.88,.85],this.ivory).rotation.y=-.2;this.box('ada-gold-pen',[.06,.04,.65],[-2.0,1.86,.5],this.brass).rotation.y=-.4;
+        this.cylinder('ada-dealer-button',.48,.055,[2.55,1.88,-1.0],this.ivory);const mark=this.label('A',2.55,1.915,-1,.29,.29,'#38293a','#f3dfb7');mark.rotation.x=Math.PI/2;
+      }else{
+        for(const x of [-2.7,2.7]){this.cylinder('host-candle-base',.45,.06,[x,1.87,.8],this.brass);this.cylinder('host-candlestick',.13,.45,[x,2.12,.8],this.brass);this.cylinder('host-candle',.17,.35,[x,2.52,.8],this.ivory);this.cylinder('host-flame',.10,.22,[x,2.80,.8],this.brass,0);}
+        chips(-2.55,-.55);chips(-2.85,-.15);const emblem=this.label('♠',0,1.86,1.95,.58,.58,'#ceaa6a','#3b1c31');emblem.rotation.x=Math.PI/2;
+      }
+      this.hostProps[host]=this.scene.meshes.slice(start).filter((m):m is Mesh=>m instanceof Mesh);this.hostProps[host].forEach(m=>{m.isPickable=false;m.setEnabled(false);});
+    }
   }
   /** Visible cards only: face-down opponent cards are never painted before the reveal. */
   setPokerTable(table:HoldemTable|null,reveal=false):void {
@@ -421,7 +444,7 @@ export class GameScene {
       tableWidth:project(new Vector3(3.34,1.825,0)).x-project(new Vector3(-3.34,1.825,0)).x,
       tableBack:project(new Vector3(0,1.825,2.4)),
     }:null;
-    return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,canvasResizeCount:this.canvasResizeCount,urnGeometryBuilds:this.urnGeometryBuilds,cameraFov:this.camera.fov,hardwareScale:this.hardwareScale,
+    return {escapeActive:!!this.escape,cameraPosition:{x:this.camera.position.x,y:this.camera.position.y,z:this.camera.position.z},outerTableLegs:this.scene.meshes.filter(m=>m.name==='table-leg').length,centralPedestals:this.scene.meshes.filter(m=>m.name==='table-pedestal').length,visibleHostProps:Object.fromEntries(Object.entries(this.hostProps).map(([h,meshes])=>[h,meshes.filter(m=>m.isEnabled()).length])),meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,canvasResizeCount:this.canvasResizeCount,urnGeometryBuilds:this.urnGeometryBuilds,cameraFov:this.camera.fov,hardwareScale:this.hardwareScale,
       bossUrnsVisible:this.bossUrnsVisible,visibleUrnVessels:this.urnProps.filter(mesh=>mesh.name==='thick-glass-urn'&&mesh.isVisible).length,visibleUrnTokens:this.tokens.filter(mesh=>mesh.isVisible&&mesh.metadata?.urn!==undefined).length,selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
       pokerReady:this.pokerTextures.length>0&&this.pokerTextures.every(t=>t.isReady()),tableMechanic:this.tableMechanic,pokerCardCount:this.pokerProps.filter(m=>m.name.endsWith('-face')&&!m.name.startsWith('boss-deck')).length,pokerDeckCount:this.pokerProps.filter(m=>m.name.startsWith('boss-deck')&&m.name.endsWith('-face')).length,
       diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),diceFaces:this.diceRoots.map(die=>die.metadata.faces as number[]),
