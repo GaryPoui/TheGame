@@ -1,9 +1,9 @@
 /** Keep the WebGL surface mounted in the same viewport across a turn's UI updates. */
 export function renderSurface(root:HTMLElement,html:string,screen:string):void {
  const canvas=document.querySelector<HTMLCanvasElement>('#scene');
- const oldViewport=canvas?.closest<HTMLElement>('.dice-viewport,.ada-viewport');
+ const oldViewport=canvas?.closest<HTMLElement>('.dice-viewport,.ada-viewport,.vera-viewport');
  const template=document.createElement('template');template.innerHTML=html;
- const nextViewport=template.content.querySelector<HTMLElement>('.dice-viewport,.ada-viewport');
+ const nextViewport=template.content.querySelector<HTMLElement>('.dice-viewport,.ada-viewport,.vera-viewport');
  if(canvas&&oldViewport&&nextViewport&&root.dataset.surfaceScreen===screen&&oldViewport.className===nextViewport.className){
   // Refresh HTML fallback content while preserving the canvas and viewport identities.
   for(const child of [...oldViewport.childNodes])if(child!==canvas)child.remove();

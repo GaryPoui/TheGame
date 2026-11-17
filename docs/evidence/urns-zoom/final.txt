@@ -1,0 +1,10 @@
+
+Running 3 tests using 1 worker
+
+(node:54116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\urns-zoom.spec.ts:18:1 › normal urn decisions provide counts without calculated probabilities (3.2s)
+  ok 2 tests\browser\urns-zoom.spec.ts:22:1 › intermediate zoom keeps the other tables inside the screen (6.4s)
+  ok 3 tests\browser\urns-zoom.spec.ts:32:1 › Vera table and choices fit intermediate zoom sizes before and after extraction (7.1s)
+
+  3 passed (20.0s)

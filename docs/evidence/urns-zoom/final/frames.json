@@ -1,0 +1,1782 @@
+[
+  {
+    "width": 1366,
+    "height": 768,
+    "bounds": {
+      "x": 40.96875,
+      "y": 159.09375,
+      "width": 805.8125,
+      "height": 598.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 3,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.6153339571475641,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.3768654186993095,
+        "y": 0.4706215313741811
+      },
+      {
+        "x": 0.6231346362327931,
+        "y": 0.4706215313741811
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.8918936940763652,
+        "y": 0.6100010388721604
+      },
+      {
+        "x": 0.8322016577991309,
+        "y": 0.5704314155739467
+      },
+      {
+        "x": 0.7376406774433959,
+        "y": 0.541663933244555
+      },
+      {
+        "x": 0.6232294014178194,
+        "y": 0.5244499000659427
+      },
+      {
+        "x": 0.5000000177281895,
+        "y": 0.5187418970383799
+      },
+      {
+        "x": 0.37677063506839364,
+        "y": 0.5244499000659427
+      },
+      {
+        "x": 0.26235936214856065,
+        "y": 0.541663933244555
+      },
+      {
+        "x": 0.16779838698303448,
+        "y": 0.5704314155739467
+      },
+      {
+        "x": 0.10810635784492366,
+        "y": 0.6100010388721604
+      },
+      {
+        "x": 0.10217811991872079,
+        "y": 0.6573869077336043
+      },
+      {
+        "x": 0.16769672148287382,
+        "y": 0.7055597990287658
+      },
+      {
+        "x": 0.30846382673787914,
+        "y": 0.7429737160875594
+      },
+      {
+        "x": 0.5000000392478072,
+        "y": 0.7572930794951985
+      },
+      {
+        "x": 0.6915362491742459,
+        "y": 0.7429737160875592
+      },
+      {
+        "x": 0.8323033476790589,
+        "y": 0.7055597990287658
+      },
+      {
+        "x": 0.8978219405518931,
+        "y": 0.6573869077336045
+      },
+      {
+        "x": 0.22626473468672204,
+        "y": 0.8987228569621343
+      },
+      {
+        "x": 0.27978984844171895,
+        "y": 0.7484529423958616
+      },
+      {
+        "x": 0.773735326384777,
+        "y": 0.8987228569621343
+      },
+      {
+        "x": 0.7202101939146587,
+        "y": 0.7484529423958616
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 139.72985562024087,
+    "renderWidth": 806,
+    "renderHeight": 599,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 5.800000011920929,
+    "renderTimeMs": 2.800000011920929,
+    "estimatedTextureBytes": 15832902.666666664
+  },
+  {
+    "width": 1200,
+    "height": 675,
+    "bounds": {
+      "x": 12,
+      "y": 129.09375,
+      "width": 672.09375,
+      "height": 539.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 4,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.6153339571475641,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.36685869989797243,
+        "y": 0.4706216071242073
+      },
+      {
+        "x": 0.6331413056167884,
+        "y": 0.4706216071242073
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.9237414191630865,
+        "y": 0.610001106136679
+      },
+      {
+        "x": 0.8591984360724148,
+        "y": 0.570431477922326
+      },
+      {
+        "x": 0.7569528376948552,
+        "y": 0.5416639920188554
+      },
+      {
+        "x": 0.6332437823522084,
+        "y": 0.5244499567015677
+      },
+      {
+        "x": 0.5000000031585967,
+        "y": 0.5187419529648412
+      },
+      {
+        "x": 0.36675622388645346,
+        "y": 0.5244499567015677
+      },
+      {
+        "x": 0.24304716830697265,
+        "y": 0.5416639920188554
+      },
+      {
+        "x": 0.14080156953362427,
+        "y": 0.570431477922326
+      },
+      {
+        "x": 0.07625858589854609,
+        "y": 0.610001106136679
+      },
+      {
+        "x": 0.06984857706079554,
+        "y": 0.6573869808853545
+      },
+      {
+        "x": 0.14069162794432627,
+        "y": 0.7055598781655273
+      },
+      {
+        "x": 0.2928983511398004,
+        "y": 0.7429737998726347
+      },
+      {
+        "x": 0.5000000015175798,
+        "y": 0.7572931650593152
+      },
+      {
+        "x": 0.707101652092368,
+        "y": 0.7429737998726347
+      },
+      {
+        "x": 0.8593083758025902,
+        "y": 0.7055598781655273
+      },
+      {
+        "x": 0.930151427348893,
+        "y": 0.6573869808853547
+      },
+      {
+        "x": 0.20401925105869184,
+        "y": 0.8987229207489454
+      },
+      {
+        "x": 0.2618941637147771,
+        "y": 0.7484529952071687
+      },
+      {
+        "x": 0.7959807522640105,
+        "y": 0.8987229207489454
+      },
+      {
+        "x": 0.7381058412386654,
+        "y": 0.7484529952071687
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 158.39493138213535,
+    "renderWidth": 672,
+    "renderHeight": 540,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 2.800000011920929,
+    "renderTimeMs": 1.800000011920929,
+    "estimatedTextureBytes": 15634389.333333332
+  },
+  {
+    "width": 1093,
+    "height": 615,
+    "bounds": {
+      "x": 12,
+      "y": 129.09375,
+      "width": 610.03125,
+      "height": 479.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 5,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.6153339571475641,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.36962338747216633,
+        "y": 0.4706215215161446
+      },
+      {
+        "x": 0.6303766346315548,
+        "y": 0.4706215215161446
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.9149424365506601,
+        "y": 0.6100010310569285
+      },
+      {
+        "x": 0.8517396867755339,
+        "y": 0.5704314086606781
+      },
+      {
+        "x": 0.7516172170440586,
+        "y": 0.541663926987022
+      },
+      {
+        "x": 0.6304769795741081,
+        "y": 0.5244498942007922
+      },
+      {
+        "x": 0.5000000073232713,
+        "y": 0.5187418913033396
+      },
+      {
+        "x": 0.3695230355117646,
+        "y": 0.5244498942007922
+      },
+      {
+        "x": 0.24838279936673216,
+        "y": 0.541663926987022
+      },
+      {
+        "x": 0.14826033184941262,
+        "y": 0.5704314086606781
+      },
+      {
+        "x": 0.08505758511985446,
+        "y": 0.6100010310569285
+      },
+      {
+        "x": 0.07878068226446315,
+        "y": 0.6573868988382432
+      },
+      {
+        "x": 0.14815267930781414,
+        "y": 0.7055597890353354
+      },
+      {
+        "x": 0.2971988314441305,
+        "y": 0.7429737052413036
+      },
+      {
+        "x": 0.5000000165035942,
+        "y": 0.7572930683225425
+      },
+      {
+        "x": 0.7028012004609347,
+        "y": 0.7429737052413036
+      },
+      {
+        "x": 0.8518473497176023,
+        "y": 0.7055597890353354
+      },
+      {
+        "x": 0.9212193430532148,
+        "y": 0.6573868988382433
+      },
+      {
+        "x": 0.21016530339941725,
+        "y": 0.8987228505260695
+      },
+      {
+        "x": 0.26683843852218647,
+        "y": 0.7484529378285565
+      },
+      {
+        "x": 0.7898347234727164,
+        "y": 0.8987228505260695
+      },
+      {
+        "x": 0.7331615801122008,
+        "y": 0.7484529378285565
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 165.65433459994756,
+    "renderWidth": 610,
+    "renderHeight": 480,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 3.300000011920929,
+    "renderTimeMs": 2.300000011920929,
+    "estimatedTextureBytes": 15517589.333333332
+  },
+  {
+    "width": 1000,
+    "height": 601,
+    "bounds": {
+      "x": 12,
+      "y": 129.09375,
+      "width": 556.09375,
+      "height": 465.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 6,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.6356646648117712,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.36587246148228936,
+        "y": 0.4716242910133888
+      },
+      {
+        "x": 0.6341275354484373,
+        "y": 0.4716242910133888
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.9268802484749207,
+        "y": 0.6062467267804279
+      },
+      {
+        "x": 0.8618591701522159,
+        "y": 0.5680276241287215
+      },
+      {
+        "x": 0.7588561967193551,
+        "y": 0.5402419828075465
+      },
+      {
+        "x": 0.6342307767957458,
+        "y": 0.5236154686720692
+      },
+      {
+        "x": 0.5000000046856179,
+        "y": 0.518102281144289
+      },
+      {
+        "x": 0.3657692319106986,
+        "y": 0.5236154686720692
+      },
+      {
+        "x": 0.24114380998222967,
+        "y": 0.5402419828075465
+      },
+      {
+        "x": 0.13814083319891854,
+        "y": 0.5680276241287215
+      },
+      {
+        "x": 0.07311975026767513,
+        "y": 0.6062467267804279
+      },
+      {
+        "x": 0.0666622573435745,
+        "y": 0.6520153046768362
+      },
+      {
+        "x": 0.13803007029309564,
+        "y": 0.6985440437442709
+      },
+      {
+        "x": 0.29136425135088706,
+        "y": 0.7346810149227914
+      },
+      {
+        "x": 0.4999999907939976,
+        "y": 0.7485116550544693
+      },
+      {
+        "x": 0.7086357319048355,
+        "y": 0.7346810149227914
+      },
+      {
+        "x": 0.861969917320098,
+        "y": 0.6985440437442709
+      },
+      {
+        "x": 0.9333377358801513,
+        "y": 0.6520153046768363
+      },
+      {
+        "x": 0.201826790707077,
+        "y": 0.8851143761795545
+      },
+      {
+        "x": 0.26013041263703757,
+        "y": 0.7399732142840778
+      },
+      {
+        "x": 0.7981732019278978,
+        "y": 0.8851143761795545
+      },
+      {
+        "x": 0.739869592118438,
+        "y": 0.7399732142840778
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 163.93442622950843,
+    "renderWidth": 556,
+    "renderHeight": 466,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 2.600000023841858,
+    "renderTimeMs": 1.300000011920929,
+    "estimatedTextureBytes": 15461416
+  },
+  {
+    "width": 911,
+    "height": 512,
+    "bounds": {
+      "x": 12,
+      "y": 129.09375,
+      "width": 504.46875,
+      "height": 376.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 7,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.6153339571475641,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.37606350635343505,
+        "y": 0.47062157386419606
+      },
+      {
+        "x": 0.623936450583992,
+        "y": 0.47062157386419606
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.8944456933196142,
+        "y": 0.6100010757366194
+      },
+      {
+        "x": 0.8343649430557813,
+        "y": 0.5704314497500921
+      },
+      {
+        "x": 0.7391881775207741,
+        "y": 0.5416639654662715
+      },
+      {
+        "x": 0.6240318477663607,
+        "y": 0.5244499311181581
+      },
+      {
+        "x": 0.49999998437903986,
+        "y": 0.5187419277028003
+      },
+      {
+        "x": 0.37596812036138344,
+        "y": 0.5244499311181581
+      },
+      {
+        "x": 0.2608117887060219,
+        "y": 0.5416639654662715
+      },
+      {
+        "x": 0.16563501999421743,
+        "y": 0.5704314497500921
+      },
+      {
+        "x": 0.10555426536070528,
+        "y": 0.6100010757366194
+      },
+      {
+        "x": 0.09958741531139773,
+        "y": 0.6573869478174037
+      },
+      {
+        "x": 0.16553267270903366,
+        "y": 0.7055598423853744
+      },
+      {
+        "x": 0.3072164602099455,
+        "y": 0.7429737619860256
+      },
+      {
+        "x": 0.499999971207419,
+        "y": 0.7572931263665056
+      },
+      {
+        "x": 0.692783483786182,
+        "y": 0.7429737619860256
+      },
+      {
+        "x": 0.8344672754187181,
+        "y": 0.7055598423853744
+      },
+      {
+        "x": 0.9004125381360937,
+        "y": 0.6573869478174038
+      },
+      {
+        "x": 0.2244820924118253,
+        "y": 0.8987228904221277
+      },
+      {
+        "x": 0.278355781552828,
+        "y": 0.7484529701479121
+      },
+      {
+        "x": 0.7755178605154514,
+        "y": 0.8987228904221277
+      },
+      {
+        "x": 0.7216441828593122,
+        "y": 0.7484529701479121
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 166.3893510705298,
+    "renderWidth": 504,
+    "renderHeight": 377,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 2.100000023841858,
+    "renderTimeMs": 1.199999988079071,
+    "estimatedTextureBytes": 15345429.333333332
+  },
+  {
+    "width": 800,
+    "height": 640,
+    "bounds": {
+      "x": 12,
+      "y": 129.09375,
+      "width": 440.09375,
+      "height": 504.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 8,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.8465555418194438,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.3658724579989645,
+        "y": 0.4792785623327764
+      },
+      {
+        "x": 0.6341275336464155,
+        "y": 0.4792785623327764
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.9268802475701494,
+        "y": 0.5775867882432975
+      },
+      {
+        "x": 0.8618591659646437,
+        "y": 0.5496772352363377
+      },
+      {
+        "x": 0.7588561897958526,
+        "y": 0.529386731915191
+      },
+      {
+        "x": 0.6342307678403103,
+        "y": 0.5172451967825143
+      },
+      {
+        "x": 0.4999999944741187,
+        "y": 0.5132191839023552
+      },
+      {
+        "x": 0.3657692212726657,
+        "y": 0.5172451967825143
+      },
+      {
+        "x": 0.24114379981393677,
+        "y": 0.529386731915191
+      },
+      {
+        "x": 0.13814082447540257,
+        "y": 0.5496772352363377
+      },
+      {
+        "x": 0.07311974401191403,
+        "y": 0.5775867882432975
+      },
+      {
+        "x": 0.06666225449057653,
+        "y": 0.6110093560752488
+      },
+      {
+        "x": 0.13803007138782303,
+        "y": 0.6449870326623671
+      },
+      {
+        "x": 0.2913642561252809,
+        "y": 0.6713761062575542
+      },
+      {
+        "x": 0.4999999979165261,
+        "y": 0.6814759505001823
+      },
+      {
+        "x": 0.708635739294501,
+        "y": 0.6713761062575542
+      },
+      {
+        "x": 0.8619699229521575,
+        "y": 0.6449870326623671
+      },
+      {
+        "x": 0.9333377384590885,
+        "y": 0.6110093560752489
+      },
+      {
+        "x": 0.20182678936263207,
+        "y": 0.7812302848986203
+      },
+      {
+        "x": 0.26013040403850224,
+        "y": 0.6752407476976628
+      },
+      {
+        "x": 0.7981732043210861,
+        "y": 0.7812302848986203
+      },
+      {
+        "x": 0.7398695865266938,
+        "y": 0.6752407476976628
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 162.9549157855235,
+    "renderWidth": 440,
+    "renderHeight": 505,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 2.199999988079071,
+    "renderTimeMs": 1.4000000357627869,
+    "estimatedTextureBytes": 15399189.333333332
+  },
+  {
+    "width": 768,
+    "height": 614,
+    "bounds": {
+      "x": 12,
+      "y": 129.09375,
+      "width": 421.53125,
+      "height": 478.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 9,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.8382808150447295,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.36587247620783186,
+        "y": 0.4790475744258561
+      },
+      {
+        "x": 0.6341275432714735,
+        "y": 0.4790475744258561
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.9268802471314841,
+        "y": 0.5784519386335447
+      },
+      {
+        "x": 0.8618591677693749,
+        "y": 0.5502311894464403
+      },
+      {
+        "x": 0.7588561950149058,
+        "y": 0.5297144436224065
+      },
+      {
+        "x": 0.6342307771180393,
+        "y": 0.5174375283439625
+      },
+      {
+        "x": 0.5000000080705412,
+        "y": 0.5133666247473807
+      },
+      {
+        "x": 0.36576923914081105,
+        "y": 0.5174375283439625
+      },
+      {
+        "x": 0.24114382159910536,
+        "y": 0.5297144436224065
+      },
+      {
+        "x": 0.13814084943816837,
+        "y": 0.5502311894464403
+      },
+      {
+        "x": 0.07311977089246152,
+        "y": 0.5784519386335447
+      },
+      {
+        "x": 0.06666228138278825,
+        "y": 0.6122471736822495
+      },
+      {
+        "x": 0.13803009579815342,
+        "y": 0.6466037070415085
+      },
+      {
+        "x": 0.2913642754751814,
+        "y": 0.6732870232173035
+      },
+      {
+        "x": 0.500000010531441,
+        "y": 0.6834994824110767
+      },
+      {
+        "x": 0.7086357452922629,
+        "y": 0.6732870232173035
+      },
+      {
+        "x": 0.8619699241973651,
+        "y": 0.6466037070415085
+      },
+      {
+        "x": 0.9333377376188251,
+        "y": 0.6122471736822495
+      },
+      {
+        "x": 0.2018268107498986,
+        "y": 0.7843660716611899
+      },
+      {
+        "x": 0.26013042421495247,
+        "y": 0.6771947378363289
+      },
+      {
+        "x": 0.798173206626052,
+        "y": 0.7843660716611899
+      },
+      {
+        "x": 0.7398695913521213,
+        "y": 0.6771947378363289
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 165.19823786377424,
+    "renderWidth": 422,
+    "renderHeight": 479,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 2.699999988079071,
+    "renderTimeMs": 1.699999988079071,
+    "estimatedTextureBytes": 15365782.666666664
+  },
+  {
+    "width": 640,
+    "height": 512,
+    "bounds": {
+      "x": 12,
+      "y": 129.09375,
+      "width": 347.28125,
+      "height": 376.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 10,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.8062117411664989,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.3658724494167237,
+        "y": 0.47810999368613927
+      },
+      {
+        "x": 0.6341275205181152,
+        "y": 0.47810999368613927
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.9268802299019884,
+        "y": 0.5819624308054863
+      },
+      {
+        "x": 0.8618591506822619,
+        "y": 0.5524788821596979
+      },
+      {
+        "x": 0.7588561771924334,
+        "y": 0.5310440694427984
+      },
+      {
+        "x": 0.6342307579074196,
+        "y": 0.5182177966024718
+      },
+      {
+        "x": 0.4999999870012098,
+        "y": 0.5139647314755907
+      },
+      {
+        "x": 0.36576921588933353,
+        "y": 0.5182177966024718
+      },
+      {
+        "x": 0.24114379598407512,
+        "y": 0.5310440694427984
+      },
+      {
+        "x": 0.1381408214577158,
+        "y": 0.5524788821596979
+      },
+      {
+        "x": 0.07311974081224364,
+        "y": 0.5819624308054863
+      },
+      {
+        "x": 0.06666224986285113,
+        "y": 0.6172699079368746
+      },
+      {
+        "x": 0.1380300639876187,
+        "y": 0.653163799905598
+      },
+      {
+        "x": 0.29136424491261875,
+        "y": 0.6810411197203213
+      },
+      {
+        "x": 0.49999998270355206,
+        "y": 0.6917105578502747
+      },
+      {
+        "x": 0.708635721010431,
+        "y": 0.6810411197203213
+      },
+      {
+        "x": 0.8619699032835043,
+        "y": 0.653163799905598
+      },
+      {
+        "x": 0.9333377191440052,
+        "y": 0.6172699079368748
+      },
+      {
+        "x": 0.20182678215308378,
+        "y": 0.7970906536986904
+      },
+      {
+        "x": 0.26013039924238857,
+        "y": 0.6851237011275054
+      },
+      {
+        "x": 0.7981731870053868,
+        "y": 0.7970906536986904
+      },
+      {
+        "x": 0.739869573600546,
+        "y": 0.6851237011275054
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 112.48593926262072,
+    "renderWidth": 347,
+    "renderHeight": 377,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 2.300000011920929,
+    "renderTimeMs": 1.399999976158142,
+    "estimatedTextureBytes": 15246416
+  },
+  {
+    "width": 548,
+    "height": 439,
+    "bounds": {
+      "x": 12,
+      "y": 129.09375,
+      "width": 264,
+      "height": 303.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 11,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.8490261208957841,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.3658724514203239,
+        "y": 0.4793467364813965
+      },
+      {
+        "x": 0.6341275416740959,
+        "y": 0.4793467364813965
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.9268802712285721,
+        "y": 0.5773315671645889
+      },
+      {
+        "x": 0.8618591860484773,
+        "y": 0.5495138236129532
+      },
+      {
+        "x": 0.7588562042463516,
+        "y": 0.5292900666154646
+      },
+      {
+        "x": 0.6342307754901412,
+        "y": 0.5171884714892456
+      },
+      {
+        "x": 0.4999999948102301,
+        "y": 0.5131757023199249
+      },
+      {
+        "x": 0.36576921430493353,
+        "y": 0.5171884714892456
+      },
+      {
+        "x": 0.2411437860753203,
+        "y": 0.5292900666154646
+      },
+      {
+        "x": 0.1381408051532254,
+        "y": 0.5495138236129532
+      },
+      {
+        "x": 0.0731197211836115,
+        "y": 0.5773315671645889
+      },
+      {
+        "x": 0.0666622313516614,
+        "y": 0.6106441902852291
+      },
+      {
+        "x": 0.13803005217651548,
+        "y": 0.6445100961112803
+      },
+      {
+        "x": 0.2913642452952906,
+        "y": 0.6708123619215963
+      },
+      {
+        "x": 0.49999999845900905,
+        "y": 0.6808789823716923
+      },
+      {
+        "x": 0.7086357511846817,
+        "y": 0.6708123619215963
+      },
+      {
+        "x": 0.8619699431589217,
+        "y": 0.6445100961112803
+      },
+      {
+        "x": 0.9333377625101112,
+        "y": 0.6106441902852292
+      },
+      {
+        "x": 0.20182677313630715,
+        "y": 0.7803051609145202
+      },
+      {
+        "x": 0.26013039098500906,
+        "y": 0.6746642820672742
+      },
+      {
+        "x": 0.7981732205654503,
+        "y": 0.7803051609145202
+      },
+      {
+        "x": 0.7398695995946989,
+        "y": 0.6746642820672742
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 170.06802717640542,
+    "renderWidth": 264,
+    "renderHeight": 304,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 2.5,
+    "renderTimeMs": 1.5,
+    "estimatedTextureBytes": 15163349.333333332
+  },
+  {
+    "width": 500,
+    "height": 400,
+    "bounds": {
+      "x": 12,
+      "y": 159.09375,
+      "width": 216,
+      "height": 234.90625
+    },
+    "meshCount": 47,
+    "activeMeshCount": 46,
+    "canvasResizeCount": 12,
+    "urnGeometryBuilds": 1,
+    "cameraFov": 0.8072129604868724,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 7,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.36587249299166513,
+        "y": 0.47814028274512627
+      },
+      {
+        "x": 0.6341275616064431,
+        "y": 0.47814028274512627
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": null,
+    "tableFrame": [
+      {
+        "x": 0.9268802663093418,
+        "y": 0.5818488126048811
+      },
+      {
+        "x": 0.8618591844840398,
+        "y": 0.5524061251615456
+      },
+      {
+        "x": 0.7588562096165463,
+        "y": 0.5310010189169738
+      },
+      {
+        "x": 0.6342307900910495,
+        "y": 0.5181925219874626
+      },
+      {
+        "x": 0.5000000199663002,
+        "y": 0.5139453511766722
+      },
+      {
+        "x": 0.36576925056149096,
+        "y": 0.5181925219874626
+      },
+      {
+        "x": 0.24114383320716776,
+        "y": 0.5310010189169738
+      },
+      {
+        "x": 0.1381408619680631,
+        "y": 0.5524061251615456
+      },
+      {
+        "x": 0.07311978513360373,
+        "y": 0.5818488126048811
+      },
+      {
+        "x": 0.0666622980861029,
+        "y": 0.6171073571607337
+      },
+      {
+        "x": 0.1380301154551653,
+        "y": 0.6529515038425453
+      },
+      {
+        "x": 0.2913642979923312,
+        "y": 0.6807901885247587
+      },
+      {
+        "x": 0.5000000350103075,
+        "y": 0.6914448398976386
+      },
+      {
+        "x": 0.7086357702222096,
+        "y": 0.6807901885247587
+      },
+      {
+        "x": 0.861969948040428,
+        "y": 0.6529515038425453
+      },
+      {
+        "x": 0.9333377593335337,
+        "y": 0.6171073571607337
+      },
+      {
+        "x": 0.2018268284567404,
+        "y": 0.7966789226813503
+      },
+      {
+        "x": 0.260130436778253,
+        "y": 0.6848671384684089
+      },
+      {
+        "x": 0.7981732277811588,
+        "y": 0.7966789226813503
+      },
+      {
+        "x": 0.7398696066894268,
+        "y": 0.6848671384684089
+      }
+    ],
+    "tableHost": "vera",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "selection-ring",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "record-file",
+      "record-file",
+      "record-file",
+      "die",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "die-pip",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 37908,
+    "fps": 154.71892725356798,
+    "renderWidth": 216,
+    "renderHeight": 235,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 172,
+    "frameTimeMs": 2.599999964237213,
+    "renderTimeMs": 1.5,
+    "estimatedTextureBytes": 15113829.333333332
+  }
+]

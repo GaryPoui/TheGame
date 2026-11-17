@@ -77,3 +77,5 @@ Las versiones están fijadas en package.json y package-lock.json. Para ejecutar:
 histórica del MVP está en docs/mvp-validation.md; el alcance manual y la cobertura automatizada
 pendiente del nuevo corte están en docs/doble-implementation.md. Enumerar comandos disponibles
 no significa que se hayan ejecutado en esta entrega.
+
+[Corrección de zoom y tarjetas de Vera](docs/urns-zoom-repair.md).

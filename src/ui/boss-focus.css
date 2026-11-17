@@ -32,7 +32,7 @@
  @keyframes backdrop-enter{from{opacity:0}to{opacity:1}}
 }
 /* Browser zoom reduces the CSS viewport. Keep a landscape game beside its decisions. */
-@media(min-width:500px) and (max-height:600px){
+@media(min-width:500px) and (max-height:760px){
  html,body{height:100%;overflow:hidden}#app{height:100svh;overflow:hidden}
  body[data-screen] .topbar{height:38px;padding-inline:12px}.topbar .quiet{min-height:32px;padding:4px 10px;font-size:14px}
  .table-layout,.contracts-layout,.ada-table-layout,.boss-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(260px,44%);grid-template-rows:minmax(0,1fr);gap:10px;height:calc(100svh - 38px);min-height:0;padding:6px 12px!important;align-items:start}
@@ -97,7 +97,7 @@
 @media(prefers-reduced-motion:reduce){.modal[open]{animation:none!important}}
 @media(min-width:1000px) and (max-height:700px){.boss-kicker{display:none}}
 
-@media(min-width:500px) and (max-height:600px){
+@media(min-width:500px) and (max-height:760px){
  .contracts-tutorial{display:grid;grid-template-columns:24% minmax(0,1fr);align-items:center;gap:12px;overflow:hidden}
  .contracts-tutorial .doble-intro{position:static;object-fit:contain;width:100%;height:calc(100svh - 60px);max-height:230px;align-self:end}
  .contracts-tutorial .dialogue-card{width:100%;max-width:none;min-width:0;max-height:100%;padding:10px;margin:0;overflow:hidden}
@@ -106,7 +106,7 @@
  .modal.guide-modal .modal-heading{padding:6px 12px}.modal.guide-modal .modal-heading h2{font-size:21px}.modal.guide-modal .modal-body{padding:10px 12px}.guide-modal .guide-caption{font-size:11px;line-height:1.2;margin-bottom:6px}.guide-modal .guide-content>h3{font-size:17px;line-height:1.15;margin-bottom:7px}.modal.guide-modal .reading-nav{padding-top:6px;gap:8px}.modal.guide-modal .reading-nav button{font-size:13px;min-height:32px;padding:6px 10px}.modal.guide-modal .reading-nav span{font-size:13px}.guide-modal .guide-content:has(.holdem-felt)>p:not(.guide-caption){font-size:12px;line-height:1.2}
 }
 .dice-guide-combinations .winning-combos{display:grid;gap:8px;color:#f7ead3}.dice-guide-combinations .combo-row{display:flex;align-items:center;gap:10px}.dice-guide-combinations .combo-row>b{min-width:60px;font-size:14px}.dice-guide-combinations .combo-pairs,.dice-guide-combinations .any-faces{display:flex;flex-wrap:wrap;gap:6px}.dice-guide-combinations small{font-size:14px}.dice-guide-combinations .combo-face{width:22px;height:22px;min-width:22px;min-height:22px}
-@media(min-width:500px) and (max-height:600px){
+@media(min-width:500px) and (max-height:760px){
  .holdem-layout.poker-layout .archive-panel .primary,.holdem-layout.poker-layout .archive-panel>.text-button,.enlarged-text .holdem-layout.poker-layout .archive-panel>.primary,.enlarged-text .holdem-layout.poker-layout .archive-panel>.text-button,.boss-layout.holdem-layout .archive-panel .primary{min-height:32px;padding:6px;font-size:13px;line-height:1.2;margin:4px 0 0}
  .boss-layout .archive-panel>[data-guide]{display:none}
  .table-layout:not(.tutorial-table) .game-panel>.decision-prompt,.table-layout:not(.tutorial-table) .game-panel>.small-note{display:none}
@@ -130,7 +130,7 @@
  .boss-layout[data-view=feedback] [data-testid=finale-feedback]>p{font-size:12px;line-height:1.25;margin-bottom:4px}
 }
 
-@media(min-width:500px) and (max-width:599px) and (max-height:600px){
+@media(min-width:500px) and (max-width:599px) and (max-height:760px){
  .game-panel,.table-layout .game-panel,.contracts-layout .contracts-panel,.ada-table-layout .archive-panel,.boss-layout .archive-panel{padding:7px}
  .boss-panel-ribbon{margin:-7px -7px 6px;padding:5px 7px}.boss-layout .archive-panel h2,.game-panel h2{font-size:16px;line-height:1.1}
  .boss-primer{gap:5px}.boss-primer li{font-size:11px;line-height:1.2;grid-template-columns:18px 1fr}.boss-primer li:before{height:18px}
@@ -159,7 +159,7 @@
  .table-layout:not(.tutorial-table) .review-label{display:none}
 }
 /* Short-height Doble reserves ticket/action space; the canvas takes the remainder. */
-@media(min-width:500px) and (max-height:600px){
+@media(min-width:500px) and (max-height:760px){
  .contracts-layout .contracts-floor{height:100%;min-height:0;display:flex;flex-direction:column;justify-content:flex-start}
  .contracts-layout .contracts-heading{flex:0 0 auto}.contracts-layout .contracts-heading>p{display:none}.contracts-layout .contracts-heading h1{font-size:18px!important}.contracts-layout .contracts-heading .scoreboard{font-size:10px!important;gap:5px!important}
  .contracts-layout .contract-stage{flex:1;min-height:0;display:flex;flex-direction:column;gap:3px}.contracts-layout .dice-table{flex:1;min-height:0;display:flex;flex-direction:column}.contracts-layout .dice-viewport{flex:1;height:auto;min-height:0}

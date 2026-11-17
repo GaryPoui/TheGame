@@ -1,0 +1,49 @@
+
+Running 1 test using 1 worker
+
+(node:59072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\browser\urns-zoom.spec.ts:15:1 › normal urn decisions provide counts without calculated probabilities (19.5s)
+
+
+  1) tests\browser\urns-zoom.spec.ts:15:1 › normal urn decisions provide counts without calculated probabilities
+
+    Error: expect(locator).not.toContainText(expected) failed
+
+    Locator: getByTestId('urn-0')
+    Expected substring: not "%"
+    Received string: "Urna 1Elegir▲ 3 rojas ● 2 azules3 de 5 fichas son rojas60 % de posibilidades de sacar roja"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "not toContainText" getByTestId('urn-0') with timeout 15000ms
+      - waiting for getByTestId('urn-0')
+        33 × locator resolved to <button data-testid="urn-0" aria-pressed="false" class="urn-option   ">…</button>
+           - unexpected value "Urna 1Elegir▲ 3 rojas ● 2 azules3 de 5 fichas son rojas60 % de posibilidades de sacar roja"
+
+
+      15 | test('normal urn decisions provide counts without calculated probabilities',async({page})=>{
+      16 |  await open(page);await page.getByTestId('toggle-cards').click();
+    > 17 |  for(const id of ['urn-0','urn-1']){await expect(page.getByTestId(id)).not.toContainText('%');await expect(page.getByTestId(id).locator('.odds')).toHaveCount(0);await expect(page.getByTestId(id).locator('.inventory')).toBeVisible();}
+         |                                                                            ^
+      18 | });
+      19 | test('Vera table and choices fit intermediate zoom sizes before and after extraction',async({page})=>{
+      20 |  test.setTimeout(150000);await open(page);await page.getByTestId('toggle-cards').click();
+        at C:\Users\facub\Documents\TheGame\tests\browser\urns-zoom.spec.ts:17:76
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\urns-zoom-normal-urn-decis-78f2d-ut-calculated-probabilities\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\urns-zoom-normal-urn-decis-78f2d-ut-calculated-probabilities\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\urns-zoom-normal-urn-decis-78f2d-ut-calculated-probabilities\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\urns-zoom-normal-urn-decis-78f2d-ut-calculated-probabilities\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\browser\urns-zoom.spec.ts:15:1 › normal urn decisions provide counts without calculated probabilities

@@ -227,6 +227,7 @@ export class GameScene {
     this.label(index===0?'1':'2',x,1.95,-.985,.28,.19,'#f0dfc0','#243b35');
   }
   setMode(mode:'menu'|'room'|'table',reducedMotion?:boolean):void {
+    this.framingKey='';
     this.mode=mode;if(reducedMotion!==undefined)this.reduced=reducedMotion;
     this.destination=mode==='menu'?new Vector3(7,5.5,-10):mode==='room'?new Vector3(0,4.6,-9):new Vector3(1.1,5.2,-7.8);
     this.focus=mode==='table'?new Vector3(1.1,2.3,.1):new Vector3(0,2.4,1.2);
@@ -243,14 +244,15 @@ export class GameScene {
     this.frameContracts();
   }
   private frameContracts():void {
-    if(!this.contractsMode)return;
+    const vera=!!this.engine.getRenderingCanvas()?.closest('.vera-viewport');
+    if(!this.contractsMode&&!vera)return;
     const height=this.engine.getRenderingCanvas()?.clientHeight??420;
     const width=this.engine.getRenderingCanvas()?.clientWidth??900;
-    const key=`${width}:${height}:${this.tableHost}`;
+    const key=`${width}:${height}:${this.tableHost}:${vera}`;
     if(key===this.framingKey)return;
     this.framingKey=key;
     this.destination.set(0,4.6,-10);this.focus.set(0,2.25,0);
-    this.camera.fov=Math.max(.44,2*Math.atan(Math.max(2.6/10.7,3.85*height/(10.7*Math.max(1,width)))));
+    this.camera.fov=Math.max(.44,2*Math.atan(Math.max((vera?3.4:2.6)/10.7,(vera?4.2:3.85)*height/(10.7*Math.max(1,width)))));
     this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);
   }
   rollDice():void {
@@ -289,7 +291,7 @@ export class GameScene {
     if(changed && portrait) {const scale=enabled?host==='captor'?1.5:.9:1;portrait.scaling.set(scale,scale,1);portrait.position.y=enabled?host==='captor'?2.05:2.8:3.3;}
     if(enabled){
       this.frameContracts();
-    } else if(changed){this.setMode(this.mode);this.camera.fov=65*Math.PI/180;this.stopDiceRoll();}
+    } else if(changed){this.setMode(this.mode);this.camera.fov=65*Math.PI/180;this.stopDiceRoll();this.frameContracts();}
     const felt=this.scene.getMeshByName('table-felt');
     if(felt){felt.material=enabled?this.contractFelt:this.originalFelt;felt.position.y=enabled?1.8:1.7;}
     const inlay=this.scene.getMeshByName('felt-inlay');if(inlay)inlay.position.y=enabled?1.835:1.735;
@@ -364,7 +366,7 @@ export class GameScene {
   }
   setSettings(settings:{reducedMotion:boolean;sensitivity:number;fov:number}):void {
     this.reduced=settings.reducedMotion;
-    if(this.contractsMode){this.framingKey='';this.resizeCanvas();}
+    if(this.contractsMode||this.engine.getRenderingCanvas()?.closest('.vera-viewport')){this.framingKey='';this.resizeCanvas();}
     else this.camera.fov=Math.min(95,Math.max(45,settings.fov))*Math.PI/180;
   }
   /** A point-in-time renderer sample; no claim about other devices or a frame-time percentile. */
@@ -389,7 +391,7 @@ export class GameScene {
     return {meshCount:this.scene.meshes.length,activeMeshCount:this.scene.getActiveMeshes().length,canvasResizeCount:this.canvasResizeCount,urnGeometryBuilds:this.urnGeometryBuilds,cameraFov:this.camera.fov,hardwareScale:this.hardwareScale,
       bossUrnsVisible:this.bossUrnsVisible,visibleUrnVessels:this.urnProps.filter(mesh=>mesh.name==='thick-glass-urn'&&mesh.isVisible).length,visibleUrnTokens:this.tokens.filter(mesh=>mesh.isVisible&&mesh.metadata?.urn!==undefined).length,selectedUrn:this.selectedUrn,highlightedUrnMeshes:this.selectedUrn===null?0:this.urnFrames[this.selectedUrn]!.length,urnTargets,
       diceRolling:this.diceRollStart!==null,diceRollCount:this.diceRollCount,dicePositions:this.diceRoots.map(die=>({x:die.position.x,y:die.position.y,z:die.position.z})),diceFaces:this.diceRoots.map(die=>die.metadata.faces as number[]),
-      dealerFrame,
+      dealerFrame,tableFrame:[...Array.from({length:16},(_,i)=>new Vector3(3.5*Math.cos(i*Math.PI/8),1.5,2.52*Math.sin(i*Math.PI/8))),...[-2.25,2.25].flatMap(x=>[-1.2,1.2].map(z=>new Vector3(x,.03,z)))].map(point=>project(point)),
       tableHost:this.contractsMode?this.tableHost:'vera',
       tableTextureReady:!!(portrait?.material as StandardMaterial|null)?.diffuseTexture?.isReady(),
       activeNames:this.scene.getActiveMeshes().data.slice(0,this.scene.getActiveMeshes().length).map(mesh=>mesh.name),

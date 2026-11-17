@@ -257,3 +257,5 @@ Publicación boss-finale-2026-11-13: fuente 577f191 en codex/boss-finale, gh-pag
 Urnas e interfaz 2026-11-13: el nivel 4 reutiliza cristal, placas 1/2, fichas y selección del nivel 1, con clic directo y tarjetas compartidas. Marco de combate de tinta/latón, botón dorado, defensas/carga segmentadas y orden real de ataques; Ada comparte el marco. Reglas y guardado v8 conservados. Fuente en codex/boss-finale; ver docs/boss-urns-interface.md.
 
 Publicada boss-urns-ui-2026-11-13: fuente 040afe5, gh-pages 71d0a82. 60 unitarias, 70 comprobaciones matemáticas, seis casos locales cubiertos y un caso HTTPS aprobado con clic real sobre el cristal y recuento persistido. 146/146 hashes; 503 temporal revalidado. No cambia RNG, reglas o guardado v8. Rama codex/boss-finale subida; conector de PR continúa con 403. Ver docs/boss-urns-interface.md.
+
+Corrección de zoom 2026-11-17: Vera recibe una ventana de escena propia con encuadre según ancho/alto, incluyendo patas y contorno de la mesa; tarjetas normales sin probabilidad calculada. Régimen compacto ampliado para tamaños intermedios. Reglas y guardado v8 conservados. Ver [alcance y evidencia](urns-zoom-repair.md).

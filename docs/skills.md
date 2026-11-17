@@ -123,3 +123,5 @@ Proporciones de Doble 2026-10-29: camera-systems para encuadrar torso y mesa jun
 Rediseño de Ada 2026-10-29: frontend-design y game-ui-ux para composición compartida, fotos sobre el paño, panel y controles adaptables. Se verifica con Playwright TypeScript existente. Ver [evidencia](ada-table-redesign.md).
 
 Interfaz 2026-10-29: game-ui-ux, frontend-design, webapp-testing e Impeccable (ruta proporcionada por el usuario). Ver [aplicación y evidencia](clear-interface.md).
+
+Corrección de zoom y Vera 2026-11-17: game-ui-ux, frontend-design, camera-systems y webapp-testing, con el runner existente. Ver [evidencia](urns-zoom-repair.md).
