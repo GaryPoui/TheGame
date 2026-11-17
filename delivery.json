@@ -1,12 +1,13 @@
 {
-  "phase": "urns-zoom-repair-2026-11-17",
+  "phase": "table-props-bonus-2026-11-17",
   "repository": "https://github.com/GaryPoui/TheGame",
-  "branch": "codex/urns-zoom-repair",
-  "base_commit": "263826b",
-  "content_commit": "901b17e8f7a6f114b928d6a81ec360fe7d2d1fb5",
-  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/901b17e8f7a6f114b928d6a81ec360fe7d2d1fb5",
+  "branch": "codex/table-props-poker-bonus",
+  "base_commit": "37114667a14ef925e31789dc2c883b16c08c5992",
+  "content_commit": "defaf0b195bf6f975013267f73530ffe7a7e4c18",
+  "content_commit_url": "https://github.com/GaryPoui/TheGame/commit/defaf0b195bf6f975013267f73530ffe7a7e4c18",
   "pull_request": null,
   "documentation": [
+    "docs/table-props-poker-bonus.md",
     "docs/urns-zoom-repair.md",
     "docs/boss-focus-motion.md",
     "docs/deep-game-polish.md",
@@ -38,22 +39,23 @@
   "validation": {
     "build": "PASS",
     "document_validation": "PASS",
-    "unit_tests": 63,
+    "unit_cases_covered": 66,
+    "unit_note": "Full run: 65 passed, one invalid fixture; corrected bonus/migration file: three passed. Earlier envelope-version expectation also updated and revalidated. Logs retained.",
     "math_checks": 70,
     "skill_files_verified": 92,
-    "preceding_regression_cases_passed": 26,
-    "new_local_browser_cases_passed": 4,
-    "public_browser_cases_passed": 4,
+    "local_browser_cases_covered": 42,
+    "local_browser_note": "Initial and interrupted runs retained. Affected tutorial readings, current-inventory assertions, small enlarged-text layout and reload fixture corrected and revalidated.",
+    "public_browser_cases_passed": 8,
     "public_asset_hashes": 146,
     "public_asset_mismatches": 0,
-    "save_schema": 8,
-    "save_schema_changed": false,
-    "core_rules_changed": false,
-    "public_browser_report": "docs/evidence/urns-zoom/public-browser.txt",
-    "public_integrity": "docs/evidence/urns-zoom/public-integrity.json",
-    "native_zoom": "Interrupted with Escape before enlargement; CSS viewport sizes tested instead.",
+    "save_schema": 9,
+    "compatible_save_versions": "1–8",
+    "core_rules_changed": true,
+    "rule_change": "Ada adds two points to the hand award when the selected category maximizes probability × prize; no retroactive points; boss damage and RNG unchanged.",
+    "public_browser_report": "docs/evidence/table-props/public-browser.txt",
+    "public_integrity": "docs/evidence/table-props/public-integrity.json",
     "pull_request_status": "403 Resource not accessible by integration",
-    "human_playtest": "Pending; no claims of universal viewport coverage, learning, enjoyment, accessibility conformance or measured FPS."
+    "human_playtest": "Pending; no learning, enjoyment, accessibility conformance or measured FPS claim."
   },
   "pending_optional_tools": [
     "Blender >=4.2 identified installation",
@@ -64,7 +66,7 @@
   "deployed": true,
   "next_step": "Revisión visual del usuario y prueba de comprensión con jugadores nuevos.",
   "site_url": "https://garypoui.github.io/TheGame/",
-  "deployment_commit": "df92b231da48c17dac5374320c9dcacacbc5c1a2",
+  "deployment_commit": "892d1fc841b05a988adc1ff718832973a8595bcf",
   "deployment_branch": "gh-pages",
   "https_enforced": true,
   "initial_documentation": {
@@ -72,8 +74,8 @@
     "pull_request": "https://github.com/GaryPoui/TheGame/pull/1",
     "updated_chat_snapshot": "https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9"
   },
-  "scope": "Vera stage bounded beside decisions; intermediate zoom layouts; counts without calculated probability outside tutorial. Rules and save v8 unchanged.",
-  "build_source_commit": "901b17e8f7a6f114b928d6a81ec360fe7d2d1fb5",
+  "scope": "Vera tutorial shows remaining inventory in shared stage; additive +2 optimal probability × prize bonus in Ada; hidden boss urn odds; physical dice, cards and deck on boss table. Save v9 loads v1–8.",
+  "build_source_commit": "defaf0b195bf6f975013267f73530ffe7a7e4c18",
   "previous_visual_delivery": {
     "phase": "visual-upgrade",
     "branch": "codex/realistic-visuals",
@@ -787,7 +789,7 @@
     },
     "scope": "Ada poker: two private cards, four community cards, two hidden opponent cards, category predictions before the fifth community card, strict win required, 24-point target."
   },
-  "review_url": "https://github.com/GaryPoui/TheGame/compare/codex%2Fboss-focus-motion...codex%2Furns-zoom-repair",
+  "review_url": "https://github.com/GaryPoui/TheGame/compare/codex%2Furns-zoom-repair...codex%2Ftable-props-poker-bonus",
   "previous_boss_finale_delivery": {
     "phase": "boss-finale-2026-11-13",
     "branch": "codex/boss-finale",
@@ -923,5 +925,35 @@
     "site_url": "https://garypoui.github.io/TheGame/",
     "scope": "Larger boss portrait, contextual defence/combo help and accurate damage breakdown; compact zoom layouts and guided exit; stable viewport/canvas and urn geometry; table framing retained after text/density changes; brief reduced-motion-aware UI transitions.",
     "review_url": "https://github.com/GaryPoui/TheGame/compare/codex%2Fdeep-game-polish...codex%2Fboss-focus-motion"
+  },
+  "previous_urns_zoom_delivery": {
+    "phase": "urns-zoom-repair-2026-11-17",
+    "branch": "codex/urns-zoom-repair",
+    "content_commit": "901b17e8f7a6f114b928d6a81ec360fe7d2d1fb5",
+    "build_source_commit": "901b17e8f7a6f114b928d6a81ec360fe7d2d1fb5",
+    "deployment_commit": "df92b231da48c17dac5374320c9dcacacbc5c1a2",
+    "validation": {
+      "build": "PASS",
+      "document_validation": "PASS",
+      "unit_tests": 63,
+      "math_checks": 70,
+      "skill_files_verified": 92,
+      "preceding_regression_cases_passed": 26,
+      "new_local_browser_cases_passed": 4,
+      "public_browser_cases_passed": 4,
+      "public_asset_hashes": 146,
+      "public_asset_mismatches": 0,
+      "save_schema": 8,
+      "save_schema_changed": false,
+      "core_rules_changed": false,
+      "public_browser_report": "docs/evidence/urns-zoom/public-browser.txt",
+      "public_integrity": "docs/evidence/urns-zoom/public-integrity.json",
+      "native_zoom": "Interrupted with Escape before enlargement; CSS viewport sizes tested instead.",
+      "pull_request_status": "403 Resource not accessible by integration",
+      "human_playtest": "Pending; no claims of universal viewport coverage, learning, enjoyment, accessibility conformance or measured FPS."
+    },
+    "site_url": "https://garypoui.github.io/TheGame/",
+    "scope": "Vera stage bounded beside decisions; intermediate zoom layouts; counts without calculated probability outside tutorial. Rules and save v8 unchanged.",
+    "review_url": "https://github.com/GaryPoui/TheGame/compare/codex%2Fboss-focus-motion...codex%2Furns-zoom-repair"
   }
 }

@@ -263,3 +263,5 @@ Corrección de zoom 2026-11-17: Vera recibe una ventana de escena propia con enc
 Publicada urns-zoom-repair-2026-11-17: fuente 901b17e, gh-pages df92b23, Pages completado, cuatro casos HTTPS y 146/146 hashes aprobados. Rama codex/urns-zoom-repair subida; creación de revisión devuelve 403. Detalle en docs/urns-zoom-repair.md y delivery.json.
 
 Pedido 2026-11-17: demostración de Vera en la misma ventana 3D, tarjetas con fichas restantes; Ada suma siempre dos puntos extra por maximizar probabilidad × premio; boss sin probabilidades en urnas y con dados/cartas/mazo físicos según fase. Rama codex/table-props-poker-bonus, guardado v9 compatible con v1–8. Ver [detalle](table-props-poker-bonus.md).
+
+Publicada table-props-bonus-2026-11-17: fuente defaf0b, gh-pages 892d1fc, Pages completado con éxito. Ocho casos públicos y 146/146 hashes aprobados; 66 unitarias y 42 casos locales distintos cubiertos con revalidaciones documentadas. Conector de revisión 403; rama codex/table-props-poker-bonus subida, sin merge.
