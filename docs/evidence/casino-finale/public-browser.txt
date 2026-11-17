@@ -1,0 +1,11 @@
+
+Running 4 tests using 1 worker
+
+(node:61696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\casino-public.spec.ts:15:1 › public Doble presentation and new question accept one saved decision (18.1s)
+  ok 2 tests\browser\casino-public.spec.ts:18:1 › public boss has physical cards, one pedestal and a separate readable dock (12.0s)
+  ok 3 tests\browser\casino-public.spec.ts:21:1 › public Ada deals cards and retains the additive decision bonus (10.8s)
+  ok 4 tests\browser\casino-public.spec.ts:24:1 › public painted victory can replay and skip the first person exit (9.5s)
+
+  4 passed (54.5s)
