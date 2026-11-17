@@ -259,3 +259,5 @@ Urnas e interfaz 2026-11-13: el nivel 4 reutiliza cristal, placas 1/2, fichas y 
 Publicada boss-urns-ui-2026-11-13: fuente 040afe5, gh-pages 71d0a82. 60 unitarias, 70 comprobaciones matemáticas, seis casos locales cubiertos y un caso HTTPS aprobado con clic real sobre el cristal y recuento persistido. 146/146 hashes; 503 temporal revalidado. No cambia RNG, reglas o guardado v8. Rama codex/boss-finale subida; conector de PR continúa con 403. Ver docs/boss-urns-interface.md.
 
 Corrección de zoom 2026-11-17: Vera recibe una ventana de escena propia con encuadre según ancho/alto, incluyendo patas y contorno de la mesa; tarjetas normales sin probabilidad calculada. Régimen compacto ampliado para tamaños intermedios. Reglas y guardado v8 conservados. Ver [alcance y evidencia](urns-zoom-repair.md).
+
+Publicada urns-zoom-repair-2026-11-17: fuente 901b17e, gh-pages df92b23, Pages completado, cuatro casos HTTPS y 146/146 hashes aprobados. Rama codex/urns-zoom-repair subida; creación de revisión devuelve 403. Detalle en docs/urns-zoom-repair.md y delivery.json.

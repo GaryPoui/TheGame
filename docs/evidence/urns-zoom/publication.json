@@ -1,0 +1,13 @@
+{
+  "version": "urns-zoom-repair-2026-11-17",
+  "sourceCommit": "901b17e8f7a6f114b928d6a81ec360fe7d2d1fb5",
+  "deploymentCommit": "df92b231da48c17dac5374320c9dcacacbc5c1a2",
+  "publicURL": "https://garypoui.github.io/TheGame/",
+  "pagesWorkflow": "https://github.com/GaryPoui/TheGame/actions/runs/44142130994",
+  "pagesStatus": "success",
+  "publicCasesPassed": 4,
+  "assetHashesMatched": 146,
+  "pullRequestCreated": false,
+  "pullRequestFailure": "403 Resource not accessible by integration",
+  "compareURL": "https://github.com/GaryPoui/TheGame/compare/codex%2Fboss-focus-motion...codex%2Furns-zoom-repair"
+}
