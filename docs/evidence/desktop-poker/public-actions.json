@@ -1,0 +1,126 @@
+{
+  "url": "https://garypoui.github.io/TheGame/",
+  "capture": false,
+  "metrics": {
+    "meshCount": 91,
+    "activeMeshCount": 60,
+    "selectedUrn": null,
+    "highlightedUrnMeshes": 0,
+    "urnTargets": [
+      {
+        "x": 0.39970844938101596,
+        "y": 0.46158205095605204
+      },
+      {
+        "x": 0.6002915191240215,
+        "y": 0.46158205095605204
+      }
+    ],
+    "diceRolling": false,
+    "diceRollCount": 1,
+    "dicePositions": [
+      {
+        "x": -0.6,
+        "y": 2.17,
+        "z": -0.45
+      },
+      {
+        "x": 0.6,
+        "y": 2.17,
+        "z": -0.45
+      }
+    ],
+    "dealerFrame": {
+      "hat": {
+        "x": 0.5000000003336165,
+        "y": 0.06161422541104894
+      },
+      "waist": {
+        "x": 0.5000000003336166,
+        "y": 0.4770117206094755
+      },
+      "width": 0.16069119593984688,
+      "tableWidth": 0.6135692119275573,
+      "tableBack": {
+        "x": 0.49999998928116074,
+        "y": 0.47808633422777025
+      }
+    },
+    "tableHost": "doble",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "vera-ink-portrait",
+      "contract-die-0",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-die-1",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip"
+    ],
+    "geometryTriangles": 46292,
+    "fps": 25.929127052722556,
+    "renderWidth": 916,
+    "renderHeight": 424,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "rendering": true,
+    "drawCalls": 85,
+    "frameTimeMs": 0.8999999985098839,
+    "renderTimeMs": 0.3999999985098839,
+    "estimatedTextureBytes": 25166677.333333332
+  },
+  "result": "PASS",
+  "errors": []
+}

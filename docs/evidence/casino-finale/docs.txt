@@ -1,0 +1,11 @@
+{
+  "scope": "structural documentation only; not game runtime or semantic proof",
+  "result": "PASS",
+  "features": 10,
+  "requirements": 50,
+  "pending_tasks": 1,
+  "completed_tasks": 97,
+  "total_tasks": 98,
+  "local_links_checked": 468,
+  "errors": []
+}

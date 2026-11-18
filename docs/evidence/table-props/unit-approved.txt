@@ -1,0 +1,8 @@
+
+ RUN  v5.0.5 C:/Users/facub/Documents/TheGame
+
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  15:36:38
+   Duration  4.53s (tests 87%, transform 8%, import 4%, worker 1%)

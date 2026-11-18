@@ -1,0 +1,14 @@
+{
+  "version": "deep-polish-2026-11-16",
+  "sourceCommit": "1028bcc4a8b67ae93bbd0a23bb2a1006c85beeac",
+  "deploymentCommit": "2f78fe149ba1c4909c08f4749649885f9cc4a36c",
+  "publicURL": "https://garypoui.github.io/TheGame/",
+  "pagesWorkflow": "https://github.com/GaryPoui/TheGame/actions/runs/43891187880",
+  "pagesStatus": "success",
+  "publicTests": 3,
+  "assetHashesMatched": 146,
+  "assetMismatches": 0,
+  "pullRequestCreated": false,
+  "pullRequestFailure": "403 Resource not accessible by integration",
+  "compareURL": "https://github.com/GaryPoui/TheGame/compare/codex%2Fboss-finale...codex%2Fdeep-game-polish"
+}

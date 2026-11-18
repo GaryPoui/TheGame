@@ -1,0 +1,86 @@
+
+Running 39 tests using 1 worker
+
+
+
+[1/39] tests\browser\ada-layout.spec.ts:20:1 › Ada uses the shared table with responsive photos and an unscored diagnostic
+[2/39] tests\browser\ada-layout.spec.ts:26:1 › advanced album comparison keeps all records and playable choices visible
+[3/39] tests\browser\ada-layout.spec.ts:32:1 › Ada photo decisions work with the matching HTML table when WebGL is unavailable
+[4/39] tests\browser\campaign.spec.ts:43:1 › Ada, host finale, epilogue and freedom survive reload and practice
+[5/39] tests\browser\campaign.spec.ts:56:1 › poor decisions lead through finite help in Ada and finale
+[6/39] tests\browser\campaign.spec.ts:60:1 › gates, narrow display, text scaling and silent mouse choices
+[7/39] tests\browser\campaign.spec.ts:67:1 › another tab changes the save without silently overwriting its progress
+[8/39] tests\browser\campaign.spec.ts:72:1 › Doble preserves a good decision through a lost roll, reload and reading its accounts
+[9/39] tests\browser\campaign.spec.ts:82:1 › all campaign panels remain usable at 200 percent text in a narrow window
+  1) tests\browser\campaign.spec.ts:82:1 › all campaign panels remain usable at 200 percent text in a narrow window 
+
+    Error: ada-tutorial header overlap
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 1
+    Received:    15.578125
+
+      83 |  test.setTimeout(120_000);
+      84 |  const s=checkpoint();s.seals!.records=true;s.finale=createFinale(1);s.settings.textScale=2;s.settings.volume=0;s.settings.reducedMotion=true;await page.setViewportSize({width:390,height:844});await open(page,s);
+    > 85 |  const check=async(name:string)=>{expect(await page.evaluate(()=>document.documentElement.scrollWidth),name).toBeLessThanOrEqual(390);expect(await page.locator('.topbar').evaluate(el=>Math.max(...Array.from(el.children).filter(child=>child.getClientRects().length>0).map(child=>child.getBoundingClientRect().bottom))-el.getBoundingClientRect().bottom),name+' header overlap').toBeLessThanOrEqual(1);await page.screenshot({path:`${evidence}/${name}-200.png`,fullPage:true});};
+         |                                                                                                                                                                                                                                                                                                                                                                                         ^
+      86 |  await check('ada-tutorial');await beginRecords(page);await check('ada');if(!await page.getByTestId('back-room').isVisible())await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();await check('room');
+      87 |  await page.getByTestId('enter-urns').click();await check('vera-complete');await page.getByTestId('practice-again').click();await page.getByTestId('toggle-cards').click();await check('vera');if(!await page.getByTestId('back-room').isVisible())await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();
+      88 |  await page.getByTestId('enter-contracts').click();await page.getByTestId('doble-replay').click();await page.getByTestId('doble-begin').click();await check('doble');if(!await page.getByTestId('back-room').isVisible())await page.getByRole('button',{name:/Ayuda y opciones/}).click();await page.getByTestId('back-room').click();
+        at check (C:\Users\facub\Documents\TheGame\tests\browser\campaign.spec.ts:85:377)
+        at C:\Users\facub\Documents\TheGame\tests\browser\campaign.spec.ts:86:2
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\final-test-results\campaign-all-campaign-pane-852a8-ent-text-in-a-narrow-window\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\final-test-results\campaign-all-campaign-pane-852a8-ent-text-in-a-narrow-window\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\final-test-results\campaign-all-campaign-pane-852a8-ent-text-in-a-narrow-window\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\final-test-results\campaign-all-campaign-pane-852a8-ent-text-in-a-narrow-window\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+[10/39] tests\browser\clear-ui.spec.ts:8:1 › clear language, settings tabs and tutorial replay preserve campaign progress
+[11/39] tests\browser\clear-ui.spec.ts:29:1 › capture all primary screens and report viewport fit at desktop and mobile sizes
+tests\browser\clear-ui.spec.ts:29:1 › capture all primary screens and report viewport fit at desktop and mobile sizes
+[{"mode":"menu","width":1366,"height":768,"scrollWidth":1366,"scrollHeight":768,"panels":[]},{"mode":"tutorial","width":1366,"height":768,"scrollWidth":1366,"scrollHeight":768,"panels":[{"height":599,"scroll":599}]},{"mode":"urns","width":1366,"height":768,"scrollWidth":1366,"scrollHeight":768,"panels":[{"height":632,"scroll":632}]},{"mode":"contracts","width":1366,"height":768,"scrollWidth":1366,"scrollHeight":768,"panels":[{"height":361,"scroll":361}]},{"mode":"records","width":1366,"height":768,"scrollWidth":1366,"scrollHeight":768,"panels":[{"height":390,"scroll":390}]},{"mode":"menu","width":1440,"height":900,"scrollWidth":1440,"scrollHeight":900,"panels":[]},{"mode":"tutorial","width":1440,"height":900,"scrollWidth":1440,"scrollHeight":900,"panels":[{"height":599,"scroll":599}]},{"mode":"urns","width":1440,"height":900,"scrollWidth":1440,"scrollHeight":900,"panels":[{"height":632,"scroll":632}]},{"mode":"contracts","width":1440,"height":900,"scrollWidth":1440,"scrollHeight":900,"panels":[{"height":361,"scroll":361}]},{"mode":"records","width":1440,"height":900,"scrollWidth":1440,"scrollHeight":900,"panels":[{"height":390,"scroll":390}]},{"mode":"menu","width":390,"height":844,"scrollWidth":390,"scrollHeight":844,"panels":[]},{"mode":"tutorial","width":390,"height":844,"scrollWidth":390,"scrollHeight":844,"panels":[{"height":590,"scroll":590}]},{"mode":"urns","width":390,"height":844,"scrollWidth":390,"scrollHeight":844,"panels":[{"height":601,"scroll":601}]},{"mode":"contracts","width":390,"height":844,"scrollWidth":390,"scrollHeight":844,"panels":[{"height":153,"scroll":153}]},{"mode":"records","width":390,"height":844,"scrollWidth":390,"scrollHeight":844,"panels":[{"height":388,"scroll":388}]}]
+
+[12/39] tests\browser\controls-dialogue.spec.ts:4:1 › dialogue resumes its checkpoint, replays without rewards, and releases control
+[13/39] tests\browser\controls-dialogue.spec.ts:13:1 › room uses mouse selection without walking or remapping controls
+[14/39] tests\browser\controls-dialogue.spec.ts:22:1 › optional street memory uses limited steps and returns to the dark opening
+[15/39] tests\browser\controls-dialogue.spec.ts:26:1 › a lost WebGL context leaves the table controls and committed result usable
+[16/39] tests\browser\desktop-revision.spec.ts:31:65 › mouse campaign and information windows fit 1366x768
+[17/39] tests\browser\desktop-revision.spec.ts:31:65 › mouse campaign and information windows fit 1280x720
+[18/39] tests\browser\desktop-revision.spec.ts:31:65 › mouse campaign and information windows fit 1920x1080
+[19/39] tests\browser\dice-layout.spec.ts:6:1 › dice offers fit and detailed combinations remain available on small screens
+[20/39] tests\browser\dice-roll.spec.ts:14:1 › visible table rolls once, settles on the saved pair and preserves the canvas
+[21/39] tests\browser\dice-roll.spec.ts:29:1 › reduced motion shows the exact result immediately without a roll animation
+[22/39] tests\browser\dice-roll.spec.ts:34:1 › HTML table and numbered result remain usable when WebGL is unavailable
+[23/39] tests\browser\ink-intro.spec.ts:5:1 › dark opening reveals the captor, lights the room and preserves table play
+[24/39] tests\browser\ink-intro.spec.ts:41:1 › reduced motion shortens the darkness and stops character motion
+[25/39] tests\browser\ink-intro.spec.ts:54:1 › skipping the dark opening cancels later scene changes
+[26/39] tests\browser\mvp.spec.ts:25:1 › complete urn table with decisions, canvas, and no page errors
+[27/39] tests\browser\mvp.spec.ts:53:1 › reload preserves revealed result and RNG checkpoint
+[28/39] tests\browser\mvp.spec.ts:66:1 › settings allow reduced motion and text scaling
+[29/39] tests\browser\mvp.spec.ts:84:1 › weak decisions reach a finite guided completion
+[30/39] tests\browser\mvp.spec.ts:108:1 › mouse help preserves progress and removed shortcuts do not choose or confirm
+[31/39] tests\browser\mvp.spec.ts:117:1 › invalid save keeps a usable menu
+[32/39] tests\browser\mvp.spec.ts:125:1 › unavailable WebGL preserves playable controls and a retry action
+[33/39] tests\browser\mvp.spec.ts:149:1 › replacement dialogs survive close events and deletion can be cancelled
+[34/39] tests\browser\photo-records.spec.ts:8:34 › initial yes is unscored, survives reload, then reveals missing photos
+[35/39] tests\browser\photo-records.spec.ts:8:34 › initial no is unscored, survives reload, then reveals missing photos
+[36/39] tests\browser\table-tutorial.spec.ts:4:1 › Vera guides a normal table through two prepared draws without changing the campaign
+[37/39] tests\browser\urn-feedback.spec.ts:25:1 › cards start hidden; card and real canvas urn share one glowing selection
+[38/39] tests\browser\urn-feedback.spec.ts:62:1 › equal chances make both cards correct, using the counts before extraction
+[39/39] tests\browser\urn-feedback.spec.ts:72:1 › a correct choice stays green when luck draws the other color
+  1 failed
+    tests\browser\campaign.spec.ts:82:1 › all campaign panels remain usable at 200 percent text in a narrow window 
+  38 passed (7.7m)

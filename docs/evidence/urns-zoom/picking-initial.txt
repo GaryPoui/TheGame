@@ -1,0 +1,43 @@
+
+Running 1 test using 1 worker
+
+(node:38128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\browser\urns-zoom.spec.ts:22:1 › Vera glass remains clickable after resize, settings and a return from the room (1.1m)
+
+
+  1) tests\browser\urns-zoom.spec.ts:22:1 › Vera glass remains clickable after resize, settings and a return from the room
+
+    Test timeout of 60000ms exceeded.
+
+    Error: locator.boundingBox: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for locator('.vera-viewport canvas')
+
+
+      23 |  await open(page);await page.setViewportSize({width:1093,height:615});
+      24 |  await page.getByTestId('settings-button').click();await page.getByTestId('text-scale').selectOption('2');await page.getByTestId('close-dialog').click();await fits(page);
+    > 25 |  const clickUrn=async()=>{const r=await page.locator('.vera-viewport canvas').boundingBox();const p=await page.evaluate(()=>(window.__THEGAME_METRICS__!() as {urnTargets:{x:number;y:number}[]}).urnTargets[0]!);await page.mouse.click(r!.x+p.x*r!.width,r!.y+p.y*r!.height);await expect(page.getByTestId('urn-0')).toHaveAttribute('aria-pressed','true');};
+         |                                                                               ^
+      26 |  await clickUrn();await page.getByRole('button',{name:'Ayuda y opciones'}).click();await page.getByRole('dialog').getByTestId('back-room').click();await page.getByTestId('enter-urns').click();await clickUrn();await fits(page);
+      27 | });
+      28 | test('intermediate zoom keeps the other tables inside the screen',async({page})=>{
+        at clickUrn (C:\Users\facub\Documents\TheGame\tests\browser\urns-zoom.spec.ts:25:79)
+        at C:\Users\facub\Documents\TheGame\tests\browser\urns-zoom.spec.ts:26:199
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\urns-zoom-Vera-glass-remai-d14bd--and-a-return-from-the-room\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\urns-zoom-Vera-glass-remai-d14bd--and-a-return-from-the-room\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\urns-zoom-Vera-glass-remai-d14bd--and-a-return-from-the-room\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\urns-zoom-Vera-glass-remai-d14bd--and-a-return-from-the-room\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\browser\urns-zoom.spec.ts:22:1 › Vera glass remains clickable after resize, settings and a return from the room

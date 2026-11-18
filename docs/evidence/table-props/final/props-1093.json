@@ -1,0 +1,789 @@
+[
+  {
+    "kind": "urns",
+    "meshCount": 51,
+    "activeMeshCount": 41,
+    "canvasResizeCount": 2,
+    "urnGeometryBuilds": 2,
+    "cameraFov": 0.4850784579987474,
+    "hardwareScale": 1,
+    "bossUrnsVisible": true,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 11,
+    "selectedUrn": null,
+    "highlightedUrnMeshes": 0,
+    "urnTargets": [
+      {
+        "x": 0.353679039642731,
+        "y": 0.46226825529140164
+      },
+      {
+        "x": 0.6463209409983113,
+        "y": 0.46226825529140164
+      }
+    ],
+    "pokerReady": false,
+    "tableMechanic": "urns",
+    "pokerCardCount": 0,
+    "pokerDeckCount": 0,
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": {
+      "hat": {
+        "x": 0.5000000117073907,
+        "y": 0.0241953135182378
+      },
+      "waist": {
+        "x": 0.5000000117073906,
+        "y": 0.6949394033130045
+      },
+      "width": 0.3854378936894158,
+      "tableWidth": 0.895170569588846,
+      "tableBack": {
+        "x": 0.49999998789499756,
+        "y": 0.47847774639492685
+      }
+    },
+    "tableFrame": [
+      {
+        "x": 0.9656875383982199,
+        "y": 0.6412782894392975
+      },
+      {
+        "x": 0.8947554489006914,
+        "y": 0.5904576148784986
+      },
+      {
+        "x": 0.7823885653284509,
+        "y": 0.5535105141599141
+      },
+      {
+        "x": 0.6464335591196763,
+        "y": 0.5314019191031464
+      },
+      {
+        "x": 0.4999999878042764,
+        "y": 0.5240709278003072
+      },
+      {
+        "x": 0.353566416759749,
+        "y": 0.5314019191031464
+      },
+      {
+        "x": 0.21761141136786363,
+        "y": 0.5535105141599141
+      },
+      {
+        "x": 0.10524452916077973,
+        "y": 0.5904576148784986
+      },
+      {
+        "x": 0.03431244154102188,
+        "y": 0.6412782894392975
+      },
+      {
+        "x": 0.027267907880495393,
+        "y": 0.7021376461746158
+      },
+      {
+        "x": 0.10512370868943655,
+        "y": 0.7640078038133078
+      },
+      {
+        "x": 0.2723973654365383,
+        "y": 0.8120598281795722
+      },
+      {
+        "x": 0.4999999934644815,
+        "y": 0.8304506958957757
+      },
+      {
+        "x": 0.7276026208129014,
+        "y": 0.8120598281795722
+      },
+      {
+        "x": 0.8948762757845315,
+        "y": 0.7640078038133078
+      },
+      {
+        "x": 0.9727320743074357,
+        "y": 0.702137646174616
+      },
+      {
+        "x": 0.174720127815413,
+        "y": 1.0120939517738736
+      },
+      {
+        "x": 0.23832407046559498,
+        "y": 0.8190969632328664
+      },
+      {
+        "x": 0.8252798546680001,
+        "y": 1.0120939517738736
+      },
+      {
+        "x": 0.7616759070683932,
+        "y": 0.8190969632328664
+      }
+    ],
+    "tableHost": "captor",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 38252,
+    "fps": 116.18900077995774,
+    "renderWidth": 589,
+    "renderHeight": 405,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 115,
+    "frameTimeMs": 2.199999988079071,
+    "renderTimeMs": 1.399999976158142,
+    "estimatedTextureBytes": 24535677.333333332
+  },
+  {
+    "kind": "urns",
+    "meshCount": 50,
+    "activeMeshCount": 40,
+    "canvasResizeCount": 2,
+    "urnGeometryBuilds": 4,
+    "cameraFov": 0.4850784579987474,
+    "hardwareScale": 1,
+    "bossUrnsVisible": true,
+    "visibleUrnVessels": 2,
+    "visibleUrnTokens": 10,
+    "selectedUrn": null,
+    "highlightedUrnMeshes": 0,
+    "urnTargets": [
+      {
+        "x": 0.353679039642731,
+        "y": 0.46226825529140164
+      },
+      {
+        "x": 0.6463209409983113,
+        "y": 0.46226825529140164
+      }
+    ],
+    "pokerReady": false,
+    "tableMechanic": "urns",
+    "pokerCardCount": 0,
+    "pokerDeckCount": 0,
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": {
+      "hat": {
+        "x": 0.5000000117073907,
+        "y": 0.0241953135182378
+      },
+      "waist": {
+        "x": 0.5000000117073906,
+        "y": 0.6949394033130045
+      },
+      "width": 0.3854378936894158,
+      "tableWidth": 0.895170569588846,
+      "tableBack": {
+        "x": 0.49999998789499756,
+        "y": 0.47847774639492685
+      }
+    },
+    "tableFrame": [
+      {
+        "x": 0.9656875383982199,
+        "y": 0.6412782894392975
+      },
+      {
+        "x": 0.8947554489006914,
+        "y": 0.5904576148784986
+      },
+      {
+        "x": 0.7823885653284509,
+        "y": 0.5535105141599141
+      },
+      {
+        "x": 0.6464335591196763,
+        "y": 0.5314019191031464
+      },
+      {
+        "x": 0.4999999878042764,
+        "y": 0.5240709278003072
+      },
+      {
+        "x": 0.353566416759749,
+        "y": 0.5314019191031464
+      },
+      {
+        "x": 0.21761141136786363,
+        "y": 0.5535105141599141
+      },
+      {
+        "x": 0.10524452916077973,
+        "y": 0.5904576148784986
+      },
+      {
+        "x": 0.03431244154102188,
+        "y": 0.6412782894392975
+      },
+      {
+        "x": 0.027267907880495393,
+        "y": 0.7021376461746158
+      },
+      {
+        "x": 0.10512370868943655,
+        "y": 0.7640078038133078
+      },
+      {
+        "x": 0.2723973654365383,
+        "y": 0.8120598281795722
+      },
+      {
+        "x": 0.4999999934644815,
+        "y": 0.8304506958957757
+      },
+      {
+        "x": 0.7276026208129014,
+        "y": 0.8120598281795722
+      },
+      {
+        "x": 0.8948762757845315,
+        "y": 0.7640078038133078
+      },
+      {
+        "x": 0.9727320743074357,
+        "y": 0.702137646174616
+      },
+      {
+        "x": 0.174720127815413,
+        "y": 1.0120939517738736
+      },
+      {
+        "x": 0.23832407046559498,
+        "y": 0.8190969632328664
+      },
+      {
+        "x": 0.8252798546680001,
+        "y": 1.0120939517738736
+      },
+      {
+        "x": 0.7616759070683932,
+        "y": 0.8190969632328664
+      }
+    ],
+    "tableHost": "captor",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-1",
+      "urn-base",
+      "thick-glass-urn",
+      "glass-ink-side",
+      "glass-ink-side",
+      "urn-rim",
+      "identification-plate",
+      "label-2",
+      "vera-ink-portrait",
+      "red-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "red-token",
+      "red-token",
+      "blue-token",
+      "blue-token",
+      "blue-token"
+    ],
+    "geometryTriangles": 38240,
+    "fps": 141.3094677264037,
+    "renderWidth": 589,
+    "renderHeight": 405,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 111,
+    "frameTimeMs": 2.5,
+    "renderTimeMs": 1.7999999523162842,
+    "estimatedTextureBytes": 23814117.333333332
+  },
+  {
+    "kind": "dice",
+    "meshCount": 94,
+    "activeMeshCount": 60,
+    "canvasResizeCount": 2,
+    "urnGeometryBuilds": 5,
+    "cameraFov": 0.4850784579987474,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 0,
+    "visibleUrnTokens": 0,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.353679039642731,
+        "y": 0.46226825529140164
+      },
+      {
+        "x": 0.6463209409983113,
+        "y": 0.46226825529140164
+      }
+    ],
+    "pokerReady": false,
+    "tableMechanic": "dice",
+    "pokerCardCount": 0,
+    "pokerDeckCount": 0,
+    "diceRolling": false,
+    "diceRollCount": 0,
+    "dicePositions": [
+      {
+        "x": -0.6,
+        "y": 2.17,
+        "z": -0.45
+      },
+      {
+        "x": 0.6,
+        "y": 2.17,
+        "z": -0.45
+      }
+    ],
+    "diceFaces": [
+      [
+        3,
+        4,
+        1,
+        6,
+        2,
+        5
+      ],
+      [
+        5,
+        2,
+        1,
+        6,
+        3,
+        4
+      ]
+    ],
+    "dealerFrame": {
+      "hat": {
+        "x": 0.5000000117073907,
+        "y": 0.0241953135182378
+      },
+      "waist": {
+        "x": 0.5000000117073906,
+        "y": 0.6949394033130045
+      },
+      "width": 0.3854378936894158,
+      "tableWidth": 0.895170569588846,
+      "tableBack": {
+        "x": 0.49999998789499756,
+        "y": 0.47847774639492685
+      }
+    },
+    "tableFrame": [
+      {
+        "x": 0.9656875383982199,
+        "y": 0.6412782894392975
+      },
+      {
+        "x": 0.8947554489006914,
+        "y": 0.5904576148784986
+      },
+      {
+        "x": 0.7823885653284509,
+        "y": 0.5535105141599141
+      },
+      {
+        "x": 0.6464335591196763,
+        "y": 0.5314019191031464
+      },
+      {
+        "x": 0.4999999878042764,
+        "y": 0.5240709278003072
+      },
+      {
+        "x": 0.353566416759749,
+        "y": 0.5314019191031464
+      },
+      {
+        "x": 0.21761141136786363,
+        "y": 0.5535105141599141
+      },
+      {
+        "x": 0.10524452916077973,
+        "y": 0.5904576148784986
+      },
+      {
+        "x": 0.03431244154102188,
+        "y": 0.6412782894392975
+      },
+      {
+        "x": 0.027267907880495393,
+        "y": 0.7021376461746158
+      },
+      {
+        "x": 0.10512370868943655,
+        "y": 0.7640078038133078
+      },
+      {
+        "x": 0.2723973654365383,
+        "y": 0.8120598281795722
+      },
+      {
+        "x": 0.4999999934644815,
+        "y": 0.8304506958957757
+      },
+      {
+        "x": 0.7276026208129014,
+        "y": 0.8120598281795722
+      },
+      {
+        "x": 0.8948762757845315,
+        "y": 0.7640078038133078
+      },
+      {
+        "x": 0.9727320743074357,
+        "y": 0.702137646174616
+      },
+      {
+        "x": 0.174720127815413,
+        "y": 1.0120939517738736
+      },
+      {
+        "x": 0.23832407046559498,
+        "y": 0.8190969632328664
+      },
+      {
+        "x": 0.8252798546680001,
+        "y": 1.0120939517738736
+      },
+      {
+        "x": 0.7616759070683932,
+        "y": 0.8190969632328664
+      }
+    ],
+    "tableHost": "captor",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "vera-ink-portrait",
+      "contract-die-0",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-die-1",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip",
+      "contract-pip"
+    ],
+    "geometryTriangles": 46328,
+    "fps": 124.01818934665918,
+    "renderWidth": 589,
+    "renderHeight": 405,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 81,
+    "frameTimeMs": 1.800000011920929,
+    "renderTimeMs": 1.100000023841858,
+    "estimatedTextureBytes": 23814117.333333332
+  },
+  {
+    "kind": "poker",
+    "meshCount": 76,
+    "activeMeshCount": 42,
+    "canvasResizeCount": 3,
+    "urnGeometryBuilds": 5,
+    "cameraFov": 0.47674165957350173,
+    "hardwareScale": 1,
+    "bossUrnsVisible": false,
+    "visibleUrnVessels": 0,
+    "visibleUrnTokens": 0,
+    "selectedUrn": 0,
+    "highlightedUrnMeshes": 4,
+    "urnTargets": [
+      {
+        "x": 0.40950725524263165,
+        "y": 0.46158201103227203
+      },
+      {
+        "x": 0.5904927253984107,
+        "y": 0.46158201103227203
+      }
+    ],
+    "pokerReady": true,
+    "tableMechanic": "poker",
+    "pokerCardCount": 9,
+    "pokerDeckCount": 4,
+    "diceRolling": false,
+    "diceRollCount": 1,
+    "dicePositions": [],
+    "diceFaces": [],
+    "dealerFrame": {
+      "hat": {
+        "x": 0.5000000117073907,
+        "y": 0.015542349297546285
+      },
+      "waist": {
+        "x": 0.5000000117073906,
+        "y": 0.6984845943035013
+      },
+      "width": 0.23837548055946095,
+      "tableWidth": 0.5536215615609908,
+      "tableBack": {
+        "x": 0.49999998789499756,
+        "y": 0.47808630753929005
+      }
+    },
+    "tableFrame": [
+      {
+        "x": 0.7880061828887707,
+        "y": 0.6438475256494222
+      },
+      {
+        "x": 0.744137968486774,
+        "y": 0.5921026335146575
+      },
+      {
+        "x": 0.6746442519845522,
+        "y": 0.5544836180667568
+      },
+      {
+        "x": 0.5905623735852092,
+        "y": 0.5319729592384287
+      },
+      {
+        "x": 0.4999999878042764,
+        "y": 0.524508647568333
+      },
+      {
+        "x": 0.40943760229421594,
+        "y": 0.5319729592384287
+      },
+      {
+        "x": 0.32535572471176233,
+        "y": 0.5544836180667568
+      },
+      {
+        "x": 0.255862009574697,
+        "y": 0.5921026335146575
+      },
+      {
+        "x": 0.21199379705047094,
+        "y": 0.6438475256494222
+      },
+      {
+        "x": 0.20763707948838425,
+        "y": 0.7058136620078193
+      },
+      {
+        "x": 0.25578728892905156,
+        "y": 0.7688089815513437
+      },
+      {
+        "x": 0.359238303188923,
+        "y": 0.8177348732121242
+      },
+      {
+        "x": 0.4999999934644815,
+        "y": 0.8364601946381748
+      },
+      {
+        "x": 0.6407616830605168,
+        "y": 0.8177348732121242
+      },
+      {
+        "x": 0.7442126955449166,
+        "y": 0.7688089815513437
+      },
+      {
+        "x": 0.7923629026995466,
+        "y": 0.7058136620078195
+      },
+      {
+        "x": 0.29882945229389185,
+        "y": 1.0214068338162465
+      },
+      {
+        "x": 0.33816554577422936,
+        "y": 0.8249000206698869
+      },
+      {
+        "x": 0.7011705301895212,
+        "y": 1.0214068338162465
+      },
+      {
+        "x": 0.6618344317597588,
+        "y": 0.8249000206698869
+      }
+    ],
+    "tableHost": "captor",
+    "tableTextureReady": true,
+    "activeNames": [
+      "table-edge",
+      "table-lip",
+      "table-felt",
+      "felt-inlay",
+      "table-pedestal",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "table-leg",
+      "table-leg-foot",
+      "pedestal-foot",
+      "pedestal-foot",
+      "vera-ink-portrait",
+      "boss-community-0",
+      "boss-community-0-face",
+      "boss-community-1",
+      "boss-community-1-face",
+      "boss-community-2",
+      "boss-community-2-face",
+      "boss-community-3",
+      "boss-community-3-face",
+      "boss-community-4",
+      "boss-community-4-face",
+      "boss-player-0",
+      "boss-player-0-face",
+      "boss-player-1",
+      "boss-player-1-face",
+      "boss-opponent-0",
+      "boss-opponent-0-face",
+      "boss-opponent-1",
+      "boss-opponent-1-face",
+      "boss-deck-0",
+      "boss-deck-0-face",
+      "boss-deck-1",
+      "boss-deck-1-face",
+      "boss-deck-2",
+      "boss-deck-2-face",
+      "boss-deck-3",
+      "boss-deck-3-face"
+    ],
+    "geometryTriangles": 38422,
+    "fps": 93.75000000000006,
+    "renderWidth": 589,
+    "renderHeight": 246,
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendering": true,
+    "drawCalls": 61,
+    "frameTimeMs": 2.600000023841858,
+    "renderTimeMs": 1.9000000357627869,
+    "estimatedTextureBytes": 30629861.333333332
+  }
+]

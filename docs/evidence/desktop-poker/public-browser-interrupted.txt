@@ -1,0 +1,43 @@
+
+Running 7 tests using 1 worker
+
+
+
+[1/7] tests\browser\campaign.spec.ts:82:1 › all campaign panels remain usable at 200 percent text in a narrow window
+[2/7] tests\browser\desktop-revision.spec.ts:31:65 › mouse campaign and information windows fit 1366x768
+[3/7] tests\browser\desktop-revision.spec.ts:31:65 › mouse campaign and information windows fit 1280x720
+  1) tests\browser\desktop-revision.spec.ts:31:65 › mouse campaign and information windows fit 1280x720 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByTestId('confirm-choice')
+        - locator resolved to <button class="primary full" data-testid="confirm-choice">Sacar una ficha de la urna 1</button>
+
+
+      61 |   const s=await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state);
+      62 |   if(s.phase==='complete')break;
+    > 63 |   if(['choose','guided'].includes(s.phase)){await page.getByTestId('toggle-cards').click();await page.getByTestId('urn-'+bestChoices(s)[0]).click();await fits(page);await page.getByTestId('confirm-choice').click();}
+         |                                                                                                                                                                                                               ^
+      64 |   else await page.getByTestId('next-step').click();
+      65 |   await fits(page);
+      66 |  }
+        at C:\Users\facub\Documents\TheGame\tests\browser\desktop-revision.spec.ts:63:207
+
+    Tearing down "context" exceeded the test timeout of 120000ms.
+
+    Error: browserContext.close: Target page, context or browser has been closed
+
+    Error Context: .tools\public-test-results\desktop-revision-mouse-cam-9f309-mation-windows-fit-1280x720\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\public-test-results\desktop-revision-mouse-cam-9f309-mation-windows-fit-1280x720\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\public-test-results\desktop-revision-mouse-cam-9f309-mation-windows-fit-1280x720\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+[4/7] tests\browser\desktop-revision.spec.ts:31:65 › mouse campaign and information windows fit 1920x1080

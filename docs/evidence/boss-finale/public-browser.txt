@@ -1,0 +1,35 @@
+
+Running 4 tests using 1 worker
+
+(node:38440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1280x720 text 1
+  1) tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1280x720 text 1 ──────────
+
+    Test timeout of 180000ms exceeded.
+
+    Tearing down "context" exceeded the test timeout of 180000ms.
+
+    Error: locator.click: Target page, context or browser has been closed
+
+      24 |   const kind=bossMechanic(s);await fits(page);
+      25 |   if(!seen.has(kind))await page.screenshot({path:`${evidence}/${kind}-${width}-${scale}.png`});seen.add(kind);
+    > 26 |   const choice=bestFinale(s)[0]!;await page.getByTestId('finale-'+choice).click();await page.getByTestId('finale-confirm').click();await expect(page.getByTestId('finale-feedback')).toBeVisible();await fits(page);
+         |                                                                           ^
+      27 |   s=applyFinaleCommand(s,{type:'choose',choice,commandId:'local-'+s.revision,expectedRevision:s.revision});
+      28 |   if(kind==='poker'){
+      29 |    await expect(page.getByTestId('opponent-cards').getByLabel('Carta boca abajo',{exact:true})).toHaveCount(0);await expect(page.locator('.showdown-hands .poker-card')).toHaveCount(10);
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss.spec.ts:26:75
+
+    Error: End of central directory record signature not found. Either not a zip file, or file is truncated.
+
+    Error Context: .tools\boss-public-results\boss-boss-combines-urns-dice-and-poker-1280x720-text-1\error-context.md
+
+
+(node:27332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/4] tests\browser\boss.spec.ts:37:26 › Ada polish shows both best hands and preserves scoring, text 2

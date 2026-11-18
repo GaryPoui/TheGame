@@ -1,0 +1,481 @@
+
+Running 13 tests using 1 worker
+
+
+
+(node:6624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/13] tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+  1) tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 8
+    + Received  + 9
+
+    @@ -1,7 +1,7 @@
+      Object {
+    -   "activeMeshCount": 41,
+    +   "activeMeshCount": 42,
+        "activeNames": Array [
+          "table-edge",
+          "table-lip",
+          "table-felt",
+          "felt-inlay",
+    @@ -26,10 +26,11 @@
+          "urn-base",
+          "thick-glass-urn",
+          "glass-ink-side",
+          "glass-ink-side",
+          "urn-rim",
+    +     "selection-ring",
+          "identification-plate",
+          "label-2",
+          "vera-ink-portrait",
+          "red-token",
+          "red-token",
+    @@ -64,24 +65,24 @@
+        },
+        "diceFaces": Array [],
+        "dicePositions": Array [],
+        "diceRollCount": 0,
+        "diceRolling": false,
+    -   "drawCalls": 115,
+    -   "estimatedTextureBytes": 24954197.333333332,
+    -   "fps": 78.8850907215634,
+    -   "frameTimeMs": 1.2000000178813934,
+    +   "drawCalls": 162,
+    +   "estimatedTextureBytes": 23931650.666666668,
+    +   "fps": 99.66777408637863,
+    +   "frameTimeMs": 2.4000000059604645,
+        "geometryTriangles": 38252,
+        "hardwareScale": 1,
+    -   "highlightedUrnMeshes": 0,
+    +   "highlightedUrnMeshes": 4,
+        "meshCount": 51,
+        "renderHeight": 389,
+    -   "renderTimeMs": 0.7000000178813934,
+    +   "renderTimeMs": 1,
+        "renderWidth": 795,
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A7A8) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "rendering": true,
+    -   "selectedUrn": null,
+    +   "selectedUrn": 1,
+        "tableHost": "captor",
+        "tableTextureReady": true,
+        "urnGeometryBuilds": 2,
+        "urnTargets": Array [
+          Object {
+
+      21 |  const sample=()=>page.evaluate(()=>(window.__THEGAME_METRICS__!() as {canvasResizeCount:number;urnGeometryBuilds:number;cameraFov:number}));const before=await sample();
+      22 |  await page.getByTestId('finale-U').click();expect(await page.locator('.ada-viewport').evaluate((node,old)=>node===old,viewport)).toBe(true);expect(await page.locator('.ada-viewport canvas').evaluate((node,old)=>node===old,canvas)).toBe(true);
+    > 23 |  await page.getByTestId('finale-V').click();expect(await sample()).toEqual(before);
+         |                                                                    ^
+      24 |  await page.getByTestId('settings-button').click();await page.getByTestId('text-scale').selectOption('2');await page.getByTestId('close-dialog').click();expect((await sample()).cameraFov).toBeCloseTo(before.cameraFov,5);
+      25 | });
+      26 | for(const [width,height]of [[1280,720],[960,540],[853,480],[640,360]])test(`all boss mechanics and result fit ${width}x${height}`,async({page})=>{
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:23:68
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-selecting-a-bos-a7a7e-node-and-its-mounted-canvas\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-selecting-a-bos-a7a7e-node-and-its-mounted-canvas\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-selecting-a-bos-a7a7e-node-and-its-mounted-canvas\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-selecting-a-bos-a7a7e-node-and-its-mounted-canvas\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:48268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/13] tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 1280x720
+  2) tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 1280x720 ───────────
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 0
+    Received:    -0.04329787951254918
+
+      27 |  test.setTimeout(120000);await open(page,width,height);await fits(page);await page.getByTestId('finale-begin').click();let s=createFinale(3,'boss-v1');s=applyFinaleCommand(s,{type:'begin',commandId:'b',expectedRevision:0});const seen=new Set<string>();
+      28 |  for(let i=0;i<8&&seen.size<3;i++){
+    > 29 |   const kind=bossMechanic(s);await fits(page);const frame=await page.evaluate(()=>(window.__THEGAME_METRICS__!() as {dealerFrame:{hat:{y:number};width:number}}).dealerFrame);expect(frame.hat.y).toBeGreaterThanOrEqual(0);expect(frame.hat.y).toBeLessThan(1);expect(frame.width).toBeGreaterThan(0);
+         |                                                                                                                                                                                                   ^
+      30 |   if(!seen.has(kind)){await mkdir(evidence,{recursive:true});await page.screenshot({path:`${evidence}/${kind}-${width}.png`});}seen.add(kind);const choice=bestFinale(s)[0]!;
+      31 |   await page.getByTestId('finale-'+choice).click();await page.getByTestId('finale-confirm').click();s=applyFinaleCommand(s,{type:'choose',choice,commandId:'s'+s.revision,expectedRevision:s.revision});await fits(page);await expect(page.locator('.damage-breakdown')).toBeVisible();
+      32 |   await page.getByTestId('finale-next').click();s=applyFinaleCommand(s,{type:'next',commandId:'s'+s.revision,expectedRevision:s.revision});
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:29:195
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-1280x720\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-1280x720\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-1280x720\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-1280x720\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:45524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/13] tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 960x540
+  3) tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 960x540 ────────────
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 0
+    Received:    -0.015267429524181161
+
+      27 |  test.setTimeout(120000);await open(page,width,height);await fits(page);await page.getByTestId('finale-begin').click();let s=createFinale(3,'boss-v1');s=applyFinaleCommand(s,{type:'begin',commandId:'b',expectedRevision:0});const seen=new Set<string>();
+      28 |  for(let i=0;i<8&&seen.size<3;i++){
+    > 29 |   const kind=bossMechanic(s);await fits(page);const frame=await page.evaluate(()=>(window.__THEGAME_METRICS__!() as {dealerFrame:{hat:{y:number};width:number}}).dealerFrame);expect(frame.hat.y).toBeGreaterThanOrEqual(0);expect(frame.hat.y).toBeLessThan(1);expect(frame.width).toBeGreaterThan(0);
+         |                                                                                                                                                                                                   ^
+      30 |   if(!seen.has(kind)){await mkdir(evidence,{recursive:true});await page.screenshot({path:`${evidence}/${kind}-${width}.png`});}seen.add(kind);const choice=bestFinale(s)[0]!;
+      31 |   await page.getByTestId('finale-'+choice).click();await page.getByTestId('finale-confirm').click();s=applyFinaleCommand(s,{type:'choose',choice,commandId:'s'+s.revision,expectedRevision:s.revision});await fits(page);await expect(page.locator('.damage-breakdown')).toBeVisible();
+      32 |   await page.getByTestId('finale-next').click();s=applyFinaleCommand(s,{type:'next',commandId:'s'+s.revision,expectedRevision:s.revision});
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:29:195
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-960x540\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-960x540\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-960x540\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-960x540\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:43412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/13] tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 853x480
+  4) tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 853x480 ────────────
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 0
+    Received:    -0.04329789071614984
+
+      27 |  test.setTimeout(120000);await open(page,width,height);await fits(page);await page.getByTestId('finale-begin').click();let s=createFinale(3,'boss-v1');s=applyFinaleCommand(s,{type:'begin',commandId:'b',expectedRevision:0});const seen=new Set<string>();
+      28 |  for(let i=0;i<8&&seen.size<3;i++){
+    > 29 |   const kind=bossMechanic(s);await fits(page);const frame=await page.evaluate(()=>(window.__THEGAME_METRICS__!() as {dealerFrame:{hat:{y:number};width:number}}).dealerFrame);expect(frame.hat.y).toBeGreaterThanOrEqual(0);expect(frame.hat.y).toBeLessThan(1);expect(frame.width).toBeGreaterThan(0);
+         |                                                                                                                                                                                                   ^
+      30 |   if(!seen.has(kind)){await mkdir(evidence,{recursive:true});await page.screenshot({path:`${evidence}/${kind}-${width}.png`});}seen.add(kind);const choice=bestFinale(s)[0]!;
+      31 |   await page.getByTestId('finale-'+choice).click();await page.getByTestId('finale-confirm').click();s=applyFinaleCommand(s,{type:'choose',choice,commandId:'s'+s.revision,expectedRevision:s.revision});await fits(page);await expect(page.locator('.damage-breakdown')).toBeVisible();
+      32 |   await page.getByTestId('finale-next').click();s=applyFinaleCommand(s,{type:'next',commandId:'s'+s.revision,expectedRevision:s.revision});
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:29:195
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-853x480\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-853x480\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-853x480\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-853x480\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:52604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[5/13] tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 640x360
+  5) tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 640x360 ────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+    - Array []
+    + Array [
+    +   "Aprender el duelo",
+    +   "finale-begin",
+    +   "Reglas del duelo",
+    +   "back-room",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:27:56
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-640x360\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-640x360\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-640x360\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-all-boss-mechanics-and-result-fit-640x360\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:40472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/13] tests\browser\boss-focus.spec.ts:36:108 › urns choices and feedback fit 853x480
+[7/13] tests\browser\boss-focus.spec.ts:36:108 › urns choices and feedback fit 640x360
+  6) tests\browser\boss-focus.spec.ts:36:108 › urns choices and feedback fit 640x360 ───────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "confirm-choice",
+    +   "Ayuda y opciones",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:37:241
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-urns-choices-and-feedback-fit-640x360\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-urns-choices-and-feedback-fit-640x360\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-urns-choices-and-feedback-fit-640x360\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-urns-choices-and-feedback-fit-640x360\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:52348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[8/13] tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 853x480
+  7) tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 853x480 ──────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+    - Array []
+    + Array [
+    +   "contract-S",
+    +   "contract-C",
+    +   "contract-J",
+    +   "Cómo contar los pares",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:37:241
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-contracts-choices-and-feedback-fit-853x480\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-contracts-choices-and-feedback-fit-853x480\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-contracts-choices-and-feedback-fit-853x480\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-contracts-choices-and-feedback-fit-853x480\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:14248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/13] tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 640x360
+  8) tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 640x360 ──────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "back-room",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:38:378
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-contracts-choices-and-feedback-fit-640x360\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-contracts-choices-and-feedback-fit-640x360\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-contracts-choices-and-feedback-fit-640x360\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-contracts-choices-and-feedback-fit-640x360\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:51176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[10/13] tests\browser\boss-focus.spec.ts:36:108 › records choices and feedback fit 853x480
+  9) tests\browser\boss-focus.spec.ts:36:108 › records choices and feedback fit 853x480 ────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "9♠",
+    +   "5♦",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:37:241
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-records-choices-and-feedback-fit-853x480\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-records-choices-and-feedback-fit-853x480\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-records-choices-and-feedback-fit-853x480\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-records-choices-and-feedback-fit-853x480\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:25640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[11/13] tests\browser\boss-focus.spec.ts:36:108 › records choices and feedback fit 640x360
+  10) tests\browser\boss-focus.spec.ts:36:108 › records choices and feedback fit 640x360 ───────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "9♠",
+    +   "5♦",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:37:241
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-records-choices-and-feedback-fit-640x360\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-first\boss-focus-records-choices-and-feedback-fit-640x360\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-first\boss-focus-records-choices-and-feedback-fit-640x360\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-first\boss-focus-records-choices-and-feedback-fit-640x360\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:38296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[12/13] tests\browser\boss-focus.spec.ts:40:1 › boss resource help is contextual and does not alter the fight
+[13/13] tests\browser\boss-focus.spec.ts:44:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent
+  10 failed
+    tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+    tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 1280x720 ────────────
+    tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 960x540 ─────────────
+    tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 853x480 ─────────────
+    tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 640x360 ─────────────
+    tests\browser\boss-focus.spec.ts:36:108 › urns choices and feedback fit 640x360 ────────────────
+    tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 853x480 ───────────
+    tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 640x360 ───────────
+    tests\browser\boss-focus.spec.ts:36:108 › records choices and feedback fit 853x480 ─────────────
+    tests\browser\boss-focus.spec.ts:36:108 › records choices and feedback fit 640x360 ─────────────
+  3 passed (56.2s)

@@ -1,0 +1,18 @@
+{
+  "version": "boss-focus-motion-2026-11-16",
+  "sourceCommit": "868388439df736c81691e051eaad971989dc30b7",
+  "deploymentCommit": "c4151ace298964742ff8d7dd59cf9d43a8a31701",
+  "publicURL": "https://garypoui.github.io/TheGame/",
+  "pagesWorkflow": "https://github.com/GaryPoui/TheGame/actions/runs/43966513646",
+  "pagesStatus": "success",
+  "publicTests": 5,
+  "assetHashesMatched": 146,
+  "assetMismatches": 0,
+  "pullRequestCreated": false,
+  "pullRequestFailure": "403 Resource not accessible by integration",
+  "compareURL": "https://github.com/GaryPoui/TheGame/compare/codex%2Fdeep-game-polish...codex%2Fboss-focus-motion",
+  "initialPublicPassed": 4,
+  "initialPublicTimeouts": 1,
+  "targetedRetryPassed": 1,
+  "retryReport": "docs/evidence/boss-focus/public-browser-retry.txt"
+}

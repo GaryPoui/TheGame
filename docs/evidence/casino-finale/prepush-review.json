@@ -1,0 +1,14 @@
+{
+  "filesChecked": 68,
+  "possibleSecrets": [],
+  "unexpectedFiles": [],
+  "newDependencies": false,
+  "newArt": [
+    "public/art/escape-dawn-v1.png"
+  ],
+  "provenance": "public/escape-art.json",
+  "licenseChanges": [
+    "third-party/README.md"
+  ],
+  "review": "Shared pedestal, separate reading dock and public-state contract math. Initial runs retained; timeouts are not counted as passes. New artwork inspected and attributed. No human learning, enjoyment or measured FPS claim."
+}

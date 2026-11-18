@@ -1,0 +1,9 @@
+
+Running 2 tests using 1 worker
+
+(node:60004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\casino-finale.spec.ts:22:62 › boss proportions stay fixed between all mechanics 1093x615 (52.8s)
+  ok 2 tests\browser\casino-finale.spec.ts:22:62 › boss proportions stay fixed between all mechanics 640x360 (1.3m)
+
+  2 passed (2.2m)

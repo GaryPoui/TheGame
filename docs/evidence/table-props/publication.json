@@ -1,0 +1,13 @@
+{
+  "version": "table-props-bonus-2026-11-17",
+  "sourceCommit": "defaf0b195bf6f975013267f73530ffe7a7e4c18",
+  "deploymentCommit": "892d1fc841b05a988adc1ff718832973a8595bcf",
+  "publicURL": "https://garypoui.github.io/TheGame/",
+  "pagesWorkflow": "https://github.com/GaryPoui/TheGame/actions/runs/44151249383",
+  "pagesStatus": "success",
+  "publicCasesPassed": 8,
+  "assetHashesMatched": 146,
+  "pullRequestCreated": false,
+  "pullRequestFailure": "403 Resource not accessible by integration",
+  "compareURL": "https://github.com/GaryPoui/TheGame/compare/codex%2Furns-zoom-repair...codex%2Ftable-props-poker-bonus"
+}

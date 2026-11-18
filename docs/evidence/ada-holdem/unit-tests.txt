@@ -1,0 +1,13 @@
+
+> thegame@0.0.0 test
+> vitest run
+
+
+ RUN  v5.0.5 C:/Users/facub/Documents/TheGame
+
+
+ Test Files  9 passed (9)
+      Tests  54 passed (54)
+   Start at  12:31:46
+   Duration  19.82s (tests 92%, transform 4%, import 3%, worker 1%)
+

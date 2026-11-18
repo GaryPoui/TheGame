@@ -1,0 +1,45 @@
+
+Running 4 tests using 1 worker
+
+
+
+(node:40084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/4] tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1280x720 text 1
+  1) tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1280x720 text 1 ─
+
+    Error: page.evaluate: TypeError: window.__THEGAME_METRICS__ is not a function
+        at eval (eval at evaluate (:370:30), <anonymous>:1:14)
+        at UtilityScript.evaluate (<anonymous>:372:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at eval (eval at evaluate (:370:30), <anonymous>:1:14)
+        at UtilityScript.evaluate (<anonymous>:372:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at metrics (C:\Users\facub\Documents\TheGame\tests\browser\boss-urns.spec.ts:13:47)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-urns.spec.ts:17:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-urns-correction-results\boss-urns-boss-uses-Vera-g-6638e-and-tickets-1280x720-text-1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-urns-correction-results\boss-urns-boss-uses-Vera-g-6638e-and-tickets-1280x720-text-1\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-urns-correction-results\boss-urns-boss-uses-Vera-g-6638e-and-tickets-1280x720-text-1\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-urns-correction-results\boss-urns-boss-uses-Vera-g-6638e-and-tickets-1280x720-text-1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:9160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/4] tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1024x640 text 2
+[3/4] tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 390x844 text 1
+[4/4] tests\browser\boss-urns.spec.ts:28:1 › Vera still uses the same urns and shared controls
+  1 failed
+    tests\browser\boss-urns.spec.ts:15:75 › boss uses Vera glass urns and tickets 1280x720 text 1 ──
+  3 passed (35.0s)

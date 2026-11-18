@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-12",
+  "browser": "Chrome 157.0.8103.52 headless on Windows; isolated profile",
+  "unitTestsPassed": 46,
+  "mathChecksPassed": 70,
+  "skillFilesVerified": 92,
+  "browserCasesCovered": 24,
+  "firstBlockCompleted": 18,
+  "repeatedReadingCasesPassed": 6,
+  "initialReadingCaseTimeoutSeconds": 60,
+  "readingBudgetSeconds": 180,
+  "desktopViewports": [
+    "1024x640",
+    "1280x720",
+    "1440x900"
+  ],
+  "settingsAndVeraTextScales": [
+    1,
+    2
+  ],
+  "newAssetsOrDependencies": false
+}

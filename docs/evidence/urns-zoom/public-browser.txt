@@ -1,0 +1,11 @@
+
+Running 4 tests using 1 worker
+
+(node:60068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\urns-zoom.spec.ts:18:1 › normal urn decisions provide counts without calculated probabilities (3.8s)
+  ok 2 tests\browser\urns-zoom.spec.ts:22:1 › Vera glass remains clickable after resize, settings and a return from the room (3.8s)
+  ok 3 tests\browser\urns-zoom.spec.ts:28:1 › intermediate zoom keeps the other tables inside the screen (8.4s)
+  ok 4 tests\browser\urns-zoom.spec.ts:38:1 › Vera table and choices fit intermediate zoom sizes before and after extraction (8.4s)
+
+  4 passed (27.0s)

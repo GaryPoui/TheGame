@@ -1,0 +1,271 @@
+# Continuidad del proyecto
+
+Revisión de interfaz, zoom y jefe 2026-11-16 en `codex/boss-focus-motion`: anfitrión de escala 1,3 a 1,5, ayuda directa en defensas/combo, preparación por acciones y desglose de daño. Escenario y fichas estables al seleccionar; el tamaño del texto ya no aleja la cámara. Vistas compactas, comparaciones en ventanas y transiciones cortas con movimiento reducido. Reglas y guardado v8 conservados. Evidencia y límites en [duelo, zoom y fluidez](boss-focus-motion.md).
+
+Publicada `boss-focus-motion-2026-11-16`: fuente `8683884`, Pages `c4151ac`, 63 unitarias, 70 comprobaciones matemáticas y 54 casos locales cubiertos con revalidaciones. Cinco casos HTTPS cubiertos: cuatro aprobados inicialmente y la selección de segunda urna aprobada al repetir sólo ese caso tras un timeout. 146/146 hashes, jefe y salida guiada públicos inspeccionados. Se emularon espacio CSS y densidad del zoom; no se afirma prueba manual de la barra de Chrome ni mejora de FPS. PR bloqueado por 403 del conector; rama subida, comparación preparada y sin merge. Ver [publicación](boss-focus-motion.md#publicación-comprobada).
+
+Pulido integral 2026-11-16 en `codex/deep-game-polish`: dados con caras visibles antes de la primera tirada y contorno corregido; preferencias previas a la partida persistentes; práctica de póker sin consumir azar/progreso; nueve manos ilustradas y reglas de letras/palos; guía del jefe y objetivos más claros; explicaciones paginadas y ajustadas a texto ampliado. Se conservan reglas y campaña v8. Recorrido completo hasta salida y reanudación aprobado. Ver [hallazgos y evidencia](deep-game-polish.md).
+
+Publicada `deep-polish-2026-11-16`: fuente `1028bcc`, Pages `2f78fe1`. 62 unitarias, 70 comprobaciones matemáticas, 40 casos locales cubiertos con correcciones revalidadas, tres casos HTTPS y 146/146 hashes. Dados 3D vistos con puntos en la página pública. Fuente subida en rama separada; PR bloqueado por 403 del conector, comparación preparada y sin merge. Ver [entrega](deep-game-polish.md#publicación-verificada) y `delivery.json`.
+
+Actualización 2026-10-28: Ada pasa a [Las fotos tramposas](photos-redesign.md), con pregunta inicial sin puntos sobre independencia, fotos completas frente a seleccionadas y textos sencillos. Doble conserva sus reglas con consignas más simples. Las mesas mantienen el diseño anterior solicitado. Las sesiones antiguas conservan progreso y pueden empezar el álbum nuevo.
+
+
+## Restauración solicitada — 2026-10-28
+
+El usuario pidió volver la mesa a su diseño anterior. Se restauró exactamente la presentación de 2adb98e (campaña v5.2), conservando reglas, progreso y guardado. La revisión de mesas protagonistas queda como antecedente descartado.
+
+## Mesas protagonistas — 2026-10-28
+
+El usuario pidió centrar la atención en las mesas y agregar objetos relacionados con cada juego. Se implementa en la rama vigente `codex/complete-campaign` / PR #7: tableros amplios, consignas sobre el paño, opciones junto a objetos, personajes secundarios y bandejas/inventarios/utilería por puesto. Las tres fases del final usan objetos reales de su desafío. Ver [composición y validación](table-focus.md). Regresión local: 32 unitarias y 28 casos de navegador aprobados. La tarea externa 010/T011 sigue abierta.
+
+
+## Campaña y final — 2026-10-26
+
+Pedido vigente: completar specs restantes, preservar diseño y publicar avances por commits.
+Se integró la rama Doble con las mejoras recientes de urnas, luego Ada y el anfitrión.
+Rama `codex/complete-campaign`; ver [implementación y validación](campaign-implementation.md).
+Esta autorización supera las restricciones históricas de una sola mesa. Las secciones
+siguientes son registros de sus entregas, no el estado actual.
+
+
+## Ajustes del primer juego — 2026-10-26
+
+El usuario pidió centrarse en urnas antes de otra spec. Ver [selección y feedback](urn-feedback.md):
+título Las urnas, cartas plegables, brillo sincronizado tarjeta/urna y corrección verde/roja
+según la decisión anterior a extraer. Se incorporó la tipografía sin serifa del remoto
+fac1368 antes de crear codex/urn-feedback. Sin cambios al RNG, reglas o esquema de guardado.
+
+
+## Publicación autorizada de jugabilidad — 2026-10-23
+
+El usuario cambió la restricción anterior y pidió «PUSHEA TODO PARA QUE ESTE EN EL PAGES».
+Se autoriza subir el corte de jugabilidad y actualizar gh-pages, conservando PR #5 sin merge
+automático. La sección de corte local siguiente documenta el estado previo a esta autorización.
+Publicado: fuente `7b463b0`, despliegue `8e64958`, versión `urns-contracts-playability-v1`.
+Pages finalizó con éxito; HTTP 200, build-info correcto y bundle público igual al compilado local.
+
+## Jugabilidad local — 2026-10-23
+
+El usuario pidió mejorar ritmo, explicación práctica y diseño de Vera y Doble; luego indicó
+**no hacer push**. Este corte permanece local, sin commit ni publicación. Incluye fichas
+contables sobre el paño, tutorial interactivo de Vera, mentor contextual, comparación antes/después,
+ensayo manual de dos dados para Doble, vista de 36 casos al seleccionar y acciones móviles fijas.
+Se conserva el núcleo matemático, RNG y guardado. Detalle: [jugabilidad local](playability-local.md).
+La publicación anterior de Doble sigue siendo la versión pública.
+
+## Mesa de Doble — 2026-10-23
+
+El usuario pidió «implementa la mesa doble». El corte vigente se desarrolla en
+`codex/doble-contracts`, derivado de `codex/ink-theatre`; la build pública sigue usando `gh-pages`.
+Vera habilita contratos S/C/J con cuatro rondas y ocho decisiones, dados 3D, comparación opcional
+1/100, ayuda finita y guardado esquema 2 compatible con urnas legado. Sellos y métodos se conservan
+al practicar. El teatro de tinta y Arial sans siguen vigentes. Ada y el final están pendientes.
+Detalle y evidencia: [Doble](doble-implementation.md). Se realizaron recorridos manuales y
+build/typecheck; no se añadieron ni ejecutaron suites nuevas y T007/T008 siguen pendientes.
+El hash de publicación se registra sólo después de subir y publicar realmente este corte.
+Las secciones siguientes de entregas previas quedan como historial, no como estado vigente.
+
+## Teatro de tinta — 2026-10-23
+
+El usuario corrigió la dirección: referencia Cuphead más tranquila, oscuridad inicial y captor
+adaptado de Gambito. Nueva rama `codex/ink-theatre`, derivada de la revisión v2. Tres assets
+generados con herramienta integrada, escena híbrida pintada/3D y apertura con salto/reducción
+de movimiento. Ver [dirección y validación](ink-theatre.md). La sección realista siguiente es
+histórica y no define el arte vigente. Campaña posterior pendiente.
+
+
+## Actualización visual — 2026-10-23
+
+El usuario pidió mayor realismo visual. Rama de trabajo `codex/realistic-visuals` derivada de la
+fuente MVP. La sala ahora usa materiales PBR y HDR locales CC0; Vera tiene cabeza anatómica,
+textura facial CC0, cabello, escala y apoyo de manos revisados en cámara. Se corrigió el winding
+Babylon LH que mostraba interior de rostro. Build validado, 8/8 pruebas browser aprobadas en
+GitHub Pages y 137/137 archivos servidos verificados. Evidencia específica, procedencia y límites
+en [mejora visual](visual-upgrade.md). La siguiente etapa es playtest humano antes de ampliar la
+campaña.
+
+## Actualización MVP — 2026-10-23
+
+El usuario autorizó continuar hasta un MVP y hostearlo. Se implementó la mesa de urnas completa,
+con sala Babylon.js, Vera, tutorial preparado, cuatro rondas, ayuda finita, guardado validado y
+ajustes/atajos reasignables. Código en `codex/playable-mvp`; sitio https://garypoui.github.io/TheGame/.
+PR del MVP: https://github.com/GaryPoui/TheGame/pull/2, sin merge. Fuente `52bc021`, despliegue `c1db9d9`.
+Ver [alcance](mvp-scope.md), [validación](mvp-validation.md), [despliegue](deployment.md) y delivery.json.
+El objetivo siguiente es prueba humana de esta mesa antes de desarrollar contratos/registros/final.
+Los apartados siguientes conservan la entrega documental inicial y sus evidencias históricas.
+
+Proyecto: [GaryPoui/TheGame](https://github.com/GaryPoui/TheGame).
+Rama de entrega: `codex/research-specs-skills`. Base: `main` con README mínimo al comenzar.
+La investigación comenzó el 2026-10-22 y la auditoría de skills continuó el 2026-10-23,
+America/Buenos_Aires. Los documentos conservan su fecha de consulta, no una fecha única ficticia.
+
+## Hecho realmente
+
+- Se leyó y conservó íntegro [el prompt](original-prompt.md), incluidas ampliaciones visuales.
+- Se verificaron repo, rama, árbol limpio inicial, Git y acceso GitHub; no se guardaron credenciales.
+- Se investigaron fuentes primarias y se distinguieron hechos, propuestas e hipótesis.
+- Se instalaron 17 skills portables auditadas con commits, licencias, referencias y reinstalación.
+- Se instaló Specify CLI 1.2.3 y se ejecutó init real con integración Codex y PowerShell.
+- Se aplicó el flujo documental, constitución 1.0.0 y diez specs con planes/tareas/checklists.
+- Se fijaron paquetes estables consultados al registro y se generó lockfile sin scripts de paquetes.
+- Se documentaron diseño, narrativa, matemáticas, arte, UI, arquitectura, validación y riesgos.
+- Se verificaron matemáticas del diseño con enumeración exacta y se revisaron contradicciones.
+
+## Propuesto, sin implementar
+
+Título La Casa del Azar, campaña 30–45 min, urnas/contratos/registros/final. Babylon.js 9.32.0,
+TypeScript 7.0.2, Vite 8.3.5; guardado local, RNG reproducible y HTML/CSS. Los paquetes están
+resueltos en lockfile, no probados como aplicación integrada. No existen src, build, juego jugable,
+GLB, sonidos, screenshots de juego, perfiles de GPU ni estudio educativo. Ninguna tarea de
+implementación está marcada como terminada.
+
+## Evidencia disponible
+
+- `docs/evidence/specify-init.txt`, version/integration y spec-workflow: instalación y scripts reales.
+- `docs/evidence/skills-install.json`, skills-verify: instalación, archivos, licencias y hashes.
+- `docs/evidence/math-verification.json`: comprobaciones exactas del diseño, no del runtime.
+- `docs/evidence/npm-versions.json`: versiones, licencias e integridad consultadas.
+- `docs/evidence/docs-verification.json`: estructura, enlaces locales y pins/lock.
+- `docs/evidence/clone-verification.json`: cinco verificaciones aprobadas desde clon limpio con
+  autocrlf de Windows, incluyendo integridad Spec Kit y selección de feature local.
+- [Análisis](consistency-analysis.md): revisión semántica, hallazgos y correcciones.
+
+## Preparar otro equipo
+
+1. Clonar repo y hacer checkout de la rama/commit de esta entrega; no depende del historial del chat.
+2. Leer README, AGENTS, constitución y educational-design.
+3. Python 3.11+: `python scripts/skills.py verify`. Las skills ya están en el clon;
+   si faltan carpetas usar `python scripts/skills.py install` y verificar de nuevo.
+4. Para CLI Spec Kit: `python -m pip install --user uv`, luego
+   `python -m uv tool install specify-cli==1.2.3`; agregar su bin a PATH o usar ruta devuelta.
+   No volver a inicializar encima de documentos existentes. Seleccionar 001 creando el puntero
+   local .specify/feature.json con el comando de [procedimiento](spec-kit.md).
+5. Ejecutar `python scripts/verify-math.py` y `python scripts/verify-docs.py`.
+6. Node >=22.12: cuando se autorice implementar, `npm ci`; preparar scripts y tsconfig en 001.
+   Instalar browser de Playwright sólo al comenzar pruebas reales; no afirmar cobertura ahora.
+
+Auxiliares opcionales pendientes: Blender >=4.2 identificado, entorno Python Playwright y Pillow
+compatible con auxiliares raster. No bloquean lectura de skills ni documentación. Instalada no
+significa cargada: catálogo puede requerir próximo turno/nueva sesión; archivos fueron leídos
+directamente para aplicar instrucciones. Detalles y riesgos de scripts en docs/skills.md.
+
+## Siguiente paso original de la fase documental (ya autorizado y ejecutado en el MVP)
+
+La instrucción posterior de implementación llegó el 2026-10-23. El plan original era: Empezar por 001, luego cámara 002, runner 004,
+contratos/checkpoints mínimos de 009 y tokens/presupuestos de 010; construir 005 completa en sala
+simple con un asistente. Revisar legibilidad, matemáticas, reanudación y experiencia antes de
+003/006/007/008 y arte de campaña. No empezar produciendo todos los personajes.
+
+## Publicación y enlaces de entrega
+
+Commit de contenido: `2e9ea08adba152c547e59ff9ad3078a96d1ec834`.
+PR publicado: https://github.com/GaryPoui/TheGame/pull/1 (sin merge).
+El commit y enlaces definitivos están registrados en `delivery.json` en la raíz.
+Ese registro identifica el commit de contenido; su propio commit de registro será posterior
+para evitar una referencia de hash a sí mismo. El historial Git y el PR permiten recuperar ambos.
+No hay deployment ni juego público en esta fase. Nunca hacer force push ni merge no solicitado.
+
+Instantánea antigua: [chat compartido previo](https://chatgpt.com/s/cx_6adacb1e19ec8191882cff4f7533f6db).
+No se verificó su contenido y no se usa como autoridad. Se generó una instantánea nueva pública:
+https://chatgpt.com/s/cx_6adad17a40b481919db1688aa8ed27b9, también en delivery.json. Es una captura
+durante el cierre, no un enlace que se actualiza solo con mensajes posteriores. La continuidad
+completa y las decisiones posteriores a Babylon.js están en este repositorio.
+## Cierre de la revisión de tinta
+
+Publicación v3 comprobada: fuente `4ec4109`, deployment `ff872d5`, PR
+https://github.com/GaryPoui/TheGame/pull/4. 11/11 pruebas públicas y 123/123 archivos por hash.
+El usuario pidió subir el avance y el cierre al repositorio: avance en `ba95833` y registro
+final en el commit siguiente. Fuente y documentación en `codex/ink-theatre`. Próximo trabajo:
+revisión humana de la dirección visual y actuaciones por estados antes de ampliar campaña.
+
+
+Cierre de ajustes de urnas (2026-10-26): fuente 29c4148, deployment 1e6bfd4, PR #6.
+14/14 pruebas públicas y 138/138 archivos verificados; detalle en docs/urn-feedback.md.
+La siguiente spec no se inició. Se conserva el progreso y el régimen matemático del MVP.
+
+Cierre de campaña 2026-10-27: v5.2, fuente 93c7e42, deployment 8ea9003, PR #7. Las tres mesas y el final están publicados, con 32 unitarias, 24 recorridos públicos y 143 hashes correctos. Pendiente real: 010/T011, validación humana y con hardware/red representativos. Ver docs/campaign-implementation.md y delivery.json.
+
+Cierre de mesas 2026-10-28: fuente d9c4f82, deployment b264adc, versión table-focus-v6. Publicados y comprobados 143 hashes y 7 recorridos HTTPS; 28 casos completos locales. Detalle en docs/table-focus.md y delivery.json.
+
+Restauración publicada y verificada: table-layout-restored-v6.1, fuente d314eb9, deployment a10c692. Build y 32 unitarias aprobadas; 3/3 casos públicos de urnas y 143/143 hashes correctos. Evidencia en docs/evidence/table-restore/.
+
+Fotos publicadas 2026-10-28: photos-and-clear-dice-v7.1, fuente 99a7086, deployment fe040aa. 37 unitarias, 26 recorridos HTTPS y 143 hashes correctos; 67 referencias matemáticas. Guardado v4 compatible con v1–3 y sesiones antiguas de Ada. Ver docs/photos-redesign.md y delivery.json.
+
+
+Actualización 2026-10-28: [personajes y desafíos](character-challenge-update.md) amplía Ada nueva a comparación de proporciones y probabilidad conjunta, simplifica Doble y elimina pistas calculadas del final independiente. Diálogos de cuerpo completo, guardado v5 compatible con v1–4.
+
+
+Revisión de carteles y diálogo 2026-10-28: acción principal amplia, utilidades separadas, historial por intervenciones y modales con cabecera clara. Reglas y progreso conservados. Ver [cambio y evidencia](dialogue-polish.md).
+
+
+Corrección 2026-10-28: cuerpo completo sólo en diálogos; durante partidas, personajes detrás de sus mesas, sin duplicados en el cuaderno. Tutorial de Vera integrado a las mismas cartas, selección y extracción de la partida normal, con resultados preparados sin alterar progreso/RNG. Ver [detalle y evidencia](table-tutorial.md).
+
+Revisión de Doble 2026-10-28: tres ofertas compactas antes de los dados, con gráficos de los pares que pagan y explicación de órdenes inversos. Texto ampliado puede crecer verticalmente. Reglas intactas. Ver [detalle y evidencia](dice-combinations.md).
+
+Publicación de Doble compacto: compact-dice-v11, fuente c3eb34e, deployment 520ab44. 41 unitarias y siete recorridos locales/públicos aprobados; 146 hashes públicos correctos. La CI completa aún estaba ejecutándose al registrar el cierre. Ver delivery.json para el estado observado.
+
+Revisión 2026-10-29: [mesa de Doble y tirada](dice-table-roll.md). El canvas original se integra arriba de las ofertas; dados con giro y rebote visual, números y suma al detenerse. Una sola tirada guardada; segunda orden sin relanzar. Movimiento reducido inmediato y alternativa HTML sin WebGL.
+
+Publicada visible-dice-table-v12: fuente afc2963, deployment db5f217. 41 unitarias, 31 recorridos locales completos y 11 públicos aprobados, con 146 hashes correctos. CI completa aún en ejecución al registrar. Estado observado y evidencia en delivery.json.
+
+Pedido 2026-10-29: [mesa protagonista de Doble](doble-table-focus.md), con ventana grande y ofertas como fichas cortas debajo. Se conservan pares gráficos, selección y animación. Cambio de presentación limitado a Doble.
+
+Publicada doble-table-focus-v13: fuente 35cbe47, deployment a172217. 41 unitarias, diez recorridos dirigidos locales y diez públicos aprobados; seis tamaños de pantalla y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
+
+Revisión 2026-10-29: [combinaciones más claras](clear-dice-combinations.md). Caras dibujadas de al menos 20 px, puntos contrastados y más ancho para los pares. Las alturas de la mesa se conservan y se verifican en las seis resoluciones.
+
+Publicada clear-dice-v14: fuente b65eb4e, deployment 581f554. 41 unitarias, diez recorridos locales y cinco públicos aprobados; seis tamaños con la mesa conservada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
+
+Encuadre 2026-10-29: [Doble desde la cintura](doble-waist-portrait.md), con escala y altura ajustadas para ver torso, manos y sombrero completo. Mesa y cámara conservadas; sólo presentación del rival en esta mesa.
+
+Publicada doble-waist-portrait-v15: fuente 9330041, deployment de35ee7. 41 unitarias, cinco recorridos locales y cinco públicos aprobados; seis tamaños con la mesa conservada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
+
+Corrección de proporciones 2026-10-29: el usuario señaló que el crupier quedó demasiado pequeño. [Doble proporcionado con la mesa](doble-proportions.md) combina escala mayor, cámara menos elevada y más espacio vertical. Pregunta al costado en escritorio y arriba en celular; comprobación de sombrero, cintura y ancho relativo, sin miniaturizar.
+
+Publicada doble-proportions-v16: fuente 4be1ea9, deployment d68dc35. 41 unitarias, cinco recorridos locales y cinco públicos aprobados; seis tamaños con proporción del retrato comprobada y 146 hashes correctos. CI completa en ejecución al registrar. Ver delivery.json.
+
+Rediseño de Ada 2026-10-29: [misma mesa y jerarquía que las otras partidas](ada-table-redesign.md). Canvas original con retrato de Ada, fotos en el paño, panel compacto, comparación de álbumes adaptable y alternativa HTML. Reglas y guardado conservados.
+
+Interfaz 2026-10-29: lenguaje breve, urnas 1/2, ajustes por pestañas y repaso con videos. Ver [cambios y límites de validación](clear-interface.md). Cambios locales; sin publicación nueva.
+
+Cierre de interfaz 2026-10-29: escena Babylon comprobada en una build local sin servidor; Vera, Doble y Ada aceptan acciones. Doble/Ada/final sin scroll en vistas iniciales de 1366x768 y 390x844. TypeScript, build y 41 unitarias aprobadas. HTTP y publicación siguen pendientes. Ver docs/clear-interface.md y docs/evidence/clear-interface/.
+
+
+Revisión 2026-10-30: [escritorio y cartas](desktop-revision.md). Ada nueva usa cartas de póker; patas visibles y mesa de dados ampliada, menos texto, lecturas en ventanas con cruz, sin recorrido ni pestaña de controles ni ensayo opcional final. Juego con mouse, guardado v6 compatible con v1–5. Build, 46 unitarias, 70 comprobaciones matemáticas y 92 archivos de skills aprobados. Suite de 39 casos: 38 aprobados y el caso de cabecera al 200 % corregido y aprobado al repetirse. Publicada desktop-poker-2026-10-30, fuente 7a9ed90, deployment 013e7a4. 146 hashes públicos coincidentes; cuatro casos HTTPS completos y prueba adicional de acciones animadas aprobada. Dos recorridos con capturas agotaron tiempos del navegador; detalle íntegro en docs/desktop-revision.md. PR #7 abierto, sin merge.
+
+
+Revisión de lista 2026-11-12: pull seguro a 90dd4d8, conservando tutorial y ajustes entrantes. Completados títulos sin puntos, claridad de pagos de Doble, eliminación de objetivo duplicado y tutorial de cartas de Ada en tres pasos sin modificar progreso. Patas y tipografía ya estaban. Build, 46 unitarias, 70 verificaciones matemáticas, 92 archivos de skills y 24 casos de navegador comprobados; los seis casos largos de lectura aprobaron con presupuesto de prueba ampliado sin quitar aserciones. Ver docs/requirements-review.md.
+
+Publicación de la revisión: requirements-review-2026-11-12, fuente 67c860d, deployment 102e605. Recorrido HTTPS a 1280×720 aprobado y 146/146 hashes coincidentes; una descarga temporal 503 quedó revalidada con 200. Cambios subidos a la rama de campaña y PR #7 conservado sin merge.
+
+Limpieza de menú 2026-11-12: retirado «Para jugar con el mouse». Fuente 222b095, deployment 09f904c, versión menu-cleanup-2026-11-12. Build y verificaciones documentales/matemáticas aprobadas; bundle principal público coincidente y frase ausente.
+
+
+Propuesta de menús 2026-11-12 en codex/game-menu-redesign, basada en 3bd7282: opciones con categorías y regreso fijo, inicio, selector de mesas, confirmaciones y cierres con marco de juego. Rama para revisión sin merge ni despliegue. Build, 46 unitarias con un worker, 70 verificaciones matemáticas y 18 casos de navegador cubiertos con corrección revalidada del cierre al 200 %. Ver docs/game-menu-redesign.md.
+
+Publicación e integración de menús 2026-11-12 autorizadas después de crear la rama aparte: fuente cc28c01, gh-pages a3fb950, versión game-menus-2026-11-12. Nueve casos HTTPS y 146/146 hashes aprobados. El usuario autorizó merge directo en campaña; revisión #8 creada previamente. Ver docs/game-menu-redesign.md y delivery.json.
+
+Ada Hold’em 2026-11-12: nueva sesión holdem-v1 con dos cartas propias, cuatro comunitarias, dos de Ada ocultas y quinta tras confirmar. Meta 24 puntos por categoría exacta y victoria estricta. Guardado v7 compatible con v1–6; sesión anterior con cambio voluntario y sellos conservados. Calibración 300 semillas: mediana 13 manos, media 13,86. Ver docs/ada-holdem.md.
+
+Publicación Ada Hold’em: fuente 88cb9a8, gh-pages 83e039a, versión ada-holdem-2026-11-12. 54 unitarias, 70 verificaciones matemáticas, enumeración de 2.598.960 manos de cinco cartas y oráculo de 300 de siete cartas; seis casos locales y tres HTTPS aprobados, 146/146 hashes. Cambio directo en campaña, sin nueva propuesta de revisión, según autorización del usuario. Ver docs/ada-holdem.md y delivery.json.
+
+Revisión 2026-11-13: Ada destaca mejor mano de cinco, quinta carta y resultado de predicción/duelo; reduce opciones imposibles sin cambiar premios. Nuevo boss-v1 combina urnas con dos extracciones, contratos variables y póker, con combo compartido, resistencia 36, seis defensas y ayuda finita. Guardado v8 compatible v1–7; finales antiguos conservados. Desarrollo en codex/boss-finale; evidencia y alcance en docs/boss-finale.md.
+
+Publicación boss-finale-2026-11-13: fuente 577f191 en codex/boss-finale, gh-pages fe1bde7. 60 unitarias, 70 comprobaciones matemáticas y nueve casos locales cubiertos; tres recorridos públicos HTML aprobados, 146/146 hashes. El recorrido público 3D agotó tiempo y fue interrumpido; canvas local validado y captura pública disponible. PR no creado por 403 de integración y navegador sin respuesta; comparación preparada, rama subida, sin merge. Ver docs/boss-finale.md y delivery.json.
+
+Urnas e interfaz 2026-11-13: el nivel 4 reutiliza cristal, placas 1/2, fichas y selección del nivel 1, con clic directo y tarjetas compartidas. Marco de combate de tinta/latón, botón dorado, defensas/carga segmentadas y orden real de ataques; Ada comparte el marco. Reglas y guardado v8 conservados. Fuente en codex/boss-finale; ver docs/boss-urns-interface.md.
+
+Publicada boss-urns-ui-2026-11-13: fuente 040afe5, gh-pages 71d0a82. 60 unitarias, 70 comprobaciones matemáticas, seis casos locales cubiertos y un caso HTTPS aprobado con clic real sobre el cristal y recuento persistido. 146/146 hashes; 503 temporal revalidado. No cambia RNG, reglas o guardado v8. Rama codex/boss-finale subida; conector de PR continúa con 403. Ver docs/boss-urns-interface.md.
+
+Corrección de zoom 2026-11-17: Vera recibe una ventana de escena propia con encuadre según ancho/alto, incluyendo patas y contorno de la mesa; tarjetas normales sin probabilidad calculada. Régimen compacto ampliado para tamaños intermedios. Reglas y guardado v8 conservados. Ver [alcance y evidencia](urns-zoom-repair.md).
+
+Publicada urns-zoom-repair-2026-11-17: fuente 901b17e, gh-pages df92b23, Pages completado, cuatro casos HTTPS y 146/146 hashes aprobados. Rama codex/urns-zoom-repair subida; creación de revisión devuelve 403. Detalle en docs/urns-zoom-repair.md y delivery.json.
+
+Pedido 2026-11-17: demostración de Vera en la misma ventana 3D, tarjetas con fichas restantes; Ada suma siempre dos puntos extra por maximizar probabilidad × premio; boss sin probabilidades en urnas y con dados/cartas/mazo físicos según fase. Rama codex/table-props-poker-bonus, guardado v9 compatible con v1–8. Ver [detalle](table-props-poker-bonus.md).
+
+Publicada table-props-bonus-2026-11-17: fuente defaf0b, gh-pages 892d1fc, Pages completado con éxito. Ocho casos públicos y 146/146 hashes aprobados; 66 unitarias y 42 casos locales distintos cubiertos con revalidaciones documentadas. Conector de revisión 403; rama codex/table-props-poker-bonus subida, sin merge.
+
+Mesas y cierre 2026-11-17: rama codex/casino-tables-finale, ocho pedidos del usuario. Nueva variante de Doble con ocho encargos, mesa con base central única, utilería propia, cartas repartidas de Ada, lectura en dock y encuadre estable del jefe, Doble alto en tutorial, victoria dorada y salida en primera persona. Fondo pintado generado con referencia de parlour-v3; procedencia en public/escape-art.json. Ver docs/casino-tables-finale.md.
+
+Publicada casino-finale-2026-11-17: fuente f9611ec, gh-pages c6d4d0d, Pages completado. 149/149 hashes y cuatro pruebas públicas breves aprobados. Se conservan recorridos largos interrumpidos o con timeout; no se contabilizan como aprobados. Rama codex/casino-tables-finale subida; conector de revisión 403, sin merge. Detalle en docs/casino-tables-finale.md y delivery.json.

@@ -1,0 +1,158 @@
+
+Running 34 tests using 1 worker
+
+
+
+(node:43052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/34] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1280x720 text 1
+[2/34] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 1
+  1) tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 1 ──────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "back-room",
+    + ]
+
+      14 | async function fits(page:Page){
+      15 |  if(page.viewportSize()!.width<1000)return;
+    > 16 |  expect(await page.locator('main button, main .poker-card, main progress').evaluateAll(es=>es.filter(e=>e.checkVisibility()).filter(e=>{const b=e.getBoundingClientRect();return b.top<0||b.bottom>innerHeight+1||b.left<0||b.right>innerWidth+1;}).map(e=>e.getAttribute('data-testid')??e.textContent))).toEqual([]);
+         |                                                                                                                                                                                                                                                                                                            ^
+      17 |  expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.querySelector('#app')!.scrollTop===0)).toBe(true);
+      18 | }
+      19 | for(const [width,height,scale] of [[1280,720,1],[1024,640,1],[1024,640,2],[390,844,1]])test(`boss combines urns dice and poker ${width}x${height} text ${scale}`,async({page})=>{
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss.spec.ts:16:300)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss.spec.ts:24:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-1024x640-text-1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-1024x640-text-1\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-1024x640-text-1\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-1024x640-text-1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:48524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/34] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 2
+  2) tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 2 ──────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "back-room",
+    + ]
+
+      14 | async function fits(page:Page){
+      15 |  if(page.viewportSize()!.width<1000)return;
+    > 16 |  expect(await page.locator('main button, main .poker-card, main progress').evaluateAll(es=>es.filter(e=>e.checkVisibility()).filter(e=>{const b=e.getBoundingClientRect();return b.top<0||b.bottom>innerHeight+1||b.left<0||b.right>innerWidth+1;}).map(e=>e.getAttribute('data-testid')??e.textContent))).toEqual([]);
+         |                                                                                                                                                                                                                                                                                                            ^
+      17 |  expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.querySelector('#app')!.scrollTop===0)).toBe(true);
+      18 | }
+      19 | for(const [width,height,scale] of [[1280,720,1],[1024,640,1],[1024,640,2],[390,844,1]])test(`boss combines urns dice and poker ${width}x${height} text ${scale}`,async({page})=>{
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss.spec.ts:16:300)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss.spec.ts:24:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-1024x640-text-2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-1024x640-text-2\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-1024x640-text-2\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-1024x640-text-2\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:13856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/34] tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 390x844 text 1
+  3) tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 390x844 text 1 ───────────
+
+    Error: page.evaluate: TypeError: window.__THEGAME_METRICS__ is not a function
+        at eval (eval at evaluate (:370:30), <anonymous>:1:14)
+        at UtilityScript.evaluate (<anonymous>:372:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at eval (eval at evaluate (:370:30), <anonymous>:1:14)
+        at UtilityScript.evaluate (<anonymous>:372:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss.spec.ts:21:145
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-390x844-text-1\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-390x844-text-1\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-390x844-text-1\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\deep-polish-results\boss-boss-combines-urns-dice-and-poker-390x844-text-1\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:16452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[5/34] tests\browser\boss.spec.ts:37:26 › Ada polish shows both best hands and preserves scoring, text 1
+[6/34] tests\browser\boss.spec.ts:37:26 › Ada polish shows both best hands and preserves scoring, text 2
+[7/34] tests\browser\boss.spec.ts:43:1 › boss defeat offers finite help, opens the door and keeps freedom on practice
+[8/34] tests\browser\boss.spec.ts:53:1 › complete independent boss duel opens the ending and preserves freedom on replay
+[9/34] tests\browser\boss.spec.ts:62:1 › boss keeps its character and playable choices without WebGL
+[10/34] tests\browser\deep-polish.spec.ts:9:1 › 3D dice have visible pips before the first roll
+[11/34] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 1280 text 1 without altering progress
+[12/34] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 1024 text 2 without altering progress
+[13/34] tests\browser\deep-polish.spec.ts:21:75 › guided poker and nine hand examples fit 390 text 2 without altering progress
+[14/34] tests\browser\deep-polish.spec.ts:37:1 › boss teaching pages explain defence, combo and the comparison without changing the fight
+[15/34] tests\browser\deep-polish.spec.ts:42:1 › settings made before starting a game survive reload without creating a game
+[16/34] tests\browser\dice-roll.spec.ts:14:1 › visible table rolls once, settles on the saved pair and preserves the canvas
+[17/34] tests\browser\dice-roll.spec.ts:29:1 › reduced motion shows the exact result immediately without a roll animation
+[18/34] tests\browser\dice-roll.spec.ts:34:1 › HTML table and numbered result remain usable when WebGL is unavailable
+[19/34] tests\browser\game-menus.spec.ts:18:88 › game options fit 1024x640, text 1
+[20/34] tests\browser\game-menus.spec.ts:18:88 › game options fit 1024x640, text 2
+[21/34] tests\browser\game-menus.spec.ts:18:88 › game options fit 1440x900, text 1
+[22/34] tests\browser\game-menus.spec.ts:18:88 › game options fit 1440x900, text 2
+[23/34] tests\browser\game-menus.spec.ts:18:88 › game options fit 390x844, text 1
+[24/34] tests\browser\game-menus.spec.ts:18:88 › game options fit 390x844, text 2
+[25/34] tests\browser\game-menus.spec.ts:38:1 › menu confirmations and return to title protect the save
+[26/34] tests\browser\game-menus.spec.ts:46:1 › chapter menu keeps locks and provides a path back
+[27/34] tests\browser\game-menus.spec.ts:53:26 › seal and confirmation menus fit text 1
+[28/34] tests\browser\game-menus.spec.ts:53:26 › seal and confirmation menus fit text 2
+[29/34] tests\browser\holdem.spec.ts:7:101 › Ada holdem 1280x720 text 1: hidden cards, prediction, reveal and reload
+[30/34] tests\browser\holdem.spec.ts:7:101 › Ada holdem 1024x640 text 1: hidden cards, prediction, reveal and reload
+[31/34] tests\browser\holdem.spec.ts:7:101 › Ada holdem 390x844 text 1: hidden cards, prediction, reveal and reload
+[32/34] tests\browser\holdem.spec.ts:7:101 › Ada holdem 1280x720 text 2: hidden cards, prediction, reveal and reload
+[33/34] tests\browser\holdem.spec.ts:7:101 › Ada holdem 1024x640 text 2: hidden cards, prediction, reveal and reload
+[34/34] tests\browser\holdem.spec.ts:19:1 › Ada help remains finite and retains earned points and seals
+  3 failed
+    tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 1 ───────────
+    tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 1024x640 text 2 ───────────
+    tests\browser\boss.spec.ts:19:88 › boss combines urns dice and poker 390x844 text 1 ────────────
+  31 passed (3.6m)

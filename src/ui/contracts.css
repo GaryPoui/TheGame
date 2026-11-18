@@ -1,0 +1,82 @@
+/* Doble reuses the ink theatre palette, sans-serif typography and native controls. */
+body[data-screen=contracts] #cast{display:none}
+body[data-screen=contracts] #scene{opacity:1}
+body[data-screen=contracts][data-doble-phase=tutorial] #scene,
+body[data-screen=contracts][data-doble-phase=complete] #scene{opacity:0;pointer-events:none}
+body[data-screen=contracts] #vignette{background:linear-gradient(90deg,#19122285,transparent 42%,#19122244 68%,#191222a8),linear-gradient(0deg,#191222b8,transparent 65%)}
+.contracts-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(345px,410px);align-items:start;gap:2rem;padding:1.7rem 4.4% 2rem;min-height:calc(100svh - 102px)}
+.contracts-floor{min-width:0}
+.contracts-heading{max-width:600px}
+.contracts-heading h1{font-size:clamp(1.85rem,3.5vw,3.3rem);line-height:1.08;letter-spacing:-.035em;max-width:15ch;margin-bottom:.7rem}
+.contracts-heading>p{font-size:.83rem;color:#f0dfc5;margin-bottom:1rem}
+.contracts-heading .scoreboard{font-size:.82rem;gap:1.5rem}
+.contracts-heading .scoreboard strong{font-size:1rem}
+.contract-stage{min-height:490px;display:flex;flex-direction:column;justify-content:flex-end;gap:1rem;padding-top:190px}
+.dice-readout{align-self:center;text-align:center;background:#251c2cec;border:1px solid #c4a771;padding:.65rem 1rem;border-radius:8px;color:#faebd1;max-width:100%}
+.dice-readout>strong{display:block;margin-top:.55rem;font-size:.8rem;font-weight:400}
+.dice-pair{display:flex;align-items:center;justify-content:center;gap:.7rem;flex-wrap:wrap}
+.dice-face{display:inline-grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:3px;padding:9px;width:54px;height:54px;border:2px solid #30252c;border-radius:10px;background:#f5e6c7;box-shadow:0 5px 9px #100b1840}
+.dice-face:nth-child(2){background:#d9d6e8}
+.dice-face i{width:100%;height:100%;border-radius:50%}
+.dice-face .pip{background:#342635}
+.contract-offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem;pointer-events:auto}
+.contract-ticket{display:flex;flex-direction:column;gap:.65rem;min-width:0;text-align:left;padding:1rem .85rem .75rem;background:#f0e2c4;color:#30252c;border:2px solid #6e5551;border-radius:4px 11px 5px 10px;box-shadow:0 7px 16px #0c081d66;transform:rotate(-1deg);min-height:240px}
+.contract-ticket:nth-child(2){transform:rotate(1.2deg);background:#e4d9df}
+.contract-ticket:nth-child(3){transform:rotate(-.7deg);background:#ebdbb0}
+.contract-ticket.chosen{outline:3px solid #f1c26f;outline-offset:3px;transform:translateY(-9px);border-color:#382334}
+.contract-ticket.recommended .contract-selection{font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.contract-ticket:disabled{opacity:1;cursor:default}
+.contract-ticket:focus-visible{outline:3px solid #fff3d3;outline-offset:4px}
+.contract-letter{font-size:2.2rem;line-height:1;font-weight:800;color:#55384e}
+.contract-ticket strong{font-size:1rem;line-height:1.2}
+.contract-ticket>span:not(.contract-letter){font-size:.8rem;line-height:1.45}
+.contract-price{margin-top:auto;padding-top:.5rem;border-top:1px solid #6f5d6355}
+.contract-selection{font-weight:600;min-height:1.2em}
+.contracts-panel{max-height:calc(100svh - 150px);padding:1.4rem;font-size:.92rem}
+.contracts-panel h2{font-size:1.75rem;line-height:1.15;margin:.6rem 0 1.1rem;letter-spacing:-.025em}
+.contracts-panel p{font-size:.9rem;line-height:1.6}
+.contracts-panel .small-note{font-size:.78rem;line-height:1.5;color:#4b3d42}
+.contract-steps{display:flex;gap:.35rem;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap}
+.contract-steps span{font-size:.72rem;padding:.3rem .4rem;color:#574851}
+.contract-steps [aria-current]{background:#513d57;color:#fff0d7;border-radius:4px;font-weight:700}
+.doble-says{color:#59444f;border-block:1px solid #9f837655;padding:.7rem 0;font-style:italic}
+.doble-says strong{font-style:normal}
+.selected-contract{padding:.8rem;background:#dfd0c7;border-radius:5px;font-weight:700}
+.selected-contract span{font-size:.83rem;font-weight:400}
+.hypothetical-note{background:#e0d4df;padding:.7rem;border:1px solid #89728e;border-radius:5px}
+.contracts-panel .primary{font-size:.85rem;line-height:1.4}
+.contracts-panel .primary:disabled{background:#b7acaa;color:#4c3d46;opacity:1}
+.contract-verdict{font-weight:700;color:#3c4931}
+.contract-settlement{display:grid;gap:.4rem;margin:1rem 0;padding:.8rem 0;border-block:1px solid #a7977e}
+.contract-settlement>span,.contract-settlement>strong{display:flex;justify-content:space-between;gap:1rem}
+.contract-settlement>strong{padding-top:.5rem;border-top:1px solid #a7977e}
+.contract-math,.contract-lab{margin-top:1.2rem;padding-block:.8rem;border-top:1px solid #a7977e}
+.contracts-panel summary{cursor:pointer;min-height:44px;line-height:1.5;padding:.35rem 0;font-size:.85rem;font-weight:600}
+.contracts-panel summary:focus-visible{outline-color:#513d57}
+.pair-grid{width:100%;border-collapse:collapse;font-size:.75rem;font-variant-numeric:tabular-nums;margin:.5rem 0}
+.pair-grid th,.pair-grid td{border:1px solid #a08c78;text-align:center;padding:.45rem .15rem}
+.pair-grid th{background:#ded1bb}
+.pair-grid .favorable{background:#cfdecd;color:#283a29;font-weight:700}
+.pair-grid .observed-pair{outline:3px double #54375e;outline-offset:-4px}
+.pair-grid caption,.contract-stats caption{text-align:left;font-size:.77rem;line-height:1.5;padding:.5rem 0}
+.contract-stats{width:100%;font-size:.8rem;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.contract-stats th,.contract-stats td{text-align:left;padding:.6rem .3rem;border-bottom:1px solid #b7a78e}
+.contract-stats thead th{font-size:.75rem}
+.simulation-seed{display:flex;align-items:center;gap:.8rem;font-size:.85rem}
+.simulation-seed input{font:inherit;min-height:44px;width:100%;min-width:0;background:#faf0dc;color:#30252c;border:1px solid #806c71;border-radius:4px;padding:.5rem;caret-color:#513d57}
+.simulation-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-block:.7rem}
+.contracts-panel .quiet{background:#514056;color:#fff1d8;font-size:.8rem;min-height:44px}
+.simulation-pairs{overflow-wrap:anywhere}
+.contracts-tutorial{position:relative;min-height:calc(100svh - 102px);display:flex;align-items:flex-end;padding:3% 6%}
+.contracts-tutorial .dialogue-card{width:min(640px,54vw)}
+.contracts-tutorial .dialogue-card h1{font-size:2rem;line-height:1.1}
+.contracts-tutorial .dialogue-card p{font-size:1rem;max-width:60ch}
+.contracts-tutorial .small-note{color:#e7d1b4}
+.doble-intro{position:absolute;right:7%;bottom:0;height:90%;width:42%;object-fit:contain;object-position:center bottom;pointer-events:none;z-index:-1}
+@media(min-width:1600px){.contracts-layout{grid-template-columns:minmax(0,1fr) 470px}.contracts-panel{padding:1.7rem}.contract-stage{min-height:560px}}
+@media(max-width:1100px){.contracts-layout{padding-inline:3%;gap:1rem;grid-template-columns:minmax(0,1fr) 350px}.contract-stage{padding-top:160px;min-height:490px}.contract-ticket{padding:.75rem .55rem}.contract-ticket strong{font-size:.9rem}.contract-ticket>span:not(.contract-letter){font-size:.75rem}}
+@media(max-width:760px){.contracts-layout{display:block;padding:1.3rem 4%}.contracts-heading h1{font-size:2rem}.contract-stage{min-height:440px;padding-top:170px}.contracts-panel{max-height:none;margin-top:1.5rem;width:100%;font-size:1rem}.contract-ticket{min-height:235px}.contract-ticket strong{font-size:.88rem}.contracts-tutorial{min-height:calc(100svh - 72px);padding:250px 4% 1.5rem;align-items:flex-end}.contracts-tutorial .dialogue-card{width:100%}.doble-intro{height:380px;width:75%;right:-5%;top:0;bottom:auto}.contracts-tutorial .dialogue-card h1{font-size:1.65rem}.contracts-tutorial .dialogue-card p{font-size:.95rem}}
+@media(prefers-reduced-motion:reduce){.contract-ticket{transition:none}}
+.reduced-motion .contract-ticket{transition:none}
+
+.contracts-panel .round-context{color:#56434c}

@@ -1,0 +1,53 @@
+
+Running 5 tests using 1 worker
+
+(node:39448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\browser\boss-focus.spec.ts:27:92 › all boss mechanics and result fit 960x540 (56.3s)
+(node:57696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\browser\casino-finale.spec.ts:44:62 › compact enlarged text keeps contracts decisions reachable (4.0s)
+  ok 3 tests\browser\casino-finale.spec.ts:44:62 › compact enlarged text keeps records decisions reachable (5.1s)
+  ok 4 tests\browser\casino-finale.spec.ts:44:62 › compact enlarged text keeps finale decisions reachable (5.4s)
+  ok 5 tests\browser\casino-finale.spec.ts:47:1 › varied contracts save in v10 and resume the exact next question (11.8s)
+
+
+  1) tests\browser\boss-focus.spec.ts:27:92 › all boss mechanics and result fit 960x540 ────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "7♥",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:32:201
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\boss-focus-all-boss-mechanics-and-result-fit-960x540\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\boss-focus-all-boss-mechanics-and-result-fit-960x540\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\boss-focus-all-boss-mechanics-and-result-fit-960x540\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\boss-focus-all-boss-mechanics-and-result-fit-960x540\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\browser\boss-focus.spec.ts:27:92 › all boss mechanics and result fit 960x540 ─────────────
+  4 passed (1.7m)

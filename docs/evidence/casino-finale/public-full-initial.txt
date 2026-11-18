@@ -1,0 +1,30 @@
+
+Running 6 tests using 1 worker
+
+(node:18624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\browser\casino-finale.spec.ts:17:62 › eight varied Doble questions and feedback fit 1280x720 (3.5m)
+(node:58728) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Timed out waiting 300s for the test suite to run
+Timed out waiting 300s for the teardown for test suite to run
+
+
+  1) tests\browser\casino-finale.spec.ts:17:62 › eight varied Doble questions and feedback fit 1280x720
+
+    Test timeout of 120000ms exceeded.
+
+    Error Context: test-results\casino-finale-eight-varied-0bd0d-s-and-feedback-fit-1280x720\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\casino-finale-eight-varied-0bd0d-s-and-feedback-fit-1280x720\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\casino-finale-eight-varied-0bd0d-s-and-feedback-fit-1280x720\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\browser\casino-finale.spec.ts:17:62 › eight varied Doble questions and feedback fit 1280x720
+  5 did not run
+  2 errors were not a part of any test, see above for details

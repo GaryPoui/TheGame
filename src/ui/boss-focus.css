@@ -1,0 +1,185 @@
+/* Plum ink, brass and the same cast; motion only marks an action or a new surface. */
+:root{--ease-ui-out:cubic-bezier(.23,1,.32,1);--ui-enter:200ms}
+.boss-kicker{display:block;color:#e8c17a;font-size:13px;line-height:1.4;letter-spacing:.08em;margin-bottom:3px}
+.boss-layout .archive-floor>h1{color:#fff0d6;text-shadow:0 3px 12px #100b18}
+.boss-layout .boss-health{border-color:#d4ab68;background:#241b2bed}
+.boss-layout .boss-health progress{height:16px;accent-color:#d77882}
+.boss-layout .scoreboard .boss-resource{display:grid;grid-template-columns:auto 1fr;gap:3px 8px;min-width:0;border:1px solid #9e815c80;background:#251e2ce8;color:#f7ead3;border-radius:5px;padding:6px 8px;font-size:15px;line-height:1.1;text-align:left;position:relative}
+.boss-resource:after{content:'?';position:absolute;right:6px;bottom:4px;font-size:11px;color:#e8c17a}
+.boss-layout .scoreboard .boss-resource>strong{font-size:18px;line-height:1.1;white-space:nowrap}
+.boss-layout .boss-resource .combat-pips{grid-column:1/-1;margin-right:12px}
+.boss-primer{list-style:none;counter-reset:primer;padding:0;margin:0 0 14px;display:grid;gap:12px}
+.boss-primer li{counter-increment:primer;display:grid;grid-template-columns:24px 1fr;gap:3px 8px;font-size:15px;line-height:1.3}
+.boss-primer li:before{content:counter(primer);grid-row:1/3;border:1px solid #d4ab68;border-radius:50%;height:24px;display:grid;place-items:center;color:#e8c17a;font-weight:700}
+.boss-primer strong{color:#f6d79e}.boss-primer li>span{grid-column:2}
+.damage-breakdown{display:flex;gap:5px;margin:0 0 8px}.damage-breakdown>span{display:grid;gap:3px;flex:1;padding:6px;border:1px solid #9e815c80;border-radius:4px;color:#d4bfa7;font-size:12px;line-height:1.2}.damage-breakdown strong{color:#f6d79e;font-size:19px}
+.boss-layout .archive-panel .boss-resource-result{font-size:14px;color:#ead1a8;margin-bottom:8px}
+.guide-example{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;padding:10px;background:#211a27;border:1px solid #9e815c80;border-radius:4px}
+.guide-example>span{display:grid;gap:5px;color:#d4bfa7;font-size:14px}.guide-example strong{color:#f6d79e;font-size:18px}
+.boss-layout .ada-fallback-portrait{width:64%;height:98%;bottom:0}
+.boss-showdown-more{display:none}
+.boss-dice .dice-face{position:relative}.boss-dice .dice-face:not(:has(.pip)):after{content:'?';position:absolute;inset:0;display:grid;place-items:center;color:#302636;font-size:26px;font-weight:700}
+@media(hover:hover) and (pointer:fine){
+ .boss-resource:hover{border-color:#ffe0a7!important;background:#403047!important}
+ .menu-item,.archive-choice,.urn-option,.setting-step{transition:background-color 120ms ease,border-color 120ms ease,transform 120ms var(--ease-ui-out)}
+ .menu-item:active,.archive-choice:active,.urn-option:active,.setting-step:active{transform:translateY(1px)}
+}
+@media(prefers-reduced-motion:no-preference){
+ body:not(.reduced-motion) .modal[open]{animation:surface-enter var(--ui-enter) var(--ease-ui-out) both}
+ body:not(.reduced-motion) .modal::backdrop{animation:backdrop-enter var(--ui-enter) ease both}
+ body:not(.reduced-motion) .settings-content [role=tabpanel]:not([hidden]){animation:backdrop-enter 120ms ease both}
+ @keyframes surface-enter{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+ @keyframes backdrop-enter{from{opacity:0}to{opacity:1}}
+}
+/* Browser zoom reduces the CSS viewport. Keep a landscape game beside its decisions. */
+@media(min-width:500px) and (max-height:760px){
+ html,body{height:100%;overflow:hidden}#app{height:100svh;overflow:hidden}
+ body[data-screen] .topbar{height:38px;padding-inline:12px}.topbar .quiet{min-height:32px;padding:4px 10px;font-size:14px}
+ .table-layout,.contracts-layout,.ada-table-layout,.boss-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(260px,44%);grid-template-rows:minmax(0,1fr);gap:10px;height:calc(100svh - 38px);min-height:0;padding:6px 12px!important;align-items:start}
+ .game-panel,.table-layout .game-panel,.contracts-layout .contracts-panel,.ada-table-layout .archive-panel,.boss-layout .archive-panel,.enlarged-text .boss-layout .archive-panel{margin:0;padding:10px;max-height:none;overflow:visible;min-width:0}
+ .table-heading h1,.contracts-heading h1,.ada-table-layout .archive-floor>h1,.boss-layout .archive-floor>h1,.enlarged-text .boss-layout .archive-floor>h1{font-size:23px!important;margin:0 0 4px;line-height:1.1}
+ .scoreboard,.enlarged-text .holdem-layout .scoreboard,.boss-layout .scoreboard{font-size:12px!important;gap:8px!important;margin:4px 0!important}
+ .scoreboard strong,.enlarged-text .holdem-layout .scoreboard strong{font-size:14px!important}
+ .table-heading .round-context,.contracts-heading>p{font-size:12px;margin-bottom:4px}
+ .boss-kicker,.boss-attack-title{display:none!important}
+ .game-panel h2,.table-layout .game-panel h2,.holdem-layout .archive-panel h2,.enlarged-text .holdem-layout .archive-panel h2,.boss-layout .archive-panel h2,.enlarged-text .boss-layout .archive-panel h2{font-size:18px;line-height:1.15;margin:0 0 6px}
+ .game-panel p,.table-layout .game-panel p,.holdem-layout .archive-panel p,.enlarged-text .holdem-layout .archive-panel p,.boss-layout .archive-panel p,.enlarged-text .boss-layout .archive-panel p{font-size:13px;line-height:1.3;margin:0 0 6px}
+ .game-panel .primary,.game-panel>.primary,.game-panel>.text-button,.enlarged-text .holdem-layout .archive-panel>.primary,.enlarged-text .holdem-layout .archive-panel>.text-button,.enlarged-text .boss-layout .archive-panel>.primary,.enlarged-text .boss-layout .archive-panel>.text-button{font-size:13px;line-height:1.2;min-height:34px;padding:6px;margin:4px 0 0}
+ .game-panel .info-trigger{font-size:12px;line-height:1.2;min-height:28px;padding:5px 0;margin:0}
+ .boss-panel-ribbon{font-size:11px;margin:-10px -10px 8px;padding:6px 10px}.boss-panel-ribbon span:first-child{font-size:12px}
+ .boss-health{padding:6px 8px}.boss-health label{font-size:13px}.boss-layout .boss-health progress{height:10px}
+ .boss-layout .scoreboard{grid-template-columns:1fr 1fr auto;padding:0}
+ .boss-layout .scoreboard .boss-resource{font-size:12px;padding:5px;gap:1px 4px}.boss-resource:after{font-size:9px;right:4px;bottom:3px}
+ .combat-pips{gap:3px}.combat-pips i{width:10px;height:4px}.boss-layout .boss-phases{font-size:11px;margin:4px 0;gap:3px}.boss-phases span{padding:4px}
+ .boss-layout .boss-choices{gap:5px;margin-bottom:5px}.boss-urn-stage .boss-choices{grid-template-columns:1fr 1fr}
+ .boss-layout .boss-choices .urn-option,.enlarged-text .boss-layout .boss-choices .urn-option,.urn-options .urn-option{min-height:0;padding:7px!important;gap:5px}
+ .boss-layout .urn-option-head strong,.enlarged-text .boss-layout .urn-option-head strong,.urn-options .urn-option-head strong{font-size:14px}
+ .boss-layout .urn-option-head>span{display:none}.boss-layout .inventory,.urn-option .inventory{font-size:11px;line-height:1.2}
+ .boss-layout .urn-option .odds b,.urn-options .odds b{font-size:12px;line-height:1.2}.boss-layout .urn-option .odds,.urn-options .odds{padding-top:4px;gap:2px}
+ .urn-option .odds>span[data-short-percent]{font-size:0;line-height:1}.urn-option .odds>span[data-short-percent]:after{content:attr(data-short-percent);font-size:13px;line-height:1.2;font-weight:700}
+ .boss-layout .boss-choices .archive-choice,.enlarged-text .boss-layout .boss-choices .archive-choice,.holdem-layout .holdem-choices .archive-choice,.enlarged-text .holdem-layout .holdem-choices .archive-choice{font-size:13px;line-height:1.15;min-height:39px;padding:6px;gap:3px}
+ .boss-layout .boss-choices small,.holdem-layout .holdem-choices small,.holdem-layout .holdem-choices strong,.enlarged-text .holdem-layout .holdem-choices small,.enlarged-text .holdem-layout .holdem-choices strong{font-size:11px;line-height:1.15;margin:0}
+ .holdem-choices{gap:4px;margin-bottom:5px}.enlarged-text .holdem-layout .holdem-choices .archive-choice{display:grid;grid-template-columns:1fr auto}
+ .ada-table-layout .ada-table-stage{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);min-height:0;height:calc(100svh - 124px);margin:0;align-items:end}
+ .ada-table-layout .ada-viewport{grid-area:1/1;height:100%!important;min-height:0}
+ .ada-table-layout .ada-evidence,.enlarged-text .holdem-layout.poker-layout .ada-evidence,.enlarged-text .boss-layout.poker-layout .ada-evidence{grid-area:1/1;align-self:end;width:100%;margin:0!important}
+ .boss-layout .ada-table-stage{height:calc(100svh - 210px)}
+ .holdem-layout .holdem-felt,.boss-layout .holdem-felt,.enlarged-text .holdem-layout .holdem-felt{gap:3px;padding:6px}
+ .holdem-layout .holdem-felt h2,.boss-layout .holdem-felt h2,.enlarged-text .holdem-layout .holdem-felt h2{font-size:11px;margin:0 0 2px}
+ .holdem-layout .holdem-felt .poker-card,.boss-layout .holdem-felt .poker-card{height:35px!important;flex-basis:26px!important}
+ .holdem-layout .poker-card b,.enlarged-text .holdem-layout .poker-card b,.enlarged-text .boss-layout .poker-card b{font-size:12px!important}
+ .holdem-layout .poker-card>span,.enlarged-text .holdem-layout .poker-card>span,.enlarged-text .boss-layout .poker-card>span{font-size:15px!important;margin-top:1px!important}
+ .holdem-felt .poker-hand{gap:4px}.showdown-hands{margin:5px 0}.showdown-hands .poker-card{height:26px!important;flex-basis:19px}
+ .boss-primer{gap:7px;margin-bottom:8px}.boss-primer li{font-size:12px;line-height:1.25;grid-template-columns:20px 1fr;gap:2px 6px}.boss-primer li:before{height:20px}
+ .damage-breakdown{gap:4px;margin-bottom:5px}.damage-breakdown>span{font-size:10px;padding:4px}.damage-breakdown strong{font-size:16px}
+ .contracts-layout .dice-viewport{height:clamp(110px,calc(100svh - 260px),220px);min-height:0}.contracts-layout .contract-offers{gap:4px}
+ .contracts-layout .compact-offer{padding:6px;min-height:0}.contracts-layout .offer-name,.contracts-layout .compact-payment{font-size:12px}.contracts-layout .winning-combos small{font-size:10px}
+ .contracts-layout [data-combinations=false] .combo-pairs,.contracts-layout [data-combinations=false] .any-faces,.contracts-layout [data-combinations=false] .combo-row{display:none}
+ .contracts-layout .winning-summary{font-size:11px}.contracts-layout .dice-combinations-toggle,.contracts-layout .combo-legend{min-height:26px;font-size:11px;padding:4px 0}.contracts-layout .dice-table-caption{font-size:11px;padding:4px;margin:3px 0}
+ .contracts-layout .contracts-panel>h2,.contracts-layout .contracts-panel>p:not(.round-context){display:block}.contracts-layout .contracts-panel .round-context,.contracts-layout .dice-mission,.mobile-table-objective{display:none!important}
+ .table-layout .round-progress{margin-bottom:5px}.table-layout .objective-label{font-size:11px;margin-bottom:5px}.table-layout .rule-tag{font-size:12px;padding:5px;margin-bottom:6px}.table-layout .rule-tag span{display:none}.table-layout .cards-toggle{font-size:13px;min-height:32px;padding:5px}.table-layout .urn-options{gap:5px;margin-bottom:5px}
+ .table-layout .result-token{font-size:24px;padding:0}.table-layout .small-note{font-size:11px}.table-layout .result-card{margin:0}.table-layout .result-card p{font-size:12px}
+ .modal.settings-modal{width:calc(100vw - 16px);height:calc(100svh - 16px);max-height:calc(100svh - 16px)}
+ .settings-modal .modal-heading{padding:6px 12px}.settings-modal .modal-heading h2{font-size:22px}.settings-modal .modal-close{width:36px;height:36px;min-height:36px;padding:4px}
+ .settings-shell{grid-template-columns:120px minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}.settings-modal .settings-tabs{flex-direction:column;border-right:1px solid #9e815c70;border-bottom:0;padding:8px;gap:4px}.settings-modal .settings-tabs button{flex:0 0 auto;min-height:36px;padding:6px;justify-content:flex-start;font-size:13px}
+ .settings-content{padding:8px 14px}.settings-content section>h3{font-size:17px;margin:0 0 4px}
+ .settings-modal .setting-row,.enlarged-text .settings-modal .setting-row{grid-template-columns:1fr minmax(130px,160px);padding:7px 0;gap:10px;font-size:14px}.settings-modal .setting-label small{font-size:11px;line-height:1.25;margin-top:3px}.settings-modal .setting-select{width:100%}.settings-modal .setting-step{height:36px;min-height:36px}.settings-modal .setting-carousel{grid-template-columns:32px minmax(0,1fr) 32px}.settings-modal select{min-height:36px;font-size:14px}.settings-modal .setting-step{width:32px;padding:4px}.settings-modal .setting-switch,.enlarged-text .settings-modal .setting-switch{justify-self:end;min-height:36px}.settings-modal .setting-switch-state{font-size:12px}.settings-modal .settings-hint{font-size:11px;margin:8px 0 0}
+ .settings-modal .sound-row,.enlarged-text .settings-modal .sound-row{grid-template-columns:1fr;gap:5px}.settings-modal .setting-volume-control output{font-size:18px}.volume-slider{grid-template-columns:32px 1fr 32px}
+ .settings-bottom{padding:6px 12px;gap:10px}.settings-bottom .primary{min-height:34px;padding:6px 10px;font-size:13px}.settings-save-state{font-size:11px;max-width:none}
+ .settings-modal .session-actions{gap:7px}.settings-modal .session-actions .secondary{min-height:32px;font-size:13px;padding:5px}.settings-modal .danger-action{font-size:12px;margin-top:0}
+ body[data-screen=menu] .game-start{padding:16px 5%;height:100svh}.game-start .menu-copy{display:grid;grid-template-columns:1fr minmax(210px,260px);gap:10px 24px;max-width:none;width:100%}.game-start .menu-copy h1{font-size:48px;margin:0;grid-column:1}.game-start .menu-tagline{font-size:14px;margin:0;grid-column:1}.game-start .menu-actions{grid-column:2;grid-row:1/3;align-self:center;width:100%;gap:6px}.menu-actions .menu-item{min-height:40px;padding:8px 12px;font-size:15px}
+ .room-layout{display:grid;grid-template-columns:34% 1fr;gap:18px;height:calc(100svh - 38px);min-height:0;padding:8px 4%}.room-copy{margin:0}.room-copy h1{font-size:25px;margin-bottom:8px}.room-copy p{font-size:13px}.menu-back{font-size:13px;margin:10px 0}.table-directory{margin:0;padding:0;gap:5px}.table-directory .table-entry{min-height:60px;padding:6px 70px 6px 8px;gap:5px;grid-template-columns:20px 1fr 16px}.table-directory .table-entry strong{font-size:16px}.table-directory .table-entry small{font-size:10px}.table-entry>span>span{font-size:11px}.table-number{font-size:16px}
+ .contracts-tutorial,.intro-layout,.completion-layout,.outside-layout,.street-layout{height:calc(100svh - 38px);min-height:0;padding:8px 4%}.dialogue-card{padding:12px;width:min(500px,64vw)}.dialogue-card h1{font-size:22px}.dialogue-card p:not(.eyebrow){font-size:14px;line-height:1.35;min-height:0;margin-bottom:8px}.dialogue-actions{margin-top:8px;gap:8px}.dialogue-actions button{font-size:13px;min-height:32px;padding:6px}.contracts-tutorial .info-trigger{font-size:12px;min-height:26px;padding:4px 0}.contracts-tutorial .small-note{font-size:11px;margin:6px 0}.contracts-tutorial .dice-face{width:32px;height:32px}
+ .completion-card{padding:12px;max-width:520px}.completion-card h1{font-size:25px;margin-bottom:8px}.completion-card .seal{width:36px;height:36px;font-size:25px;margin-bottom:6px}.completion-card .completion-quote{display:none}.completion-card>p:not(.eyebrow){font-size:13px;line-height:1.3;margin:6px 0}.completion-card .scoreboard{padding:5px;margin:6px 0}.completion-card button{font-size:13px;min-height:30px;padding:5px}.completion-card .primary{margin-top:7px}
+ .modal.guide-modal .guide-content:has(.holdem-felt){display:grid;grid-template-columns:1fr 1fr;gap:8px}.guide-content:has(.holdem-felt)>.guide-caption{grid-column:1/-1;margin:0}.guide-content>.holdem-felt{grid-column:1;grid-row:2/6;margin:0;align-self:start}.guide-content:has(.holdem-felt)>p:not(.guide-caption),.guide-content:has(.holdem-felt)>.guide-result,.guide-content:has(.holdem-felt)>button,.guide-content:has(.holdem-felt)>.demo-choices{grid-column:2;margin:0}.modal.guide-modal .demo-choices{gap:4px;flex-wrap:wrap}.modal.guide-modal .demo-choices button{font-size:12px;padding:5px}.guide-modal .demo-choices small{font-size:10px}.modal.guide-modal .guide-content>button{font-size:13px;padding:6px;min-height:34px}.guide-modal .holdem-felt .poker-card{height:32px;flex-basis:24px}.guide-modal .holdem-felt h2{font-size:10px}.guide-modal .guide-result h3{font-size:17px}.guide-modal .guide-result p,.guide-modal .guide-content>p{font-size:13px;line-height:1.3}
+}
+@media(max-height:480px){.guide-example{display:none}}
+@media(prefers-reduced-motion:reduce){.modal[open]{animation:none!important}}
+@media(min-width:1000px) and (max-height:700px){.boss-kicker{display:none}}
+
+@media(min-width:500px) and (max-height:760px){
+ .contracts-tutorial{display:grid;grid-template-columns:24% minmax(0,1fr);align-items:center;gap:12px;overflow:hidden}
+ .contracts-tutorial .doble-intro{position:static;object-fit:contain;width:100%;height:calc(100svh - 60px);max-height:230px;align-self:end}
+ .contracts-tutorial .dialogue-card{width:100%;max-width:none;min-width:0;max-height:100%;padding:10px;margin:0;overflow:hidden}
+ .contracts-tutorial .dialogue-card h1{font-size:20px;line-height:1.1;margin-bottom:8px}.contracts-tutorial .dialogue-card p:not(.eyebrow){font-size:13px;line-height:1.3;margin:0 0 6px}.contracts-tutorial .dice-pair{margin:4px 0;gap:8px}
+ .contracts-tutorial .dialogue-actions{display:flex;flex-wrap:nowrap;align-items:center;gap:6px;margin-top:6px}.contracts-tutorial .dialogue-actions button{flex:1;width:auto;min-width:0;min-height:30px;font-size:12px;line-height:1.2;padding:5px;margin:0}
+ .modal.guide-modal .modal-heading{padding:6px 12px}.modal.guide-modal .modal-heading h2{font-size:21px}.modal.guide-modal .modal-body{padding:10px 12px}.guide-modal .guide-caption{font-size:11px;line-height:1.2;margin-bottom:6px}.guide-modal .guide-content>h3{font-size:17px;line-height:1.15;margin-bottom:7px}.modal.guide-modal .reading-nav{padding-top:6px;gap:8px}.modal.guide-modal .reading-nav button{font-size:13px;min-height:32px;padding:6px 10px}.modal.guide-modal .reading-nav span{font-size:13px}.guide-modal .guide-content:has(.holdem-felt)>p:not(.guide-caption){font-size:12px;line-height:1.2}
+}
+.dice-guide-combinations .winning-combos{display:grid;gap:8px;color:#f7ead3}.dice-guide-combinations .combo-row{display:flex;align-items:center;gap:10px}.dice-guide-combinations .combo-row>b{min-width:60px;font-size:14px}.dice-guide-combinations .combo-pairs,.dice-guide-combinations .any-faces{display:flex;flex-wrap:wrap;gap:6px}.dice-guide-combinations small{font-size:14px}.dice-guide-combinations .combo-face{width:22px;height:22px;min-width:22px;min-height:22px}
+@media(min-width:500px) and (max-height:760px){
+ .holdem-layout.poker-layout .archive-panel .primary,.holdem-layout.poker-layout .archive-panel>.text-button,.enlarged-text .holdem-layout.poker-layout .archive-panel>.primary,.enlarged-text .holdem-layout.poker-layout .archive-panel>.text-button,.boss-layout.holdem-layout .archive-panel .primary{min-height:32px;padding:6px;font-size:13px;line-height:1.2;margin:4px 0 0}
+ .boss-layout .archive-panel>[data-guide]{display:none}
+ .table-layout:not(.tutorial-table) .game-panel>.decision-prompt,.table-layout:not(.tutorial-table) .game-panel>.small-note{display:none}
+ .table-layout:not(.tutorial-table) .cards-toggle{min-height:26px;font-size:12px;padding:3px}
+ .table-layout:not(.tutorial-table) .urn-options:has(button:disabled){display:none}
+ .contracts-layout .compact-offer{grid-template-columns:1fr;gap:4px;padding:5px;align-content:start}
+ .contracts-layout .compact-offer .offer-heading{flex-wrap:wrap;gap:3px}.contracts-layout .compact-offer .offer-name,.contracts-layout .compact-offer .compact-payment{font-size:12px;line-height:1.2}
+ .contracts-layout .compact-offer .winning-combos{grid-column:1;grid-row:auto;padding:0;border:0}.contracts-layout .compact-offer .winning-combos small{font-size:10px;line-height:1.2}
+ .contracts-layout .contracts-panel p,.contracts-layout .contracts-panel .contract-settlement{font-size:12px;line-height:1.3;margin:0 0 5px}.contracts-layout .contracts-panel .contract-settlement span,.contracts-layout .contracts-panel .contract-settlement strong{font-size:12px;padding:4px 0}
+ .contracts-layout .contracts-panel>.small-note{display:none}.contracts-layout .contracts-panel .primary,.contracts-layout .contracts-panel>.text-button{font-size:12px;min-height:32px;padding:5px;line-height:1.2;margin:3px 0 0}
+ .contracts-layout .contracts-panel .info-trigger{font-size:11px;min-height:26px;padding:4px 0}
+ .holdem-layout.poker-layout .archive-panel>.info-trigger:has(+[data-testid=back-room]),.contracts-layout .contracts-panel>.info-trigger:has(+[data-testid=back-room]){display:inline-flex;vertical-align:middle;align-items:center;width:46%;font-size:11px;line-height:1.15;min-height:28px;padding:4px 0;margin:0}
+ .holdem-layout.poker-layout .archive-panel>[data-testid=back-room],.enlarged-text .holdem-layout.poker-layout .archive-panel>[data-testid=back-room],.contracts-layout .contracts-panel>[data-testid=back-room]{display:inline-flex;vertical-align:middle;justify-content:center;width:52%;font-size:11px;line-height:1.15;min-height:28px;padding:4px;margin:0}
+ .boss-layout .holdem-felt .poker-card{height:28px!important;flex-basis:22px!important}.boss-layout .holdem-felt{padding:4px;gap:2px}.boss-layout .holdem-felt h2{font-size:10px;line-height:1.1}
+ .boss-layout[data-mechanic=dice][data-view=choice] .archive-panel>p{display:none}
+ .boss-dice{padding:10px}.boss-dice h2{font-size:14px;margin-bottom:6px}.boss-dice .dice-face{width:40px;height:40px;min-width:40px;min-height:40px}.boss-dice p{font-size:12px;line-height:1.2;margin:6px 0 0}
+ .contracts-layout .contracts-floor .info-trigger{font-size:11px;line-height:1.2;min-height:24px;padding:3px 0;margin:0}
+ .boss-showdown-inline{display:none}.boss-showdown-more{display:block}
+ .boss-layout .boss-showdown-more .info-trigger{font-size:11px;min-height:24px;padding:3px 0}
+ .boss-layout[data-view=feedback] .damage-breakdown>span{display:flex;align-items:center;justify-content:space-between;gap:4px;min-height:26px;font-size:10px}.boss-layout[data-view=feedback] .damage-breakdown strong{font-size:14px}
+ .boss-layout[data-view=feedback] [data-testid=finale-feedback]>p{font-size:12px;line-height:1.25;margin-bottom:4px}
+}
+
+@media(min-width:500px) and (max-width:599px) and (max-height:760px){
+ .game-panel,.table-layout .game-panel,.contracts-layout .contracts-panel,.ada-table-layout .archive-panel,.boss-layout .archive-panel{padding:7px}
+ .boss-panel-ribbon{margin:-7px -7px 6px;padding:5px 7px}.boss-layout .archive-panel h2,.game-panel h2{font-size:16px;line-height:1.1}
+ .boss-primer{gap:5px}.boss-primer li{font-size:11px;line-height:1.2;grid-template-columns:18px 1fr}.boss-primer li:before{height:18px}
+ .boss-layout .scoreboard .boss-resource{font-size:10px}.boss-layout .scoreboard .boss-resource>strong{font-size:12px}.boss-resource .combat-pips{gap:2px}.boss-resource .combat-pips i{width:8px}
+ .boss-layout .holdem-felt .poker-card{height:20px!important;flex-basis:19px!important}.boss-layout .holdem-felt .poker-card b{font-size:9px!important}.boss-layout .holdem-felt .poker-card>span{font-size:10px!important}.boss-layout .holdem-felt h2{font-size:9px}
+ .boss-layout .holdem-felt h2{line-height:1;margin-bottom:1px}.boss-layout .holdem-felt{gap:1px;padding:3px}
+ .boss-layout .holdem-felt{grid-template-columns:1fr 1fr}.boss-layout .holdem-board{grid-column:1/-1;grid-row:1}.boss-layout .holdem-player{grid-column:1;grid-row:2}.boss-layout .holdem-opponent{grid-column:2;grid-row:2}
+ .table-directory .table-entry>span>span{display:none}
+ .contracts-layout .dice-viewport{height:60px;min-height:60px}
+ .holdem-layout .archive-panel p,.boss-layout .archive-panel p,.enlarged-text .holdem-layout .archive-panel p{font-size:12px;line-height:1.2;margin-bottom:4px}
+ .boss-layout .boss-choices .urn-option,.urn-options .urn-option{padding:5px!important;gap:4px}.boss-layout .urn-option .inventory,.urn-options .inventory{font-size:10px;line-height:1.2}
+ .table-layout:not(.tutorial-table) .round-progress{display:none}.table-layout:not(.tutorial-table) .cards-toggle{position:absolute;top:4px;right:7px;width:auto;min-height:24px;padding:3px 5px;font-size:10px}
+ .contracts-layout .contracts-heading>p{display:none}.contracts-layout .contracts-heading h1{font-size:18px!important}.contracts-layout .contracts-heading .scoreboard{font-size:10px!important;gap:5px!important}
+ .contracts-layout .contract-offers{grid-template-columns:1fr 1fr;gap:3px}
+ .contracts-layout .contract-ticket{grid-column:1/-1;grid-template-columns:1fr auto;padding:4px;gap:2px 4px}
+ .contracts-layout .compact-offer .offer-heading{grid-column:1;grid-row:1}.contracts-layout .offer-code{display:none}.contracts-layout .compact-offer .offer-name,.contracts-layout .compact-offer .compact-payment{font-size:11px;line-height:1.15}
+ .contracts-layout .compact-offer .compact-payment{grid-column:2;grid-row:1}.contracts-layout .compact-offer .winning-combos{grid-column:1/-1;grid-row:2;display:flex;flex-direction:row;align-items:center;gap:4px}.contracts-layout .compact-offer .winning-combos small,.contracts-layout .compact-offer .winning-summary{font-size:10px;line-height:1.1}
+ .contracts-layout .dice-combinations-toggle{grid-column:1!important;font-size:10px;line-height:1.1;min-height:22px;padding:3px 0}.contracts-layout .contract-offers>.info-trigger{grid-column:2;font-size:10px;line-height:1.1;min-height:22px;padding:3px 0}
+ .contracts-layout .dice-table-caption{font-size:10px;line-height:1.1;padding:3px;margin:0}
+ .contracts-layout .contracts-floor{height:100%;min-height:0;display:flex;flex-direction:column;justify-content:flex-start}
+ .contracts-layout .contracts-heading{flex:0 0 auto}
+ .contracts-layout .contract-stage{flex:1;min-height:0;display:flex;flex-direction:column;gap:3px}
+ .contracts-layout .dice-table{flex:1;min-height:0;display:flex;flex-direction:column}
+ .contracts-layout .dice-viewport{flex:1;height:auto;min-height:0}.contracts-layout .dice-table-caption,.contracts-layout .contract-offers{flex:0 0 auto}
+ .boss-layout .boss-choices .archive-choice,.enlarged-text .boss-layout .boss-choices .archive-choice{min-height:32px;padding:4px;line-height:1.1;gap:2px}.boss-layout .boss-choices .archive-choice small{font-size:10px;line-height:1.1}
+ .table-layout:not(.tutorial-table) .review-label{display:none}
+}
+/* Short-height Doble reserves ticket/action space; the canvas takes the remainder. */
+@media(min-width:500px) and (max-height:760px){
+ .contracts-layout .contracts-floor{height:100%;min-height:0;display:flex;flex-direction:column;justify-content:flex-start}
+ .contracts-layout .contracts-heading{flex:0 0 auto}.contracts-layout .contracts-heading>p{display:none}.contracts-layout .contracts-heading h1{font-size:18px!important}.contracts-layout .contracts-heading .scoreboard{font-size:10px!important;gap:5px!important}
+ .contracts-layout .contract-stage{flex:1;min-height:0;display:flex;flex-direction:column;gap:3px}.contracts-layout .dice-table{flex:1;min-height:0;display:flex;flex-direction:column}.contracts-layout .dice-viewport{flex:1;height:auto;min-height:0}
+ .contracts-layout .dice-table-caption,.contracts-layout .contract-offers{flex:0 0 auto}.contracts-layout .contract-offers{grid-template-columns:1fr 1fr;gap:3px}
+ .contracts-layout .contract-ticket{grid-column:1/-1;grid-template-columns:1fr auto;padding:4px;gap:2px 4px}.contracts-layout .compact-offer .offer-heading{grid-column:1;grid-row:1}.contracts-layout .offer-code{display:none}
+ .contracts-layout .compact-offer .offer-name,.contracts-layout .compact-offer .compact-payment{font-size:11px;line-height:1.15}.contracts-layout .compact-offer .compact-payment{grid-column:2;grid-row:1}
+ .contracts-layout .compact-offer .winning-combos{grid-column:1/-1;grid-row:2;display:flex;flex-direction:row;align-items:center;gap:4px}.contracts-layout .compact-offer .winning-combos small,.contracts-layout .compact-offer .winning-summary{font-size:10px;line-height:1.1}
+ .contracts-layout .dice-combinations-toggle{grid-column:1!important;font-size:10px;line-height:1.1;min-height:22px;padding:3px 0}.contracts-layout .contract-offers>.info-trigger{grid-column:2;font-size:10px;line-height:1.1;min-height:22px;padding:3px 0}
+ .contracts-layout .dice-table-caption{font-size:10px;line-height:1.1;padding:3px;margin:0}
+ body[data-doble-phase=result] .contracts-panel>h2,body[data-doble-phase=review] .contracts-panel>h2{display:none}
+ body[data-doble-phase=result] .contracts-layout .contracts-panel>.round-context,body[data-doble-phase=review] .contracts-layout .contracts-panel>.round-context{display:block;font-size:16px;font-weight:700;margin-bottom:6px}
+ body[data-doble-phase=offer] .contracts-layout .contracts-panel>p,body[data-doble-phase=order] .contracts-layout .contracts-panel>p:not(.hypothetical-note){display:none}
+ .contracts-layout .compact-offer,.contracts-layout .compact-offer.chosen{border-width:2px;padding:4px!important}
+ body[data-doble-phase=result] .contracts-layout .contracts-panel>p.small-note{display:none}
+ .guided-contract .offer-heading:after{content:'Ayuda';font-size:9px;line-height:1.1;color:#254333;background:#d5e5bb;padding:1px 3px;border-radius:2px}
+ .boss-layout .urn-option.hinted .urn-option-head>span{display:inline;font-size:9px;line-height:1.1}
+ .boss-layout .guided-choice>small:last-child{display:none}.boss-layout .guided-choice:before{content:'Ayuda';float:right;padding:1px 3px;color:#251e2c;background:#e8c17a;border-radius:2px;font-size:9px;line-height:1.1}
+ .boss-layout:has(.guided-choice) .archive-panel>p{display:none}
+ .boss-layout .scoreboard:has(.boss-assisted){grid-template-columns:1fr 1fr}.boss-layout .scoreboard>span.boss-assisted{display:none}
+ .completion-layout .completion-card>.primary,.completion-layout .completion-card>.text-button{min-height:30px;font-size:13px;line-height:1.2;padding:5px;margin-top:5px}
+ .completion-layout .completion-card>p:not(.completion-quote){font-size:13px;line-height:1.3;margin:6px 0}
+ .completion-layout .completion-card>.completion-quote{display:none}
+}

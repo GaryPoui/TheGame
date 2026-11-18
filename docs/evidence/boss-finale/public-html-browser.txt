@@ -1,0 +1,11 @@
+
+Running 3 tests using 1 worker
+
+
+
+(node:21664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/3] tests\browser\boss.spec.ts:37:26 › Ada polish shows both best hands and preserves scoring, text 2
+[2/3] tests\browser\boss.spec.ts:53:1 › complete independent boss duel opens the ending and preserves freedom on replay
+[3/3] tests\browser\boss.spec.ts:62:1 › boss keeps its character and playable choices without WebGL
+  3 passed (1.0m)

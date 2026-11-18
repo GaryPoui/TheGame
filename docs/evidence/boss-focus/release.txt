@@ -1,0 +1,64 @@
+
+Running 12 tests using 1 worker
+
+
+(node:53764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/12] tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+[2/12] tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 1280x720
+[3/12] tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 960x540
+[4/12] tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 853x480
+[5/12] tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 640x360
+[6/12] tests\browser\boss-focus.spec.ts:27:81 › all boss mechanics and result fit 512x320
+[7/12] tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 853x480
+[8/12] tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 640x360
+[9/12] tests\browser\boss-focus.spec.ts:37:118 › contracts choices and feedback fit 512x320
+[10/12] tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
+  1) tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "✧",
+    +   "✧",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:59:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-release\boss-focus-boss-guided-cho-2f56f-ch-the-exit-at-maximum-zoom\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-release\boss-focus-boss-guided-cho-2f56f-ch-the-exit-at-maximum-zoom\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-release\boss-focus-boss-guided-cho-2f56f-ch-the-exit-at-maximum-zoom\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-release\boss-focus-boss-guided-cho-2f56f-ch-the-exit-at-maximum-zoom\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:54984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[11/12] tests\browser\boss-focus.spec.ts:62:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space
+[12/12] tests\browser\boss-focus.spec.ts:70:1 › zoom density and viewport changes resize once and keep the saved fight
+  1 failed
+    tests\browser\boss-focus.spec.ts:55:1 › boss guided choices remain labelled and reach the exit at maximum zoom
+  11 passed (1.8m)

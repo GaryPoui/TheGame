@@ -1,0 +1,10 @@
+{
+  "method": "CDP device metrics emulation, not browser toolbar zoom",
+  "cssWidth": 640,
+  "cssHeight": 360,
+  "devicePixelRatio": 2,
+  "hardwareScale": 1.3333333333333333,
+  "renderWidth": 251,
+  "renderHeight": 112,
+  "progressUnchanged": true
+}

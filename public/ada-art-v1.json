@@ -1,0 +1,21 @@
+{
+  "id": "ada-v1",
+  "date": "2026-10-26",
+  "tool": "OpenAI built-in imagegen",
+  "file": "art/ada-v1.png",
+  "reference": "art/vera-v3.png, used only as a visual family reference",
+  "sha256": "97045becbb4df13bb85305a25fa465bfab2229e3ede98c96bbc92cc2f30d1317",
+  "bytes": 2475174,
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "mode": "RGBA",
+  "alpha_extrema": [
+    0,
+    254
+  ],
+  "license": "AI-generated illustration; not CC0; project use, no general redistribution license declared",
+  "prompt": "New older archivist Ada, silver high bun, half-moon spectacles, raised eyebrow, plum dress, cream high collar, brass brooch, ink-stained fingers, closed ledger and wooden stamp. Waist-up, three-quarter, calm wry expression. Match Vera ink outlines, watercolor paper grain, muted plum/olive/cream/brass, restrained 1930s animation. Transparent background, no scenery/text/signature, all hands and props within bounds.",
+  "validation": "Inspected generated image; alpha verified with Pillow; UI preview checked separately."
+}

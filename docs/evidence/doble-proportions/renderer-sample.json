@@ -1,0 +1,68 @@
+{
+  "meshCount": 41,
+  "activeMeshCount": 10,
+  "selectedUrn": null,
+  "highlightedUrnMeshes": 0,
+  "urnTargets": [
+    {
+      "x": 0.3746692701809393,
+      "y": 0.5419001103946576
+    },
+    {
+      "x": 0.6253306987501687,
+      "y": 0.5419001103946576
+    }
+  ],
+  "diceRolling": false,
+  "diceRollCount": 0,
+  "dicePositions": [
+    {
+      "x": -0.6,
+      "y": 2.17,
+      "z": -0.45
+    },
+    {
+      "x": 0.6,
+      "y": 2.17,
+      "z": -0.45
+    }
+  ],
+  "dealerFrame": {
+    "hat": {
+      "x": 0.5000000149800061,
+      "y": 0.0177262784563341
+    },
+    "waist": {
+      "x": 0.5000000149800062,
+      "y": 0.49929612807795376
+    },
+    "width": 0.19940358794726099,
+    "tableWidth": 0.7604220842732283,
+    "tableBack": {
+      "x": 0.4999999880923485,
+      "y": 0.4955840651161806
+    }
+  },
+  "activeNames": [
+    "table-edge",
+    "table-lip",
+    "table-felt",
+    "felt-inlay",
+    "table-pedestal",
+    "pedestal-foot",
+    "pedestal-foot",
+    "vera-ink-portrait",
+    "contract-die-0",
+    "contract-die-1"
+  ],
+  "geometryTriangles": 36692,
+  "fps": 38.59017236951055,
+  "renderWidth": 993,
+  "renderHeight": 492,
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "rendering": true,
+  "drawCalls": 19,
+  "frameTimeMs": 1.3999999985098839,
+  "renderTimeMs": 0.8999999985098839,
+  "estimatedTextureBytes": 25578197.333333336
+}

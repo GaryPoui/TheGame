@@ -1,0 +1,109 @@
+
+Running 15 tests using 1 worker
+
+
+
+(node:52588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/15] tests\browser\boss-focus.spec.ts:19:1 › selecting a boss urn keeps the viewport node and its mounted canvas
+[2/15] tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 1280x720
+[3/15] tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 960x540
+[4/15] tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 853x480
+[5/15] tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 640x360
+  1) tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 640x360 ────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Reglas del duelo",
+    +   "back-room",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:29:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-third\boss-focus-all-boss-mechanics-and-result-fit-640x360\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-third\boss-focus-all-boss-mechanics-and-result-fit-640x360\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-third\boss-focus-all-boss-mechanics-and-result-fit-640x360\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-third\boss-focus-all-boss-mechanics-and-result-fit-640x360\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:51240) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[6/15] tests\browser\boss-focus.spec.ts:36:108 › urns choices and feedback fit 853x480
+[7/15] tests\browser\boss-focus.spec.ts:36:108 › urns choices and feedback fit 640x360
+[8/15] tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 853x480
+  2) tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 853x480 ──────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Cómo contar los pares",
+    + ]
+
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+    > 17 |  expect(bad).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+         |              ^
+      18 | }
+      19 | test('selecting a boss urn keeps the viewport node and its mounted canvas',async({page})=>{
+      20 |  await open(page);await page.getByTestId('finale-begin').click();const viewport=await page.locator('.ada-viewport').elementHandle();const canvas=await page.locator('.ada-viewport canvas').elementHandle();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:17:14)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:37:241
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tools\boss-focus-third\boss-focus-contracts-choices-and-feedback-fit-853x480\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tools\boss-focus-third\boss-focus-contracts-choices-and-feedback-fit-853x480\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tools\boss-focus-third\boss-focus-contracts-choices-and-feedback-fit-853x480\trace.zip
+    Usage:
+
+        npx playwright show-trace .tools\boss-focus-third\boss-focus-contracts-choices-and-feedback-fit-853x480\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:15028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/15] tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 640x360
+[10/15] tests\browser\boss-focus.spec.ts:36:108 › records choices and feedback fit 853x480
+[11/15] tests\browser\boss-focus.spec.ts:36:108 › records choices and feedback fit 640x360
+[12/15] tests\browser\boss-focus.spec.ts:40:1 › boss resource help is contextual and does not alter the fight
+[13/15] tests\browser\boss-focus.spec.ts:44:1 › options and chapter menu fit compact zoom with text enlarged and reduced motion
+[14/15] tests\browser\boss-focus.spec.ts:50:1 › compact dice combinations use a window instead of extending the table
+[15/15] tests\browser\boss-focus.spec.ts:53:1 › boss choices fit the CSS space of a desktop enlarged to 200 percent
+  2 failed
+    tests\browser\boss-focus.spec.ts:26:71 › all boss mechanics and result fit 640x360 ─────────────
+    tests\browser\boss-focus.spec.ts:36:108 › contracts choices and feedback fit 853x480 ───────────
+  13 passed (34.4s)

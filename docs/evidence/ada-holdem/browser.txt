@@ -1,0 +1,12 @@
+
+Running 4 tests using 1 worker
+
+
+
+(node:30152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/4] tests\browser\holdem.spec.ts:6:63 › Ada holdem 1280x720: hidden cards, prediction, reveal and reload
+[2/4] tests\browser\holdem.spec.ts:6:63 › Ada holdem 1024x640: hidden cards, prediction, reveal and reload
+[3/4] tests\browser\holdem.spec.ts:6:63 › Ada holdem 390x844: hidden cards, prediction, reveal and reload
+[4/4] tests\browser\holdem.spec.ts:18:1 › Ada help remains finite and retains earned points and seals
+  4 passed (20.1s)

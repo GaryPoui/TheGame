@@ -1,0 +1,25 @@
+.boss-layout .archive-floor>h1,.enlarged-text .boss-layout .archive-floor>h1{font-size:30px;margin:0 0 8px}
+body[data-screen=finale] .boss-layout .ada-viewport #scene{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:1;pointer-events:none}
+body:has(.boss-layout) #cast{display:none}
+body:has(.graphics-warning)[data-screen=finale] .boss-layout .ada-viewport #scene{display:none}
+.boss-health{color:#fff0d6;margin-bottom:6px}.boss-health label{display:flex;justify-content:space-between;font-size:16px;margin-bottom:4px}.boss-health progress{display:block;width:100%;height:12px;accent-color:#be6472}
+.boss-layout .scoreboard,.enlarged-text .boss-layout .scoreboard{font-size:16px;gap:14px;margin:6px 0}
+.boss-phases{display:flex;gap:8px;margin:8px 0;font-size:14px}.boss-phases span{padding:5px 12px;border:1px solid #aa8e64;border-radius:4px;color:#d4bfa7;background:#251e2cd9}.boss-phases [aria-current]{color:#251e2c;background:#e8c17a;border-color:#e8c17a;font-weight:700}
+.boss-layout .archive-floor>.boss-attack-title{font-size:16px;margin:4px 0;color:#f7ead3}
+.boss-layout.poker-layout .ada-viewport{height:clamp(300px,54vh,440px)}.boss-layout.poker-layout .ada-evidence,.enlarged-text .boss-layout.poker-layout .ada-evidence{margin-top:-290px;width:min(96%,650px)}
+.boss-urns{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px;background:#15392fe8;border:2px solid #b29258;border-radius:14px;color:#fff0d6;text-align:center}
+.boss-urn h2{font-size:18px;color:inherit;margin:0 0 8px}.boss-urn p{font-size:15px;margin:8px 0 0}.boss-tokens{display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:7px;min-height:95px;padding:14px;border:3px solid #d6c19b;border-top-width:7px;border-radius:6px 6px 30px 30px;background:#e5e0c51a}
+.boss-tokens span{display:grid;place-items:center;width:28px;height:28px;font-size:20px;border-radius:50%;background:#f5ecd8}.red-token{color:#a52c38}.blue-token{color:#23566d}
+.boss-dice{padding:22px;text-align:center;color:#fff0d6;background:#173d31ef;border:2px solid #b29258;border-radius:14px}.boss-dice h2{font-size:19px;color:inherit;margin:0 0 10px}.boss-dice .dice-result{display:flex;justify-content:center;gap:16px}.boss-dice p{font-size:18px;margin:12px 0 0}.boss-dice .dice-face{width:64px;height:64px;min-width:64px;min-height:64px}
+.boss-choices{display:grid;gap:8px;margin-bottom:10px}.boss-poker-choices{grid-template-columns:1fr 1fr}
+.boss-layout .boss-choices .archive-choice,.enlarged-text .boss-layout .boss-choices .archive-choice{padding:8px 10px;min-height:46px;font-size:16px;line-height:1.2;text-align:left}
+.boss-layout .boss-choices small{display:block;font-size:14px;line-height:1.3;margin:4px 0 0}.guided-choice{outline:3px solid #b18c42;outline-offset:1px}
+.boss-layout .archive-panel,.enlarged-text .boss-layout .archive-panel{padding:14px}
+.boss-layout .archive-panel h2,.enlarged-text .boss-layout .archive-panel h2{font-size:22px;line-height:1.15;margin:0 0 10px}
+.boss-layout .archive-panel p,.enlarged-text .boss-layout .archive-panel p{font-size:17px;line-height:1.35;margin:0 0 10px}
+.boss-layout .archive-panel>.primary,.boss-layout .archive-panel>.text-button,.enlarged-text .boss-layout .archive-panel>.primary,.enlarged-text .boss-layout .archive-panel>.text-button{font-size:16px;line-height:1.2;min-height:40px;padding:8px;margin-top:6px}
+.boss-layout [data-testid=finale-feedback]{margin:0;padding:0;border:0}.boss-layout .holdem-felt{gap:6px;padding:8px}.boss-layout .holdem-felt h2{font-size:15px;margin:0 0 4px}
+@media(max-width:999px){.boss-layout.poker-layout .ada-viewport{height:320px}.boss-layout.poker-layout .ada-evidence,.enlarged-text .boss-layout.poker-layout .ada-evidence{margin-top:-250px}.boss-layout .boss-attack-title{display:none}.boss-layout .boss-urns{padding:12px;gap:8px}.boss-layout .archive-panel{margin-top:10px}.boss-phases{margin:6px 0}.boss-layout .archive-floor>h1{font-size:26px}}
+@media(prefers-reduced-motion:no-preference){.boss-health progress{transition:accent-color .15s}.river-card{animation:river-reveal .2s ease-out}@keyframes river-reveal{from{opacity:.6}to{opacity:1}}}
+body.enlarged-text .boss-layout .poker-card b{font-size:18px}body.enlarged-text .boss-layout .poker-card>span{font-size:24px}
+body.reduced-motion .river-card{animation:none}

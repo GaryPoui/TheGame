@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101d1e" />
+    <meta name="description" content="Tres asistentes y un contrato de salida. Un juego de probabilidad, estadística y decisiones." />
+    <title>La Casa del Azar · El contrato de salida</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  </head>
+  <body>
+    <div id="painted-set" aria-hidden="true"></div>
+    <div id="cast" aria-hidden="true"><img id="captor" src="./art/captor-v3.png" alt="" /><img id="intro-vera" src="./art/vera-full-v1.png" alt="" /></div>
+    <canvas id="scene" aria-label="Sala de juego tridimensional. Todas las acciones están disponibles en los controles de la página."></canvas>
+    <div id="blackout" aria-hidden="true"></div>
+    <div id="vignette" aria-hidden="true"></div>
+    <div id="app"><p class="loading">Preparando la mesa…</p></div>
+    <div id="overlay"></div>
+    <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

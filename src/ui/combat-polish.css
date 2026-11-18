@@ -1,0 +1,40 @@
+/* The same glass props and urn tickets serve Vera and the final duel. */
+body[data-screen=finale] .boss-layout.boss-urn-stage .ada-viewport #scene{pointer-events:auto;touch-action:manipulation}
+.boss-urn-stage .boss-urn-fallback{display:none}
+body:has(.graphics-warning) .boss-urn-stage .boss-urn-fallback{display:grid}
+.boss-urn-stage .ada-viewport:not(:has(canvas))+.ada-evidence .boss-urn-fallback{display:grid}
+.boss-urn-stage .ada-evidence{pointer-events:none}
+.boss-layout .boss-choices .urn-option{padding:10px 12px;gap:6px;min-height:100px;color:#251e2c}
+.boss-layout .urn-option-head strong,.enlarged-text .boss-layout .urn-option-head strong{font-size:19px}
+.boss-layout .urn-option-head>span,.boss-layout .inventory{font-size:14px}
+.boss-layout .urn-option .odds b{font-size:16px;line-height:1.2}
+.boss-layout .urn-option .odds{padding-top:5px;margin:0;gap:3px}
+.boss-layout .urn-option .inventory{margin:0;line-height:1.2;padding:0}
+.boss-layout .urn-option .odds>span{font-size:13px;line-height:1.25;margin-top:2px}
+.boss-layout .boss-choices .urn-option.selected{padding:10px 12px;outline:1px solid #e8c17a;outline-offset:2px}
+.holdem-layout .archive-panel{background:#302636;color:#f7ead3;border:2px solid #9e815c;border-radius:12px;box-shadow:0 8px 0 #17131c90,0 16px 38px #0005}
+.holdem-layout .archive-panel h2,.holdem-layout .archive-panel h3{color:#f7ead3}
+.holdem-layout .archive-panel>.primary{background:#e8c17a;color:#251e2c;border:2px solid #d2a75f;border-radius:6px;font-weight:700}
+.holdem-layout .archive-panel>.primary:hover:not(:disabled){background:#f6d79e;border-color:#ffe4ac}
+.holdem-layout .archive-panel>.primary:disabled{background:#a49786;color:#302636;opacity:.65}
+.holdem-layout .archive-panel>.text-button{color:#ead1a8}
+.holdem-layout .archive-panel>.text-button:hover{color:#fff2d6;background:#f7ead310}
+.holdem-layout .archive-panel .archive-choice{background:#f7ead3;color:#251e2c;border-color:#9e815c}
+.holdem-layout .archive-panel .archive-choice.selected{background:#ffe3a0;border-color:#ffe3a0;box-shadow:0 0 0 2px #fff0c8}
+.boss-panel-ribbon{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:-14px -14px 14px;padding:10px 14px;background:#211a27;border-bottom:1px solid #9e815c;color:#ead1a8;border-radius:10px 10px 0 0;font-size:13px}
+.boss-panel-ribbon span:first-child{font-size:15px;font-weight:700;color:#f6d79e}
+.boss-health{padding:10px 12px;background:#211a27e8;border:1px solid #9e815c;border-radius:8px}
+.boss-health progress{height:14px;accent-color:#d66e7e}
+.boss-layout .scoreboard{display:grid;grid-template-columns:1fr 1fr auto;align-items:center;padding:8px 0;gap:10px}
+.boss-layout .scoreboard strong{font-variant-numeric:tabular-nums}
+.boss-layout .scoreboard>span{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:3px 8px;white-space:nowrap;min-width:0}
+.boss-layout .scoreboard>span:last-child{display:block}
+.boss-layout .scoreboard>span>strong{font-size:18px;line-height:1.1}
+.boss-layout .scoreboard .combat-pips{grid-column:1/-1}
+.combat-pips{display:flex;gap:4px;margin-top:5px}.combat-pips i{width:14px;height:5px;background:#4a3b4e;border:1px solid #a68b64;border-radius:2px}.combat-pips .charged{background:#e8c17a}.combat-pips.defence .charged{background:#8ac2a7}
+.boss-layout .boss-phases{gap:6px}.boss-phases span{flex:1;text-align:center}
+.enlarged-text .boss-layout .boss-choices .urn-option{padding:8px 10px;gap:4px;min-height:94px}
+.enlarged-text .holdem-layout .archive-panel{padding:12px}
+.enlarged-text .boss-layout .boss-panel-ribbon{margin:-12px -12px 10px}
+@media(min-width:1000px) and (max-height:700px){.boss-layout .boss-attack-title{display:none}.boss-panel-ribbon{margin-bottom:10px}.boss-layout .scoreboard{padding:4px 0}.boss-health{padding:7px 10px}.combat-pips{margin-top:3px}}
+@media(max-width:999px){.boss-layout .scoreboard{font-size:14px;gap:7px}.combat-pips{gap:3px}.combat-pips i{width:11px}.boss-panel-ribbon{margin-bottom:10px}}

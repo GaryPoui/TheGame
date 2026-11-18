@@ -1,0 +1,11 @@
+{
+  "text": "El póker de Ada\nMano 1\nTus puntos\n0/24\nAda\n0\nAda · elección guardada\n✧\n✧\nCartas de la mesa\n6\n♥\n5\n♠\n2\n♣\nA\n♠\n✧\nTus cartas\n9\n♠\n5\n♦\n¿Qué mano vas a formar?\nPareja\n4 puntos\n32 de 46 · 69,6 %\nDoble pareja\n7 puntos\n12 de 46 · 26,1 %\nTrío\n10 puntos\n2 de 46 · 4,3 %\nConfirmar y revelar\nManos y reglas\nGuardar y volver a la sala",
+  "overflow": [
+    {
+      "class": "ada-table-stage ",
+      "text": "Ada · elección guardada\n✧\n✧\nCartas de la mesa\n6\n♥\n5\n♠\n2\n♣\nA\n♠\n✧\nTus cartas\n9\n♠\n5\n♦",
+      "h": 464,
+      "scroll": 468
+    }
+  ]
+}

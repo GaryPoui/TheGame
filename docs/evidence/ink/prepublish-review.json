@@ -1,0 +1,7 @@
+{
+  "changedTextFilesChecked": 22,
+  "commonSecretPatterns": "no findings",
+  "assetRights": "Three generated assets recorded; Gambit adaptation explicitly attributed, not CC0. Reference images not redistributed.",
+  "scope": "new presentation, intro and documentation; no core mathematical rule changes",
+  "review": "Source diff, PNG alpha and in-game captures inspected; tests documented in ink-theatre.md"
+}

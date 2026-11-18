@@ -1,0 +1,7 @@
+
+Running 1 test using 1 worker
+
+
+
+[1/1] tests\browser\requirements-review.spec.ts:25:64 › requested changes fit 1280x720 and tutorials preserve progress
+  1 passed (11.4s)

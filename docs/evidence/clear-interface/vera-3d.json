@@ -1,0 +1,115 @@
+{
+  "ready": {
+    "ready": true,
+    "metrics": {
+      "meshCount": 39,
+      "activeMeshCount": 0,
+      "selectedUrn": null,
+      "highlightedUrnMeshes": 0,
+      "urnTargets": [
+        {
+          "x": 0.4401770894126853,
+          "y": 0.39628181293720194
+        },
+        {
+          "x": 0.5468946036611739,
+          "y": 0.42882153260746364
+        }
+      ],
+      "diceRolling": false,
+      "diceRollCount": 0,
+      "dicePositions": [],
+      "dealerFrame": null,
+      "tableHost": "vera",
+      "tableTextureReady": true,
+      "activeNames": [],
+      "geometryTriangles": 36372,
+      "fps": 7.542615779423488,
+      "renderWidth": 1366,
+      "renderHeight": 768,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "rendering": false,
+      "drawCalls": 97,
+      "frameTimeMs": 20.600000023841858,
+      "renderTimeMs": 19,
+      "estimatedTextureBytes": 16778069.333333332
+    }
+  },
+  "result": {
+    "metrics": {
+      "meshCount": 39,
+      "activeMeshCount": 38,
+      "selectedUrn": 0,
+      "highlightedUrnMeshes": 4,
+      "urnTargets": [
+        {
+          "x": 0.3816782158447317,
+          "y": 0.49342823940662434
+        },
+        {
+          "x": 0.4972486635596479,
+          "y": 0.4934283942249335
+        }
+      ],
+      "diceRolling": false,
+      "diceRollCount": 0,
+      "dicePositions": [],
+      "dealerFrame": null,
+      "tableHost": "vera",
+      "tableTextureReady": true,
+      "activeNames": [
+        "table-edge",
+        "table-lip",
+        "table-felt",
+        "felt-inlay",
+        "table-pedestal",
+        "pedestal-foot",
+        "pedestal-foot",
+        "urn-base",
+        "thick-glass-urn",
+        "glass-ink-side",
+        "glass-ink-side",
+        "urn-rim",
+        "selection-ring",
+        "identification-plate",
+        "label-1",
+        "urn-base",
+        "thick-glass-urn",
+        "glass-ink-side",
+        "glass-ink-side",
+        "urn-rim",
+        "identification-plate",
+        "label-2",
+        "record-file",
+        "record-file",
+        "record-file",
+        "die",
+        "die-pip",
+        "die-pip",
+        "die-pip",
+        "die-pip",
+        "vera-ink-portrait",
+        "red-token",
+        "red-token",
+        "red-token",
+        "blue-token",
+        "red-token",
+        "blue-token",
+        "revealed-blue"
+      ],
+      "geometryTriangles": 36340,
+      "fps": 11.433798308005645,
+      "renderWidth": 1366,
+      "renderHeight": 768,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "rendering": true,
+      "drawCalls": 138,
+      "frameTimeMs": 1.7000000476837158,
+      "renderTimeMs": 0.7000000476837158,
+      "estimatedTextureBytes": 16778069.333333332
+    },
+    "history": 1,
+    "text": "●Salió una ficha azul ●.¡Elegiste bien! +1 punto.Elegiste la urna con más posibilidades. Esta vez salió otro color: eso puede pasar aunque elijas bien.Qué cambió en la urnaTu urna tenía 3 fichas del color buscado entre 5 en total. La ficha quedó afuera. Las urnas ya muestran lo que queda."
+  },
+  "errors": []
+}

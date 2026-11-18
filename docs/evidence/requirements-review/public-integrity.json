@@ -1,0 +1,22 @@
+{
+  "baseURL": "https://garypoui.github.io/TheGame/",
+  "date": "2026-11-12T12:43:57.269Z",
+  "filesChecked": 146,
+  "matches": 146,
+  "errors": [],
+  "initialErrors": [
+    {
+      "path": "dist/assets/logDepthVertex-DSD5XdGw.js",
+      "status": 503,
+      "expected": "35c9683c853b03b8f113a71f7a4f0ea8b245e718e9e31e659c2eb314a9bc88aa",
+      "actual": "27927b33ebee49d7f096737f4a7dab00e26a6e03c5490c66377bcaf383a247a4"
+    }
+  ],
+  "retries": [
+    {
+      "path": "dist/assets/logDepthVertex-DSD5XdGw.js",
+      "status": 200,
+      "match": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": "casino-finale-2026-11-17",
+  "sourceCommit": "f9611eca91a56eb3dd790a2973bb9dc95e6f019b",
+  "deploymentCommit": "c6d4d0d78f818882b9222255a04ea948b6a0d332",
+  "publicURL": "https://garypoui.github.io/TheGame/",
+  "pagesWorkflow": "https://github.com/GaryPoui/TheGame/actions/runs/44195353621",
+  "pagesStatus": "success",
+  "publicCasesPassed": 4,
+  "assetHashesMatched": 149,
+  "pullRequestCreated": false,
+  "pullRequestFailure": "403 Resource not accessible by integration",
+  "compareURL": "https://github.com/GaryPoui/TheGame/compare/codex%2Ftable-props-poker-bonus...codex%2Fcasino-tables-finale"
+}

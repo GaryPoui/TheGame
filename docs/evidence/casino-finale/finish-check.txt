@@ -1,0 +1,98 @@
+
+Running 9 tests using 1 worker
+
+(node:57760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\casino-finale.spec.ts:29:51 › Ada cards are dealt and the reading dock stays below the scene 1280x720 (14.8s)
+  ok 2 tests\browser\casino-finale.spec.ts:29:51 › Ada cards are dealt and the reading dock stays below the scene 640x360 (14.0s)
+  ok 3 tests\browser\casino-finale.spec.ts:35:1 › golden victory with reduced motion survives reload and fits compact view (11.2s)
+  ok 4 tests\browser\casino-finale.spec.ts:38:1 › first person escape advances, can be skipped and preserves freedom (15.2s)
+  ok 5 tests\browser\casino-finale.spec.ts:41:1 › first person escape finishes automatically (23.5s)
+  x  6 tests\browser\casino-finale.spec.ts:44:62 › compact enlarged text keeps contracts decisions reachable (24.3s)
+(node:52724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 7 tests\browser\casino-finale.spec.ts:44:62 › compact enlarged text keeps records decisions reachable (15.4s)
+  ok 8 tests\browser\casino-finale.spec.ts:44:62 › compact enlarged text keeps finale decisions reachable (24.9s)
+Timed out waiting 180s for the test suite to run
+Timed out waiting 180s for the teardown for test suite to run
+
+
+  1) tests\browser\casino-finale.spec.ts:44:62 › compact enlarged text keeps contracts decisions reachable
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 41
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "id": "",
+    +     "rect": Object {
+    +       "bottom": -215.265625,
+    +       "height": 0,
+    +       "left": 12,
+    +       "right": 346.96875,
+    +       "top": -215.265625,
+    +       "width": 334.96875,
+    +       "x": 12,
+    +       "y": -215.265625,
+    +     },
+    +   },
+    +   Object {
+    +     "id": "contract-S",
+    +     "rect": Object {
+    +       "bottom": -28.84375,
+    +       "height": 183.421875,
+    +       "left": 12,
+    +       "right": 346.96875,
+    +       "top": -212.265625,
+    +       "width": 334.96875,
+    +       "x": 12,
+    +       "y": -212.265625,
+    +     },
+    +   },
+    +   Object {
+    +     "id": "contract-C",
+    +     "rect": Object {
+    +       "bottom": 162.578125,
+    +       "height": 183.421875,
+    +       "left": 12,
+    +       "right": 346.96875,
+    +       "top": -20.84375,
+    +       "width": 334.96875,
+    +       "x": 12,
+    +       "y": -20.84375,
+    +     },
+    +   },
+    + ]
+
+      13 |  await page.addInitScript(s=>{if(!localStorage.getItem('thegame.save.v1.current'))localStorage.setItem('thegame.save.v1.current',JSON.stringify({schemaVersion:9,contentVersion:'campaign-bonus-v9',state:s}));},s);await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();await mkdir(evidence,{recursive:true});
+      14 | }
+    > 15 | async function fits(page:Page){expect(await page.locator('main button,main canvas,main .poker-card').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left< -1||r.top< -1||r.right>innerWidth+1||r.bottom>innerHeight+1}).map(n=>({id:n.getAttribute('data-testid')??n.className,rect:n.getBoundingClientRect().toJSON()})))).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);}
+         |                                                                                                                                                                                                                                                                                                                                                                                            ^
+      16 | async function metrics(page:Page){return page.evaluate(()=>(window.__THEGAME_METRICS__!() as {cameraFov:number;dealerFrame:{width:number;hat:{y:number}};outerTableLegs:number;centralPedestals:number;visibleHostProps:Record<string,number>;pokerCardCount:number;escapeActive:boolean;cameraPosition:{z:number}}));}
+      17 | for(const [width,height]of [[1280,720],[1093,615],[640,360]])test(`eight varied Doble questions and feedback fit ${width}x${height}`,async({page})=>{
+      18 |  test.setTimeout(120000);await open(page,'contracts',width,height);await page.getByTestId('doble-begin').click();let s=createContracts(31,'varied');s=applyContractCommand(s,{type:'begin',commandId:'b',expectedRevision:0});const questions=new Set();
+        at fits (C:\Users\facub\Documents\TheGame\tests\browser\casino-finale.spec.ts:15:380)
+        at C:\Users\facub\Documents\TheGame\tests\browser\casino-finale.spec.ts:45:240
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\casino-finale-compact-enla-ca3ff-ntracts-decisions-reachable\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\casino-finale-compact-enla-ca3ff-ntracts-decisions-reachable\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\casino-finale-compact-enla-ca3ff-ntracts-decisions-reachable\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\casino-finale-compact-enla-ca3ff-ntracts-decisions-reachable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\browser\casino-finale.spec.ts:44:62 › compact enlarged text keeps contracts decisions reachable
+  1 did not run
+  7 passed (3.0m)
+  2 errors were not a part of any test, see above for details

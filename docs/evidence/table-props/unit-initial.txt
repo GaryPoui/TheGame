@@ -1,0 +1,31 @@
+
+ RUN  v5.0.5 C:/Users/facub/Documents/TheGame
+
+ ❯ tests/unit/photo-records.test.ts (5 tests | 1 failed) 61ms
+   ❯ Las fotos tramposas (5)
+     × writes a v4 envelope that older clients preserve as future, while loading legacy v3 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/photo-records.test.ts > Las fotos tramposas > writes a v4 envelope that older clients preserve as future, while loading legacy v3
+AssertionError: expected 9 to be 8 // Object.is equality
+
+- Expected
++ Received
+
+- 8
++ 9
+
+ ❯ tests/unit/photo-records.test.ts:6:541
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 12 passed (13)
+      Tests  1 failed | 64 passed (65)
+   Start at  15:30:49
+   Duration  23.38s (tests 91%, import 5%, transform 4%, worker 1%)
+
+    Isolate  13 workers spawned · ~274ms startup each (spawn + environment, per file)
+             at least ~3.28s faster with isolate: false — reuses workers across files instead of one per file

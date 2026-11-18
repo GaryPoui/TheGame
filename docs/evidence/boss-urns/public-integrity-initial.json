@@ -1,0 +1,32 @@
+{
+  "baseURL": "https://garypoui.github.io/TheGame/",
+  "date": "2026-11-13T17:44:00.175Z",
+  "filesChecked": 146,
+  "matches": 142,
+  "errors": [
+    {
+      "path": "dist/assets/index-BZHzoPQY.css",
+      "status": 404,
+      "expected": "8e2f1f5da39260526d8564478bc317208329189024eb5c8d293abda21d416ec2",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "path": "dist/assets/index-CuxqnK7b.js",
+      "status": 404,
+      "expected": "54bb7f4ad6d32e1f4b127de2d0a29353b23518eb54f837384b12294dbfe9a576",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "path": "dist/assets/scene-DX7a4-QG.js",
+      "status": 404,
+      "expected": "98faa5648b6d74bf37349010a872848f8622ee39e8bbc818e406e4311e5ef181",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "path": "dist/index.html",
+      "status": 200,
+      "expected": "a1b91decf10deb079712e02eb7ba4ace3ea91201458665678a1210dbcf1bcb07",
+      "actual": "4d01bd32fab42ec9e5e1574ac6737bb79ab9800379eea8390ed26c6e4e55df59"
+    }
+  ]
+}
