@@ -36,13 +36,13 @@ import {tableUnlocked,checkpointCampaign} from './core/campaign/progression';
 import {recordsView} from './ui/records';
 import {endingView} from './ui/ending';
 import { tokenTray, veraCoach, decisionTrack, urnTutorialHelp } from './ui/table-experience';
-import { createContracts, applyContractCommand, type ContractCommand } from './core/tables/contracts';
+import { createContracts, applyContractCommand, type ContractCommand, type ContractsState } from './core/tables/contracts';
 import { CONTRACT_IDS, type ContractId } from './core/math/dice';
 import { compareContracts, type ComparisonRun } from './core/math/simulation';
 import { contractsTutorial, contractsView, contractsComplete,contractCombinationsGuide } from './ui/contracts';
 import {
   createGame, choose, advance, bestChoices, probability, loadGame, saveGame, defaultSettings,
-  clearGame, type GameState, type Settings, type Urn,
+  clearGame, VERA_SEAL_TARGET, type Fraction, type GameState, type Settings, type Urn,
 } from './core/game';
 import './ui/boss-focus.css';
 import './ui/urns-zoom.css';
@@ -107,7 +107,7 @@ let dobleTutorialStep = 0;
 let selectedContract: ContractId | null = null;
 let comparisonResult: ComparisonRun | null = null;
 let rehearsalPair: [number, number] = [2, 2];
-let diceRolling = false;
+let diceRollStart: Pick<ContractsState, 'balance' | 'merit'> | undefined;
 let diceCombinationsVisible = false;
 let diceRollTimer: ReturnType<typeof setTimeout> | undefined;
 let scene: GameScene | null = null;
@@ -147,9 +147,10 @@ function shortcutSelect(id: string, value: string): string {
   return `<select data-testid="${id}">${['KeyW','KeyS','KeyA','KeyD','KeyE','Digit1','Digit2','KeyJ','KeyK','KeyL','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].map(key => `<option value="${key}" ${key === value ? 'selected' : ''}>${shortcutName(key)}</option>`).join('')}</select>`;
 }
 function setScreen(next: Screen, focus?: string): void {
+  announce('');
   if(next !== 'intro') stopIntro();
   if(next!=='escape'){clearTimeout(escapeTimer);escapeTimer=undefined;}
-  if(next!=='contracts'){clearTimeout(diceRollTimer);diceRolling=false;scene?.stopDiceRoll();}
+  if(next!=='contracts'){clearTimeout(diceRollTimer);diceRollStart=undefined;scene?.stopDiceRoll();}
   cameraController.setMode(next==='room'?'exploration':next==='intro'?'dialogue':['table','contracts','records','finale','tutorial'].includes(next)?'table':'cinematic');
   gameAudio.setAmbience(next==='intro'||next==='room'||next==='finale'||next==='street');
   screen = next; selected = null; selectedContract = null; selectedRecord=null; selectedFinale=null; helpOpen = false; cardsVisible = false;
@@ -171,7 +172,7 @@ const intro = INTRO.nodes.map(n=>[n.speaker,INTRO.strings[n.lineId]!] as const);
 function introView(): string {
   const [speaker, line] = intro[introLine]!;
   const dark = introPhase === 'dark';
-  return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><div class="dialogue-heading"><span class="speaker-tag"><span class="speaker-emblem" aria-hidden="true">${dark?'◇':speaker==='Vera'?'V':'A'}</span>${dark ? 'Un momento antes…' : speaker}</span><span class="dialogue-progress" aria-label="Intervención ${introLine+1} de ${intro.length}">${introLine+1} de ${intro.length}</span></div><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><nav class="dialogue-actions intro-navigation" aria-label="Navegación de la historia">${btn('intro-back', 'Atrás', 'quiet')}${btn('intro-next', introLine === intro.length - 1 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}</nav></section></main>`;
+  return `<main class="intro-layout"><p class="context-note">${dark ? 'No ves nada. Alguien baraja muy cerca.' : introPhase === 'reveal' ? 'Una carta violeta. Una sonrisa. Ya no estás solo.' : 'La lámpara se enciende. La puerta sigue cerrada.'}</p><section class="dialogue-card" aria-label="Introducción"><div class="dialogue-heading"><span class="speaker-tag"><span class="speaker-emblem" aria-hidden="true">${dark?'◇':speaker==='Vera'?'V':'A'}</span>${dark ? 'Un momento antes…' : speaker}</span><span class="dialogue-progress" aria-label="Intervención ${introLine+1} de ${intro.length}">${introLine+1} de ${intro.length}</span></div><h1>${dark ? 'Todas las luces están apagadas.' : introLine === 2 ? 'Vera lleva las cuentas.' : 'La casa te estaba esperando.'}</h1><p class="intro-line" aria-live="polite">${dark ? 'Un roce de cartas. Después, silencio.' : line}</p><nav class="dialogue-actions intro-navigation" aria-label="Navegación de la historia">${btn('intro-back', 'Atrás', 'quiet')}${btn('intro-next', introLine === intro.length - 1 ? 'Entrar a la sala' : 'Continuar', 'primary', dark)}</nav></section></main>`;
 }
 function room(): string {
   const entries = [
@@ -182,7 +183,7 @@ function room(): string {
   ] as const;
   return `<main class="room-layout"><section class="room-copy"><h1>Elegí una mesa</h1><p>Tus manos están libres. ${state.freed?'La puerta también. Podés volver a practicar.':'Tres sellos y una última partida te separan de la salida.'}</p>${state.freed?btn('exit-house','Volver a la calle','primary'):''}<button class="menu-back text-button" data-action="home">${menuIcon('back')}Volver al inicio</button></section><section class="table-directory" aria-label="Mesas de la sala">${entries.map(([id,n,name,title,description,requirement])=>{
     const unlocked=tableUnlocked(state,id),sealed=id==='finale'?state.freed:id==='urns'?urnsSealed():state.seals?.[id];
-    return `<button class="table-entry ${unlocked?'available':'locked'}" data-testid="enter-${id}" ${unlocked?'':'aria-disabled="true"'}><span class="table-number">${n}</span><span><small>${unlocked?sealed?'Completada · '+name:'Disponible · '+name:requirement}</small><strong>${title}</strong><span>${description}</span></span><img class="table-entry-portrait" src="${import.meta.env.BASE_URL}art/${id==='urns'?'vera-v3.png':id==='contracts'?'doble-v2.png':id==='records'?'ada-v1.png':'captor-v3.png'}" alt="" aria-hidden="true"><span class="table-entry-state">${menuIcon(!unlocked?'lock':sealed?'check':'next')}</span></button>`;
+    return `<button class="table-entry ${unlocked?'available':'locked'}" data-testid="enter-${id}" ${unlocked?'':'aria-disabled="true"'}><span class="table-number">${n}</span><span><small>${unlocked?sealed?'Completada · '+name:'Disponible · '+name:requirement}</small><strong>${title}</strong><span>${description}</span></span><span class="table-entry-state">${menuIcon(!unlocked?'lock':sealed?'check':'next')}</span><span class="table-entry-art" aria-hidden="true"><img src="${import.meta.env.BASE_URL}art/${id==='urns'?'vera-v3.png':id==='contracts'?'doble-v2.png':id==='records'?'ada-v1.png':'captor-v3.png'}" alt=""></span></button>`;
   }).join('')}</section></main>`;
 }
 function demoInventory():[Urn,Urn]{
@@ -219,7 +220,8 @@ function urnChoice(urn: Urn, index: 0 | 1, demo=false): string {
   if(demo) {
     const reviewing=tutorialStep===1||tutorialStep===3;
     const correct=reviewing&&(tutorialStep===3||index===0);
-    return `<button data-testid="demo-urn-${index}" class="urn-option tutorial-urn ${demoChoice===index?'selected':''}" aria-label="Urna ${index+1}: ${p.numerator} de ${p.denominator} rojas, ${percent} %" aria-pressed="${demoChoice===index}" ${reviewing?'disabled':''}><span class="urn-option-head"><strong>Urna ${index+1}</strong></span><span class="tutorial-urn-count">${reviewing?'Ahora: ':''}${p.numerator}/${p.denominator} rojas</span><strong class="tutorial-urn-percent">${percent} %</strong></button>`;
+    const redLabel = p.numerator === 1 ? 'roja' : 'rojas';
+    return `<button data-testid="demo-urn-${index}" class="urn-option tutorial-urn ${demoChoice===index?'selected':''}" aria-label="Urna ${index+1}: ${p.numerator} ${redLabel} de ${p.denominator} ${p.denominator === 1 ? 'ficha' : 'fichas'}, ${percent} %" aria-pressed="${demoChoice===index}" ${reviewing?'disabled':''}><span class="urn-option-head"><strong>Urna ${index+1}</strong></span><span class="tutorial-urn-count">${reviewing?'Ahora: ':''}${p.numerator}/${p.denominator} ${redLabel}</span><strong class="tutorial-urn-percent">${percent} %</strong></button>`;
   }
   const choosing = demo?(tutorialStep===0||tutorialStep===2):state.phase === 'choose' || state.phase === 'guided';
   const hinted = !demo && choosing && state.assisted && bestChoices(state).includes(index);
@@ -239,18 +241,25 @@ function feedback(): string {
   const last = state.last;
   if (!last) return '';
   const success = last.color === state.event;
-  const p = last.beforeProbability;
+  const before = last.beforeProbability;
+  const after = probability(state.urns[last.urn], state.event);
+  const percent = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 1 });
+  const countAndChance = ({ numerator, denominator }: Fraction) => {
+    if (!denominator) return 'la urna quedó vacía';
+    const color = numerator === 1 ? colorName(state.event) : state.event === 'red' ? 'rojas' : 'azules';
+    return `${numerator} ${color} de ${denominator} ${denominator === 1 ? 'ficha' : 'fichas'} (${percent.format(100 * numerator / denominator)} %)`;
+  };
 
   const outcome = `Salió una ficha ${colorName(last.color)} ${symbol(last.color)}.`;
   const judgment = last.correct ? '¡Elegiste bien!' : 'Había una opción mejor.';
   const why = last.correct ? (last.optimal.length === 2 ? 'Las dos urnas daban las mismas posibilidades. Cualquiera servía.' : success ? 'Elegiste la urna con más posibilidades y salió el color que buscabas.' : 'Elegiste la urna con más posibilidades. Esta vez salió otro color: eso puede pasar aunque elijas bien.') : (success ? 'Salió el color que buscabas, pero la otra urna daba más posibilidades. Esta vez tuviste suerte.' : 'La otra urna daba más posibilidades de sacar el color que buscabas. Mirá la tarjeta verde para comparar.');
-  return `<section class="result-card ${last.correct ? 'choice-right' : 'choice-wrong'}" data-testid="result-feedback"><span class="result-token ${last.color}-token" aria-hidden="true">${symbol(last.color)}</span><h2>${outcome}</h2><p class="decision-verdict">${judgment} ${state.assisted ? 'Práctica con ayuda.' : last.correct ? '+1 punto.' : '+0 puntos.'}</p><p>${why}</p>${!last.correct?reviewButton('urns'):''}<details class="result-details"><summary>Qué cambió en la urna</summary><p class="small-note">Tu urna tenía ${p.numerator} ${p.numerator === 1 ? 'ficha' : 'fichas'} del color buscado entre ${p.denominator} en total. ${state.replacement ? 'Devolvimos la ficha: las cantidades no cambian.' : 'La ficha quedó afuera. Las urnas ya muestran lo que queda.'}</p></details></section>`;
+  return `<section class="result-card ${last.correct ? 'choice-right' : 'choice-wrong'}" data-testid="result-feedback"><span class="result-token ${last.color}-token" aria-hidden="true">${symbol(last.color)}</span><h2>${outcome}</h2><p class="decision-verdict">${judgment} ${state.assisted ? 'Práctica con ayuda.' : last.correct ? '+1 punto.' : '+0 puntos.'}</p><p>${why}</p>${!last.correct?reviewButton('urns'):''}<details class="result-details"><summary>Qué cambió en la urna</summary><p class="small-note">Antes: ${countAndChance(before)}.<br>Después: ${countAndChance(after)}.<br>${state.replacement ? 'La ficha volvió a la urna y las cantidades se mantienen.' : 'La ficha quedó afuera de la urna.'}</p></details></section>`;
 }
 function table(): string {
   const choosing = state.phase === 'choose' || state.phase === 'guided';
   const isSummary = state.phase === 'roundEnd';
   const title = state.assisted ? `Práctica guiada ${state.round + 1}/2` : chapterNames[state.round];
-  return `<main class="table-layout vera-layout"><section class="vera-floor"><section class="table-heading"><p class="eyebrow">Mesa I · Vera, la inventarista</p><h1>Las urnas</h1><p class="round-context" data-testid="round-label">${state.assisted ? title : `Ronda ${state.round + 1} de 4 · ${title}`}</p>${badges()}</section><div class="vera-viewport" aria-label="Mesa de Vera y sus dos urnas"></div></section><aside class="game-panel"><div class="round-progress" aria-label="${state.assisted ? 'Práctica guiada' : `Ronda ${state.round + 1} de cuatro`}">${[0,1,2,3].map(i => `<span class="${i <= state.round ? 'filled' : ''}"></span>`).join('')}</div><div class="objective-label">${state.assisted ? 'Demostración preparada · con ayuda' : `Extracción ${state.step + 1} de 2`}</div><h2 class="objective">Buscá una ficha <span class="${state.event}-token">${colorName(state.event)} ${symbol(state.event)}</span></h2><p class="rule-tag">${state.replacement ? '↻ La ficha vuelve' : '↗ La ficha queda afuera'} <span>${state.replacement ? 'Cada ficha vuelve a la urna.' : 'La ficha extraída queda afuera.'}</span></p>${choosing ? `<p class="decision-prompt">${state.step === 0 ? '¿Qué urna te da más posibilidades? Tocá una urna o mostrá sus tarjetas.' : state.replacement ? 'Devolvimos la ficha. Las cantidades siguen iguales: elegí otra vez.' : 'Hay una ficha menos. Mirá lo que queda y elegí otra vez.'}</p>${urnCards()}${btn('confirm-choice', selected === null ? 'Elegí una urna para continuar' : `Sacar una ficha de la urna ${selected === 0 ? '1' : '2'}`, 'primary full', selected === null)}<p class="small-note">${state.assisted ? 'La ayuda resalta una elección válida. Completá cuatro acciones para continuar.' : 'Ganás un punto por elegir bien, aunque salga otro color.'}</p>` : `${isSummary ? `<section class="round-summary"><span class="summary-mark" aria-hidden="true">✧</span><h2>Una ronda más clara.</h2><p>${state.assisted ? 'Terminaste este escenario preparado.' : state.round === 3 ? state.merit >= 6 ? 'Tus decisiones alcanzaron el sello de Vera.' : 'Te falta un poco de práctica. Vera preparó dos escenarios cortos para ayudarte.' : 'La próxima ronda empieza con fichas nuevas. Podés usar lo que aprendiste.'}</p>${badges()}${!state.assisted&&state.round===3&&state.merit<6?reviewButton('urns'):''}</section>` : urnCards() + feedback()}${btn('next-step', isSummary ? state.round === 3 || (state.assisted && state.round === 1) ? 'Ver mi resultado' : 'Siguiente ronda' : state.step === 0 ? 'Volver a decidir' : 'Cerrar la ronda', 'primary full')}`}${helpOpen ? `<div class="help-note"><strong>La cuenta de Vera</strong><p>Contá las fichas del color que buscás y todas las fichas de la urna. Por ejemplo: 3 rojas entre 5 fichas significa 3 de 5. Elegí la urna donde ese color ocupe una parte mayor. Si la parte es igual en ambas, las dos sirven. ${state.replacement ? 'Si devolvés la ficha, las cantidades no cambian.' : 'Si la ficha queda afuera, contá sólo las que quedan.'}</p></div>` : ''}<details class="panel-tools" data-keep-open="urn-tools"><summary>Ayuda y opciones</summary>${guideButton('urns','Repasar cómo jugar')}<div class="panel-footer">${btn('help-button', helpOpen ? 'Cerrar ayuda' : '¿Cómo comparo?', 'text-button')}${btn('repeat-tutorial','Repetir demostración','text-button')}${btn('back-room', 'Volver a la sala', 'text-button')}</div></details></aside><div class="table-bottom-note"><span class="speaker-dot"></span> Vera <span>«Una ficha no sabe nada de tus méritos».</span></div></main>`;
+  return `<main class="table-layout vera-layout"><section class="vera-floor"><section class="table-heading"><p class="eyebrow">Mesa I · Vera, la inventarista</p><h1>Las urnas</h1><p class="round-context" data-testid="round-label">${state.assisted ? title : `Ronda ${state.round + 1} de 4 · ${title}`}</p>${badges()}${state.assisted ? '' : `<p class="vera-seal-goal">Sello de Vera: ${VERA_SEAL_TARGET} de 8 decisiones correctas.</p>`}</section><div class="vera-viewport" aria-label="Mesa de Vera y sus dos urnas"></div></section><aside class="game-panel"><div class="round-progress" aria-label="${state.assisted ? 'Práctica guiada' : `Ronda ${state.round + 1} de cuatro`}">${[0,1,2,3].map(i => `<span class="${i <= state.round ? 'filled' : ''}"></span>`).join('')}</div><div class="objective-label">${state.assisted ? 'Demostración preparada · con ayuda' : `Extracción ${state.step + 1} de 2`}</div><h2 class="objective">Buscá una ficha <span class="${state.event}-token">${colorName(state.event)} ${symbol(state.event)}</span></h2><p class="rule-tag">${state.replacement ? '↻ La ficha vuelve' : '↗ La ficha queda afuera'} <span>${state.replacement ? 'Cada ficha vuelve a la urna.' : 'La ficha extraída queda afuera.'}</span></p>${choosing ? `<p class="decision-prompt">${state.step === 0 ? '¿Qué urna te da más posibilidades? Tocá una urna o mostrá sus tarjetas.' : state.replacement ? 'Devolvimos la ficha. Las cantidades siguen iguales: elegí otra vez.' : 'Hay una ficha menos. Mirá lo que queda y elegí otra vez.'}</p>${urnCards()}${btn('confirm-choice', selected === null ? 'Elegí una urna para continuar' : `Sacar una ficha de la urna ${selected === 0 ? '1' : '2'}`, 'primary full', selected === null)}<p class="small-note">${state.assisted ? 'La ayuda resalta una elección válida. Completá cuatro acciones para continuar.' : 'Ganás un punto por elegir bien, aunque salga otro color.'}</p>` : `${isSummary ? `<section class="round-summary"><span class="summary-mark" aria-hidden="true">✧</span><h2>Una ronda más clara.</h2><p>${state.assisted ? 'Terminaste este escenario preparado.' : state.round === 3 ? state.merit >= VERA_SEAL_TARGET ? 'Tus decisiones alcanzaron el sello de Vera.' : 'Te falta un poco de práctica. Vera preparó dos escenarios cortos para ayudarte.' : 'La próxima ronda empieza con fichas nuevas. Podés usar lo que aprendiste.'}</p>${badges()}${!state.assisted&&state.round===3&&state.merit<VERA_SEAL_TARGET?reviewButton('urns'):''}</section>` : urnCards() + feedback()}${btn('next-step', isSummary ? state.round === 3 || (state.assisted && state.round === 1) ? 'Ver mi resultado' : 'Siguiente ronda' : state.step === 0 ? 'Volver a decidir' : 'Cerrar la ronda', 'primary full')}`}${helpOpen ? `<div class="help-note"><strong>La cuenta de Vera</strong><p>Contá las fichas del color que buscás y todas las fichas de la urna. Por ejemplo: 3 rojas entre 5 fichas significa 3 de 5. Elegí la urna donde ese color ocupe una parte mayor. Si la parte es igual en ambas, las dos sirven. ${state.replacement ? 'Si devolvés la ficha, las cantidades no cambian.' : 'Si la ficha queda afuera, contá sólo las que quedan.'}</p></div>` : ''}<details class="panel-tools" data-keep-open="urn-tools"><summary>Ayuda y opciones</summary>${guideButton('urns','Repasar cómo jugar')}<div class="panel-footer">${btn('help-button', helpOpen ? 'Cerrar ayuda' : '¿Cómo comparo?', 'text-button')}${btn('repeat-tutorial','Repetir demostración','text-button')}${btn('back-room', 'Volver a la sala', 'text-button')}</div></details></aside><div class="table-bottom-note"><span class="speaker-dot"></span> Vera <span>«Una ficha no sabe nada de tus méritos».</span></div></main>`;
 }
 function complete(): string {
   return `<main class="completion-layout" data-testid="completion"><section class="completion-card"><div class="seal" aria-hidden="true">✧</div><h1>Vera te entrega su sello.</h1>${badges()}<p>${state.assisted ? 'Completaste los ejemplos con ayuda.' : 'Lograste el sello con tus decisiones.'}</p><p>La próxima mesa usa dados y contratos.</p>${btn('enter-contracts', 'Jugar con Doble', 'primary full')}${btn('practice-again', 'Volver a jugar con Vera', 'text-button full')}${btn('back-room', 'Volver a la sala', 'text-button full')}</section></main>`;
@@ -259,7 +268,7 @@ function complete(): string {
 function dobleScreen(): string {
   const c = state.contracts;
   if (!c) return room();
-  return c.phase === 'tutorial' ? contractsTutorial(c, dobleTutorialStep) : c.phase === 'complete' ? contractsComplete(c) : contractsView(c, selectedContract, comparisonResult, rehearsalPair, diceRolling, diceCombinationsVisible);
+  return c.phase === 'tutorial' ? contractsTutorial(c, dobleTutorialStep) : c.phase === 'complete' ? contractsComplete(c) : contractsView(c, selectedContract, comparisonResult, rehearsalPair, diceRollStart, diceCombinationsVisible);
 }
 function render(focusId?: string): void {
   const expanded = [...app.querySelectorAll<HTMLDetailsElement>('details[data-keep-open][open]')].map(el => el.dataset.keepOpen);
@@ -436,24 +445,27 @@ function revealFeedback(selector: string): void {
 }
 function commandDoble(type: ContractCommand['type'], revision: number, pointerFeedback = false): void {
   if(screen !== 'contracts' || !state.contracts) return;
-  if(diceRolling)return;
+  if(diceRollStart)return;
   const command: ContractCommand = { type, expectedRevision: revision, commandId: `doble-${revision}-${type}` };
   if(type === 'sign' && selectedContract) command.contract = selectedContract;
   const next = applyContractCommand(state.contracts, command);
   if(next === state.contracts) { announce('Elegí el contrato indicado por la ayuda o revisá el encargo actual.'); return; }
   const throwsDice=type==='sign'&&state.contracts.phase==='offer'&&next.phase==='result';
-  diceRolling=throwsDice&&!settings.reducedMotion&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animateRoll = throwsDice && !settings.reducedMotion && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (animateRoll) {
+    diceRollStart = { balance: state.contracts.balance, merit: state.contracts.merit };
+  }
   state.contracts = next; selectedContract = null; persist();
-  if(!diceRolling)chime(next.history.at(-1)?.correct ?? true);
+  if(!animateRoll)chime(next.history.at(-1)?.correct ?? true);
   render(next.phase === 'offer' || next.phase === 'order' ? 'contract-S' : next.phase === 'complete' ? 'back-room' : 'doble-next');
   if(type==='begin'||next.phase==='offer'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});
-  if(diceRolling){scene?.rollDice();diceRollTimer=setTimeout(finishDiceRoll,900);}
+  if(animateRoll){scene?.rollDice();diceRollTimer=setTimeout(finishDiceRoll,900);}
 
   if(pointerFeedback && next.phase === 'result'&&!throwsDice) revealFeedback('.dice-table-caption');
-  announce(diceRolling?'Tirando los dados…':next.phase === 'result' ? `Dados ${next.pair![0]} y ${next.pair![1]}. Suma ${next.pair![0]+next.pair![1]}. Saldo ${next.balance}.` : next.phase === 'order' ? 'Nuevo encargo hipotético. Sin otra tirada.' : next.phase === 'complete' ? 'Sello de Doble obtenido.' : 'Encargo actualizado.');
+  announce(animateRoll?'Tirando los dados…':next.phase === 'result' ? `Dados ${next.pair![0]} y ${next.pair![1]}. Suma ${next.pair![0]+next.pair![1]}. Saldo ${next.balance}.` : next.phase === 'order' ? 'Nuevo encargo hipotético. Sin otra tirada.' : next.phase === 'complete' ? 'Sello de Doble obtenido.' : 'Encargo actualizado.');
 }
 function finishDiceRoll():void {
-  clearTimeout(diceRollTimer);diceRolling=false;scene?.stopDiceRoll();
+  clearTimeout(diceRollTimer);diceRollStart=undefined;scene?.stopDiceRoll();
   if(screen!=='contracts'||state.contracts?.phase!=='result')return;
   chime(state.contracts.history.at(-1)?.correct??true);
   render(overlay.querySelector('dialog[open]')?undefined:'doble-next');
@@ -503,7 +515,7 @@ function handleGameClick(event: MouseEvent): void {
   if (id === 'settings-button') { showSettings(); return; }
   if (target.dataset.action === 'home') { event.preventDefault(); setScreen('menu'); return; }
   if (target.dataset.action === 'credits') {
-    showDialog('Un primer capítulo', `<p>La Casa del Azar es un juego sobre probabilidad y decisiones. Esta versión incluye las urnas de Vera, los contratos de Doble, las cartas de Ada y el contrato de salida del anfitrión.</p><p>Nueva dirección de animación de los años treinta: sala y personajes ilustrados con generación de imágenes. Captor adaptado de las referencias de Gambito aportadas por el usuario; Cuphead es referencia estética. Sin afiliación con Marvel ni Studio MDHR. Mesa y urnas interactivas propias. Sonidos sintetizados. Babylon.js bajo Apache 2.0. Los recursos de juego se alojan junto a esta página.</p><p>La experiencia educativa y la diversión todavía deben evaluarse con jugadores.</p><a href="https://github.com/GaryPoui/TheGame" target="_blank" rel="noopener">Documentación, código y licencias</a>`); return;
+    showDialog('Créditos', `<p>La Casa del Azar es un juego educativo de probabilidad y estadística. Compará proporciones con Vera, evaluá ganancias y riesgos con Doble y calculá las chances de una mano con Ada antes de enfrentar al anfitrión.</p><p>La sala y el elenco se ilustraron con generación de imágenes. La estética se inspira en la animación de los años treinta y en Cuphead. El anfitrión está inspirado en Gambito de Marvel. Proyecto independiente de Marvel y Studio MDHR.</p><p>Mesas, urnas y dados interactivos propios. Sonidos sintetizados. Motor Babylon.js bajo licencia Apache 2.0.</p><a href="${import.meta.env.BASE_URL}credits.html" target="_blank" rel="noopener">Procedencia de recursos y licencias</a>`); return;
   }
   if (id === 'new-game' || id === 'practice-again') {
     if (hasSave && state.history.length && id === 'new-game') { showDialog('¿Empezar de nuevo?', `<p>La nueva partida reemplaza tu progreso actual. Podés cerrar esta ventana para conservarlo.</p><div class="confirmation-actions">${btn('cancel-dialog','Conservar partida','secondary full')}${btn('confirm-new-game','Empezar de nuevo','primary full')}</div>`,'confirmation-modal'); return; }
@@ -551,6 +563,7 @@ function handleGameClick(event: MouseEvent): void {
     announce(`Salió ${colorName(state.last!.color)}. ${state.last!.correct ? 'Buena decisión.' : 'Revisá las proporciones.'}`); return;
   }
   if (id === 'next-step') {
+    announce('');
     state = advance(state); selected = null; cardsVisible = false; persist();
     if (state.phase === 'complete') setScreen('complete','practice-again');
     else render(state.phase === 'roundEnd' ? 'next-step' : 'toggle-cards'); return;

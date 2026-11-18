@@ -60,7 +60,7 @@ export function contractPreview(id: ContractId, objective: ObjectiveId): string 
   const detail = objective === 'expected' ? 'Sumá los 36 pagos netos y dividí por 36. El promedio no es el pago de esta tirada.'
     : objective === 'range' ? `Peor neto ${id === 'S' ? '+2' : '−1'}; mejor neto +${id === 'S' ? 2 : id === 'C' ? 5 : 23}. Restá mejor menos peor.`
     : objective === 'guarantee1' ? 'Para garantizar la meta deben servir los 36 pares. Una sola excepción rompe la garantía.'
-    : 'Cada punto es un par posible. Los marcados llegan a la meta después de pagar el coste.';
+    : 'Cada punto es un par posible. Los marcados llegan a la meta después de pagar el costo.';
   return `<section class="live-calculation" aria-label="Cuenta del contrato elegido"><strong>${id} · ${metric}</strong><div class="outcome-dots" role="img" aria-label="${objective === 'expected' || objective === 'range' ? wins : count} de 36 pares con ${objective === 'expected' || objective === 'range' ? 'neto positivo' : 'la meta alcanzada'}">${DICE_PAIRS.map(pair=>`<i class="${netPayout(id,pair) >= (objective === 'expected' || objective === 'range' ? 1 : threshold) ? 'hit' : ''}"></i>`).join('')}</div><p>${detail}</p></section>`;
 }
 

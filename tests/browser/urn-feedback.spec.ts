@@ -28,6 +28,7 @@ test('cards start hidden; card and real canvas urn share one glowing selection',
   await mkdir(evidence,{recursive:true});
   await load(page);
   await expect(page.getByRole('heading',{name:'Las urnas',exact:true})).toBeVisible();
+  await expect(page.getByText('Sello de Vera: 6 de 8 decisiones correctas.')).toBeVisible();
   await expect(page.getByTestId('urn-0')).toBeHidden();
   await page.getByTestId('toggle-cards').click();
   await page.getByTestId('urn-0').click();
@@ -68,7 +69,7 @@ test('equal chances make both cards correct, using the counts before extraction'
   await expect(page.locator('.answer-correct')).toHaveCount(2);
   await expect(page.locator('.answer-incorrect')).toHaveCount(0);
   await expect(page.getByTestId('result-feedback')).toContainText('Las dos urnas');
-  await expect(page.getByTestId('urn-1')).toContainText('1 de 2');
+  await expect(page.getByTestId('urn-1')).toContainText('1 roja');
 });
 test('a correct choice stays green when luck draws the other color', async ({page}) => {
   await load(page,fixture('blue'));
@@ -77,6 +78,14 @@ test('a correct choice stays green when luck draws the other color', async ({pag
   await page.getByTestId('confirm-choice').click();
   await expect(page.getByTestId('urn-0')).toHaveClass(/answer-correct/);
   await expect(page.getByTestId('result-feedback')).toContainText('aunque elijas bien');
-  await expect(page.getByTestId('urn-0')).toContainText('3 de 5');
+  await expect(page.getByTestId('urn-0')).toContainText('3 rojas');
+  await expect(page.locator('#announcer')).toContainText('Salió azul');
+  await page.getByRole('button', { name: /Qué cambió en la urna/ }).click();
+  const details = page.getByRole('dialog', { name: 'Qué cambió en la urna' });
+  await expect(details).toContainText('Antes: 3 rojas de 5 fichas (60 %)');
+  await expect(details).toContainText('Después: 3 rojas de 4 fichas (75 %)');
+  await page.getByTestId('close-dialog').click();
   await page.screenshot({path:`${evidence}/correct-unlucky.png`});
+  await page.getByTestId('next-step').click();
+  await expect(page.locator('#announcer')).toBeEmpty();
 });

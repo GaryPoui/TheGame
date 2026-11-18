@@ -11,6 +11,7 @@ export interface Settings { reducedMotion: boolean; volume: number; textScale: n
 export interface Decision { urn: 0 | 1; color: Color; correct: boolean; optimal: number[]; beforeProbability: Fraction; round: number; step: number; assisted: boolean }
 export interface GameState { urnVariant?:'repeat'; intro?:DialogueState; roomPosition?:{x:number;z:number}; streetPosition?:number; helpHistory?:string[]; records?: RecordsState; finale?: FinaleState; freed?: boolean; freedomMethod?: 'independent'|'assisted'; contracts?: ContractsState; activeTable?: 'urns' | 'contracts' | 'records' | 'finale' | 'outside'; seals?: { urns: boolean; contracts: boolean; records?: boolean; urnsMethod?: 'independent' | 'assisted'; contractsMethod?: 'independent' | 'assisted'; recordsMethod?: 'independent'|'assisted' }; phase: 'choose' | 'revealed' | 'roundEnd' | 'complete' | 'guided'; round: number; step: number; urns: [Urn, Urn]; event: Color; replacement: boolean; merit: number; tokens: number; last: Decision | null; history: Decision[]; rng: { algorithm: 'xorshift32-v1'; state: number; count: number }; assisted: boolean; settings: Settings }
 export const defaultSettings: Settings = { reducedMotion: false, volume: 0.35, textScale: 1, sensitivity: 1, keys: {forward:'KeyW',backward:'KeyS',left:'KeyA',right:'KeyD',interact:'KeyE'} };
+export const VERA_SEAL_TARGET = 6;
 const rounds: RoundConfig[] = [
   {id:'U1',urns:[{red:3,blue:2},{red:1,blue:1}],event:'red',replacement:false},
   {id:'U2',urns:[{red:3,blue:2},{red:1,blue:1}],event:'blue',replacement:true},
@@ -47,7 +48,7 @@ export function advance(state:GameState):GameState {
   }
   if(state.phase!=='roundEnd')return state;
   if(state.assisted&&state.round===1){next.phase='complete';return next;}
-  if(!state.assisted&&state.round===3){if(state.merit>=6){next.phase='complete';return next;}next.assisted=true;next.round=0;}
+  if(!state.assisted&&state.round===3){if(state.merit>=VERA_SEAL_TARGET){next.phase='complete';return next;}next.assisted=true;next.round=0;}
   else next.round++;
   next.step=0;next.last=null;next.phase=next.assisted?'guided':'choose';const r=configFor(next);next.urns=r.urns;next.event=r.event;next.replacement=r.replacement;return next;
 }
@@ -95,8 +96,8 @@ export function validState(value:unknown):value is GameState {
   const expected=(s.assisted?8:0)+s.round*2+s.step+committed;
   if(s.history.length!==expected||s.rng.count<s.history.filter(d=>!d.assisted).length)return false;
   if(s.merit!==s.history.filter(d=>!d.assisted&&d.correct).length||s.tokens!==s.history.filter(d=>!d.assisted&&d.color===rounds[d.round]!.event).length)return false;
-  if(s.phase==='complete'&&(!s.assisted&&(s.round!==3||s.merit<6)||s.assisted&&s.round!==1))return false;
-  if(s.assisted&&s.merit>=6)return false;
+  if(s.phase==='complete'&&(!s.assisted&&(s.round!==3||s.merit<VERA_SEAL_TARGET)||s.assisted&&s.round!==1))return false;
+  if(s.assisted&&s.merit>=VERA_SEAL_TARGET)return false;
   let currentUrns=structuredClone(config.urns);
   for(let i=0;i<s.history.length;i++){
     const d=s.history[i]!,assisted=i>=8,round=assisted?Math.floor((i-8)/2):Math.floor(i/2),step=i%2;

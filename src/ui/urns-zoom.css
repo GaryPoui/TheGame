@@ -9,6 +9,7 @@ body[data-screen=table] .topbar{height:52px}
 .vera-layout .round-context{font-size:14px;margin:0 0 6px}
 .vera-layout .scoreboard{font-size:14px;gap:12px;margin:6px 0}
 .vera-layout .scoreboard strong{font-size:18px}
+.vera-layout .vera-seal-goal{font-size:.85em;margin:4px 0 0}
 .vera-viewport{position:relative;flex:1;min-height:0;isolation:isolate;pointer-events:auto}
 body[data-screen=table] .vera-viewport #scene{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:1;pointer-events:auto}
 .vera-layout .game-panel{min-width:0;margin:0;padding:14px;max-height:none;overflow:visible;align-self:start}

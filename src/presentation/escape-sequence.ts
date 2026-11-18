@@ -17,9 +17,22 @@ export class EscapeSequence {
   const material=(name:string,color:string)=>{const m=new StandardMaterial(name,scene);m.diffuseColor=Color3.FromHexString(color);m.emissiveColor=m.diffuseColor;m.disableLighting=true;this.materials.push(m);return m;};
   const ink=material('escape-ink','#241e2c'),wood=material('escape-wood','#4b3449'),gold=material('escape-brass','#bd9459'),floor=material('escape-floor','#715248');
   const box=(name:string,w:number,h:number,d:number,x:number,y:number,z:number,mat:StandardMaterial)=>{const m=CreateBox(name,{width:w,height:h,depth:d},scene);m.position.set(x+30,y,z);m.material=mat;m.isPickable=false;m.renderOutline=true;m.outlineWidth=.025;m.outlineColor=Color3.FromHexString('#241e2c');this.meshes.push(m);return m;};
-  box('escape-floor',5,.15,20,0,-.08,-2,floor);box('escape-left-wall',.3,4.5,13,-2.4,2.2,-5,ink);box('escape-right-wall',.3,4.5,13,2.4,2.2,-5,ink);
-  for(const side of [-1,1]){box('escape-door-surround',1.25,4,.3,side*1.85,2,0,wood);box('escape-door-jamb',.14,3.5,.35,side*1.18,1.75,-.05,gold);}
-  box('escape-lintel',2.5,.16,.35,0,3.45,-.05,gold);
+  const floorboards = new Texture(import.meta.env.BASE_URL + 'textures/wood_floor/albedo.jpg', scene);
+  floorboards.uScale = 2;
+  floorboards.vScale = 5;
+  floorboards.level = .6;
+  floor.emissiveTexture = floorboards;
+  this.textures.push(floorboards);
+  box('escape-floor', 5, .15, 12, 0, -.08, -5.86, floor);
+  box('escape-ceiling', 5, .25, 12, 0, 4.55, -5.86, ink);
+  for (const side of [-1, 1]) {
+   box('escape-wall', .3, 4.5, 12, side * 2.4, 2.25, -5.86, ink);
+   box('escape-wainscot', .10, 1.1, 11.7, side * 2.2, .55, -5.8, wood);
+   box('escape-wall-molding', .12, .055, 11.7, side * 2.16, 1.1, -5.8, gold);
+  }
+  for(const side of [-1,1]){box('escape-door-surround',1.25,4.5,.3,side*1.85,2.25,0,wood);box('escape-door-jamb',.14,3.5,.35,side*1.18,1.75,-.05,gold);}
+  box('escape-lintel',2.5,.16,.35,0,3.45,-.09,gold);
+  box('escape-overdoor-wall', 2.5, 1.03, .3, 0, 4, 0, wood);
   for(const side of [-1,1]){const hinge=new TransformNode('escape-door-hinge',scene);hinge.position.set(30+side*1.1,1.7,0);this.hinges.push(hinge);const door=box('escape-opening-door',1.1,3.3,.16,0,0,0,wood);door.parent=hinge;door.position.set(-side*.55,0,0);const band=box('escape-door-band',.9,.08,.19,0,0,0,gold);band.parent=door;band.position.set(0,.7,0);}
   const dawn=material('escape-painted-dawn','#ffffff'),texture=new Texture(import.meta.env.BASE_URL+'art/escape-dawn-v1.png',scene);dawn.diffuseTexture=texture;this.textures.push(texture);
   const vista=CreatePlane('escape-painted-street',{width:18,height:10.125},scene);vista.position.set(30,2.9,9);vista.material=dawn;vista.isPickable=false;this.meshes.push(vista);this.update(this.started);

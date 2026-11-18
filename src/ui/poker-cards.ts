@@ -11,6 +11,15 @@ export function holdemFelt(t:HoldemTable,review:boolean,opponent='Ada'):string {
  const best=review?bestFive([...t.player,...t.board]):[],marked=(c:PokerCard)=>best.some(b=>b.rank===c.rank&&b.suit===c.suit);
  return `<div class="holdem-felt"><section class="holdem-opponent"><h2>${opponent} ${review?`· eligió ${HAND_NAMES[t.opponentChoice]}`:'· elección guardada'}</h2><div class="poker-hand" data-testid="opponent-cards">${t.opponent.map(c=>pokerCardView(review?c:undefined)).join('')}</div></section><section class="holdem-board"><h2>${review?'Quinta carta revelada':'Cartas de la mesa'}</h2><div class="poker-hand" data-testid="community-cards">${t.board.map((c,i)=>pokerCardView(c,marked(c),i===4)).join('')}${t.board.length===4?pokerCardView():''}</div></section><section class="holdem-player"><h2>Tus cartas${review?' · tu mejor mano está marcada':''}</h2><div class="poker-hand" data-testid="player-cards">${t.player.map(c=>pokerCardView(c,marked(c))).join('')}</div></section></div>`;
 }
+export function pokerTiebreak(result: NonNullable<HoldemTable['result']>): string {
+ const { player, opponent: rival, winner } = result;
+ if (player.category !== rival.category) return '';
+ const index = player.tie.findIndex((value, position) => value !== rival.tie[position]);
+ const detail = index === -1
+  ? 'Coinciden todos los valores, así que hay empate.'
+  : `Desempate: ${winner === 'player' ? 'ganaste' : 'perdiste'} con ${pokerRankName(player.tie[index]!)} frente a ${pokerRankName(rival.tie[index]!)}.`;
+ return `<p class="poker-tiebreak">${detail}</p>`;
+}
 export function showdownHands(t:HoldemTable):string {
  return `<div class="showdown-hands" aria-label="Las cinco cartas de cada mano">${([['Vos',t.player],['Rival',t.opponent]] as const).map(([label,hole])=>`<section><h3>${label}</h3><div class="poker-hand">${bestFive([...hole,...t.board]).map(c=>pokerCardView(c)).join('')}</div></section>`).join('')}</div>`;
 }

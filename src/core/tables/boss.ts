@@ -56,7 +56,7 @@ export function applyBossCommand(s:FinaleState,c:FinaleCommand):FinaleState {
   }else if(kind==='dice'){
    const a=uniform(n.rng,6),d=uniform(a.rng,6);n.rng=d.rng;n.pair=[a.value+1,d.value+1];const net=netPayout(c.choice as ContractId,n.pair);n.balance+=net;
    if(supportsObjective(c.choice as ContractId,n.pair,b.objective))b.charge=Math.min(6,b.charge+2);
-   text=`Dados ${n.pair[0]} y ${n.pair[1]}. Resultado ${net>0?'+':''}${net} fichas. ${b.charge>before?'Combo cargado.':'La carga no cambió.'}`;
+   text=`Dados ${n.pair[0]} y ${n.pair[1]}. Resultado ${net>0?'+':''}${net} ${Math.abs(net) === 1 ? 'ficha' : 'fichas'}. ${b.charge>before?'Combo cargado.':'La carga no cambió.'}`;
   }else{
    const reveal=resolveHoldem(b.poker!,n.rng,c.choice as Parameters<typeof resolveHoldem>[2]);n.rng=reveal.rng;b.poker=reveal.table;
    const result=b.poker.result!,hit=result.points>0;

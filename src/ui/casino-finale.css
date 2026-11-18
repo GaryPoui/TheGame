@@ -22,6 +22,29 @@ body:has(.graphics-warning) .boss-layout .boss-urn-fallback,body:has(.graphics-w
 @media(max-width:900px), (max-height:520px){:root{--reading-dock:44px}.cards-dock-inline{display:none}.poker-reading{justify-content:center}.poker-reading>.info-trigger{flex:1;max-width:none;min-height:32px;width:100%;font-size:12px;padding:5px}}
 @media(max-width:499px){body[data-screen] .ada-table-layout:has(.casino-stage){grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(200px,1fr) auto;gap:6px;padding:6px!important}.ada-table-layout:has(.casino-stage) .archive-panel{width:100%;padding:8px}}
 
+@media (max-width: 900px), (max-height: 520px) {
+  body[data-screen=records] { --reading-dock: 84px; }
+  body[data-screen=records] .poker-reading { flex-direction: column; gap: 3px; }
+  body[data-screen=records] .cards-dock-inline { display: block; width: 100%; }
+  body[data-screen=records] .cards-dock-inline .holdem-felt {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 5fr) minmax(0, 2fr);
+    gap: 3px;
+    padding: 4px;
+  }
+  body[data-screen=records] .cards-dock-inline .poker-hand { gap: 2px; }
+  body[data-screen=records] .cards-dock-inline .poker-card {
+    flex: 1 1 0 !important;
+    height: 29px !important;
+    min-width: 0;
+  }
+  body[data-screen=records] .poker-reading > .info-trigger { min-height: 23px; padding: 3px; }
+}
+@media (max-width: 760px) {
+  body[data-screen=intro] .intro-layout { padding-top: min(36svh, 210px); }
+  body[data-screen=intro] .intro-layout .dialogue-card { padding: 14px; }
+  body[data-screen=intro] .intro-layout .dialogue-card h1 { margin-bottom: 8px; }
+}
+
 /* Doble stands beside the reading, with his entire silhouette inside the frame. */
 body[data-screen] .contracts-tutorial{display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);height:calc(100svh - var(--playbar));min-height:0;padding:12px 6%;gap:16px;align-items:center;overflow:hidden}
 body[data-screen] .contracts-tutorial .doble-intro{position:static;inset:auto;width:100%;height:100%;max-height:calc(100svh - var(--playbar) - 24px);object-fit:contain;object-position:center;align-self:center;transform:translateY(-2%);z-index:0}
@@ -32,7 +55,7 @@ body[data-screen] .contracts-tutorial .dialogue-card{position:relative;z-index:1
 .varied-contracts .contract-offers{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .varied-contracts .compact-offer{display:grid;grid-template-columns:1fr;gap:4px;padding:9px!important;align-content:start;transform:none}
 .varied-contracts .compact-offer .offer-heading{grid-column:1;justify-content:space-between;white-space:normal}.varied-contracts .varied-price{font-size:13px;color:#70513b}.varied-contracts .varied-rule{font-size:13px;line-height:1.3}
-.varied-contracts .challenge-seal{display:block;color:#e3c080;font-size:12px;padding-bottom:8px;margin-bottom:9px;border-bottom:1px solid #9e815c80}
+.varied-contracts .challenge-seal{display:block;color:#66492d;font-size:12px;padding-bottom:8px;margin-bottom:9px;border-bottom:1px solid #9e815c80}
 .varied-contracts .contracts-panel h2{font-size:23px;line-height:1.2}.varied-contracts .challenge-context{font-size:14px;line-height:1.35}
 .varied-contracts .contract-settlement{display:flex;justify-content:space-between;align-items:center;gap:8px}.varied-contracts .contract-settlement strong{font-size:18px}
 body.enlarged-text .contracts-layout.varied-contracts .contracts-floor{display:flex;flex-direction:column;height:100%;min-height:0}

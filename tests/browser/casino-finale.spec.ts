@@ -44,6 +44,24 @@ test('first person escape finishes automatically',async({page})=>{
 for(const table of ['contracts','records','finale'] as const)test(`compact enlarged text keeps ${table} decisions reachable`,async({page})=>{
  await open(page,table,640,360,2);if(table==='contracts')await page.getByTestId('doble-begin').click();if(table==='records')await page.getByTestId('records-begin').click();if(table==='finale')await page.getByTestId('finale-begin').click();await fits(page);
 });
+test('varied Doble reveals the balance and verdict after the dice settle', async ({ page }) => {
+ await open(page, 'contracts', 1280, 720, 1, false, true);
+ await page.clock.install();
+ await page.getByTestId('doble-begin').click();
+ await page.getByTestId('contract-J').click();
+ await page.getByTestId('doble-sign').dispatchEvent('click');
+ await expect(page.getByTestId('dice-status')).toHaveText('Tirando los dados…');
+ await expect(page.getByTestId('doble-balance')).toHaveText('0');
+ await expect(page.getByTestId('doble-merit')).toHaveText('0/8');
+ await expect(page.getByTestId('varied-feedback')).toHaveCount(0);
+ await page.clock.runFor(950);
+ await expect(page.getByTestId('dice-status')).toContainText('Suma');
+ await expect(page.getByTestId('varied-feedback')).toContainText('Resultado de tu tirada');
+ await expect(page.getByTestId('doble-merit')).toHaveText('1/8');
+ await expect(page.getByTestId('doble-balance')).not.toHaveText('0');
+ await page.getByTestId('back-room').click();
+ await expect(page.locator('#announcer')).toBeEmpty();
+});
 test('varied contracts save in v10 and resume the exact next question',async({page})=>{
  await open(page,'contracts');await page.getByTestId('doble-begin').click();await page.getByTestId('contract-J').click();await page.getByTestId('doble-sign').click();await page.getByTestId('doble-next').click();const before=await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!));expect(before.schemaVersion).toBe(10);expect(before.state.contracts.phase).toBe('order');const question=await page.getByTestId('challenge-question').innerText();await page.reload();await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();await expect(page.getByTestId('challenge-question')).toHaveText(question);expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.contracts)).toEqual(before.state.contracts);
 });
