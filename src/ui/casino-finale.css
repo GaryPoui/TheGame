@@ -50,6 +50,21 @@ body[data-screen] .contracts-tutorial{display:grid;grid-template-columns:minmax(
 body[data-screen] .contracts-tutorial .doble-intro{position:static;inset:auto;width:100%;height:100%;max-height:calc(100svh - var(--playbar) - 24px);object-fit:contain;object-position:center;align-self:center;transform:translateY(-2%);z-index:0}
 body[data-screen] .contracts-tutorial .dialogue-card{position:relative;z-index:1;width:100%;min-width:0;max-width:none;padding:20px;margin:0;max-height:100%;overflow:hidden}
 .contracts-tutorial .dialogue-card h1{font-size:clamp(23px,2.8vw,38px);line-height:1.1}
+.doble-payout-rules {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 5px 12px;
+  margin: 0 0 12px;
+  font-size: clamp(15px, .85rem, 22px);
+  line-height: 1.3;
+}
+.doble-payout-rules dt { font-weight: 700; }
+.doble-payout-rules dd { margin: 0; }
+.doble-duel .duel-choice-note { display: block; font-size: .85rem; line-height: 1.3; }
+@media (max-height: 600px) {
+  .doble-payout-rules { font-size: 13px; margin-bottom: 6px; gap: 3px 8px; }
+  .doble-duel .duel-choice-note { font-size: 12px; }
+}
 @media(max-height:600px){body[data-screen] .contracts-tutorial{padding:8px 4%;grid-template-columns:30% minmax(0,1fr);gap:12px}body[data-screen] .contracts-tutorial .dialogue-card{padding:10px}.contracts-tutorial .dialogue-card h1{font-size:22px}.contracts-tutorial .dialogue-card p:not(.eyebrow){font-size:13px;line-height:1.3;margin-bottom:7px}}
 
 .varied-contracts .contract-offers{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}

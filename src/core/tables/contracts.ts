@@ -2,7 +2,7 @@ import { uniform } from '../game';
 import type { GameState } from '../game';
 import { bestContracts, CONTRACT_IDS, netPayout, type ContractId, type DicePair, type ObjectiveId } from '../math/dice';
 import {challengeBest,challengeNet,challengeTask} from './contract-challenges';
-import {bestDobleAnswers,diceDuelPoints,doblePick} from './dice-duel';
+import {bestDobleAnswers,diceDuelPoints,doblePick,scoreDobleTurn} from './dice-duel';
 
 export const CONTRACT_ROUNDS: readonly (readonly [ObjectiveId, ObjectiveId])[] = [
   ['expected', 'guarantee1'], ['atLeast4', 'expected'], ['atLeast1', 'atLeast4'], ['atLeast10', 'range'],
@@ -12,16 +12,19 @@ export interface ContractDecision { round: number; step: 0 | 1; contract: Contra
 export interface ContractCommand { commandId: string; expectedRevision: number; type: 'begin' | 'roll-first' | 'sign' | 'next'; contract?: ContractId }
 export interface DiceDuelRound { player:ContractId; rival:ContractId; playerPoints:number; rivalPoints:number; pair:DicePair; correct?:boolean }
 interface DiceDuel { first:number|null; rivalScore:number; rounds:DiceDuelRound[] }
+export const latestDobleVariant = 'duel-probability-v2';
 export interface ContractsState {
-  variant: 'base' | 'repeat' | 'varied' | 'duel' | 'duel-probability'; phase: ContractsPhase; round: number; assisted: boolean; merit: number; balance: number;
+  variant: 'base' | 'repeat' | 'varied' | 'duel' | 'duel-probability' | typeof latestDobleVariant; phase: ContractsPhase; round: number; assisted: boolean; merit: number; balance: number;
   pair: DicePair | null; history: ContractDecision[]; rng: GameState['rng']; seed: number;
   revision: number; journal: ContractCommand[]; duel?:DiceDuel;
 }
-export const latestDobleVariant = 'duel-probability';
+export function hasDobleQuestions(variant: ContractsState['variant']): boolean {
+  return variant==='duel-probability'||variant===latestDobleVariant;
+}
 export function createContracts(seed = Date.now(), variant: ContractsState['variant'] = 'base'): ContractsState {
   const initialSeed = (seed >>> 0) || 0x9e3779b9;
   const state:ContractsState = { variant, phase: 'tutorial', round: 0, assisted: false, merit: 0, balance: 0, pair: null, history: [], rng: { algorithm: 'xorshift32-v1', state: initialSeed, count: 0 }, seed: initialSeed, revision: 0, journal: [] };
-  if(variant==='duel'||variant===latestDobleVariant)state.duel={first:null,rivalScore:0,rounds:[]};
+  if(variant==='duel'||hasDobleQuestions(variant))state.duel={first:null,rivalScore:0,rounds:[]};
   return state;
 }
 export const splitDobleRound = (round:number):boolean => round===3 || round===7;
@@ -41,7 +44,7 @@ function applyDuelCommand(state: ContractsState, command: ContractCommand): Cont
     next.phase='offer';
   }else if(type==='sign'){
     const rival=doblePick(state.round,duel.first);
-    const correct=state.variant===latestDobleVariant?bestDobleAnswers(state.round,duel.first).includes(contract!):undefined;
+    const correct=hasDobleQuestions(state.variant)?bestDobleAnswers(state.round,duel.first).includes(contract!):undefined;
     let first=duel.first;
     if(first===null){
       const die=uniform(next.rng,6);
@@ -52,8 +55,11 @@ function applyDuelCommand(state: ContractsState, command: ContractCommand): Cont
     next.rng=second.rng;
     const pair:DicePair=[first,second.value+1];
     const set=state.round<4?0:1;
-    const playerPoints=correct?0:diceDuelPoints(set,contract!,pair);
-    const rivalPoints=correct?0:diceDuelPoints(set,rival,pair);
+    const playerPayout=diceDuelPoints(set,contract!,pair);
+    const rivalPayout=diceDuelPoints(set,rival,pair);
+    const {playerPoints,rivalPoints}=state.variant===latestDobleVariant
+      ?scoreDobleTurn(playerPayout,rivalPayout,correct===true)
+      :{playerPoints:correct?0:playerPayout,rivalPoints:correct?0:rivalPayout};
     duel.rounds.push({player:contract!,rival,playerPoints,rivalPoints,pair,...(correct===undefined?{}:{correct})});
     if(correct)next.merit++;
     next.balance+=playerPoints;
@@ -61,7 +67,7 @@ function applyDuelCommand(state: ContractsState, command: ContractCommand): Cont
     next.pair=pair;
     next.phase='result';
   }else if(state.round===7){
-    if(state.variant===latestDobleVariant&&state.merit===8)next.balance++;
+    if(hasDobleQuestions(state.variant)&&state.merit===8)next.balance++;
     next.phase=next.balance>duel.rivalScore?'complete':'retry';
   }else{
     next.round++;
@@ -126,7 +132,7 @@ export function applyContractCommand(state: ContractsState, command: ContractCom
 export function validContractsState(value: unknown): value is ContractsState {
   if (!value || typeof value !== 'object') return false;
   const saved = value as ContractsState;
-  if (!['base','repeat','varied','duel',latestDobleVariant].includes(saved.variant) || !Number.isInteger(saved.seed) || saved.seed < 1 || saved.seed > 0xffffffff || !Array.isArray(saved.journal) || saved.journal.length > 40) return false;
+  if (!['base','repeat','varied','duel','duel-probability',latestDobleVariant].includes(saved.variant) || !Number.isInteger(saved.seed) || saved.seed < 1 || saved.seed > 0xffffffff || !Array.isArray(saved.journal) || saved.journal.length > 40) return false;
   try {
     let reconstructed = createContracts(saved.seed, saved.variant);
     for (const command of saved.journal) {

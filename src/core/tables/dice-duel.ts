@@ -38,6 +38,12 @@ export function diceDuelPoints(set: OfferSet, id: ContractId, [a,b]: DicePair): 
   return wins[offer.condition] ? offer.win : offer.miss;
 }
 
+/** The question is evaluated independently of whether the selected card pays. */
+export function scoreDobleTurn(playerPayout: number, rivalPayout: number, correct: boolean) {
+  if (correct) return {playerPoints:Math.max(0,playerPayout),rivalPoints:0};
+  return {playerPoints:playerPayout,rivalPoints:playerPayout>0?Math.max(1,rivalPayout):rivalPayout};
+}
+
 /** Doble alternates between offers and considers only the die that both sides can see. */
 export function doblePick(round: number, first: number | null): ContractId {
   if (round===7) return first!==null && first<=3 ? 'S' : 'J';

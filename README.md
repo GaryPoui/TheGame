@@ -7,7 +7,7 @@
 Un videojuego educativo de probabilidad y estadística para jugar en el navegador. Estás dentro de una casa de juego y necesitás reunir tres sellos antes de desafiar al anfitrión y cruzar la puerta.
 
 - **Las urnas de Vera.** Compará proporciones y observá cómo cambia la probabilidad al sacar fichas.
-- **El duelo de Doble.** Compará tarjetas en ocho rondas. Si acertás las ocho, ganás 1 a 0.
+- **El duelo de Doble.** Elegí tarjetas y usá la probabilidad a tu favor. Ocho aciertos aseguran la victoria.
 - **El póker de Ada.** Calculá las chances de formar una mano y compará el premio de cada predicción.
 - **El contrato de salida.** Combiná urnas, dados y póker en el duelo final.
 

@@ -146,3 +146,10 @@ Si la respuesta no es óptima, se aplican las tarjetas elegidas con la tirada co
 marcador más alto. Ocho aciertos añaden un punto al cerrar la última ronda, con victoria 1 a 0.
 La práctica interactiva usa tiradas preparadas ajenas al guardado y al azar de la campaña.
 Los duelos ya iniciados pueden terminar con sus reglas o cambiar desde la propia mesa.
+
+En el duelo vigente, cada pregunta orienta y todas las tarjetas siguen disponibles. Al acertar
+la pregunta y la tirada, el jugador cobra y Doble queda en cero. Acertar la pregunta sin cumplir
+la tarjeta deja a ambos en cero. Acertar solo la tirada paga a los dos: Doble cobra el valor de su
+tarjeta con un mínimo de un punto. Si no se acierta ninguna, se conservan los pagos de ambas
+tarjetas. Seguro paga dos en cualquier tirada. Se conserva el punto adicional por ocho aciertos.
+La presentación explica estas reglas antes de comenzar y la práctica reutiliza el mismo cálculo.

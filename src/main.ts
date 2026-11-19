@@ -37,7 +37,7 @@ import {tableUnlocked,checkpointCampaign} from './core/campaign/progression';
 import {recordsView} from './ui/records';
 import {endingView} from './ui/ending';
 import { tokenTray, veraCoach, decisionTrack, urnTutorialHelp } from './ui/table-experience';
-import { createContracts, applyContractCommand, latestDobleVariant, type ContractCommand, type ContractsState } from './core/tables/contracts';
+import { createContracts, applyContractCommand, hasDobleQuestions, latestDobleVariant, type ContractCommand, type ContractsState } from './core/tables/contracts';
 import { CONTRACT_IDS, type ContractId } from './core/math/dice';
 import { compareContracts, type ComparisonRun } from './core/math/simulation';
 import { contractsTutorial, contractsView, contractsComplete,contractCombinationsGuide } from './ui/contracts';
@@ -452,6 +452,9 @@ function showSettings(section:SettingsSection='display'): void {
 function enterContracts(): void {
   if(!urnsSealed()) return;
   if(!state.contracts) state.contracts = createContracts(Date.now(), latestDobleVariant);
+  else if(state.contracts.variant==='duel-probability'&&state.contracts.phase==='tutorial'){
+    state.contracts=createContracts(state.contracts.seed,latestDobleVariant);
+  }
   state.activeTable = 'contracts'; persist();
   setScreen('contracts',dobleFocus(state.contracts));
 }
@@ -466,7 +469,7 @@ function restartDoble(): void {
 }
 function dobleFocus(s:ContractsState):string {
   switch(s.phase){
-    case 'tutorial': return s.variant===latestDobleVariant?'doble-practice':'doble-tutorial-next';
+    case 'tutorial': return hasDobleQuestions(s.variant)?'doble-practice':'doble-tutorial-next';
     case 'first-die': return 'doble-roll-first';
     case 'offer': case 'order': return 'contract-S';
     case 'retry': return 'doble-replay';
@@ -503,7 +506,8 @@ function commandDoble(type: ContractCommand['type'], revision: number, pointerFe
 }
 function dobleAnnouncement(s:ContractsState):string {
   if(s.phase==='result'&&s.pair){
-    const feedback=s.duel?.rounds.at(-1)?.correct===true?'Mejor elección. Ambos suman cero. ':'';
+    const last=s.duel?.rounds.at(-1);
+    const feedback=last?.correct===true?(last.playerPoints>0?`Mejor elección. Sumás ${last.playerPoints}. `:'Mejor elección. Ambos suman cero. '):'';
     return `${feedback}Dados ${s.pair[0]} y ${s.pair[1]}. Suma ${s.pair[0]+s.pair[1]}. ${s.duel?`Vos ${s.balance}, Doble ${s.duel.rivalScore}.`:`Saldo ${s.balance}.`}`;
   }
   if(s.phase==='offer'&&s.duel?.first!=null)return `Salió ${s.duel.first} en el primer dado. Elegí una tarjeta.`;

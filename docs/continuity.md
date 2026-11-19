@@ -302,3 +302,9 @@ la victoria. La práctica interactiva se abre desde la presentación o «Cómo j
 v12, con relectura de partidas anteriores y cambio voluntario desde la mesa. Las guías locales
 de diseño, interfaz y pruebas web orientaron las preguntas, la práctica y su comprobación.
 Ver [reglas del duelo](educational-design.md#duelo-de-doble-por-probabilidad).
+
+Duelo con pagos por tirada: acertar la pregunta evita que Doble cobre, mientras que la tarjeta
+del jugador cobra si se cumple. Seguro paga siempre dos. Cuando el jugador acierta solo la
+tirada, ambos cobran y Doble recibe al menos uno. La presentación explica los casos antes de
+jugar. Guardado v13 con partidas anteriores compatibles, elección de cambio desde la mesa y
+actualización directa si el duelo v12 todavía estaba en la presentación.
