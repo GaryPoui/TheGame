@@ -1,0 +1,13 @@
+
+Running 6 tests using 1 worker
+
+(node:28400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\browser\boss-focus.spec.ts:42:1 › boss resource help is contextual and does not alter the fight (6.3s)
+  ok 2 tests\browser\boss-focus.spec.ts:69:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space (7.3s)
+  ok 3 tests\browser\boss-urns.spec.ts:33:1 › the new boss shows both close inventories and keeps the second draw after reload (7.4s)
+  ok 4 tests\browser\casino-public.spec.ts:18:1 › public boss has physical cards, one pedestal and a separate readable dock (5.1s)
+  ok 5 tests\browser\casino-public.spec.ts:21:1 › public Ada deals cards and retains the additive decision bonus (5.7s)
+  ok 6 tests\browser\casino-public.spec.ts:24:1 › public painted victory can replay and skip the first person exit (6.0s)
+
+  6 passed (41.9s)

@@ -1,0 +1,596 @@
+{
+  "baseURL": "https://garypoui.github.io/TheGame/",
+  "date": "2026-11-19T11:50:30.747Z",
+  "filesChecked": 149,
+  "matches": 2,
+  "errors": [
+    {
+      "path": "dist/art/captor-v3.png",
+      "error": "TypeError: terminated"
+    },
+    {
+      "path": "dist/art/escape-dawn-v1.png",
+      "error": "TypeError: terminated"
+    },
+    {
+      "path": "dist/art/doble-v2.png",
+      "error": "TypeError: terminated"
+    },
+    {
+      "path": "dist/art/ada-v1.png",
+      "error": "TypeError: terminated"
+    },
+    {
+      "path": "dist/art/ada-full-v1.png",
+      "error": "TypeError: terminated"
+    },
+    {
+      "path": "dist/art/doble-full-v1.png",
+      "error": "TypeError: terminated"
+    },
+    {
+      "path": "dist/art/parlour-v3.png",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/basisTextureLoader-e1YHSNPw.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/baseTexture.pure-yaQKq0nC.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/art/vera-v3.png",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/asset-manifest.json",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/art/vera-full-v1.png",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/clipPlaneFragment-Ct2VqHzk.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/dds.pure-BrPDqSzw.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/clipPlaneFragment-DVK0wgyZ.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/cubemapToSphericalPolynomial-4bhcNabq.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/clipPlaneVertex-D0NeDy6h.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/clipPlaneVertex-BjlyOJ3Z.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/dds.pure-CwvgjXQ0.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/default.fragment-ymMmgQGK.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/ddsTextureLoader-CrKYyD4w.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/default.fragment-Dlghw064.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/default.fragment-CSJBdzQb.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/decorators-CbDmSM3x.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/default.vertex-BQhlqcpe.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/depthBoxBlur.fragment-CLEAG5DG.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/default.vertex-DWVf91sB.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/defaultUboDeclaration-DjVzEbLK.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/defaultUboDeclaration-CZMZLUYs.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/default.vertex-lM6WtjsD.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/depthBoxBlur.fragment-D2KJPEQv.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/envTextureLoader-BwTeSKnK.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/dumpTools.pure-Cv_vXgMl.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/engineStore-Bn2tApal.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/effectRenderer.pure-CuH-Dd_-.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/dumpTools.pure-F6uYjYf1.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/escape-path-DxIKP9G8.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowMapGeneration.fragment-B1240Bpj.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/exrTextureLoader-DSHHATGO.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowMapGeneration.fragment-B0kWsCXT.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowBlurPostProcess.fragment-DDN2NxnB.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowBlurPostProcess.fragment-CWHntGEt.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowMapGeneration.vertex-D02iISAV.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowMapMerge.vertex-XcoH38fZ.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowMapGeneration.vertex-_zQ95bQU.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowMapMerge.vertex-CBAYzq55.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowMapMerge.fragment-kUzN8f-0.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/glowMapMerge.fragment-E4YwFGds.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/hdrTextureLoader-BQVwkxK1.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/index-DaiExTxY.css",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/helperFunctions-BH8P-eyq.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/index-B68YiK1i.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/iesTextureLoader-yfE-bnpW.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/helperFunctions-gEnZbjN3.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/instancesDeclaration-CJBvtBV5.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/kernelBlur.vertex-C2dESVl-.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/instancesDeclaration-DsiFqYXH.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/kernelBlur.fragment-DGoy5K5D.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/kernelBlur.fragment-BvT73mHN.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/internalTexture-B3djGrls.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/kernelBlur.vertex-Cr8ljakh.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/logDepthDeclaration-DYYUVTrx.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/kernelBlurVaryingDeclaration-DP2Wr9Oc.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/logDepthDeclaration-3gXGtHbI.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/ktxTextureLoader-CP_M3e6T.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/kernelBlurVaryingDeclaration-g2Ge9lzd.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/logDepthFragment-C5lxT4l1.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/mainUVVaryingDeclaration-BBamQlxR.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/logDepthFragment-CxtJswLx.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/logger-CuBYPcDK.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/logDepthVertex-DSD5XdGw.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/logDepthVertex-D5IUM6qd.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/mainUVVaryingDeclaration-B_7d0nc3.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/meshUboDeclaration-DYEo1Glw.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/math.color.pure-iZ4wwOkK.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/meshUboDeclaration-ClF6XIke.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/mesh.vertexData.functions-CD4JOR2q.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/math.scalar.functions-Bg-lysIT.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/oitFragment-B0k-attT.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/outline.vertex-WICqVsOY.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/oitFragment-BFDpqNz2.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/outline.vertex-CPO5reHF.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/outline.fragment-pN_M23uC.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/outline.fragment-CDsNZ9UM.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/packingFunctions-CINwVZs6.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/passCube.fragment-C8Bxt-YC.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/packingFunctions-DpGwbupU.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/passCube.fragment-B9dBqbCg.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pass.fragment-Cvd2TCWC.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pass.fragment-C9fRTBUH.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pbr.fragment-C6QIZv5S.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pbr.vertex-Dx9qyfnH.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pbr.fragment-CDEL47EI.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pbr.vertex-C5-jgiZ8.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pbr.vertex-BqjswKYv.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pbr.fragment-Cz1HKshk.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pbrBRDFFunctions-7vMwHmnJ.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/postprocess.vertex-DJCmMhI8.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/pbrBRDFFunctions-PfiR4AmG.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/postprocess.vertex-CmVXXq2T.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/postProcess.pure-CeC24GmV.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/performanceConfigurator-UtxC_Odd.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/precisionDate-DgO8bWsc.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/rgbdEncode.fragment-CxPSfrvR.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/preload-helper-CRzLMJPS.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/rgbdEncode.fragment-CVg4Fcse.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/rgbdDecode.fragment-DXl2fYur.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/rgbdDecode.fragment-Cdz2Tveq.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/scene-CQcI1x4Q.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/shadowMap.vertex-B6-W_3yx.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/shaderStore-D-XQlhUT.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/shadowMap.vertex-4HnGlowO.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/shadowMap.fragment-DX4Yo1bp.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/shadowMap.fragment-DUFTmQJ_.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/shadowMapFragmentSoftTransparentShadow-B6k0i9Au.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/thinEngine.pure-BUxQJ2GD.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/shadowMapFragmentSoftTransparentShadow-R_iOKnyx.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/tgaTextureLoader-CqhhocF6.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/texture.pure-CQs7zBLq.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/sphericalPolynomial.pure-C0WKtyEd.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/thinEngine.pure-CNUxcYUZ.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/babylon-LICENSE.txt",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/tools.pure-Cx1Y7M_Q.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/vertexColorMixing-DQMGKchu.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/vertexColorMixing-C9FRyp8w.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/assets/typeStore-BGi7uhG_.js",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/babylon-NOTICE.txt",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/favicon.svg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/CC0-1.0.txt",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/escape-art.json",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/doble-art-v2.json",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/credits.html",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/index.html",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/dealer-skin.png",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/ink-art.json",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/dark_wood/normal.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/dark_wood/arm.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/dark_wood/albedo.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/fabric_pattern_07/normal.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/wood_floor/albedo.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/plastered_wall_02/albedo.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/studio.hdr",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/plastered_wall_02/normal.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/plastered_wall_02/arm.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/wood_floor/arm.jpg",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/visual-provenance.json",
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "path": "dist/textures/wood_floor/normal.jpg",
+      "error": "TypeError: fetch failed"
+    }
+  ]
+}

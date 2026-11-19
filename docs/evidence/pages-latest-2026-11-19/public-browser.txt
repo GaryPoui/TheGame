@@ -1,0 +1,154 @@
+
+Running 9 tests using 1 worker
+
+(node:72420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\browser\boss-focus.spec.ts:42:1 › boss resource help is contextual and does not alter the fight (1.0m)
+(node:69804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\browser\boss-focus.spec.ts:69:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space (49.5s)
+(node:72108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\browser\boss-urns.spec.ts:33:1 › the new boss shows both close inventories and keeps the second draw after reload (49.5s)
+(node:59004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  4 tests\browser\casino-public.spec.ts:18:1 › public boss has physical cards, one pedestal and a separate readable dock (49.1s)
+(node:56996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Timed out waiting 240s for the test suite to run
+Timed out waiting 240s for the teardown for test suite to run
+
+
+  1) tests\browser\boss-focus.spec.ts:42:1 › boss resource help is contextual and does not alter the fight
+
+    Test timeout of 60000ms exceeded.
+
+    Error: page.goto: Test timeout of 60000ms exceeded.
+    Call log:
+      - navigating to "https://garypoui.github.io/TheGame/", waiting until "load"
+
+
+      11 |  s.activeTable=table;s.settings.textScale=scale;if(finale)s.finale=finale;if(table==='contracts')s.contracts=createContracts(1);if(table==='records')s.records=createRecords(123);
+      12 |  await page.addInitScript(s=>{if(!localStorage.getItem('thegame.save.v1.current'))localStorage.setItem('thegame.save.v1.current',JSON.stringify({schemaVersion:8,contentVersion:'campaign-boss-v8',state:s}));},s);
+    > 13 |  await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();
+         |             ^
+      14 | }
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+        at open (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:13:13)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:43:2
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\boss-focus-boss-resource-h-9f755-nd-does-not-alter-the-fight\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\boss-focus-boss-resource-h-9f755-nd-does-not-alter-the-fight\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\boss-focus-boss-resource-h-9f755-nd-does-not-alter-the-fight\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\boss-focus-boss-resource-h-9f755-nd-does-not-alter-the-fight\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\browser\boss-focus.spec.ts:69:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space
+
+    Error: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://garypoui.github.io/TheGame/
+    Call log:
+      - navigating to "https://garypoui.github.io/TheGame/", waiting until "load"
+
+
+      11 |  s.activeTable=table;s.settings.textScale=scale;if(finale)s.finale=finale;if(table==='contracts')s.contracts=createContracts(1);if(table==='records')s.records=createRecords(123);
+      12 |  await page.addInitScript(s=>{if(!localStorage.getItem('thegame.save.v1.current'))localStorage.setItem('thegame.save.v1.current',JSON.stringify({schemaVersion:8,contentVersion:'campaign-boss-v8',state:s}));},s);
+    > 13 |  await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();
+         |             ^
+      14 | }
+      15 | async function fits(page:Page){
+      16 |  const bad=await page.locator('main button,main .poker-card,main progress').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left<0||r.top<0||r.right>innerWidth+1||r.bottom>innerHeight+1;}).map(n=>n.getAttribute('data-testid')??n.textContent));
+        at open (C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:13:13)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-focus.spec.ts:70:2
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\boss-focus-prepared-tutori-abf1e--in-the-smallest-zoom-space\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\boss-focus-prepared-tutori-abf1e--in-the-smallest-zoom-space\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\boss-focus-prepared-tutori-abf1e--in-the-smallest-zoom-space\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\boss-focus-prepared-tutori-abf1e--in-the-smallest-zoom-space\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\browser\boss-urns.spec.ts:33:1 › the new boss shows both close inventories and keeps the second draw after reload
+
+    Error: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://garypoui.github.io/TheGame/
+    Call log:
+      - navigating to "https://garypoui.github.io/TheGame/", waiting until "load"
+
+
+       9 |  else {state.activeTable='urns';}
+      10 |  await page.addInitScript(state=>{if(!localStorage.getItem('thegame.save.v1.current'))localStorage.setItem('thegame.save.v1.current',JSON.stringify({schemaVersion:8,contentVersion:'campaign-boss-v8',state}));},state);
+    > 11 |  await page.goto('./');await page.waitForFunction(()=>typeof window.__THEGAME_METRICS__==='function');await page.getByTestId('continue-game').click();if(boss)await page.getByTestId('finale-begin').click();
+         |             ^
+      12 | }
+      13 | async function metrics(page:Page){return page.evaluate(()=>window.__THEGAME_METRICS__!() as {visibleUrnVessels:number;visibleUrnTokens:number;selectedUrn:number|null;highlightedUrnMeshes:number;urnTargets:{x:number;y:number}[]});}
+      14 | async function fits(page:Page){if(page.viewportSize()!.width<1000)return;expect(await page.locator('main button,main progress').evaluateAll(es=>es.filter(e=>e.checkVisibility()).filter(e=>{const r=e.getBoundingClientRect();return r.top<0||r.bottom>innerHeight+1||r.left<0||r.right>innerWidth+1;}).map(e=>e.textContent))).toEqual([]);}
+        at open (C:\Users\facub\Documents\TheGame\tests\browser\boss-urns.spec.ts:11:13)
+        at C:\Users\facub\Documents\TheGame\tests\browser\boss-urns.spec.ts:35:2
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\boss-urns-the-new-boss-sho-b2c77-he-second-draw-after-reload\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\boss-urns-the-new-boss-sho-b2c77-he-second-draw-after-reload\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\boss-urns-the-new-boss-sho-b2c77-he-second-draw-after-reload\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\boss-urns-the-new-boss-sho-b2c77-he-second-draw-after-reload\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\browser\casino-public.spec.ts:18:1 › public boss has physical cards, one pedestal and a separate readable dock
+
+    Error: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://garypoui.github.io/TheGame/
+    Call log:
+      - navigating to "https://garypoui.github.io/TheGame/", waiting until "load"
+
+
+      11 |  if(table==='finale'){let f=applyFinaleCommand(s.finale,{type:'begin',commandId:'begin',expectedRevision:0});while(bossMechanic(f)!=='poker')f=applyFinaleCommand(f,{type:f.phase==='choose'?'choose':'next',choice:bestFinale(f)[0],commandId:'prep'+f.revision,expectedRevision:f.revision});s.finale=f;}
+      12 |  if(table==='outside'){let f=s.finale;for(let i=0;i<100&&f.phase!=='complete';i++)f=applyFinaleCommand(f,{type:!f.boss!.started?'begin':f.phase==='choose'?'choose':'next',choice:bestFinale(f)[0],commandId:'win'+f.revision,expectedRevision:f.revision});s.finale=f;s.freed=true;s.freedomMethod='independent';s.settings.reducedMotion=false;}
+    > 13 |  await page.emulateMedia({reducedMotion:'no-preference'});await page.addInitScript(s=>{if(!localStorage.getItem('thegame.save.v1.current'))localStorage.setItem('thegame.save.v1.current',JSON.stringify({schemaVersion:10,contentVersion:'campaign-casino-v10',state:s}));},s);await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();await mkdir(evidence,{recursive:true});
+         |                                                                                                                                                                                                                                                                                            ^
+      14 | }
+      15 | test('public Doble presentation and new question accept one saved decision',async({page})=>{
+      16 |  await open(page,'contracts');const r=(await page.locator('.doble-intro').boundingBox())!;expect(r.y).toBeGreaterThanOrEqual(0);await page.getByTestId('doble-begin').click();await expect(page.getByTestId('challenge-question')).toContainText('promedio');await page.getByTestId('contract-J').click();await page.getByTestId('doble-sign').click();await expect(page.getByTestId('varied-feedback')).toContainText('Buena decisión');expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.contracts.variant)).toBe('varied');await page.screenshot({path:`${evidence}/doble.png`});
+        at open (C:\Users\facub\Documents\TheGame\tests\browser\casino-public.spec.ts:13:284)
+        at C:\Users\facub\Documents\TheGame\tests\browser\casino-public.spec.ts:19:2
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\casino-public-public-boss--54302-nd-a-separate-readable-dock\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\casino-public-public-boss--54302-nd-a-separate-readable-dock\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\casino-public-public-boss--54302-nd-a-separate-readable-dock\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\casino-public-public-boss--54302-nd-a-separate-readable-dock\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests\browser\boss-focus.spec.ts:42:1 › boss resource help is contextual and does not alter the fight
+    tests\browser\boss-focus.spec.ts:69:1 › prepared tutorials and boss reading stay reachable in the smallest zoom space
+    tests\browser\boss-urns.spec.ts:33:1 › the new boss shows both close inventories and keeps the second draw after reload
+    tests\browser\casino-public.spec.ts:18:1 › public boss has physical cards, one pedestal and a separate readable dock
+  5 did not run
+  2 errors were not a part of any test, see above for details

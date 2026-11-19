@@ -1,4 +1,19 @@
 {
+  "latest_publication": {
+    "version": "latest-main-2026-11-19",
+    "source_branch": "main",
+    "source_commit": "b90f7d18faf4e27045915f16c9734e7d966ff93b",
+    "deployment_commit": "fbf2b77c221642dc4669cb22c26b582218cc1716",
+    "url": "https://garypoui.github.io/TheGame/",
+    "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/44516909891",
+    "status": "success",
+    "unit_tests_passed": 78,
+    "local_browser_passed": 3,
+    "public_browser_passed": 7,
+    "public_hashes_matched": 149,
+    "documentation": "docs/pages-latest-audit.md",
+    "evidence": "docs/evidence/pages-latest-2026-11-19/publication.json"
+  },
   "phase": "casino-finale-2026-11-17",
   "repository": "https://github.com/GaryPoui/TheGame",
   "branch": "codex/casino-tables-finale",

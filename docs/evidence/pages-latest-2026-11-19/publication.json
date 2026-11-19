@@ -1,0 +1,22 @@
+{
+  "version": "latest-main-2026-11-19",
+  "url": "https://garypoui.github.io/TheGame/",
+  "sourceCommit": "b90f7d18faf4e27045915f16c9734e7d966ff93b",
+  "previousPublicSource": "2c2aa9f597a81aff92a90b6d2560f4df63a59bea",
+  "deploymentCommit": "fbf2b77c221642dc4669cb22c26b582218cc1716",
+  "workflow": "https://github.com/GaryPoui/TheGame/actions/runs/44516909891",
+  "workflowConclusion": "success",
+  "unitTestsPassed": 78,
+  "unitFilesPassed": 17,
+  "build": "PASS",
+  "mathChecks": 70,
+  "skillFilesVerified": 92,
+  "localBrowserCasesPassed": 3,
+  "publicFilesChecked": 149,
+  "publicHashMatches": 149,
+  "initialPublicAttempt": "Connection timeouts: four failed navigation cases, five not run; retained in public-browser.txt",
+  "publicDiceReplay": "Eight-round winning duel passed in public-retry.txt",
+  "publicConfirmedCasesPassed": 7,
+  "publicRemainingCases": "Six cases passed in public-confirmed.txt, including boss tutorial, close urns, poker, table props and victory",
+  "scope": "Publish latest existing main; no changes to gameplay or saved progress. No claim of measured learning, enjoyment or universal viewport coverage."
+}

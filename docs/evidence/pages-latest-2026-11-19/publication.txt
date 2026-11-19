@@ -1,0 +1,2 @@
+Deployment branch: fbf2b77c221642dc4669cb22c26b582218cc1716
+Configure/check Pages and verify the public HTTPS game before reporting completion.
