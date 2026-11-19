@@ -14,7 +14,7 @@
 .modal.info-modal .reading-nav span{font-size:16px;white-space:nowrap}
 .modal.info-modal .reading-pages:focus{outline:none}
 .modal.info-modal .reading-pages{display:flow-root}
-.modal.info-modal .reading-pages .learning-video{color:#f6d79e;text-underline-offset:3px}
+.modal .learning-video{color:#f6d79e;text-underline-offset:3px}
 .modal.info-modal .modal-close span,.modal.guide-modal .modal-close span{font-size:24px;line-height:1}
 .modal.info-modal .hand-reference p{font-size:clamp(18px,.95rem,25px)}
 .tutorial-table .tutorial-footer .primary{background:var(--menu-gold);color:var(--menu-ink);border-color:var(--menu-gold)}

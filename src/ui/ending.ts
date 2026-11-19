@@ -6,7 +6,7 @@ import {decisionTrack} from './table-experience';
 import {photoAlbum} from './photo-records';
 const labels:Partial<Record<FinaleChoice,string>>={archive:'Pedir los registros completos',album:'Quedarme sólo con las ganadoras',close:'En estas ocho partidas se ganaron cuatro',certainty:'La próxima partida se gana seguro'};
 export function endingView(s:FinaleState,selected:FinaleChoice|null,freed:boolean):string{
- if(s.experience==='boss-v1')return bossView(s,selected,freed);
+ if(s.boss)return bossView(s,selected,freed);
  if(s.phase==='complete')return `<main class="completion-layout"><section class="completion-card" data-testid="finale-completion"><div class="seal">↗</div><p class="eyebrow">El contrato está cumplido</p><h1>La puerta está abierta.</h1><p class="completion-quote">«Te ofrecí azar. Me devolviste razones». El anfitrión aparta su baraja.</p><p>${s.assisted?'Terminaste los dos escenarios con ayuda.':'Tus decisiones alcanzaron al menos 4 de 6 puntos.'} Tus fichas y el saldo nunca fueron el precio de la salida.</p><p>Vera apaga la lámpara. Doble rompe la letra chica. Ada guarda también tus errores: «Son parte del archivo».</p><p>Volvés a la calle. Esta vez, elegís vos el camino.</p><button class="primary full" data-testid="exit-house">Cruzar la puerta</button><button class="text-button full" data-testid="finale-replay">Practicar el final · conservar libertad</button></section></main>`;
  const r=finaleRound(s),review=s.phase==='feedback',last=s.history.at(-1),best=review?last!.optimal:bestFinale(s);
  const title=r===0?'Una roja. Después, otra decisión.':r===1?OBJECTIVES[s.step===0?'atLeast4':'expected'].title:s.step===0?'¿De dónde sale esa historia?':'¿Qué podés afirmar con estos datos?';

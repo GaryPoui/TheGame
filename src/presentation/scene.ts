@@ -62,6 +62,7 @@ export class GameScene {
   private hostFelts:Partial<Record<'doble'|'ada'|'captor',StandardMaterial>>={};
   private diceRoots: Mesh[] = [];
   private diceRollStart: number | null = null;
+  private rollingDie: 0 | 1 | undefined;
   private diceRollCount = 0;
   private contractsMode = false;
   private diceKey = '';
@@ -267,8 +268,9 @@ export class GameScene {
     this.camera.fov=Math.max(.44,2*Math.atan(Math.max((vera?3.4:2.6)/10.7,(vera?4.2:3.85)*height/(10.7*Math.max(1,width)))));
     this.camera.position.copyFrom(this.destination);this.currentFocus.copyFrom(this.focus);this.camera.setTarget(this.focus);
   }
-  rollDice():void {
+  rollDice(only?:0|1):void {
     this.diceRollCount++;
+    this.rollingDie=only;
     this.diceRollStart=performance.now();
     this.updateDiceRoll();
   }
@@ -281,6 +283,7 @@ export class GameScene {
     const p=Math.min(1,(performance.now()-this.diceRollStart)/850);
     if(p===1||this.reduced){this.stopDiceRoll();return;}
     this.diceRoots.forEach((die,i)=>{
+      if(this.rollingDie!==undefined&&i!==this.rollingDie)return;
       const q=Math.min(1,p*(i===0?1.12:1));
       const rest=i===0?-.6:.6;
       die.position.set(rest+(i===0?-1.3:1.5)*(1-q),2.17+Math.abs(Math.sin(q*Math.PI*3))*.9*(1-q),-.45+1.1*(1-q));
@@ -288,7 +291,7 @@ export class GameScene {
       die.rotation.set(spin,(i===0?.22:-.28)+spin*.65*(i===0?1:-1),spin*.4);
     });
   }
-  setContractMode(enabled: boolean, pair: readonly [number, number] | null,host:'doble'|'ada'|'captor'='doble',mechanic:'urns'|'dice'|'poker'='dice'): void {
+  setContractMode(enabled: boolean, pair: readonly [number, number?] | null,host:'doble'|'ada'|'captor'='doble',mechanic:'urns'|'dice'|'poker'='dice',firstOnly=false): void {
     const changed = enabled !== this.contractsMode||host!==this.tableHost;
     this.contractsMode = enabled;
     if(changed)this.framingKey='';
@@ -317,7 +320,7 @@ export class GameScene {
       material.diffuseTexture = enabled ? host==='captor'?this.captorTexture:host==='ada'?this.adaTexture:this.dobleTexture : this.veraTexture;
     }
     const diceVisible=enabled&&(host==='doble'||host==='captor'&&mechanic==='dice');
-    const key = diceVisible ? host+JSON.stringify(pair) : 'off';
+    const key = diceVisible ? host+JSON.stringify(pair)+(firstOnly?':one':'') : 'off';
     if(key === this.diceKey) return;
     this.diceKey = key;
     this.diceProps.forEach(mesh => { this.shadows.removeShadowCaster(mesh); mesh.dispose(); }); this.diceProps = [];
@@ -325,7 +328,7 @@ export class GameScene {
     if(!diceVisible) return;
     const start = this.scene.meshes.length;
     const patterns: Record<number, number[]> = {1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
-    for(let i=0;i<2;i++) {
+    for(let i=0;i<(firstOnly?1:2);i++) {
       const x = i===0 ? -.6 : .6;
       const die = this.box('contract-die-'+i,[.65,.65,.65],[x,2.17,-.45],this.ivory);
       die.rotation.y=i===0?.22:-.28;

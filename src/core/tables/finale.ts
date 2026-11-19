@@ -4,26 +4,26 @@ import { choose, createGame, uniform, type GameState, type Urn, type Color } fro
 import { netPayout, type ContractId, type DicePair } from '../math/dice';
 import {hostPolicy} from './host-policy';
 export type FinaleChoice = HandCategory | 'U' | 'V' | ContractId | 'archive' | 'album' | 'close' | 'certainty';
-export interface FinaleCommand {commandId:string;expectedRevision:number;type:'choose'|'next'|'begin'|'assist';choice?:FinaleChoice}
+export interface FinaleCommand {commandId:string;expectedRevision:number;type:'choose'|'next'|'begin'|'assist'|'roll-first';choice?:FinaleChoice}
 export interface FinaleDecision {round:number;step:number;choice:FinaleChoice;optimal:FinaleChoice[];correct:boolean;assisted:boolean;outcome:string}
 export interface FinaleState {
-  experience?:'boss-v1';boss?:BossState;
+  experience?:'boss-v1'|'boss-v2';boss?:BossState;
   seed:number;rng:GameState['rng'];phase:'choose'|'feedback'|'complete';round:number;step:number;
   assisted:boolean;merit:number;tokens:number;balance:number;urns:[Urn,Urn];pair:DicePair|null;
   lastColor:Color|null;history:FinaleDecision[];revision:number;journal:FinaleCommand[];
 }
-export function createFinale(seed=Date.now(),experience?:'boss-v1'):FinaleState {
+export function createFinale(seed=Date.now(),experience?:FinaleState['experience']):FinaleState {
   const game=createGame(seed);
   const base:FinaleState={seed:game.rng.state,rng:game.rng,phase:'choose',round:0,step:0,assisted:false,merit:0,tokens:0,balance:0,urns:game.urns,pair:null,lastColor:null,history:[],revision:0,journal:[]};
   if(experience){base.experience=experience;initializeBoss(base);}return base;
 }
 export function finaleRound(s:FinaleState):number{return s.assisted&&s.round===1?2:s.round;}
-export function finaleChoices(s:FinaleState):FinaleChoice[]{if(s.experience==='boss-v1')return bossChoices(s);const r=finaleRound(s);return r===0?['U','V']:r===1?['S','C','J']:s.step===0?['archive','album']:['close','certainty'];}
+export function finaleChoices(s:FinaleState):FinaleChoice[]{if(s.experience)return bossChoices(s);const r=finaleRound(s);return r===0?['U','V']:r===1?['S','C','J']:s.step===0?['archive','album']:['close','certainty'];}
 /** Host reads only the public task and urn inventory, never future random words. */
-export function bestFinale(s:FinaleState):FinaleChoice[]{if(s.experience==='boss-v1')return bestBoss(s);return hostPolicy({round:finaleRound(s),step:s.step,urns:s.urns});}
+export function bestFinale(s:FinaleState):FinaleChoice[]{if(s.experience)return bestBoss(s);return hostPolicy({round:finaleRound(s),step:s.step,urns:s.urns});}
 export function applyFinaleCommand(s:FinaleState,c:FinaleCommand):FinaleState {
   if(!c||typeof c.commandId!=='string'||!c.commandId.length||c.commandId.length>80||c.expectedRevision!==s.revision||s.journal.some(x=>x.commandId===c.commandId))return s;
-  if(s.experience==='boss-v1')return applyBossCommand(s,c);
+  if(s.experience)return applyBossCommand(s,c);
   if(c.type==='choose'&&(s.phase!=='choose'||!finaleChoices(s).includes(c.choice!))||c.type==='next'&&s.phase!=='feedback'||!['choose','next'].includes(c.type))return s;
   const next=structuredClone(s);
   if(c.type==='choose'){
@@ -50,7 +50,7 @@ export function applyFinaleCommand(s:FinaleState,c:FinaleCommand):FinaleState {
 }
 export function validFinaleState(value:unknown):value is FinaleState {
   if(!value||typeof value!=='object')return false;const s=value as FinaleState;
-  if(!Number.isInteger(s.seed)||s.seed<1||s.seed>0xffffffff||!Array.isArray(s.journal)||s.journal.length>(s.experience==='boss-v1'?64:20))return false;
-  if(s.experience!==undefined&&s.experience!=='boss-v1')return false;
+  if(!Number.isInteger(s.seed)||s.seed<1||s.seed>0xffffffff||!Array.isArray(s.journal)||s.journal.length>(s.experience?64:20))return false;
+  if(s.experience!==undefined&&s.experience!=='boss-v1'&&s.experience!=='boss-v2')return false;
   try{let replay=createFinale(s.seed,s.experience);for(const c of s.journal){const next=applyFinaleCommand(replay,c);if(next===replay)return false;replay=next;}return JSON.stringify(replay)===JSON.stringify(s);}catch{return false;}
 }

@@ -1,4 +1,4 @@
-import {guideButton} from './game-guides';
+import {diceVideoUrl,guideButton} from './game-guides';
 
 export type LearningTopic = 'urns' | 'contracts' | 'records' | 'legacy-records' | 'finale';
 
@@ -11,8 +11,8 @@ const lessons: Record<Exclude<LearningTopic, 'finale'>, {title:string; body:stri
   },
   contracts: {
     title:'Doble · Qué puede salir y cuánto te deja',
-    body:'<p>Cada resultado es un par de dados. Por ejemplo, 2 y 5 suman 7. También podés sacar 5 y 2. Los dos pares cuentan por separado y tienen la misma chance.</p><p>Para ganar al menos 4 fichas, contá cuántos pares te dejan 4 o más después de pagar. Para buscar el mejor promedio, sumá lo que te deja cada par, restando las pérdidas, y dividí por la cantidad de pares.</p>',
-    url:'https://es.khanacademy.org/math/cc-seventh-grade-math/cc-7th-probability-statistics/v/events-and-outcomes-2',
+    body:'<p>Sumá los dos dados. Por ejemplo, 2 y 5 suman 7. Si el primer dado ya muestra 6, necesitás un 1 en el segundo para llegar a 7.</p><p>Leé tu tarjeta para ver cuántos puntos te deja esa suma y qué pasa si sale otra.</p>',
+    url:diceVideoUrl,
     video:'Ver cómo se cuentan las 36 combinaciones de dos dados',
   },
   records: {

@@ -1,5 +1,5 @@
 import {urnChoiceCard} from './ui/urn-choice';
-import {bossMechanic} from './core/tables/boss';
+import {bossMechanic,bossNeedsFirstDie} from './core/tables/boss';
 import './style.css';
 import './ui/contracts.css';
 import './ui/table-experience.css';
@@ -41,6 +41,7 @@ import { createContracts, applyContractCommand, type ContractCommand, type Contr
 import { CONTRACT_IDS, type ContractId } from './core/math/dice';
 import { compareContracts, type ComparisonRun } from './core/math/simulation';
 import { contractsTutorial, contractsView, contractsComplete,contractCombinationsGuide } from './ui/contracts';
+import {dobleDuelTutorial,dobleDuelView,type DobleRollStart} from './ui/doble-duel';
 import {
   createGame, choose, advance, bestChoices, probability, loadGame, saveGame, defaultSettings,
   clearGame, VERA_SEAL_TARGET, type Fraction, type GameState, type Settings, type Urn,
@@ -108,7 +109,7 @@ let dobleTutorialStep = 0;
 let selectedContract: ContractId | null = null;
 let comparisonResult: ComparisonRun | null = null;
 let rehearsalPair: [number, number] = [2, 2];
-let diceRollStart: Pick<ContractsState, 'balance' | 'merit'> | undefined;
+let diceRollStart: DobleRollStart | undefined;
 let diceCombinationsVisible = false;
 let diceRollTimer: ReturnType<typeof setTimeout> | undefined;
 let scene: GameScene | null = null;
@@ -178,7 +179,7 @@ function introView(): string {
 function room(): string {
   const entries = [
     ['urns','I','Vera','Las urnas','Contá las chances y mirá qué cambia.','Disponible'],
-    ['contracts','II','Doble','Los contratos','Elegí entre promedio, garantía y riesgo.','Necesitás el sello de Vera'],
+    ['contracts','II','Doble','El duelo de dados','Elegí tarjetas y ganale en ocho partidas.','Necesitás el sello de Vera'],
     ['records','III','Ada','Las cartas de Ada','Compará las chances de una baraja.','Necesitás el sello de Doble'],
     ['finale','IV','El anfitrión','El último duelo','Combiná urnas, dados y póker.','Necesitás los tres sellos'],
   ] as const;
@@ -269,6 +270,7 @@ function complete(): string {
 function dobleScreen(): string {
   const c = state.contracts;
   if (!c) return room();
+  if(c.variant==='duel')return c.phase==='tutorial'?dobleDuelTutorial(c,dobleTutorialStep):dobleDuelView(c,selectedContract,diceRollStart);
   return c.phase === 'tutorial' ? contractsTutorial(c, dobleTutorialStep) : c.phase === 'complete' ? contractsComplete(c) : contractsView(c, selectedContract, comparisonResult, rehearsalPair, diceRollStart, diceCombinationsVisible);
 }
 function render(focusId?: string): void {
@@ -297,11 +299,16 @@ function updateVisual(): void {
   if(canvas&&viewport){if(canvas.parentElement!==viewport)viewport.append(canvas);scene?.resizeCanvas();}
   else scene?.resizeCanvas();
   const playingBoss=screen==='finale'&&!!app.querySelector('.boss-layout .ada-viewport');
-  const bossUrns=playingBoss&&state.finale?.experience==='boss-v1'&&bossMechanic(state.finale)==='urns';
+  const bossUrns=playingBoss&&state.finale?.boss&&bossMechanic(state.finale)==='urns';
   const playingAda=screen==='records'&&!!app.querySelector('.ada-viewport');
-  scene?.setRendering(playingBoss||playingAda||screen==='table'||screen==='tutorial'||screen==='contracts'&&state.contracts?.phase!=='tutorial'&&state.contracts?.phase!=='complete');
-  const playingContracts = screen === 'contracts' && state.contracts?.phase !== 'complete';
-  scene?.setContractMode(playingBoss||playingContracts||playingAda, playingContracts ? state.contracts?.pair ?? null : playingBoss ? state.finale?.pair ?? null : null,playingBoss?'captor':playingAda?'ada':'doble',playingBoss&&state.finale?.boss?bossMechanic(state.finale):playingAda?'poker':'dice');
+  const contracts=screen==='contracts'?state.contracts:undefined;
+  const playingContracts=!!contracts&&!['tutorial','complete','retry'].includes(contracts.phase);
+  scene?.setRendering(playingBoss||playingAda||playingContracts||screen==='table'||screen==='tutorial');
+  const host=playingBoss?state.finale:undefined;
+  const pair=playingContracts?contracts?.pair:host?.pair;
+  const first=playingContracts?contracts?.duel?.first:host?.boss?.firstDie;
+  const firstOnly=contracts?.phase==='first-die'||(!!host&&bossNeedsFirstDie(host))||(!pair&&first!=null);
+  scene?.setContractMode(playingBoss||playingContracts||playingAda,pair??(first==null?null:[first]),playingBoss?'captor':playingAda?'ada':'doble',host?.boss?bossMechanic(host):playingAda?'poker':'dice',firstOnly);
   scene?.setPokerTable(playingBoss&&state.finale?.boss&&bossMechanic(state.finale)==='poker'?state.finale.boss.poker??null:playingAda?state.records?.holdem??null:null,playingAda?state.records?.phase==='feedback':state.finale?.phase==='feedback');
   if(bossUrns&&state.finale){const f=state.finale,review=f.phase==='feedback',last=f.history.at(-1);scene?.updateUrns(f.urns,review?last?.choice==='U'?0:1:selectedFinale==='U'?0:selectedFinale==='V'?1:null,review?f.lastColor??undefined:undefined);return;}
   if (playingContracts||screen==='records'||screen==='finale'||screen==='outside') return;
@@ -316,7 +323,7 @@ function selectDemo(index:0|1):void {
 }
 function commitSelection(index: 0 | 1): void {
   if(screen==='tutorial'){selectDemo(index);return;}
-  if(screen==='finale'&&state.finale?.experience==='boss-v1'&&state.finale.phase==='choose'&&state.finale.boss?.started&&!state.finale.boss.needsHelp&&bossMechanic(state.finale)==='urns'){selectedFinale=index===0?'U':'V';render('finale-'+selectedFinale);return;}
+  if(screen==='finale'&&state.finale?.boss?.started&&state.finale.phase==='choose'&&!state.finale.boss.needsHelp&&bossMechanic(state.finale)==='urns'){selectedFinale=index===0?'U':'V';render('finale-'+selectedFinale);return;}
   if (screen !== 'table' || !['choose','guided'].includes(state.phase)) return;
   selected = index; cardsVisible = true; render(`urn-${index}`);
 }
@@ -365,10 +372,11 @@ function enterRecords():void {
  if(!tableUnlocked(state,'records'))return;
  adaTutorialStep=0;state.records??=createRecords();state.records=applyRecordsCommand(state.records,{type:'enable-bonus',expectedRevision:state.records.revision,commandId:'bonus-'+state.records.revision});state.activeTable='records';persist();setScreen('records',state.records.phase==='tutorial'?state.records.experience?.startsWith('photos-')&&state.records.diagnostic===null?'records-diagnostic-yes':'records-begin':state.records.phase==='feedback'?'records-next':state.records.phase==='complete'?'enter-finale':'records-'+recordsChoices(state.records)[0]);
 }
-function finaleFocus(s:Parameters<typeof finaleChoices>[0]):string {return s.phase==='complete'?'exit-house':s.phase==='feedback'?'finale-next':s.boss&&!s.boss.started?'finale-begin':s.boss?.needsHelp?'finale-assist':'finale-'+finaleChoices(s)[0];}
+function finaleFocus(s:Parameters<typeof finaleChoices>[0]):string {return s.phase==='complete'?'exit-house':s.phase==='feedback'?'finale-next':s.boss&&!s.boss.started?'finale-begin':s.boss?.needsHelp?'finale-assist':bossNeedsFirstDie(s)?'finale-roll-first':'finale-'+finaleChoices(s)[0];}
 function enterFinale():void {
  if(!tableUnlocked(state,'finale'))return;
- state.finale??=createFinale(Date.now(),'boss-v1');state.activeTable='finale';persist();setScreen('finale',finaleFocus(state.finale));
+ if(!state.finale)state.finale=createFinale(Date.now(),'boss-v2');
+ state.activeTable='finale';persist();setScreen('finale',finaleFocus(state.finale));
 }
 function handleCampaignClick(target:HTMLElement):boolean {
  const id=target.dataset.testid;
@@ -378,7 +386,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
  if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
  if((id==='records-replay'||id==='records-upgrade')&&state.records){adaTutorialStep=0;state.records=createRecords(Date.now(),true);selectedRecord=null;enterRecords();return true;}
- if(id==='finale-replay'&&state.finale){state.finale=createFinale(Date.now(),'boss-v1');persist();setScreen('finale',finaleFocus(state.finale));return true;}
+ if(id==='finale-replay'&&state.finale){state.finale=createFinale(Date.now(),'boss-v2');persist();setScreen('finale',finaleFocus(state.finale));return true;}
  if(screen==='records'&&state.records){
    const current=state.records;
    if(current.phase==='tutorial'&&current.experience==='cards-v1'&&(id==='records-tutorial-next'||id==='records-tutorial-back')){adaTutorialStep=Math.max(0,Math.min(2,adaTutorialStep+(id==='records-tutorial-next'?1:-1)));render(adaTutorialStep===2?'records-begin':'records-tutorial-next');return true;}
@@ -396,10 +404,14 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(screen==='finale'&&state.finale){
    const current=state.finale;
    if(id?.startsWith('finale-')&&current.phase==='choose'&&finaleChoices(current).includes(id.slice(7) as FinaleChoice)){selectedFinale=id.slice(7) as FinaleChoice;render(id);return true;}
-   if(['finale-confirm','finale-next','finale-begin','finale-assist'].includes(id??'')){
-     const command:FinaleCommand={type:id==='finale-begin'?'begin':id==='finale-assist'?'assist':id==='finale-confirm'?'choose':'next',...(selectedFinale?{choice:selectedFinale}:{}),expectedRevision:Number(target.dataset.revision),commandId:'host-'+target.dataset.revision+'-'+id};
+   if(['finale-confirm','finale-next','finale-begin','finale-assist','finale-roll-first'].includes(id??'')){
+     const command:FinaleCommand={type:id==='finale-roll-first'?'roll-first':id==='finale-begin'?'begin':id==='finale-assist'?'assist':id==='finale-confirm'?'choose':'next',...(selectedFinale?{choice:selectedFinale}:{}),expectedRevision:Number(target.dataset.revision),commandId:'host-'+target.dataset.revision+'-'+id};
      const next=applyFinaleCommand(current,command);if(next===current){announce('Revisá los datos e intentá otra respuesta.');return true;}
-     state.finale=next;selectedFinale=null;persist();render(finaleFocus(next));if(command.type==='choose'&&bossMechanic(current)==='dice')scene?.rollDice();if(next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});chime(next.history.at(-1)?.correct);return true;
+     state.finale=next;selectedFinale=null;persist();render(finaleFocus(next));
+     if(command.type==='roll-first')scene?.rollDice(0);
+     if(command.type==='choose'&&current.boss&&bossMechanic(current)==='dice')scene?.rollDice(current.boss.firstDie==null?undefined:1);
+     if(next.phase==='choose'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});
+     chime(next.history.at(-1)?.correct);return true;
    }
  }
  return false;
@@ -435,10 +447,19 @@ function showSettings(section:SettingsSection='display'): void {
 
 function enterContracts(): void {
   if(!urnsSealed()) return;
-  if(!state.contracts) state.contracts = createContracts(Date.now(), 'varied');
-  else if(state.contracts.variant!=='varied'&&state.contracts.phase==='tutorial'&&state.contracts.history.length===0)state.contracts=createContracts(state.contracts.seed,'varied');
+  if(!state.contracts) state.contracts = createContracts(Date.now(), 'duel');
   state.activeTable = 'contracts'; persist();
-  setScreen('contracts', state.contracts.phase === 'tutorial' ? 'doble-tutorial-next' : state.contracts.phase === 'offer' || state.contracts.phase === 'order' ? 'contract-S' : state.contracts.phase === 'complete' ? 'back-room' : 'doble-next');
+  setScreen('contracts',dobleFocus(state.contracts));
+}
+function dobleFocus(s:ContractsState):string {
+  switch(s.phase){
+    case 'tutorial': return 'doble-tutorial-next';
+    case 'first-die': return 'doble-roll-first';
+    case 'offer': case 'order': return 'contract-S';
+    case 'retry': return 'doble-replay';
+    case 'complete': return 'back-room';
+    default: return 'doble-next';
+  }
 }
 function revealFeedback(selector: string): void {
   if(settings.reducedMotion || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -451,27 +472,35 @@ function commandDoble(type: ContractCommand['type'], revision: number, pointerFe
   if(type === 'sign' && selectedContract) command.contract = selectedContract;
   const next = applyContractCommand(state.contracts, command);
   if(next === state.contracts) { announce('Elegí el contrato indicado por la ayuda o revisá el encargo actual.'); return; }
-  const throwsDice=type==='sign'&&state.contracts.phase==='offer'&&next.phase==='result';
+  const current=state.contracts;
+  const throwsDice=type==='roll-first'||(type==='sign'&&current.phase==='offer'&&next.phase==='result');
   const animateRoll = throwsDice && !settings.reducedMotion && !matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (animateRoll) {
-    diceRollStart = { balance: state.contracts.balance, merit: state.contracts.merit };
+    const die=type==='roll-first'?0:current.duel?.first!=null?1:undefined;
+    diceRollStart = { balance:current.balance,merit:current.merit,...(die===undefined?{}:{die}),...(current.duel?{rivalScore:current.duel.rivalScore}:{}) };
   }
   state.contracts = next; selectedContract = null; persist();
   if(!animateRoll)chime(next.history.at(-1)?.correct ?? true);
-  render(next.phase === 'offer' || next.phase === 'order' ? 'contract-S' : next.phase === 'complete' ? 'back-room' : 'doble-next');
+  render(dobleFocus(next));
   if(type==='begin'||next.phase==='offer'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});
-  if(animateRoll){scene?.rollDice();diceRollTimer=setTimeout(finishDiceRoll,900);}
+  if(animateRoll){scene?.rollDice(diceRollStart?.die);diceRollTimer=setTimeout(finishDiceRoll,900);}
 
   if(pointerFeedback && next.phase === 'result'&&!throwsDice) revealFeedback('.dice-table-caption');
-  announce(animateRoll?'Tirando los dados…':next.phase === 'result' ? `Dados ${next.pair![0]} y ${next.pair![1]}. Suma ${next.pair![0]+next.pair![1]}. Saldo ${next.balance}.` : next.phase === 'order' ? 'Nuevo encargo hipotético. Sin otra tirada.' : next.phase === 'complete' ? 'Sello de Doble obtenido.' : 'Encargo actualizado.');
+  announce(animateRoll?'Tirando…':dobleAnnouncement(next));
+}
+function dobleAnnouncement(s:ContractsState):string {
+  if(s.phase==='result'&&s.pair)return `Dados ${s.pair[0]} y ${s.pair[1]}. Suma ${s.pair[0]+s.pair[1]}. ${s.duel?`Vos ${s.balance}, Doble ${s.duel.rivalScore}.`:`Saldo ${s.balance}.`}`;
+  if(s.phase==='offer'&&s.duel?.first!=null)return `Salió ${s.duel.first} en el primer dado. Elegí una tarjeta.`;
+  if(s.phase==='complete')return 'Sello de Doble obtenido.';
+  if(s.phase==='retry')return 'Terminó el duelo. Podés volver a jugar.';
+  return s.phase==='order'?'Nuevo encargo hipotético. Sin otra tirada.':'Partida actualizada.';
 }
 function finishDiceRoll():void {
   clearTimeout(diceRollTimer);diceRollStart=undefined;scene?.stopDiceRoll();
-  if(screen!=='contracts'||state.contracts?.phase!=='result')return;
+  if(screen!=='contracts'||!state.contracts)return;
   chime(state.contracts.history.at(-1)?.correct??true);
-  render(overlay.querySelector('dialog[open]')?undefined:'doble-next');
-  const pair=state.contracts.pair!;
-  announce(`Dados ${pair[0]} y ${pair[1]}. Suma ${pair[0]+pair[1]}. Saldo ${state.contracts.balance}.`);
+  render(overlay.querySelector('dialog[open]')?undefined:dobleFocus(state.contracts));
+  announce(dobleAnnouncement(state.contracts));
 }
 function handleGameClick(event: MouseEvent): void {
   const target = (event.target as HTMLElement).closest<HTMLElement>('button, [data-action]');
@@ -498,8 +527,8 @@ function handleGameClick(event: MouseEvent): void {
     }
     if(id === 'doble-tutorial-next' && state.contracts.phase === 'tutorial' && dobleTutorialStep < 2) { dobleTutorialStep++; render(id); return; }
     if(id === 'doble-begin' || id === 'doble-tutorial-next') { commandDoble('begin',Number(target.dataset.revision)); return; }
-    if(id === 'doble-sign' || id === 'doble-next') { commandDoble(id === 'doble-sign' ? 'sign' : 'next',Number(target.dataset.revision),event.detail > 0); return; }
-    if(id === 'doble-replay') { state.contracts = createContracts(Date.now(), 'varied'); dobleTutorialStep = 0; comparisonResult = null; persist(); render('doble-tutorial-next'); return; }
+    if(id === 'doble-sign' || id === 'doble-next' || id === 'doble-roll-first') { commandDoble(id === 'doble-roll-first'?'roll-first':id === 'doble-sign' ? 'sign' : 'next',Number(target.dataset.revision),event.detail > 0); return; }
+    if(id === 'doble-replay') { state.contracts = createContracts(Date.now(), 'duel'); dobleTutorialStep = 0; selectedContract=null; comparisonResult = null; persist(); render('doble-tutorial-next'); return; }
     if(id === 'simulate-1' || id === 'simulate-100') {
       const seed = Number(document.querySelector<HTMLInputElement>('#simulation-seed')?.value);
       try { comparisonResult = compareContracts(seed,id === 'simulate-1' ? 1 : 100); render(id); announce('Comparación terminada. La campaña no cambió.'); }

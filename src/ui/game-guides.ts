@@ -2,8 +2,9 @@ import {HANDS,HAND_NAMES,HAND_POINTS,HAND_HELP,evaluateHand,compareHands,handOdd
 import type {PokerCard} from '../core/tables/poker-records';
 import {holdemFelt,pokerCardView} from './poker-cards';
 import './game-guides.css';
-export type Guide='urns'|'dice'|'poker'|'boss';
+export type Guide='urns'|'dice'|'dice-duel'|'poker'|'boss';
 export const guideButton=(guide:Guide,label='Cómo jugar',start=0)=>`<button class="text-button full" data-guide="${guide}" data-guide-start="${start}">${label}</button>`;
+export const diceVideoUrl='https://es.khanacademy.org/math/cc-seventh-grade-math/cc-7th-probability-statistics/v/events-and-outcomes-2';
 const c=(rank:number,suit:PokerCard['suit']):PokerCard=>({rank,suit});
 const samples:Record<HandCategory,PokerCard[]>={
  'high-card':[c(1,'spades'),c(11,'hearts'),c(8,'clubs'),c(5,'diamonds'),c(2,'clubs')],
@@ -23,6 +24,7 @@ export function pokerHandGuide():string {
 const lessons:Record<Exclude<Guide,'poker'>,readonly [string,string][]>={
  urns:[['Elegí la mejor proporción','Si hay cinco fichas, cada una vale 1 de 5 (20 %). Si tres son rojas, juntas valen 3 de 5 (60 %). Una roja de dos vale 50 %. Conviene la primera, aunque puede salir azul.'],['Mirá qué cambió','Si sacás una roja y la dejás afuera, quedan dos rojas entre cuatro fichas. La chance pasa a 2 de 4 (50 %). Si devolvés la roja, queda en 3 de 5 (60 %).'],['Cómo conseguís el sello','Sumás un punto por elegir una de las mejores urnas, aunque salga otro color. Necesitás seis buenas decisiones de ocho. Las fichas ganadas muestran la suerte; no compran el sello. Si hace falta, hay una práctica con ayuda.']],
  dice:[['Leé el objetivo antes de firmar','Seguro deja dos fichas siempre. Centro deja cinco si la suma es 6, 7 u 8; si no, perdés una. Justo siete deja 23 con suma 7; si no, perdés una. Estos valores ya descuentan el costo.'],['Promedio no es garantía','Justo siete deja tres fichas por tirada en promedio si lo repetís muchas veces, pero puede perder en una tirada. Seguro garantiza dos. Si el objetivo pide al menos cuatro, Centro ofrece más posibilidades: 16 de 36 pares.'],['Dos decisiones por ronda','Primero firmás y tirás. Después cambia el objetivo: elegís para una tirada imaginaria, sin cobrar ni pagar. El sello pide seis buenas decisiones de ocho, no un saldo alto. Podés seguir con ayuda si lo necesitás.']],
+ 'dice-duel':[['Elegí una tarjeta','Vos y Doble eligen antes de ver cómo termina la tirada. El mismo par de dados cuenta para los dos.'],['Mirá qué dice tu tarjeta','Por ejemplo, si elegís Arriesgado y los dados suman 7, ganás 24 puntos. Si suman otra cosa, ganás 0. Las tarjetas de la segunda mitad también pueden restar puntos.'],['Usá el primer dado','En las partidas 4 y 8 ves un dado primero. Si salió 6 y buscás un 7, necesitás un 1 en el segundo. Después de ocho partidas, gana quien tenga más puntos.']],
  boss:[['Una buena decisión también golpea','Bajá la resistencia de 36 a cero. Elegir la opción con mejor cuenta hace dos de daño, incluso con mala suerte. Elegir una inferior gasta una de tus seis defensas. No hay reloj.'],['Cargá y descargá el combo','Una ficha del color pedido carga uno; una tirada favorable carga dos. Podés guardar hasta seis. En póker, acertar tu categoría exacta y ganar convierte sus puntos en daño y suma la carga. Por ejemplo: pareja de cuatro puntos + tres de combo = siete de daño, además de dos si tu elección fue óptima.'],['Cómo comparar en póker','Compará cuántas cartas completan cada categoría y el daño que paga. Con combo tres: pareja paga siete y trío paga trece. Si hay 30 cartas para pareja y dos para trío, compará 30 × 7 = 210 con 2 × 13 = 26. Elegir pareja es mejor en ese ejemplo; no garantiza ganar el duelo.'],['El orden cambia, el progreso queda','Cada asalto combina urnas, dados y póker en otro orden. En urnas sacás dos veces sin devolver. Si agotás las defensas o seis asaltos, podés reintentar o completar las tres mecánicas con ayuda. Conservás los sellos.']],
 };
 const demo=():HoldemTable=>({player:[c(13,'spades'),c(13,'hearts')],opponent:[c(1,'hearts'),c(12,'spades')],board:[c(13,'clubs'),c(2,'diamonds'),c(7,'clubs'),c(9,'hearts')],deck:[],opponentChoice:'pair',opponentPoints:0});
@@ -36,7 +38,7 @@ export function installGameGuides(show:ShowGuide):void {
  document.addEventListener('click',event=>{
   const trigger=(event.target as HTMLElement).closest<HTMLElement>('[data-guide]');
   const kind=trigger?.dataset.guide as Guide|undefined;
-  if(!kind||!['urns','dice','poker','boss'].includes(kind))return;
+  if(!kind||!['urns','dice','dice-duel','poker','boss'].includes(kind))return;
   const dialog=show(kind==='poker'?'Una mano con Ada':'Cómo jugar', '<div class="guide-content"></div>','guide-modal');
   const body=dialog.querySelector<HTMLElement>('.guide-content')!;
   let page=kind==='boss'?Math.max(0,Math.min(3,Number(trigger?.dataset.guideStart)||0)):0,choice:HandCategory|null=null,revealed=false;
@@ -50,7 +52,8 @@ export function installGameGuides(show:ShowGuide):void {
     body.innerHTML=`<p class="guide-caption">Ejemplo preparado · sin puntos ni cambios en tu partida</p>${holdemFelt(t,revealed)}${revealed?`<section class="guide-result" role="status"><h3>${points?`Sumarías ${points} puntos: mano ${points-bonus} + decisión ${bonus}`:'Esta elección no daría puntos'}</h3><p>${hit?'Acertaste full house.':`Elegiste ${HAND_NAMES[choice!]}; salió full house: trío de reyes y pareja de doses.`} Tu full house supera la pareja de Ada. ${bonus?'Tu elección tiene la mejor probabilidad × premio: dos puntos extra.':'El extra de dos puntos corresponde a la mejor probabilidad × premio.'}</p></section><button class="secondary full" data-demo-reset>Probar otra predicción</button>`:`<p>Ya tenés un trío. Compará probabilidad × premio para buscar los 2 puntos extra, además del premio si acertás y ganás.</p><div class="demo-choices">${odds.map(o=>`<button class="secondary ${choice===o.category?'selected':''}" aria-pressed="${choice===o.category}" data-demo-choice="${o.category}">${HAND_NAMES[o.category]}<small>${o.count} de 46 · premio ${HAND_POINTS[o.category]}</small></button>`).join('')}</div><button class="primary full" data-demo-reveal ${choice===null?'disabled':''}>Revelar la quinta carta</button>`}`;
    }else{
     const pages=lessons[kind],lesson=pages[page]!;
-    body.innerHTML=`<p class="guide-caption">${page+1} de ${pages.length}</p><h3 tabindex="-1">${lesson[0]}</h3><p>${lesson[1]}</p>${kind==='boss'?bossExample(page):''}<nav class="reading-nav" aria-label="Pasos del tutorial"><button class="secondary" data-guide-page="previous" ${page===0?'disabled':''}>Anterior</button><span role="status">${page+1} de ${pages.length}</span><button class="primary" data-guide-page="next" ${page===pages.length-1?'disabled':''}>Siguiente</button></nav>`;
+    const video=kind==='dice-duel'&&page===pages.length-1?`<p><a class="learning-video" href="${diceVideoUrl}" target="_blank" rel="noopener noreferrer">Ver un ejemplo con dos dados (Khan Academy)</a></p>`:'';
+    body.innerHTML=`<p class="guide-caption">${page+1} de ${pages.length}</p><h3 tabindex="-1">${lesson[0]}</h3><p>${lesson[1]}</p>${kind==='boss'?bossExample(page):''}${video}<nav class="reading-nav" aria-label="Pasos del tutorial"><button class="secondary" data-guide-page="previous" ${page===0?'disabled':''}>Anterior</button><span role="status">${page+1} de ${pages.length}</span><button class="primary" data-guide-page="next" ${page===pages.length-1?'disabled':''}>Siguiente</button></nav>`;
    }
   };
   dialog.addEventListener('click',e=>{

@@ -1,5 +1,15 @@
 # Continuidad del proyecto
 
+El duelo de Doble ahora tiene ocho partidas. En las primeras cuatro, Seguro paga 2 siempre, Apostador paga 10 con suma 5, 6 u 8 y Arriesgado paga 24 con suma 7. Estos dos últimos dan cero si fallan. En las últimas cuatro, Suma baja paga 5 con 9 o menos y pierde 1 en otro caso. Suma alta paga 6 con 9 o más y pierde 2 en otro caso. Dados iguales paga 15 si coinciden y pierde 3 en otro caso. El 9 cuenta para las dos ofertas de suma. El jugador y Doble eligen por separado y usan el mismo par. En las partidas 4 y 8 se guarda el primer dado antes de elegir y sólo se lanza el segundo al confirmar. Ganar por puntos da el sello. Empate o derrota ofrecen tutorial y revancha.
+
+Doble alterna las ofertas con una política fija que puede usar el primer dado público de la octava partida. La enumeración con dados justos e independientes da un 75,9 % de victorias para la estrategia de jugar siempre Seguro y luego Suma baja. Es un cálculo del diseño, sin prueba con jugadores.
+
+El jefe nuevo usa las mismas tarjetas y pagos. Cambia de tanda a partir del cuarto asalto y deja ver un dado primero en los asaltos 3 y 6. El acierto de decisión sigue contando por separado del resultado que carga el combo. El cartel de victoria ya no muestra la fila con nombres. El guardado v11 acepta v1–10. Los duelos anteriores ya iniciados se reanudan con sus reglas y los duelos nuevos y las revanchas usan las reglas nuevas.
+
+Guías aplicadas: `game-designer` para la política del rival, `save-systems` para la tirada en dos tiempos y la compatibilidad, y `webapp-testing` para verificar victoria, derrota, revancha, recarga entre dados y las dos tandas en el jefe.
+
+Validación local: compilación, 76 pruebas unitarias, 70 comprobaciones matemáticas y cinco recorridos de navegador distintos, con revalidación de la ayuda y la salida. Los recorridos de Doble comprobaron las ocho rondas a 1280 × 720 y 640 × 360.
+
 Revisión de ayudas en `main`, a partir de `b5aff99`. Los repasos después de un error o un resultado desfavorable usan ejemplos de la mesa. Vera muestra el peso de cada ficha dentro de la urna y cómo cambia al extraerla. Doble explica el promedio con tres tiradas antes de pasar a los 36 pares, muestra ganancias y pérdidas con el costo aplicado y comparte el verde de Ada. Se conservan sus ocho encargos. Ada oculta recuentos y porcentajes al llegar a 18 de 24 puntos.
 
 El jefe tiene una práctica interactiva de Resistencia, Defensas y Combo. Los indicadores se pueden abrir individualmente. El borde dorado desaparece al cerrar la explicación o probar el paso correspondiente y se recuerda en el navegador como una preferencia separada del guardado de campaña. Los ejemplos preparados no afectan los resultados de partida.

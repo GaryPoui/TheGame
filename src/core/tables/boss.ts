@@ -2,32 +2,46 @@ import {uniform,type Color} from '../game';
 import {bestContracts,netPayout,supportsObjective,type ContractId,type ObjectiveId} from '../math/dice';
 import {dealHoldem,resolveHoldem,handOdds,HAND_POINTS,type HoldemTable,type HandCategory} from './holdem';
 import type {FinaleState,FinaleChoice,FinaleCommand} from './finale';
+import {bestDuelDiceOffers,diceDuelPoints} from './dice-duel';
 export type BossMechanic='urns'|'dice'|'poker';
 export interface BossState {
  health:number;defences:number;charge:number;variant:number;started:boolean;needsHelp:boolean;guideStep:number;urnDraws:number;
- target:Color;objective:ObjectiveId;poker?:HoldemTable;
+ target:Color;objective:ObjectiveId;poker?:HoldemTable;firstDie?:number|null;
  last?:{mechanic:BossMechanic;damage:number;chargeBefore:number;chargeAfter:number;text:string};
 }
 const order:BossMechanic[]=['urns','dice','poker'];
 export function bossMechanic(s:FinaleState):BossMechanic {return s.assisted?order[s.boss!.guideStep]!:order[(s.step+s.round+s.boss!.variant)%3]!;}
+export function bossDiceRule(s:FinaleState) {
+ const set=s.round<3?0:1;
+ const target=s.round===1?10:s.round===4?6:1;
+ return {set:set as 0|1,target,first:s.boss?.firstDie??null};
+}
+export function bossNeedsFirstDie(s:FinaleState): boolean {
+ return s.experience==='boss-v2' && s.phase==='choose' && !s.assisted && !s.boss!.needsHelp
+   && (s.round===2||s.round===5) && bossMechanic(s)==='dice' && s.boss!.firstDie===null;
+}
 export function prepareBossStage(s:FinaleState):void {
  const b=s.boss!;b.target=(s.round+b.variant)%2===0?'red':'blue';
  b.urnDraws=0;
  b.objective=(['atLeast4','expected','guarantee1'] as ObjectiveId[])[(s.round+b.variant)%3]!;
  s.urns=structuredClone(([[{red:4,blue:2},{red:2,blue:3}],[{red:1,blue:3},{red:3,blue:2}],[{red:2,blue:2},{red:1,blue:4}]] as const)[(s.round+b.variant)%3]!) as FinaleState['urns'];
  s.pair=null;s.lastColor=null;
+ if(s.experience==='boss-v2')b.firstDie=null;
  if(bossMechanic(s)==='poker'){const deal=dealHoldem(s.rng);s.rng=deal.rng;b.poker=deal.table;}
 }
 export function initializeBoss(s:FinaleState):void {
  s.boss={health:36,defences:6,charge:0,variant:s.seed%3,started:false,needsHelp:false,guideStep:0,urnDraws:0,target:'red',objective:'expected'};prepareBossStage(s);
 }
 export function bossChoices(s:FinaleState):FinaleChoice[]{
- if(!s.boss!.started||s.boss!.needsHelp)return [];
+ if(!s.boss!.started||s.boss!.needsHelp||bossNeedsFirstDie(s))return [];
  return bossMechanic(s)==='urns'?['U','V']:bossMechanic(s)==='dice'?['S','C','J']:['high-card','pair','two-pair','three-kind','straight','flush','full-house','four-kind','straight-flush'];
 }
 export function bestBoss(s:FinaleState):FinaleChoice[]{
  const b=s.boss!,kind=bossMechanic(s);
- if(kind==='dice')return bestContracts(b.objective);
+ if(kind==='dice'){
+  if(s.experience==='boss-v2'){const {set,target,first}=bossDiceRule(s);return bestDuelDiceOffers(set,target,first);}
+  return bestContracts(b.objective);
+ }
  if(kind==='poker'){
   const odds=handOdds(b.poker!.player,b.poker!.board),best=Math.max(...odds.map(o=>o.count*(HAND_POINTS[o.category]+b.charge)));
   return odds.filter(o=>o.count*(HAND_POINTS[o.category]+b.charge)===best).map(o=>o.category);
@@ -44,6 +58,12 @@ export function applyBossCommand(s:FinaleState,c:FinaleCommand):FinaleState {
   if(!s.boss!.needsHelp||s.phase!=='choose')return s;
   const n=structuredClone(s);n.assisted=true;n.boss={...n.boss!,health:36,defences:6,charge:0,needsHelp:false,guideStep:0};n.phase='choose';prepareBossStage(n);return record(n,c);
  }
+ if(c.type==='roll-first'){
+  if(!s.boss!.started||!bossNeedsFirstDie(s))return s;
+  const n=structuredClone(s),die=uniform(n.rng,6);
+  n.rng=die.rng;n.boss!.firstDie=die.value+1;
+  return record(n,c);
+ }
  if(c.type==='choose'){
   if(s.phase!=='choose'||!bossChoices(s).includes(c.choice!))return s;
   const optimal=bestBoss(s),correct=optimal.includes(c.choice!);if(s.assisted&&!correct)return s;
@@ -54,8 +74,12 @@ export function applyBossCommand(s:FinaleState,c:FinaleCommand):FinaleState {
    if(n.lastColor===b.target)b.charge=Math.min(6,b.charge+1);
    text=`Salió ${n.lastColor==='red'?'roja ▲':'azul ●'}. ${n.lastColor===b.target?'Cargaste el combo.':'La carga no cambió.'}`;
   }else if(kind==='dice'){
-   const a=uniform(n.rng,6),d=uniform(a.rng,6);n.rng=d.rng;n.pair=[a.value+1,d.value+1];const net=netPayout(c.choice as ContractId,n.pair);n.balance+=net;
-   if(supportsObjective(c.choice as ContractId,n.pair,b.objective))b.charge=Math.min(6,b.charge+2);
+   const id=c.choice as ContractId,rule=s.experience==='boss-v2'?bossDiceRule(s):null;
+   let first=rule?.first??null;
+   if(first===null){const die=uniform(n.rng,6);first=die.value+1;n.rng=die.rng;}
+   const d=uniform(n.rng,6);n.rng=d.rng;n.pair=[first,d.value+1];
+   const net=rule?diceDuelPoints(rule.set,id,n.pair):netPayout(id,n.pair);n.balance+=net;
+   if(rule?net>=rule.target:supportsObjective(id,n.pair,b.objective))b.charge=Math.min(6,b.charge+2);
    text=`Dados ${n.pair[0]} y ${n.pair[1]}. Resultado ${net>0?'+':''}${net} ${Math.abs(net) === 1 ? 'ficha' : 'fichas'}. ${b.charge>before?'Combo cargado.':'La carga no cambió.'}`;
   }else{
    const reveal=resolveHoldem(b.poker!,n.rng,c.choice as Parameters<typeof resolveHoldem>[2]);n.rng=reveal.rng;b.poker=reveal.table;

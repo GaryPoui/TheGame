@@ -19,7 +19,6 @@ test('Doble teaches the average and links a dice review after a wrong choice',as
  const dialog=page.getByRole('dialog');
  await page.getByRole('button',{name:/Cómo calcular el promedio/}).click();
  await expect(dialog).toContainText('2 fichas por tirada en promedio');
- await expect(dialog).toContainText('3 fichas por tirada en promedio');
  await page.getByTestId('close-dialog').click();
  await page.getByTestId('doble-begin').click();
  await page.getByTestId('contract-S').click();
@@ -77,5 +76,5 @@ test('varied Doble reveals the balance and verdict after the dice settle', async
  await expect(page.locator('#announcer')).toBeEmpty();
 });
 test('varied contracts save in v10 and resume the exact next question',async({page})=>{
- await open(page,'contracts');await page.getByTestId('doble-begin').click();await page.getByTestId('contract-J').click();await page.getByTestId('doble-sign').click();await page.getByTestId('doble-next').click();const before=await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!));expect(before.schemaVersion).toBe(10);expect(before.state.contracts.phase).toBe('order');const question=await page.getByTestId('challenge-question').innerText();await page.reload();await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();await expect(page.getByTestId('challenge-question')).toHaveText(question);expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.contracts)).toEqual(before.state.contracts);
+ await open(page,'contracts');await page.getByTestId('doble-begin').click();await page.getByTestId('contract-J').click();await page.getByTestId('doble-sign').click();await page.getByTestId('doble-next').click();const before=await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!));expect(before.schemaVersion).toBe(11);expect(before.state.contracts.phase).toBe('order');const question=await page.getByTestId('challenge-question').innerText();await page.reload();await page.waitForFunction(()=>window.__THEGAME_READY__);await page.getByTestId('continue-game').click();await expect(page.getByTestId('challenge-question')).toHaveText(question);expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('thegame.save.v1.current')!).state.contracts)).toEqual(before.state.contracts);
 });

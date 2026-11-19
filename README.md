@@ -7,7 +7,7 @@
 Un videojuego educativo de probabilidad y estadística para jugar en el navegador. Estás dentro de una casa de juego y necesitás reunir tres sellos antes de desafiar al anfitrión y cruzar la puerta.
 
 - **Las urnas de Vera.** Compará proporciones y observá cómo cambia la probabilidad al sacar fichas.
-- **Los contratos de Doble.** Elegí entre ofertas de dados según la ganancia promedio, el riesgo y la meta de cada encargo.
+- **El duelo de Doble.** Elegí tarjetas, tirá los dados y superá su marcador en ocho partidas.
 - **El póker de Ada.** Calculá las chances de formar una mano y compará el premio de cada predicción.
 - **El contrato de salida.** Combiná urnas, dados y póker en el duelo final.
 

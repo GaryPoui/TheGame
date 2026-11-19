@@ -2,21 +2,71 @@ import { uniform } from '../game';
 import type { GameState } from '../game';
 import { bestContracts, CONTRACT_IDS, netPayout, type ContractId, type DicePair, type ObjectiveId } from '../math/dice';
 import {challengeBest,challengeNet,challengeTask} from './contract-challenges';
+import {diceDuelPoints,doblePick} from './dice-duel';
 
 export const CONTRACT_ROUNDS: readonly (readonly [ObjectiveId, ObjectiveId])[] = [
   ['expected', 'guarantee1'], ['atLeast4', 'expected'], ['atLeast1', 'atLeast4'], ['atLeast10', 'range'],
 ];
-export type ContractsPhase = 'tutorial' | 'offer' | 'result' | 'order' | 'review' | 'complete';
+export type ContractsPhase = 'tutorial' | 'first-die' | 'offer' | 'result' | 'order' | 'review' | 'complete' | 'retry';
 export interface ContractDecision { round: number; step: 0 | 1; contract: ContractId; objective: ObjectiveId; correct: boolean; assisted: boolean; challenge?:string }
-export interface ContractCommand { commandId: string; expectedRevision: number; type: 'begin' | 'sign' | 'next'; contract?: ContractId }
+export interface ContractCommand { commandId: string; expectedRevision: number; type: 'begin' | 'roll-first' | 'sign' | 'next'; contract?: ContractId }
+export interface DiceDuelRound { player:ContractId; rival:ContractId; playerPoints:number; rivalPoints:number; pair:DicePair }
+interface DiceDuel { first:number|null; rivalScore:number; rounds:DiceDuelRound[] }
 export interface ContractsState {
-  variant: 'base' | 'repeat' | 'varied'; phase: ContractsPhase; round: number; assisted: boolean; merit: number; balance: number;
+  variant: 'base' | 'repeat' | 'varied' | 'duel'; phase: ContractsPhase; round: number; assisted: boolean; merit: number; balance: number;
   pair: DicePair | null; history: ContractDecision[]; rng: GameState['rng']; seed: number;
-  revision: number; journal: ContractCommand[];
+  revision: number; journal: ContractCommand[]; duel?:DiceDuel;
 }
 export function createContracts(seed = Date.now(), variant: ContractsState['variant'] = 'base'): ContractsState {
   const initialSeed = (seed >>> 0) || 0x9e3779b9;
-  return { variant, phase: 'tutorial', round: 0, assisted: false, merit: 0, balance: 0, pair: null, history: [], rng: { algorithm: 'xorshift32-v1', state: initialSeed, count: 0 }, seed: initialSeed, revision: 0, journal: [] };
+  const state:ContractsState = { variant, phase: 'tutorial', round: 0, assisted: false, merit: 0, balance: 0, pair: null, history: [], rng: { algorithm: 'xorshift32-v1', state: initialSeed, count: 0 }, seed: initialSeed, revision: 0, journal: [] };
+  if(variant==='duel')state.duel={first:null,rivalScore:0,rounds:[]};
+  return state;
+}
+export const splitDobleRound = (round:number):boolean => round===3 || round===7;
+
+function applyDuelCommand(state: ContractsState, command: ContractCommand): ContractsState {
+  const {type,contract}=command;
+  if(type==='begin' ? state.phase!=='tutorial'
+    : type==='roll-first' ? state.phase!=='first-die'
+    : type==='sign' ? state.phase!=='offer' || !CONTRACT_IDS.includes(contract!)
+    : type!=='next' || state.phase!=='result')return state;
+  const next=structuredClone(state),duel=next.duel!;
+  if(type==='begin')next.phase='offer';
+  else if(type==='roll-first'){
+    const die=uniform(next.rng,6);
+    duel.first=die.value+1;
+    next.rng=die.rng;
+    next.phase='offer';
+  }else if(type==='sign'){
+    const rival=doblePick(state.round,duel.first);
+    let first=duel.first;
+    if(first===null){
+      const die=uniform(next.rng,6);
+      first=die.value+1;
+      next.rng=die.rng;
+    }
+    const second=uniform(next.rng,6);
+    next.rng=second.rng;
+    const pair:DicePair=[first,second.value+1];
+    const set=state.round<4?0:1;
+    const playerPoints=diceDuelPoints(set,contract!,pair),rivalPoints=diceDuelPoints(set,rival,pair);
+    duel.rounds.push({player:contract!,rival,playerPoints,rivalPoints,pair});
+    next.balance+=playerPoints;
+    duel.rivalScore+=rivalPoints;
+    next.pair=pair;
+    next.phase='result';
+  }else if(state.round===7){
+    next.phase=next.balance>duel.rivalScore?'complete':'retry';
+  }else{
+    next.round++;
+    next.pair=null;
+    duel.first=null;
+    next.phase=splitDobleRound(next.round)?'first-die':'offer';
+  }
+  next.revision++;
+  next.journal.push(structuredClone(command));
+  return next;
 }
 export function currentObjective(state: ContractsState): ObjectiveId {
   if(state.variant==='varied')return challengeTask(state).objective;
@@ -30,6 +80,7 @@ export function dobleAdvice(objective: ObjectiveId): { policy: 'public-objective
 }
 export function applyContractCommand(state: ContractsState, command: ContractCommand): ContractsState {
   if (!command || typeof command.commandId !== 'string' || command.commandId.length < 1 || command.commandId.length > 80 || command.expectedRevision !== state.revision || state.journal.some(c => c.commandId === command.commandId)) return state;
+  if(state.variant==='duel')return applyDuelCommand(state,command);
   if (command.type === 'begin' && state.phase !== 'tutorial') return state;
   if (command.type === 'sign' && (!['offer', 'order'].includes(state.phase) || !CONTRACT_IDS.includes(command.contract!))) return state;
   if (command.type === 'next' && !['result', 'review'].includes(state.phase)) return state;
@@ -70,7 +121,7 @@ export function applyContractCommand(state: ContractsState, command: ContractCom
 export function validContractsState(value: unknown): value is ContractsState {
   if (!value || typeof value !== 'object') return false;
   const saved = value as ContractsState;
-  if (!['base','repeat','varied'].includes(saved.variant) || !Number.isInteger(saved.seed) || saved.seed < 1 || saved.seed > 0xffffffff || !Array.isArray(saved.journal) || saved.journal.length > 40) return false;
+  if (!['base','repeat','varied','duel'].includes(saved.variant) || !Number.isInteger(saved.seed) || saved.seed < 1 || saved.seed > 0xffffffff || !Array.isArray(saved.journal) || saved.journal.length > 40) return false;
   try {
     let reconstructed = createContracts(saved.seed, saved.variant);
     for (const command of saved.journal) {
