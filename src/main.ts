@@ -161,7 +161,10 @@ function setScreen(next: Screen, focus?: string): void {
   window.scrollTo({top:0,left:0,behavior:'instant'});
 }
 function header(): string {
-  return screen==='menu'||screen==='escape'?'<header class="topbar menu-topbar" aria-hidden="true"></header>':`<header class="topbar" aria-label="Opciones del juego">${btn('settings-button', 'Ajustes', 'quiet')}</header>`;
+  if(screen==='menu'||screen==='escape')return '<header class="topbar menu-topbar" aria-hidden="true"></header>';
+  const contracts=state.contracts;
+  const showDobleUpgrade=screen==='contracts'&&contracts&&contracts.variant!=='duel'&&contracts.phase!=='complete';
+  return `<header class="topbar" aria-label="Opciones del juego">${showDobleUpgrade?btn('doble-upgrade','Jugar al duelo nuevo','quiet'):''}${btn('settings-button','Ajustes','quiet')}</header>`;
 }
 function badges(): string {
   return `<div class="scoreboard"><span><i aria-hidden="true">✧</i> Decisiones <strong data-testid="merit">${state.merit}/8</strong></span><span><i aria-hidden="true">◈</i> Fichas ganadas <strong data-testid="chance-tokens">${state.tokens}</strong></span></div>`;
@@ -451,6 +454,15 @@ function enterContracts(): void {
   state.activeTable = 'contracts'; persist();
   setScreen('contracts',dobleFocus(state.contracts));
 }
+function restartDoble(): void {
+  clearTimeout(diceRollTimer);
+  diceRollStart=undefined;
+  scene?.stopDiceRoll();
+  state.contracts=createContracts(Date.now(),'duel');
+  dobleTutorialStep=0;
+  comparisonResult=null;
+  enterContracts();
+}
 function dobleFocus(s:ContractsState):string {
   switch(s.phase){
     case 'tutorial': return 'doble-tutorial-next';
@@ -513,6 +525,10 @@ function handleGameClick(event: MouseEvent): void {
   if(handleCampaignClick(target))return;
   if(id === 'enter-contracts') { enterContracts(); return; }
   if(screen === 'contracts' && state.contracts) {
+    if(id==='doble-upgrade'&&state.contracts.variant!=='duel'){
+      showDialog('El nuevo duelo de Doble',`<p>Jugá ocho partidas contra Doble. Vas a empezar de cero en esta mesa. Conservás tus sellos y el avance en las otras mesas.</p>${btn('confirm-doble-upgrade','Empezar el duelo nuevo','primary full')}${btn('cancel-dialog','Seguir con mi partida','text-button full')}`);
+      return;
+    }
     if(id==='toggle-dice-combinations'){
       if(matchMedia('(min-width:500px) and (max-height:600px)').matches){showReading(showDialog,'Combinaciones de los dados',contractCombinationsGuide());return;}
       diceCombinationsVisible=!diceCombinationsVisible;render('toggle-dice-combinations');return;
@@ -528,7 +544,7 @@ function handleGameClick(event: MouseEvent): void {
     if(id === 'doble-tutorial-next' && state.contracts.phase === 'tutorial' && dobleTutorialStep < 2) { dobleTutorialStep++; render(id); return; }
     if(id === 'doble-begin' || id === 'doble-tutorial-next') { commandDoble('begin',Number(target.dataset.revision)); return; }
     if(id === 'doble-sign' || id === 'doble-next' || id === 'doble-roll-first') { commandDoble(id === 'doble-roll-first'?'roll-first':id === 'doble-sign' ? 'sign' : 'next',Number(target.dataset.revision),event.detail > 0); return; }
-    if(id === 'doble-replay') { state.contracts = createContracts(Date.now(), 'duel'); dobleTutorialStep = 0; selectedContract=null; comparisonResult = null; persist(); render('doble-tutorial-next'); return; }
+    if(id === 'doble-replay') { restartDoble(); return; }
     if(id === 'simulate-1' || id === 'simulate-100') {
       const seed = Number(document.querySelector<HTMLInputElement>('#simulation-seed')?.value);
       try { comparisonResult = compareContracts(seed,id === 'simulate-1' ? 1 : 100); render(id); announce('Comparación terminada. La campaña no cambió.'); }
@@ -617,6 +633,10 @@ overlay.addEventListener('click', event => {
   const id = (event.target as HTMLElement).closest<HTMLElement>('button')?.dataset.testid;
   if (id === 'close-dialog' || id === 'resume-game' || id==='settings-return' || id==='cancel-dialog') overlay.querySelector('dialog')?.close();
   if (id === 'confirm-new-game') { overlay.querySelector('dialog')?.close(); startNew(); }
+  if(id==='confirm-doble-upgrade'&&screen==='contracts'&&state.contracts&&state.contracts.variant!=='duel'){
+    overlay.querySelector('dialog')?.close();
+    restartDoble();
+  }
   if (id === 'restore-settings') { settings = structuredClone(defaultSettings); applySettings(); preferencesSaved=savePreferences(settings); if(hasSave)persist(); overlay.querySelector('dialog')?.close(); showSettings(); }
   if(id==='return-main-menu'){overlay.querySelector('dialog')?.close();if(hasSave)persist();setScreen('menu',hasSave?'continue-game':'new-game');return;}
   if(id==='cancel-delete'){overlay.querySelector('dialog')?.close();showSettings('session');return;}

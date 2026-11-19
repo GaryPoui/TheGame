@@ -1,19 +1,71 @@
 import { expect, test, type Page } from '@playwright/test';
-import { createGame, type GameState } from '../../src/core/game';
-import { createContracts } from '../../src/core/tables/contracts';
+import { advance, bestChoices, choose, createGame, type GameState } from '../../src/core/game';
+import { applyContractCommand, createContracts } from '../../src/core/tables/contracts';
 import { bossMechanic, bossNeedsFirstDie } from '../../src/core/tables/boss';
 import { applyFinaleCommand, bestFinale, createFinale, type FinaleCommand } from '../../src/core/tables/finale';
 
 const saveKey='thegame.save.v1.current';
-async function load(page:Page,state:GameState){
-  await page.addInitScript(({key,state})=>{
-    if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify({schemaVersion:11,contentVersion:'campaign-doble-duel-v11',state}));
-  },{key:saveKey,state});
+async function load(page:Page,state:GameState,schemaVersion:10|11=11){
+  const contentVersion=schemaVersion===10?'campaign-casino-v10':'campaign-doble-duel-v11';
+  await page.addInitScript(({key,save})=>{
+    if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify(save));
+  },{key:saveKey,save:{schemaVersion,contentVersion,state}});
   await page.goto('./');
   await page.waitForFunction(()=>window.__THEGAME_READY__);
   await page.getByTestId('continue-game').click();
 }
 const saved=(page:Page)=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state as GameState,saveKey);
+
+test('an older Doble save can switch to the new dice duel and keep its seals',async({page})=>{
+  await page.setViewportSize({width:640,height:360});
+  const game=createGame(5);
+  game.settings.reducedMotion=true;
+  game.settings.volume=0;
+  game.seals={urns:true,contracts:true,records:true,contractsMethod:'assisted'};
+  game.activeTable='contracts';
+  const begun=applyContractCommand(createContracts(31,'varied'),{type:'begin',commandId:'begin',expectedRevision:0});
+  const legacy=applyContractCommand(begun,{type:'sign',contract:'J',commandId:'sign',expectedRevision:1});
+  expect(legacy.phase).toBe('result');
+  game.contracts=legacy;
+  await load(page,game,10);
+
+  const upgrade=page.getByRole('button',{name:'Jugar al duelo nuevo'});
+  await expect(upgrade).toBeInViewport({timeout:5000});
+  await upgrade.click();
+  const dialog=page.getByRole('dialog');
+  await expect(dialog).toContainText('Conservás tus sellos');
+  await dialog.getByRole('button',{name:'Seguir con mi partida'}).click();
+  expect((await saved(page)).contracts).toEqual(legacy);
+  await expect(upgrade).toBeFocused();
+
+  await upgrade.click();
+  await dialog.getByRole('button',{name:'Empezar el duelo nuevo'}).click();
+  await expect(page.getByRole('heading',{name:'Elegí una tarjeta'})).toBeVisible();
+  await expect(upgrade).toHaveCount(0);
+  expect((await saved(page)).seals).toEqual(game.seals);
+  await page.getByTestId('doble-begin').click();
+  await expect(page.getByText('Partida 1 de 8',{exact:true})).toBeVisible();
+  await page.getByTestId('contract-C').click();
+  await page.getByTestId('doble-sign').click();
+  const after=await saved(page);
+  expect(after.contracts?.duel?.rounds).toHaveLength(1);
+  await page.reload();
+  await page.getByTestId('continue-game').click();
+  expect((await saved(page)).contracts).toEqual(after.contracts);
+});
+
+test('the ordinary table entry opens the new dice duel',async({page})=>{
+  let game=createGame(5);
+  while(game.phase!=='complete'){
+    game=game.phase==='choose'?choose(game,bestChoices(game)[0] as 0|1):advance(game);
+  }
+  game.settings.reducedMotion=true;
+  await load(page,game);
+  await page.getByTestId('enter-contracts').click();
+  await expect(page.getByRole('heading',{name:'Elegí una tarjeta'})).toBeVisible();
+  await page.getByTestId('doble-begin').click();
+  await expect(page.getByText('Partida 1 de 8',{exact:true})).toBeVisible();
+});
 
 for(const {seed,win} of [{seed:3,win:true},{seed:10,win:false}]){
   test(`Doble plays exactly eight rounds and ${win?'unlocks Ada':'offers practice and a rematch'}`,async({page})=>{
