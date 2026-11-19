@@ -22,6 +22,7 @@ import {replaceDisclosures,installInfoDialogs,showReading} from './ui/info-dialo
 import {installGameGuides,guideButton} from './ui/game-guides';
 import {renderSurface} from './ui/stable-stage';
 import {learningReview, reviewButton, tutorialSummary, type LearningTopic} from './ui/learning';
+import {installBossTutorial} from './ui/boss-tutorial';
 import {createTutorial,advanceTutorial,requestHelp} from './core/tutorial/runner';
 import {GameAudio} from './platform/audio';
 import {loadPreferences,savePreferences,resetPreferences} from './platform/preferences';
@@ -253,7 +254,7 @@ function feedback(): string {
   const outcome = `Salió una ficha ${colorName(last.color)} ${symbol(last.color)}.`;
   const judgment = last.correct ? '¡Elegiste bien!' : 'Había una opción mejor.';
   const why = last.correct ? (last.optimal.length === 2 ? 'Las dos urnas daban las mismas posibilidades. Cualquiera servía.' : success ? 'Elegiste la urna con más posibilidades y salió el color que buscabas.' : 'Elegiste la urna con más posibilidades. Esta vez salió otro color: eso puede pasar aunque elijas bien.') : (success ? 'Salió el color que buscabas, pero la otra urna daba más posibilidades. Esta vez tuviste suerte.' : 'La otra urna daba más posibilidades de sacar el color que buscabas. Mirá la tarjeta verde para comparar.');
-  return `<section class="result-card ${last.correct ? 'choice-right' : 'choice-wrong'}" data-testid="result-feedback"><span class="result-token ${last.color}-token" aria-hidden="true">${symbol(last.color)}</span><h2>${outcome}</h2><p class="decision-verdict">${judgment} ${state.assisted ? 'Práctica con ayuda.' : last.correct ? '+1 punto.' : '+0 puntos.'}</p><p>${why}</p>${!last.correct?reviewButton('urns'):''}<details class="result-details"><summary>Qué cambió en la urna</summary><p class="small-note">Antes: ${countAndChance(before)}.<br>Después: ${countAndChance(after)}.<br>${state.replacement ? 'La ficha volvió a la urna y las cantidades se mantienen.' : 'La ficha quedó afuera de la urna.'}</p></details></section>`;
+  return `<section class="result-card ${last.correct ? 'choice-right' : 'choice-wrong'}" data-testid="result-feedback"><span class="result-token ${last.color}-token" aria-hidden="true">${symbol(last.color)}</span><h2>${outcome}</h2><p class="decision-verdict">${judgment} ${state.assisted ? 'Práctica con ayuda.' : last.correct ? '+1 punto.' : '+0 puntos.'}</p><p>${why}</p>${!last.correct||!success?reviewButton('urns'):''}<details class="result-details"><summary>Qué cambió en la urna</summary><p class="small-note">Antes: ${countAndChance(before)}.<br>Después: ${countAndChance(after)}.<br>${state.replacement ? 'La ficha volvió a la urna y las cantidades se mantienen.' : 'La ficha quedó afuera de la urna.'}</p></details></section>`;
 }
 function table(): string {
   const choosing = state.phase === 'choose' || state.phase === 'guided';
@@ -629,6 +630,7 @@ overlay.addEventListener('change', event => {
 
 installInfoDialogs(showDialog);
 installGameGuides(showDialog);
+installBossTutorial(showDialog);
 async function initScene(): Promise<void> {
   try {
     scene?.dispose(); scene = null;

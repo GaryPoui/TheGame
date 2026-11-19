@@ -14,6 +14,20 @@ async function open(page:Page,table:GameState['activeTable'],width=1280,height=7
 }
 async function fits(page:Page){expect(await page.locator('main button,main canvas,main .poker-card').evaluateAll(nodes=>nodes.filter(n=>n.checkVisibility()).filter(n=>{const r=n.getBoundingClientRect();return r.left< -1||r.top< -1||r.right>innerWidth+1||r.bottom>innerHeight+1}).map(n=>({id:n.getAttribute('data-testid')??n.className,rect:n.getBoundingClientRect().toJSON()})))).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);}
 async function metrics(page:Page){return page.evaluate(()=>(window.__THEGAME_METRICS__!() as {cameraFov:number;dealerFrame:{width:number;hat:{y:number}};outerTableLegs:number;centralPedestals:number;visibleHostProps:Record<string,number>;pokerCardCount:number;escapeActive:boolean;cameraPosition:{z:number}}));}
+test('Doble teaches the average and links a dice review after a wrong choice',async({page})=>{
+ await open(page,'contracts');
+ const dialog=page.getByRole('dialog');
+ await page.getByRole('button',{name:/Cómo calcular el promedio/}).click();
+ await expect(dialog).toContainText('2 fichas por tirada en promedio');
+ await expect(dialog).toContainText('3 fichas por tirada en promedio');
+ await page.getByTestId('close-dialog').click();
+ await page.getByTestId('doble-begin').click();
+ await page.getByTestId('contract-S').click();
+ await page.getByTestId('doble-sign').click();
+ await page.getByRole('button',{name:'Repasar los dados'}).click();
+ await expect(dialog).toContainText('Doble');
+ await expect(dialog.getByRole('link',{name:/36 combinaciones de dos dados/})).toHaveAttribute('href',/khanacademy.*events-and-outcomes-2/);
+});
 for(const [width,height]of [[1280,720],[1093,615],[640,360]])test(`eight varied Doble questions and feedback fit ${width}x${height}`,async({page})=>{
  test.setTimeout(120000);await open(page,'contracts',width,height);await page.getByTestId('doble-begin').click();let s=createContracts(31,'varied');s=applyContractCommand(s,{type:'begin',commandId:'b',expectedRevision:0});const questions=new Set();
  while(s.phase!=='complete'){await fits(page);if(s.phase==='offer'||s.phase==='order'){questions.add(await page.getByTestId('challenge-question').innerText());if(s.phase==='offer')await page.screenshot({path:`${evidence}/doble-${width}-series-${s.round}.png`});const contract=challengeBest(s)[0]!;await page.getByTestId('contract-'+contract).click();await page.getByTestId('doble-sign').click();s=applyContractCommand(s,{type:'sign',contract,commandId:'sign'+s.revision,expectedRevision:s.revision});}else {await page.getByTestId('doble-next').click();s=applyContractCommand(s,{type:'next',commandId:'next'+s.revision,expectedRevision:s.revision});}}

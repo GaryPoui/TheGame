@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
 import {createGame} from '../../src/core/game';
 import {createRecords,applyRecordsCommand} from '../../src/core/tables/records';
-import {choosePrediction} from '../../src/core/tables/holdem';
+import {choosePrediction,effectivePredictions,handOdds,resolveHoldem} from '../../src/core/tables/holdem';
 const evidence=process.env.EVIDENCE_DIR??'docs/evidence/ada-holdem';
 for(const [width,height,scale] of [[1280,720,1],[1024,640,1],[390,844,1],[1280,720,2],[1024,640,2]])test(`Ada holdem ${width}x${height} text ${scale}: hidden cards, prediction, reveal and reload`,async({page})=>{
  test.setTimeout(120000);await page.setViewportSize({width:width!,height:height!});const s=createGame(77);s.seals={urns:true,contracts:true};s.records=createRecords(123);s.activeTable='records';s.settings.reducedMotion=true;s.settings.volume=0;s.settings.textScale=scale!;
@@ -21,4 +21,38 @@ test('Ada help remains finite and retains earned points and seals',async({page})
  for(let i=0;i<23;i++){r=applyRecordsCommand(r,{type:'choose',choice:'straight-flush',commandId:'choose'+i,expectedRevision:r.revision});r=applyRecordsCommand(r,{type:'next',commandId:'next'+i,expectedRevision:r.revision});}
  s.records=r;s.activeTable='records';s.settings.reducedMotion=true;
  await page.addInitScript(s=>localStorage.setItem('thegame.save.v1.current',JSON.stringify({schemaVersion:7,contentVersion:'campaign-holdem-v7',state:s})),s);await page.goto('./');await page.getByTestId('continue-game').click();await page.getByTestId('records-assist').click();await expect(page.getByTestId('records-completion')).toContainText('sin añadir puntos');
+});
+
+test('Ada hides category chances near the seal and keeps the reveal playable',async({page})=>{
+ const s=createGame(7);
+ s.seals={urns:true,contracts:true};
+ s.activeTable='records';
+ s.settings.reducedMotion=true;
+ let records=createRecords(10);
+ const advance=(type:'begin'|'choose'|'next'|'enable-bonus',choice?:ReturnType<typeof choosePrediction>)=>{
+  records=applyRecordsCommand(records,{type,commandId:String(records.revision),expectedRevision:records.revision,...(choice?{choice}:{})});
+ };
+ advance('enable-bonus');
+ advance('begin');
+ // Build a legitimate save that reaches the final stretch without winning early.
+ for(let i=0;i<23&&records.merit<18;i++){
+  const t=records.holdem!;
+  const pick=effectivePredictions(t.player,t.board)[0]!;
+  const trial=resolveHoldem(t,records.rng,pick);
+  advance('choose',trial.table.result!.points===0?pick:'straight-flush');
+  advance('next');
+ }
+ expect(records.phase).toBe('choose');
+ expect(records.merit).toBeGreaterThanOrEqual(18);
+ expect(records.merit).toBeLessThan(24);
+ s.records=records;
+ await page.addInitScript(s=>localStorage.setItem('thegame.save.v1.current',JSON.stringify({schemaVersion:10,contentVersion:'campaign-casino-v10',state:s})),s);
+ await page.goto('./');await page.getByTestId('continue-game').click();
+ await expect(page.getByText(/Tramo final/)).toBeVisible();
+ await expect(page.locator('.holdem-choices button small')).toHaveCount(0);
+ const t=records.holdem!;
+ const choice=handOdds(t.player,t.board).find(o=>o.count>0)!.category;
+ await page.getByTestId('records-'+choice).click();
+ await page.getByTestId('records-confirm').click();
+ await expect(page.getByTestId('records-feedback')).toBeVisible();
 });

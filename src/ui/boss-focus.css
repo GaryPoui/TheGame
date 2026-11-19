@@ -2,8 +2,12 @@
 :root{--ease-ui-out:cubic-bezier(.23,1,.32,1);--ui-enter:200ms}
 .boss-kicker{display:block;color:#e8c17a;font-size:13px;line-height:1.4;letter-spacing:.08em;margin-bottom:3px}
 .boss-layout .archive-floor>h1{color:#fff0d6;text-shadow:0 3px 12px #100b18}
-.boss-layout .boss-health{border-color:#d4ab68;background:#241b2bed}
+.boss-layout .boss-health{border-color:#9e815c80;background:#241b2bed}
 .boss-layout .boss-health progress{height:16px;accent-color:#d77882}
+.boss-layout [data-boss-meter][data-unread="true"]{outline:2px solid #edc57d;outline-offset:1px}
+.boss-layout [data-boss-meter]:focus-visible{outline:2px solid #fff0c9;outline-offset:3px}
+.guide-modal .boss-practice-counter{padding:8px 12px;background:#211a27;border:1px solid #9e815c80;border-radius:5px;display:flex;justify-content:space-between;gap:8px}
+.guide-modal .boss-practice-counter strong{color:#f6d79e}
 .boss-layout .scoreboard .boss-resource{display:grid;grid-template-columns:auto 1fr;gap:3px 8px;min-width:0;border:1px solid #9e815c80;background:#251e2ce8;color:#f7ead3;border-radius:5px;padding:6px 8px;font-size:15px;line-height:1.1;text-align:left;position:relative}
 .boss-resource:after{content:'?';position:absolute;right:6px;bottom:4px;font-size:11px;color:#e8c17a}
 .boss-layout .scoreboard .boss-resource>strong{font-size:18px;line-height:1.1;white-space:nowrap}
@@ -47,7 +51,7 @@
  .game-panel .primary,.game-panel>.primary,.game-panel>.text-button,.enlarged-text .holdem-layout .archive-panel>.primary,.enlarged-text .holdem-layout .archive-panel>.text-button,.enlarged-text .boss-layout .archive-panel>.primary,.enlarged-text .boss-layout .archive-panel>.text-button{font-size:13px;line-height:1.2;min-height:34px;padding:6px;margin:4px 0 0}
  .game-panel .info-trigger{font-size:12px;line-height:1.2;min-height:28px;padding:5px 0;margin:0}
  .boss-panel-ribbon{font-size:11px;margin:-10px -10px 8px;padding:6px 10px}.boss-panel-ribbon span:first-child{font-size:12px}
- .boss-health{padding:6px 8px}.boss-health label{font-size:13px}.boss-layout .boss-health progress{height:10px}
+ .boss-health{padding:6px 8px}.boss-health-label{font-size:13px}.boss-layout .boss-health progress{height:10px}
  .boss-layout .scoreboard{grid-template-columns:1fr 1fr auto;padding:0}
  .boss-layout .scoreboard .boss-resource{font-size:12px;padding:5px;gap:1px 4px}.boss-resource:after{font-size:9px;right:4px;bottom:3px}
  .combat-pips{gap:3px}.combat-pips i{width:10px;height:4px}.boss-layout .boss-phases{font-size:11px;margin:4px 0;gap:3px}.boss-phases span{padding:4px}

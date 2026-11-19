@@ -97,8 +97,9 @@ test('clear language, settings tabs and tutorial replay preserve campaign progre
  await page.getByTestId('tutorial-next').click();
  await page.getByTestId('toggle-cards').click();await page.getByTestId('urn-1').click();await page.getByTestId('confirm-choice').click();
  const before=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));
- await page.getByRole('button',{name:'Repasar el tema y ver un video'}).click();
- await expect(page.locator('.learning-topics a')).toHaveAttribute('href',/khanacademy.*basic-probability/);await page.getByTestId('close-dialog').click();
+ await page.getByRole('button',{name:'Repasar las urnas'}).click();
+ await expect(page.getByRole('dialog')).toContainText('1 de 5 (20 %)');
+ await expect(page.getByRole('dialog').getByRole('link',{name:/sacar una canica/})).toHaveAttribute('href',/khanacademy.*simple-probability/);await page.getByTestId('close-dialog').click();
  expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);
  await page.reload();await expect(page.getByTestId('continue-game')).toContainText('Reanudar partida');
 });

@@ -353,7 +353,7 @@ export class GameScene {
   }
   private makeHostProps():void {
     for(const host of ['doble','ada','captor'] as const){
-      const start=this.scene.meshes.length,mat=new StandardMaterial(host+'-signature-felt',this.scene);mat.diffuseColor=Color3.FromHexString(host==='doble'?'#15384d':host==='ada'?'#164638':'#3b1c31');mat.emissiveColor=mat.diffuseColor;mat.disableLighting=true;mat.specularColor=Color3.Black();this.hostFelts[host]=mat;
+      const start=this.scene.meshes.length,mat=new StandardMaterial(host+'-signature-felt',this.scene);mat.diffuseColor=Color3.FromHexString(host==='captor'?'#3b1c31':'#164638');mat.emissiveColor=mat.diffuseColor;mat.disableLighting=true;mat.specularColor=Color3.Black();this.hostFelts[host]=mat;
       const chips=(x:number,z:number)=>{for(let i=0;i<5;i++)this.cylinder(host+'-chip',.32,.055,[x,1.88+i*.06,z],i%2?this.brass:host==='ada'?this.blue:this.red);};
       if(host==='doble'){
         this.cylinder('doble-dice-cup',.68,.85,[-2.5,2.25,.65],this.blue,.82);this.cylinder('doble-cup-rim',.86,.07,[-2.5,2.70,.65],this.brass);this.cylinder('doble-cup-opening',.71,.012,[-2.5,2.74,.65],this.red);

@@ -1,5 +1,15 @@
 # Continuidad del proyecto
 
+Revisión de ayudas en `main`, a partir de `b5aff99`. Los repasos después de un error o un resultado desfavorable usan ejemplos de la mesa. Vera muestra el peso de cada ficha dentro de la urna y cómo cambia al extraerla. Doble explica el promedio con tres tiradas antes de pasar a los 36 pares, muestra ganancias y pérdidas con el costo aplicado y comparte el verde de Ada. Se conservan sus ocho encargos. Ada oculta recuentos y porcentajes al llegar a 18 de 24 puntos.
+
+El jefe tiene una práctica interactiva de Resistencia, Defensas y Combo. Los indicadores se pueden abrir individualmente. El borde dorado desaparece al cerrar la explicación o probar el paso correspondiente y se recuerda en el navegador como una preferencia separada del guardado de campaña. Los ejemplos preparados no afectan los resultados de partida.
+
+Fuentes de repaso en español consultadas en Khan Academy: [extracción de canicas](https://es.khanacademy.org/math/probability/probability-geometry/probability-basics/v/simple-probability), [pares de dados](https://es.khanacademy.org/math/cc-seventh-grade-math/cc-7th-probability-statistics/v/events-and-outcomes-2) y [posibilidades con una baraja](https://es.khanacademy.org/math/precalculus/x9e81a4f98389efdf:prob-comb/x9e81a4f98389efdf:addition-rule-prob-precalc/v/probability-with-playing-cards-and-venn-diagrams).
+
+Guías locales aplicadas: `game-ui-ux` para foco y pasos de práctica, `frontend-design` para bordes y lenguaje, y `webapp-testing` con el runner Playwright TypeScript para verificar navegación, tamaños, revisión y guardado.
+
+Validación local: build y TypeScript aprobados, 72 pruebas unitarias, 70 comprobaciones matemáticas y 92 archivos de skills. Se cubrieron 16 casos de navegador entre las primeras pruebas y las dirigidas. Se corrigieron y se revalidaron dos fallos iniciales: el recorte de la segunda página del tutorial de Doble a 512 × 320 y una partida de prueba de Ada que llegaba al sello antes de alcanzar una mano del tramo final.
+
 Revisión de interfaz, zoom y jefe 2026-11-16 en `codex/boss-focus-motion`: anfitrión de escala 1,3 a 1,5, ayuda directa en defensas/combo, preparación por acciones y desglose de daño. Escenario y fichas estables al seleccionar; el tamaño del texto ya no aleja la cámara. Vistas compactas, comparaciones en ventanas y transiciones cortas con movimiento reducido. Reglas y guardado v8 conservados. Evidencia y límites en [duelo, zoom y fluidez](boss-focus-motion.md).
 
 Publicada `boss-focus-motion-2026-11-16`: fuente `8683884`, Pages `c4151ac`, 63 unitarias, 70 comprobaciones matemáticas y 54 casos locales cubiertos con revalidaciones. Cinco casos HTTPS cubiertos: cuatro aprobados inicialmente y la selección de segunda urna aprobada al repetir sólo ese caso tras un timeout. 146/146 hashes, jefe y salida guiada públicos inspeccionados. Se emularon espacio CSS y densidad del zoom; no se afirma prueba manual de la barra de Chrome ni mejora de FPS. PR bloqueado por 403 del conector; rama subida, comparación preparada y sin merge. Ver [publicación](boss-focus-motion.md#publicación-comprobada).

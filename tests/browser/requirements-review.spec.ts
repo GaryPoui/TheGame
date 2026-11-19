@@ -27,7 +27,7 @@ for(const [width,height] of [[1024,640],[1280,720],[1440,900]])test(`requested c
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await open(page,fixture('contracts'));const beforeDice=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));
  for(let i=0;i<3;i++){await check(page);if(i<2)await page.getByTestId('doble-tutorial-next').click();}
- await page.getByRole('button',{name:/Cómo calcular el promedio/}).click();await expect(page.getByRole('dialog')).toContainText('(6 × 23 − 30 × 1) ÷ 36');await page.getByTestId('close-dialog').click();
+ await page.getByRole('button',{name:/Cómo calcular el promedio/}).click();await expect(page.getByRole('dialog')).toContainText('2 fichas por tirada en promedio');await page.getByTestId('close-dialog').click();
  expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(beforeDice);
  await page.getByTestId('doble-begin').click();await check(page);await expect(page.getByTestId('contract-C')).toContainText('Ganás 5 o perdés 1');
  await expect.poll(async()=>page.evaluate(()=>((window.__THEGAME_METRICS__?.() as {activeNames:string[]})?.activeNames??[]).filter(n=>n==='table-leg').length)).toBe(4);

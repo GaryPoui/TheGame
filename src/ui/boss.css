@@ -2,7 +2,7 @@
 body[data-screen=finale] .boss-layout .ada-viewport #scene{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:1;pointer-events:none}
 body:has(.boss-layout) #cast{display:none}
 body:has(.graphics-warning)[data-screen=finale] .boss-layout .ada-viewport #scene{display:none}
-.boss-health{color:#fff0d6;margin-bottom:6px}.boss-health label{display:flex;justify-content:space-between;font-size:16px;margin-bottom:4px}.boss-health progress{display:block;width:100%;height:12px;accent-color:#be6472}
+button.boss-health{display:block;width:100%;text-align:left;color:#fff0d6;margin-bottom:6px;cursor:pointer}.boss-health-label{display:flex;justify-content:space-between;font-size:16px;margin-bottom:4px}.boss-health progress{display:block;width:100%;height:12px;accent-color:#be6472}
 .boss-layout .scoreboard,.enlarged-text .boss-layout .scoreboard{font-size:16px;gap:14px;margin:6px 0}
 .boss-phases{display:flex;gap:8px;margin:8px 0;font-size:14px}.boss-phases span{padding:5px 12px;border:1px solid #aa8e64;border-radius:4px;color:#d4bfa7;background:#251e2cd9}.boss-phases [aria-current]{color:#251e2c;background:#e8c17a;border-color:#e8c17a;font-weight:700}
 .boss-layout .archive-floor>.boss-attack-title{font-size:16px;margin:4px 0;color:#f7ead3}

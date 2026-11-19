@@ -41,7 +41,13 @@ for(const table of ['urns','contracts','records']as const)for(const [width,heigh
 });
 test('boss resource help is contextual and does not alter the fight',async({page})=>{
  await open(page,1024,640);await page.getByTestId('finale-begin').click();const before=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));
- await page.getByRole('button',{name:/Combo.*cómo cargarlo y gastarlo/}).click();await expect(page.getByRole('dialog')).toContainText('Cargá y descargá el combo');await page.getByTestId('close-dialog').click();expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);
+ const combo=page.getByRole('button',{name:/Combo.*cómo cargarlo y gastarlo/});
+ await expect(combo).toHaveAttribute('data-unread','true');
+ await combo.click();await expect(page.getByRole('dialog')).toContainText('Una ficha del color pedido carga 1');
+ await page.getByRole('button',{name:'Entendí'}).click();
+ await expect(combo).toHaveAttribute('data-unread','false');
+ await expect(page.locator('[data-boss-meter="resistance"]')).toHaveAttribute('data-unread','true');
+ expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);
 });
 test('options and title menu fit compact zoom with text enlarged and reduced motion',async({page})=>{
  await page.setViewportSize({width:640,height:360});await page.goto('./');await page.waitForFunction(()=>window.__THEGAME_READY__);
@@ -62,8 +68,21 @@ test('boss guided choices remain labelled and reach the exit at maximum zoom',as
 });
 test('prepared tutorials and boss reading stay reachable in the smallest zoom space',async({page})=>{
  await open(page,512,320,'contracts');const before=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));for(let i=0;i<3;i++){await fits(page);if(i<2)await page.getByTestId('doble-tutorial-next').click();}expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(before);
- await page.getByTestId('doble-begin').click();await page.getByTestId('back-room').click();await page.getByTestId('enter-finale').click();await page.getByRole('button',{name:/Defensas.*cómo se pierden/}).click();
- for(let i=0;i<4;i++){expect(await page.getByRole('dialog').evaluate(d=>{const r=d.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight+1&&d.scrollHeight<=d.clientHeight+1&&[...d.querySelectorAll('button')].filter(b=>b.checkVisibility()).every(b=>b.getBoundingClientRect().bottom<=innerHeight+1);})).toBe(true);if(i<3)await page.locator('[data-guide-page=next]').click();}
+ await page.getByTestId('doble-begin').click();await page.getByTestId('back-room').click();await page.getByTestId('enter-finale').click();
+ const bossSave=await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'));
+ await page.getByRole('button',{name:'Aprender el duelo'}).click();
+ const dialog=page.getByRole('dialog');
+ for(const [meter,after] of [['resistance','34/36'],['defences','5/6'],['combo','0/6']]){
+  await expect(dialog.locator('[data-boss-demo="try"]')).toBeInViewport();
+  await dialog.locator('[data-boss-demo="try"]').click();
+  await expect(dialog.getByRole('status')).toContainText(after!);
+  await expect(page.locator(`[data-boss-meter="${meter}"]`)).toHaveAttribute('data-unread','false');
+  await dialog.locator('[data-boss-demo="next"]').click();
+ }
+ await expect(dialog).toHaveCount(0);
+ expect(await page.evaluate(()=>localStorage.getItem('thegame.save.v1.current'))).toBe(bossSave);
+ await page.reload();await page.getByTestId('continue-game').click();
+ await expect(page.locator('[data-boss-meter][data-unread="false"]')).toHaveCount(3);
 });
 test('compact dice combinations use a window instead of extending the table',async({page})=>{
  await open(page,640,360,'contracts');await page.getByTestId('doble-begin').click();await page.getByTestId('toggle-dice-combinations').click();await expect(page.getByRole('dialog')).toBeVisible();await expect(page.getByRole('dialog')).toContainText('Seguro');await page.getByTestId('close-dialog').click();await fits(page);

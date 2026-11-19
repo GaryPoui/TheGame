@@ -1,19 +1,42 @@
+import {guideButton} from './game-guides';
+
 export type LearningTopic = 'urns' | 'contracts' | 'records' | 'legacy-records' | 'finale';
 
-const lessons = {
-  urns: {title:'Comparar posibilidades', text:'Contá las fichas del color buscado y dividí por el total. Si una ficha queda afuera, volvé a contar. Elegir la mejor posibilidad no asegura el resultado.', url:'https://es.khanacademy.org/math/cc-seventh-grade-math/cc-7th-probability-statistics/cc-7th-basic-prob/v/basic-probability', video:'Video: introducción a la probabilidad'},
-  contracts: {title:'Promedio y seguridad', text:'El neto es el premio menos lo que pagaste. El promedio describe muchas tiradas; una garantía se cumple en todas. Elegí según lo que pide el objetivo.', url:'https://es.khanacademy.org/math/precalculus/x9e81a4f98389efdf:prob-comb/x9e81a4f98389efdf:expected-value/v/expected-value-of-a-discrete-random-variable', video:'Video: qué significa el valor esperado'},
-  records: {title:'Anticipar una mano de póker', text:'Elegí la categoría exacta de tus mejores cinco cartas. Para sumar puntos también tenés que ganarle a Ada. Las posibilidades de las opciones cuentan tu categoría, no la victoria. Podés practicar una mano sin cambiar tu partida.', url:'', video:''},
-  'legacy-records': {title:'Rachas y fotos elegidas', text:'Mirá las victorias y las derrotas. Si cada partida empieza con una moneda equilibrada, la anterior no cambia la siguiente: ganar sigue teniendo una posibilidad entre dos.', url:'https://es.khanacademy.org/math/probability/probability-geometry/multiplication-rule-dependent-events/v/independent-events-1', video:'Video: sucesos independientes y dependientes'},
+const lessons: Record<Exclude<LearningTopic, 'finale'>, {title:string; body:string; url:string; video:string}> = {
+  urns: {
+    title:'Vera · Las fichas del color que buscás',
+    body:'<p>Imaginá una urna con <strong>3 fichas rojas ▲ y 2 azules ●</strong>. El conjunto completo tiene 5 fichas. Todas tienen la misma chance de salir, así que cada ficha representa <strong>1 de 5 (20 %)</strong>.</p><p>Las 3 rojas son el grupo que te sirve. Juntas representan <strong>3 de 5 (60 %)</strong>. Si sacás una roja y la dejás afuera, quedan 2 rojas de 4 fichas. Ahora cada ficha representa 1 de 4, y las rojas juntas son 2 de 4 (50 %).</p><p>Para comparar dos urnas, fijate qué parte del total ocupa el color pedido en cada una. Con más fichas del color puede haber menos chance si el total también es mucho mayor.</p>',
+    url:'https://es.khanacademy.org/math/probability/probability-geometry/probability-basics/v/simple-probability',
+    video:'Ver cómo calcular la chance de sacar una canica',
+  },
+  contracts: {
+    title:'Doble · Qué puede salir y cuánto te deja',
+    body:'<p>Cada resultado es un par de dados. Por ejemplo, 2 y 5 suman 7. También podés sacar 5 y 2. Los dos pares cuentan por separado y tienen la misma chance.</p><p>Para ganar al menos 4 fichas, contá cuántos pares te dejan 4 o más después de pagar. Para buscar el mejor promedio, sumá lo que te deja cada par, restando las pérdidas, y dividí por la cantidad de pares.</p>',
+    url:'https://es.khanacademy.org/math/cc-seventh-grade-math/cc-7th-probability-statistics/v/events-and-outcomes-2',
+    video:'Ver cómo se cuentan las 36 combinaciones de dos dados',
+  },
+  records: {
+    title:'Ada · Qué carta completa tu mano',
+    body:'<p>Mirá tus dos cartas y las cuatro de la mesa. Pensá qué cartas podrían completar cada tipo de mano. Por ejemplo, si ya tenés cuatro corazones, otro corazón podría darte color. Para cobrar el premio, además de acertar la categoría exacta, tenés que ganarle a Ada.</p>',
+    url:'https://es.khanacademy.org/math/precalculus/x9e81a4f98389efdf:prob-comb/x9e81a4f98389efdf:addition-rule-prob-precalc/v/probability-with-playing-cards-and-venn-diagrams',
+    video:'Ver cómo se cuentan posibilidades en una baraja',
+  },
+  'legacy-records': {
+    title:'Ada · Rachas y fotos elegidas',
+    body:'<p>Mirá las victorias y las derrotas. Si cada partida empieza con una moneda equilibrada, la anterior no cambia la siguiente. Ganar sigue teniendo una posibilidad entre dos.</p>',
+    url:'https://es.khanacademy.org/math/probability/probability-geometry/multiplication-rule-dependent-events/v/independent-events-1',
+    video:'Ver cómo funcionan los sucesos independientes',
+  },
 };
 
 export function learningReview(topic: LearningTopic): string {
   const topics = topic === 'finale' ? [lessons.urns,lessons.contracts,lessons.records] : [lessons[topic]];
-  return `<p>Repasá lo que necesites y volvé a la partida cuando quieras.</p>${topics.map(l=>`<h3>${l.title}</h3><p>${l.text}</p>${l.url?`<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.video} <span class="external-note">(Khan Academy · abre otra pestaña)</span></a>`:'<button class="secondary full" data-guide="poker">Probar una mano guiada</button>'}`).join('')}`;
+  return topics.map(l=>`<h3>${l.title}</h3>${l.body}<p><a class="learning-video" href="${l.url}" target="_blank" rel="noopener noreferrer">${l.video} <span class="external-note">(Khan Academy · abre otra pestaña)</span></a></p>${l===lessons.records?guideButton('poker','Probar una mano guiada'):''}`).join('');
 }
 
 export function reviewButton(topic: LearningTopic): string {
-  return `<button class="review-concepts text-button full" data-review="${topic}">${topic==='records'?'Repasar cómo jugar al póker':'Repasar el tema y ver un video'}</button>`;
+  const labels: Record<LearningTopic,string> = {urns:'Repasar las urnas', contracts:'Repasar los dados', records:'Repasar el póker', 'legacy-records':'Repasar las fotos', finale:'Repasar las tres mesas'};
+  return `<button class="review-concepts text-button full" data-review="${topic}">${labels[topic]}</button>`;
 }
 
 export const tutorialSummary = `<ol class="tutorial-summary"><li><strong>Compará.</strong> Buscá la mayor parte del color pedido, no sólo la mayor cantidad.</li><li><strong>Observá.</strong> Si la ficha queda afuera, cambiaron las cantidades.</li><li><strong>Separá decisión y suerte.</strong> Podés elegir bien y sacar otro color.</li></ol>`;

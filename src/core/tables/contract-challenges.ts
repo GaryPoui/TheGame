@@ -1,12 +1,12 @@
 import {CONTRACTS,DICE_PAIRS,type ContractId,type DicePair,type ObjectiveId} from '../math/dice';
 import type {ContractsState} from './contracts';
-export interface ChallengeOffer {id:ContractId;name:string;cost:number;gross:number;rule:string;gate:'any'|'center'|'seven'|'low'|'high'|'doubles'|'even'|'odd'|'edge'|'stepped'|'sum'}
-const offer=(id:ContractId,name:string,cost:number,gross:number,gate:ChallengeOffer['gate'],rule:string):ChallengeOffer=>({id,name,cost,gross,gate,rule});
+export interface ChallengeOffer {id:ContractId;name:string;cost:number;gross:number;rule:readonly string[];gate:'any'|'center'|'seven'|'low'|'high'|'doubles'|'even'|'odd'|'edge'|'stepped'|'sum'}
+const offer=(id:ContractId,name:string,cost:number,gross:number,gate:ChallengeOffer['gate'],...rule:string[]):ChallengeOffer=>({id,name,cost,gross,gate,rule});
 const sets:readonly ChallengeOffer[][]=[
- [offer('S','Seguro',0,2,'any','Cobrás 2 con cualquier suma.'),offer('C','Centro',1,6,'center','Cobrás 6 si suman 6, 7 u 8.'),offer('J',CONTRACTS.J.name,1,24,'seven','Cobrás 24 si suman 7.')],
- [offer('S','Bajo',1,6,'low','Cobrás 6 si suman 5 o menos.'),offer('C','Alto',1,6,'high','Cobrás 6 si suman 9 o más.'),offer('J','Dobles',1,10,'doubles','Cobrás 10 si ambos dados coinciden.')],
- [offer('S','Par',1,6,'even','Cobrás 6 con suma par.'),offer('C','Impar',2,7,'odd','Cobrás 7 con suma impar.'),offer('J','Extremos',3,20,'edge','Cobrás 20 con suma 2 o 12.')],
- [offer('S','Acotado',1,4,'stepped','Cobrás 4 hasta suma 7; con 8 o más, cobrás 2.'),offer('C','Creciente',2,0,'sum','Cobrás tantas fichas como la suma de los dados.'),offer('J','Encuentro',3,12,'doubles','Cobrás 12 si los dados coinciden y 2 si son distintos.')],
+ [offer('S','Seguro',0,2,'any','Ganás 2 siempre'),offer('C','Centro',1,6,'center','Ganás 5 si suman 6, 7 u 8','Si no, perdés 1'),offer('J',CONTRACTS.J.name,1,24,'seven','Ganás 23 si suman 7','Si no, perdés 1')],
+ [offer('S','Bajo',1,6,'low','Ganás 5 si suman 5 o menos','Si no, perdés 1'),offer('C','Alto',1,6,'high','Ganás 5 si suman 9 o más','Si no, perdés 1'),offer('J','Dobles',1,10,'doubles','Ganás 9 si los dados son iguales','Si no, perdés 1')],
+ [offer('S','Par',1,6,'even','Ganás 5 si la suma es par','Si no, perdés 1'),offer('C','Impar',2,7,'odd','Ganás 5 si la suma es impar','Si no, perdés 2'),offer('J','Extremos',3,20,'edge','Ganás 17 si suman 2 o 12','Si no, perdés 3')],
+ [offer('S','Acotado',1,4,'stepped','Ganás 3 si suman 7 o menos','Ganás 1 si suman 8 o más'),offer('C','Creciente',2,0,'sum','Ganás la suma de los dados menos 2','Si suman 6, ganás 4'),offer('J','Encuentro',3,12,'doubles','Ganás 9 si los dados son iguales','Si no, perdés 1')],
 ];
 export function challengeOffers(s:ContractsState):readonly ChallengeOffer[]{return sets[s.round]!;}
 export function challengeNet(s:ContractsState,id:ContractId,pair:DicePair):number {
@@ -18,14 +18,14 @@ export function challengeNet(s:ContractsState,id:ContractId,pair:DicePair):numbe
 export function challengeTask(s:ContractsState){
  const second=s.phase==='order'||s.phase==='review',index=s.round*2+(second?1:0),first=s.pair?.[0]??1;
  const tasks:{id:string;title:string;explanation:string;objective:ObjectiveId;metric:'mean'|'reach'|'interval'|'worst'|'range';threshold?:number}[]=[
-  {id:'long-run',title:'¿Cuál deja más fichas en promedio?',explanation:'Sumá los netos de los 36 pares y dividí por 36. El costo se paga también cuando perdés.',objective:'expected',metric:'mean'},
-  {id:'four-after-cost',title:'¿Con cuál es más probable ganar 4 o más?',explanation:'La meta es el resultado después de pagar. Es una comparación para una futura tirada, sin volver a tirar ahora.',objective:'atLeast4',metric:'reach',threshold:4},
-  {id:'within-budget',title:'¿Cuál tiene más chances de dejar entre 2 y 6?',explanation:'Contá sólo netos de 2 a 6, incluidos ambos extremos. Un premio mayor puede quedar fuera de esa franja.',objective:'atLeast4',metric:'interval'},
-  {id:'known-first',title:`Con un ${first} en el primer dado, ¿qué oferta da más chances de ganar al menos 4 fichas netas?`,explanation:`En esa futura tirada quedan seis resultados posibles para el segundo dado. Buscá la mayor chance de ganar 4 o más. La tirada anterior no cambia.`,objective:'atLeast4',metric:'reach',threshold:4},
-  {id:'worst-case',title:'¿Cuál limita mejor tu peor pérdida?',explanation:'Compará el peor neto posible de cada oferta. Todas pueden perder: elegí la pérdida menos grande.',objective:'guarantee1',metric:'worst'},
-  {id:'ordered-dice',title:'Si el segundo supera al primero, ¿cuál promedia más?',explanation:'Imaginá esa condición para una futura tirada. Hay 15 pares posibles. Los dobles quedan fuera.',objective:'expected',metric:'mean'},
-  {id:'smallest-spread',title:'¿Cuál tiene menos distancia entre su mejor y peor neto?',explanation:'El rango es la diferencia entre el mayor y el menor resultado neto posible. Elegí el rango más chico.',objective:'range',metric:'range'},
-  {id:'six-first',title:'Con un 6 en el primer dado, ¿cuál promedia más?',explanation:'Compará una futura tirada con ese primer dado conocido. Promediá los seis netos que deja el segundo.',objective:'expected',metric:'mean'},
+  {id:'long-run',title:'Si tirás muchas veces, ¿qué oferta deja más en promedio?',explanation:'Imaginá que sale una vez cada uno de los 36 pares. Sumá las ganancias, restá las pérdidas y repartí el total entre 36.',objective:'expected',metric:'mean'},
+  {id:'four-after-cost',title:'¿Con cuál es más fácil ganar 4 fichas o más?',explanation:'Contá cuántas tiradas te dejan 4 fichas o más con cada oferta.',objective:'atLeast4',metric:'reach',threshold:4},
+  {id:'within-budget',title:'¿Con cuál es más fácil ganar de 2 a 6 fichas?',explanation:'Sólo sirven las tiradas que dejan 2, 3, 4, 5 o 6 fichas.',objective:'atLeast4',metric:'interval'},
+  {id:'known-first',title:`Si el primer dado es ${first}, ¿con cuál es más fácil ganar 4 fichas o más?`,explanation:'Usá ese número en el primer dado. Probá del 1 al 6 en el segundo y contá cuántas veces llegás a 4 fichas.',objective:'atLeast4',metric:'reach',threshold:4},
+  {id:'worst-case',title:'Si todo sale mal, ¿con cuál perdés menos?',explanation:'Mirá cuántas fichas perderías en el peor resultado de cada oferta.',objective:'guarantee1',metric:'worst'},
+  {id:'ordered-dice',title:'Si el segundo dado es mayor, ¿cuál deja más en promedio?',explanation:'Contá sólo pares como 2 y 5, en ese orden. Hay 15 en total. Sumá lo que te dejan y dividí por 15.',objective:'expected',metric:'mean'},
+  {id:'smallest-spread',title:'¿Qué oferta cambia menos entre su mejor y su peor resultado?',explanation:'Restá el peor resultado al mejor. Por ejemplo, entre ganar 3 y ganar 1 hay 2 fichas de diferencia.',objective:'range',metric:'range'},
+  {id:'six-first',title:'Si el primer dado es 6, ¿cuál deja más en promedio?',explanation:'Probá del 1 al 6 en el segundo dado. Sumá lo que te deja cada resultado y dividí por 6.',objective:'expected',metric:'mean'},
  ];return tasks[index]!;
 }
 export function challengeSamples(s:ContractsState):readonly DicePair[]{
@@ -39,5 +39,5 @@ export function challengeValue(s:ContractsState,id:ContractId):number {
 export function challengeBest(s:ContractsState):ContractId[]{const values=challengeOffers(s).map(o=>({id:o.id,value:challengeValue(s,o.id)})),best=Math.max(...values.map(o=>o.value));return values.filter(o=>o.value===best).map(o=>o.id);}
 export function challengeAccount(s:ContractsState,id:ContractId):string {
  const task=challengeTask(s),value=challengeValue(s,id),n=challengeSamples(s).length;
- return task.metric==='mean'?`${value} ÷ ${n} = ${(value/n).toLocaleString('es-AR',{maximumFractionDigits:2})} de promedio`:task.metric==='worst'?`Peor neto: ${value}`:task.metric==='range'?`Rango: ${-value}`:`${value} de ${n} pares cumplen la meta`;
+ return task.metric==='mean'?`${(value/n).toLocaleString('es-AR',{maximumFractionDigits:2})} fichas por tirada (${value} ÷ ${n})`:task.metric==='worst'?`en el peor caso perdés ${-value}`:task.metric==='range'?`${-value} fichas entre el mejor y el peor resultado`:`${value} de ${n} tiradas cumplen la meta`;
 }
