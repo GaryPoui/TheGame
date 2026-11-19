@@ -3,7 +3,7 @@ import { checkpointCampaign, tableUnlocked } from '../../src/core/campaign/progr
 import { createGame, loadGame, saveGame, type SaveStorage } from '../../src/core/game';
 import { bossDiceRule, bossMechanic, bossNeedsFirstDie } from '../../src/core/tables/boss';
 import { applyContractCommand, createContracts, validContractsState, type ContractCommand, type ContractsState } from '../../src/core/tables/contracts';
-import { diceDuelPoints, doblePick } from '../../src/core/tables/dice-duel';
+import { bestDobleAnswers, diceDuelPoints, doblePick } from '../../src/core/tables/dice-duel';
 import { applyFinaleCommand, bestFinale, createFinale, finaleChoices, validFinaleState, type FinaleCommand } from '../../src/core/tables/finale';
 
 function command(s:ContractsState,type:ContractCommand['type'],contract?:ContractCommand['contract']):ContractsState {
@@ -11,6 +11,40 @@ function command(s:ContractsState,type:ContractCommand['type'],contract?:Contrac
 }
 
 describe('Doble en ocho partidas',()=>{
+  it('premia ocho decisiones óptimas con un punto y un sello independientemente de los dados',()=>{
+    expect([0,1,2,4,5,6].map(round=>bestDobleAnswers(round,null))).toEqual([['S'],['C'],['J'],['S'],['C'],['J']]);
+    expect([1,2,3,4,5,6].map(first=>bestDobleAnswers(3,first))).toEqual([['J'],['C'],['C'],['C'],['J'],['J']]);
+    expect([1,2,3,4,5,6].map(first=>bestDobleAnswers(7,first))).toEqual([['S'],['S'],['S'],['S'],['S'],['C']]);
+    for(const seed of [1,3,10,31]){
+      let s=command(createContracts(seed,'duel-probability'),'begin');
+      for(let round=0;round<8;round++){
+        if(s.phase==='first-die')s=command(s,'roll-first');
+        s=command(s,'sign',bestDobleAnswers(round,s.duel!.first)[0]);
+        expect(s.duel!.rounds.at(-1)).toMatchObject({correct:true,playerPoints:0,rivalPoints:0});
+        expect([s.merit,s.balance,s.duel!.rivalScore]).toEqual([round+1,0,0]);
+        expect(validContractsState(s)).toBe(true);
+        s=command(s,'next');
+      }
+      expect([s.phase,s.balance,s.rng.count]).toEqual(['complete',1,16]);
+      expect(validContractsState(s)).toBe(true);
+      expect(tableUnlocked(checkpointCampaign({...createGame(),seals:{urns:true,contracts:false},contracts:s}),'records')).toBe(true);
+    }
+  });
+
+  it('conserva el pago de la tirada al fallar y no da el punto final con siete aciertos',()=>{
+    let s=command(createContracts(3,'duel-probability'),'begin');
+    for(let round=0;round<8;round++){
+      if(s.phase==='first-die')s=command(s,'roll-first');
+      s=command(s,'sign',round===0?'C':bestDobleAnswers(round,s.duel!.first)[0]);
+      s=command(s,'next');
+    }
+    const {pair}=s.duel!.rounds[0]!;
+    expect(s.duel!.rounds[0]).toMatchObject({correct:false,playerPoints:diceDuelPoints(0,'C',pair),rivalPoints:2});
+    expect(s.merit).toBe(7);
+    expect(s.balance).toBe(diceDuelPoints(0,'C',pair));
+    expect(s.phase).toBe(s.balance>2?'complete':'retry');
+  });
+
   it('paga sólo las sumas pedidas y toma el 9 para las dos ofertas',()=>{
     for(const [a,b] of [[1,4],[2,4],[3,5]] as const)expect(diceDuelPoints(0,'C',[a,b])).toBe(10);
     expect(diceDuelPoints(0,'C',[3,4])).toBe(0);

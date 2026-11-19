@@ -295,3 +295,10 @@ Mesas y cierre 2026-11-17: rama codex/casino-tables-finale, ocho pedidos del usu
 Publicada casino-finale-2026-11-17: fuente f9611ec, gh-pages c6d4d0d, Pages completado. 149/149 hashes y cuatro pruebas públicas breves aprobados. Se conservan recorridos largos interrumpidos o con timeout; no se contabilizan como aprobados. Rama codex/casino-tables-finale subida; conector de revisión 403, sin merge. Detalle en docs/casino-tables-finale.md y delivery.json.
 
 Duelo de Doble: `main` incorporó ocho partidas en `c0523dc`, publicado inicialmente desde `b90f7d1`. Una partida anterior seguía abriendo la modalidad con la que había empezado y no ofrecía cambiar en mitad de una ronda. La mesa ahora muestra «Jugar al duelo nuevo». La confirmación reinicia Doble y conserva los sellos y las demás mesas. Se reprodujo el caso con un guardado v10 en el enlace público y se agregó una prueba de navegador con el runner existente, siguiendo las guías locales de guardado y pruebas web.
+
+Doble por probabilidad: las partidas nuevas tienen ocho preguntas sobre las mismas tarjetas.
+La mejor respuesta deja a ambos en cero durante la ronda. Ocho aciertos otorgan el punto de
+la victoria. La práctica interactiva se abre desde la presentación o «Cómo jugar». Guardado
+v12, con relectura de partidas anteriores y cambio voluntario desde la mesa. Las guías locales
+de diseño, interfaz y pruebas web orientaron las preguntas, la práctica y su comprobación.
+Ver [reglas del duelo](educational-design.md#duelo-de-doble-por-probabilidad).

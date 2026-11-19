@@ -58,7 +58,7 @@ const key='thegame.save.v1'; const maxSize=262144;
 function storageOrDefault(storage?:SaveStorage):SaveStorage {return storage??globalThis.localStorage;}
 const contentVersions = [null, 'urns-mvp-v1', 'urns-contracts-v2', 'campaign-v3', 'campaign-photos-v4',
   'campaign-challenge-v5', 'campaign-cards-v6', 'campaign-holdem-v7', 'campaign-boss-v8',
-  'campaign-bonus-v9', 'campaign-casino-v10', 'campaign-doble-duel-v11'] as const;
+  'campaign-bonus-v9', 'campaign-casino-v10', 'campaign-doble-duel-v11', 'campaign-doble-probability-v12'] as const;
 const currentVersion = contentVersions.length-1;
 function parse(raw:string|null): {state:GameState|null;future:boolean} {
   if(!raw||raw.length>maxSize)return {state:null,future:false};

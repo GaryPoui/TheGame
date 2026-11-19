@@ -21,8 +21,8 @@ it('adds two for every tied maximum of probability times prize, independently of
 it('loads a v8 campaign and writes the enabled bonus in a protected current envelope',()=>{
  const data=new Map<string,string>(),store:SaveStorage={getItem:k=>data.get(k)??null,setItem:(k,v)=>{data.set(k,v);},removeItem:k=>{data.delete(k);}};
  const s=createGame(5);s.records=createRecords(22);s.activeTable='records';s.seals={urns:true,contracts:true,records:false};data.set('thegame.save.v1.current',JSON.stringify({schemaVersion:8,contentVersion:'campaign-boss-v8',state:s}));
- const loaded=loadGame(store).state!;expect(loaded).toEqual(s);loaded.records=command(loaded.records!,'enable-bonus');expect(saveGame(loaded,store)).toBeNull();expect(JSON.parse(data.get('thegame.save.v1.current')!).schemaVersion).toBe(11);expect(loadGame(store).state).toEqual(loaded);
- const future=JSON.stringify({schemaVersion:11,contentVersion:'future'});data.set('thegame.save.v1.current',future);expect(saveGame(loaded,store)).toContain('futura');expect(data.get('thegame.save.v1.current')).toBe(future);
+ const loaded=loadGame(store).state!;expect(loaded).toEqual(s);loaded.records=command(loaded.records!,'enable-bonus');expect(saveGame(loaded,store)).toBeNull();expect(JSON.parse(data.get('thegame.save.v1.current')!).schemaVersion).toBe(12);expect(loadGame(store).state).toEqual(loaded);
+ const future=JSON.stringify({schemaVersion:13,contentVersion:'future'});data.set('thegame.save.v1.current',future);expect(saveGame(loaded,store)).toContain('futura');expect(data.get('thegame.save.v1.current')).toBe(future);
 });
 it('upgrades an existing journal without recalculating previous points or changing its deal',()=>{
  let old=command(createRecords(22),'begin');old=applyRecordsCommand(old,{type:'choose',choice:bestRecords(old)[0],commandId:'old-choice',expectedRevision:old.revision});expect(validRecordsState(old)).toBe(true);

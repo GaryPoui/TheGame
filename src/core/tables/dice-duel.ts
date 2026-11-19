@@ -49,3 +49,25 @@ export function bestDuelDiceOffers(set: OfferSet, target: number, first: number 
   const counts = CONTRACT_IDS.map(id=>pairs.filter(pair=>diceDuelPoints(set,id,pair)>=target).length);
   return CONTRACT_IDS.filter((_,i)=>counts[i]===Math.max(...counts));
 }
+
+export const DOBLE_QUESTIONS = [
+  { prompt:'¿Qué tarjeta te garantiza al menos 2 puntos?', target:2 },
+  { prompt:'¿Qué tarjeta tiene más chances de darte 10 puntos o más?', target:10 },
+  { prompt:'¿Qué tarjeta da más puntos en promedio?', target:null },
+  { prompt:'Con el primer dado a la vista, ¿qué tarjeta da más puntos en promedio?', target:null },
+  { prompt:'¿Qué tarjeta tiene más chances de darte un saldo positivo?', target:1 },
+  { prompt:'¿Qué tarjeta tiene más chances de darte 6 puntos o más?', target:6 },
+  { prompt:'¿Qué tarjeta tiene más chances de darte 15 puntos o más?', target:15 },
+  { prompt:'Con el primer dado a la vista, ¿qué tarjeta tiene más chances de darte un saldo positivo?', target:1 },
+] as const;
+
+export function bestDobleAnswers(round: number, first: number | null): ContractId[] {
+  const set = round < 4 ? 0 : 1;
+  const {target} = DOBLE_QUESTIONS[round]!;
+  if (target !== null) return bestDuelDiceOffers(set,target,first);
+
+  const pairs = first === null ? DICE_PAIRS : DICE_PAIRS.filter(([a]) => a === first);
+  // All candidates have the same denominator, so compare exact sums of payouts.
+  const totals = CONTRACT_IDS.map(id => pairs.reduce((sum,pair) => sum+diceDuelPoints(set,id,pair),0));
+  return CONTRACT_IDS.filter((_,i) => totals[i] === Math.max(...totals));
+}

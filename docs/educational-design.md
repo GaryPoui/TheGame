@@ -133,3 +133,16 @@ Actualización 2026-10-29: Ada nueva usa [cartas de póker](ada-poker.md), con p
 Actualización 2026-11-17: en el póker actual de Ada, elegir una de las categorías que maximizan probabilidad × premio da dos puntos extra, sumados al premio por acertar y ganar. El extra se conserva con fallo, derrota o empate. El jefe conserva sus reglas de daño. Ver [regla, guardado y evidencia](table-props-poker-bonus.md).
 
 Actualización 2026-11-17: las nuevas partidas y prácticas de Doble usan cuatro grupos de ofertas con ocho encargos diferentes, enumeración de netos y condiciones públicas. Las sesiones base/repeat anteriores se conservan. No hay segunda tirada ni otro pago en la comparación siguiente. Ver [reglas, alcance y evidencia](casino-tables-finale.md).
+
+### Duelo de Doble por probabilidad
+
+Cada ronda pide comparar las tres tarjetas según un objetivo visible. Para una meta de puntos,
+se cuentan los resultados que alcanzan ese pago. Para un promedio, se suman los pagos y se
+dividen por la cantidad de resultados. Hay 36 pares equiprobables con dos dados pendientes y
+seis resultados en las rondas cuarta y octava, cuando ya se conoce el primero.
+
+Una respuesta óptima añade un acierto y deja el pago de ambos en cero, sea cual sea la tirada.
+Si la respuesta no es óptima, se aplican las tarjetas elegidas con la tirada común. Gana el
+marcador más alto. Ocho aciertos añaden un punto al cerrar la última ronda, con victoria 1 a 0.
+La práctica interactiva usa tiradas preparadas ajenas al guardado y al azar de la campaña.
+Los duelos ya iniciados pueden terminar con sus reglas o cambiar desde la propia mesa.

@@ -54,17 +54,62 @@ test('an older Doble save can switch to the new dice duel and keep its seals',as
   expect((await saved(page)).contracts).toEqual(after.contracts);
 });
 
-test('the ordinary table entry opens the new dice duel',async({page})=>{
+test('the Doble practice teaches both outcomes and eight correct answers win 1 to 0',async({page})=>{
+  test.setTimeout(120_000);
+  await page.setViewportSize({width:640,height:360});
   let game=createGame(5);
   while(game.phase!=='complete'){
     game=game.phase==='choose'?choose(game,bestChoices(game)[0] as 0|1):advance(game);
   }
   game.settings.reducedMotion=true;
+  game.settings.volume=0;
   await load(page,game);
   await page.getByTestId('enter-contracts').click();
   await expect(page.getByRole('heading',{name:'Elegí una tarjeta'})).toBeVisible();
+  const before=await saved(page);
+  const practice=page.getByTestId('doble-practice');
+  await practice.click();
+  const dialog=page.getByRole('dialog');
+  await dialog.getByRole('button',{name:/Arriesgado/}).click();
+  await expect(dialog.getByRole('status')).toContainText('Vos: 24');
+  await dialog.getByRole('button',{name:'Probar otra tarjeta'}).click();
+  await dialog.getByRole('button',{name:/Apostador/}).click();
+  await expect(dialog.getByRole('status')).toContainText('Vos: 0 · Doble: 0');
+  await dialog.getByRole('button',{name:'Siguiente ejemplo'}).click();
+  await expect(dialog).toContainText('Primer dado: 2');
+  await dialog.getByRole('button',{name:/Apostador/}).click();
+  await expect(dialog.getByRole('status')).toContainText('5 en promedio');
+  await dialog.getByRole('button',{name:'Ver cómo ganar'}).click();
+  await expect(dialog).toContainText('ganás 1 a 0');
+  await dialog.getByRole('button',{name:'Terminar práctica'}).click();
+  await expect(practice).toBeFocused();
+  expect(await saved(page)).toEqual(before);
+
   await page.getByTestId('doble-begin').click();
-  await expect(page.getByText('Partida 1 de 8',{exact:true})).toBeVisible();
+  for(let round=0;round<8;round++){
+    await expect(page.getByText(`Partida ${round+1} de 8`,{exact:true})).toBeVisible();
+    let answer=['S','C','J','J','S','C','J','S'][round];
+    if(round===3||round===7){
+      await page.getByTestId('doble-roll-first').click();
+      const first=(await saved(page)).contracts!.duel!.first!;
+      answer=round===3?(first>=2&&first<=4?'C':'J'):(first===6?'C':'S');
+    }
+    await page.getByTestId(`contract-${answer}`).click();
+    await page.getByTestId('doble-sign').click();
+    await expect(page.getByTestId('doble-duel-feedback')).toContainText('Ambos suman 0');
+    await expect(page.getByTestId('doble-merit')).toHaveText(`${round+1}/8`);
+    await expect(page.getByTestId('doble-balance')).toHaveText('0');
+    await expect(page.getByTestId('doble-rival-score')).toHaveText('0');
+    await expect(page.getByTestId('doble-next')).toBeInViewport();
+    await page.getByTestId('doble-next').click();
+  }
+  await expect(page.getByTestId('doble-completion')).toContainText('Ocho aciertos: +1 punto');
+  await expect(page.getByTestId('doble-balance')).toHaveText('1');
+  expect((await saved(page)).seals?.contracts).toBe(true);
+  await page.reload();
+  await page.getByTestId('continue-game').click();
+  await expect(page.getByTestId('doble-balance')).toHaveText('1');
+  await expect(page.getByTestId('enter-records')).toBeEnabled();
 });
 
 for(const {seed,win} of [{seed:3,win:true},{seed:10,win:false}]){

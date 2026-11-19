@@ -37,11 +37,12 @@ import {tableUnlocked,checkpointCampaign} from './core/campaign/progression';
 import {recordsView} from './ui/records';
 import {endingView} from './ui/ending';
 import { tokenTray, veraCoach, decisionTrack, urnTutorialHelp } from './ui/table-experience';
-import { createContracts, applyContractCommand, type ContractCommand, type ContractsState } from './core/tables/contracts';
+import { createContracts, applyContractCommand, latestDobleVariant, type ContractCommand, type ContractsState } from './core/tables/contracts';
 import { CONTRACT_IDS, type ContractId } from './core/math/dice';
 import { compareContracts, type ComparisonRun } from './core/math/simulation';
 import { contractsTutorial, contractsView, contractsComplete,contractCombinationsGuide } from './ui/contracts';
 import {dobleDuelTutorial,dobleDuelView,type DobleRollStart} from './ui/doble-duel';
+import {installDoblePractice} from './ui/doble-practice';
 import {
   createGame, choose, advance, bestChoices, probability, loadGame, saveGame, defaultSettings,
   clearGame, VERA_SEAL_TARGET, type Fraction, type GameState, type Settings, type Urn,
@@ -163,7 +164,7 @@ function setScreen(next: Screen, focus?: string): void {
 function header(): string {
   if(screen==='menu'||screen==='escape')return '<header class="topbar menu-topbar" aria-hidden="true"></header>';
   const contracts=state.contracts;
-  const showDobleUpgrade=screen==='contracts'&&contracts&&contracts.variant!=='duel'&&contracts.phase!=='complete';
+  const showDobleUpgrade=screen==='contracts'&&contracts&&contracts.variant!==latestDobleVariant&&contracts.phase!=='complete';
   return `<header class="topbar" aria-label="Opciones del juego">${showDobleUpgrade?btn('doble-upgrade','Jugar al duelo nuevo','quiet'):''}${btn('settings-button','Ajustes','quiet')}</header>`;
 }
 function badges(): string {
@@ -273,7 +274,7 @@ function complete(): string {
 function dobleScreen(): string {
   const c = state.contracts;
   if (!c) return room();
-  if(c.variant==='duel')return c.phase==='tutorial'?dobleDuelTutorial(c,dobleTutorialStep):dobleDuelView(c,selectedContract,diceRollStart);
+  if(c.duel)return c.phase==='tutorial'?dobleDuelTutorial(c,dobleTutorialStep):dobleDuelView(c,selectedContract,diceRollStart);
   return c.phase === 'tutorial' ? contractsTutorial(c, dobleTutorialStep) : c.phase === 'complete' ? contractsComplete(c) : contractsView(c, selectedContract, comparisonResult, rehearsalPair, diceRollStart, diceCombinationsVisible);
 }
 function render(focusId?: string): void {
@@ -450,7 +451,7 @@ function showSettings(section:SettingsSection='display'): void {
 
 function enterContracts(): void {
   if(!urnsSealed()) return;
-  if(!state.contracts) state.contracts = createContracts(Date.now(), 'duel');
+  if(!state.contracts) state.contracts = createContracts(Date.now(), latestDobleVariant);
   state.activeTable = 'contracts'; persist();
   setScreen('contracts',dobleFocus(state.contracts));
 }
@@ -458,14 +459,14 @@ function restartDoble(): void {
   clearTimeout(diceRollTimer);
   diceRollStart=undefined;
   scene?.stopDiceRoll();
-  state.contracts=createContracts(Date.now(),'duel');
+  state.contracts=createContracts(Date.now(),latestDobleVariant);
   dobleTutorialStep=0;
   comparisonResult=null;
   enterContracts();
 }
 function dobleFocus(s:ContractsState):string {
   switch(s.phase){
-    case 'tutorial': return 'doble-tutorial-next';
+    case 'tutorial': return s.variant===latestDobleVariant?'doble-practice':'doble-tutorial-next';
     case 'first-die': return 'doble-roll-first';
     case 'offer': case 'order': return 'contract-S';
     case 'retry': return 'doble-replay';
@@ -492,7 +493,7 @@ function commandDoble(type: ContractCommand['type'], revision: number, pointerFe
     diceRollStart = { balance:current.balance,merit:current.merit,...(die===undefined?{}:{die}),...(current.duel?{rivalScore:current.duel.rivalScore}:{}) };
   }
   state.contracts = next; selectedContract = null; persist();
-  if(!animateRoll)chime(next.history.at(-1)?.correct ?? true);
+  if(!animateRoll)chime(next.duel?.rounds.at(-1)?.correct ?? next.history.at(-1)?.correct ?? true);
   render(dobleFocus(next));
   if(type==='begin'||next.phase==='offer'||next.phase==='complete')window.scrollTo({top:0,behavior:'instant'});
   if(animateRoll){scene?.rollDice(diceRollStart?.die);diceRollTimer=setTimeout(finishDiceRoll,900);}
@@ -501,7 +502,10 @@ function commandDoble(type: ContractCommand['type'], revision: number, pointerFe
   announce(animateRoll?'Tirando…':dobleAnnouncement(next));
 }
 function dobleAnnouncement(s:ContractsState):string {
-  if(s.phase==='result'&&s.pair)return `Dados ${s.pair[0]} y ${s.pair[1]}. Suma ${s.pair[0]+s.pair[1]}. ${s.duel?`Vos ${s.balance}, Doble ${s.duel.rivalScore}.`:`Saldo ${s.balance}.`}`;
+  if(s.phase==='result'&&s.pair){
+    const feedback=s.duel?.rounds.at(-1)?.correct===true?'Mejor elección. Ambos suman cero. ':'';
+    return `${feedback}Dados ${s.pair[0]} y ${s.pair[1]}. Suma ${s.pair[0]+s.pair[1]}. ${s.duel?`Vos ${s.balance}, Doble ${s.duel.rivalScore}.`:`Saldo ${s.balance}.`}`;
+  }
   if(s.phase==='offer'&&s.duel?.first!=null)return `Salió ${s.duel.first} en el primer dado. Elegí una tarjeta.`;
   if(s.phase==='complete')return 'Sello de Doble obtenido.';
   if(s.phase==='retry')return 'Terminó el duelo. Podés volver a jugar.';
@@ -510,7 +514,7 @@ function dobleAnnouncement(s:ContractsState):string {
 function finishDiceRoll():void {
   clearTimeout(diceRollTimer);diceRollStart=undefined;scene?.stopDiceRoll();
   if(screen!=='contracts'||!state.contracts)return;
-  chime(state.contracts.history.at(-1)?.correct??true);
+  chime(state.contracts.duel?.rounds.at(-1)?.correct??state.contracts.history.at(-1)?.correct??true);
   render(overlay.querySelector('dialog[open]')?undefined:dobleFocus(state.contracts));
   announce(dobleAnnouncement(state.contracts));
 }
@@ -525,7 +529,7 @@ function handleGameClick(event: MouseEvent): void {
   if(handleCampaignClick(target))return;
   if(id === 'enter-contracts') { enterContracts(); return; }
   if(screen === 'contracts' && state.contracts) {
-    if(id==='doble-upgrade'&&state.contracts.variant!=='duel'){
+    if(id==='doble-upgrade'&&state.contracts.variant!==latestDobleVariant){
       showDialog('El nuevo duelo de Doble',`<p>Jugá ocho partidas contra Doble. Vas a empezar de cero en esta mesa. Conservás tus sellos y el avance en las otras mesas.</p>${btn('confirm-doble-upgrade','Empezar el duelo nuevo','primary full')}${btn('cancel-dialog','Seguir con mi partida','text-button full')}`);
       return;
     }
@@ -633,7 +637,7 @@ overlay.addEventListener('click', event => {
   const id = (event.target as HTMLElement).closest<HTMLElement>('button')?.dataset.testid;
   if (id === 'close-dialog' || id === 'resume-game' || id==='settings-return' || id==='cancel-dialog') overlay.querySelector('dialog')?.close();
   if (id === 'confirm-new-game') { overlay.querySelector('dialog')?.close(); startNew(); }
-  if(id==='confirm-doble-upgrade'&&screen==='contracts'&&state.contracts&&state.contracts.variant!=='duel'){
+  if(id==='confirm-doble-upgrade'&&screen==='contracts'&&state.contracts&&state.contracts.variant!==latestDobleVariant){
     overlay.querySelector('dialog')?.close();
     restartDoble();
   }
@@ -679,6 +683,7 @@ overlay.addEventListener('change', event => {
 
 installInfoDialogs(showDialog);
 installGameGuides(showDialog);
+installDoblePractice(showDialog);
 installBossTutorial(showDialog);
 async function initScene(): Promise<void> {
   try {
