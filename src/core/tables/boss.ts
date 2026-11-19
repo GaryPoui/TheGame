@@ -11,23 +11,41 @@ export interface BossState {
 }
 const order:BossMechanic[]=['urns','dice','poker'];
 export function bossMechanic(s:FinaleState):BossMechanic {return s.assisted?order[s.boss!.guideStep]!:order[(s.step+s.round+s.boss!.variant)%3]!;}
+export const bossUsesDuelDice=(s:FinaleState):boolean => s.experience==='boss-v2'||s.experience==='boss-v3';
+
+// [Target chips, other chips]. Close proportions reward checking both the color and the total.
+const closeUrns=[
+ [[4,3],[3,2]], // 4/7 vs 3/5: more target chips can give a smaller chance.
+ [[4,2],[5,3]], // 4/6 vs 5/8: the lead can swap after one hit.
+ [[3,2],[4,2]], // 3/5 vs 4/6: removing a hit from the leader produces a tie.
+] as const;
+
+function prepareCloseUrns(index:number,target:Color,swap:boolean):FinaleState['urns'] {
+ const [a,b]=closeUrns[index]!;
+ const toUrn=([wanted,other]:readonly [number,number])=>target==='red'?{red:wanted,blue:other}:{red:other,blue:wanted};
+ return swap?[toUrn(b),toUrn(a)]:[toUrn(a),toUrn(b)];
+}
 export function bossDiceRule(s:FinaleState) {
  const set=s.round<3?0:1;
  const target=s.round===1?10:s.round===4?6:1;
  return {set:set as 0|1,target,first:s.boss?.firstDie??null};
 }
 export function bossNeedsFirstDie(s:FinaleState): boolean {
- return s.experience==='boss-v2' && s.phase==='choose' && !s.assisted && !s.boss!.needsHelp
+ return bossUsesDuelDice(s) && s.phase==='choose' && !s.assisted && !s.boss!.needsHelp
    && (s.round===2||s.round===5) && bossMechanic(s)==='dice' && s.boss!.firstDie===null;
 }
 export function prepareBossStage(s:FinaleState):void {
  const b=s.boss!;b.target=(s.round+b.variant)%2===0?'red':'blue';
  b.urnDraws=0;
  b.objective=(['atLeast4','expected','guarantee1'] as ObjectiveId[])[(s.round+b.variant)%3]!;
- s.urns=structuredClone(([[{red:4,blue:2},{red:2,blue:3}],[{red:1,blue:3},{red:3,blue:2}],[{red:2,blue:2},{red:1,blue:4}]] as const)[(s.round+b.variant)%3]!) as FinaleState['urns'];
+ const index=(s.round+b.variant)%3;
+ const mechanic=bossMechanic(s);
+ s.urns=s.experience==='boss-v3'&&!s.assisted&&mechanic==='urns'
+  ?prepareCloseUrns(index,b.target,(Math.floor(s.round/3)+b.variant)%2===1)
+  :structuredClone(([[{red:4,blue:2},{red:2,blue:3}],[{red:1,blue:3},{red:3,blue:2}],[{red:2,blue:2},{red:1,blue:4}]] as const)[index]!) as FinaleState['urns'];
  s.pair=null;s.lastColor=null;
- if(s.experience==='boss-v2')b.firstDie=null;
- if(bossMechanic(s)==='poker'){const deal=dealHoldem(s.rng);s.rng=deal.rng;b.poker=deal.table;}
+ if(bossUsesDuelDice(s))b.firstDie=null;
+ if(mechanic==='poker'){const deal=dealHoldem(s.rng);s.rng=deal.rng;b.poker=deal.table;}
 }
 export function initializeBoss(s:FinaleState):void {
  s.boss={health:36,defences:6,charge:0,variant:s.seed%3,started:false,needsHelp:false,guideStep:0,urnDraws:0,target:'red',objective:'expected'};prepareBossStage(s);
@@ -39,7 +57,7 @@ export function bossChoices(s:FinaleState):FinaleChoice[]{
 export function bestBoss(s:FinaleState):FinaleChoice[]{
  const b=s.boss!,kind=bossMechanic(s);
  if(kind==='dice'){
-  if(s.experience==='boss-v2'){const {set,target,first}=bossDiceRule(s);return bestDuelDiceOffers(set,target,first);}
+  if(bossUsesDuelDice(s)){const {set,target,first}=bossDiceRule(s);return bestDuelDiceOffers(set,target,first);}
   return bestContracts(b.objective);
  }
  if(kind==='poker'){
@@ -74,7 +92,7 @@ export function applyBossCommand(s:FinaleState,c:FinaleCommand):FinaleState {
    if(n.lastColor===b.target)b.charge=Math.min(6,b.charge+1);
    text=`Salió ${n.lastColor==='red'?'roja ▲':'azul ●'}. ${n.lastColor===b.target?'Cargaste el combo.':'La carga no cambió.'}`;
   }else if(kind==='dice'){
-   const id=c.choice as ContractId,rule=s.experience==='boss-v2'?bossDiceRule(s):null;
+   const id=c.choice as ContractId,rule=bossUsesDuelDice(s)?bossDiceRule(s):null;
    let first=rule?.first??null;
    if(first===null){const die=uniform(n.rng,6);first=die.value+1;n.rng=die.rng;}
    const d=uniform(n.rng,6);n.rng=d.rng;n.pair=[first,d.value+1];

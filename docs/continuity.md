@@ -1,5 +1,9 @@
 # Continuidad del proyecto
 
+Las urnas del jefe usan proporciones más cercanas en duelos nuevos. Por ejemplo, 4 de 7 compite contra 3 de 5. Si de la segunda urna sale una ficha del color pedido, queda en 2 de 4 y la primera pasa a ser mejor. Las cantidades y el color objetivo siguen visibles. Se conservan las dos extracciones sin reposición, la ayuda y las reglas de dados y póker. Las partidas anteriores conservan sus urnas al reanudarse. Se aplicaron `game-designer`, `save-systems` y `webapp-testing`.
+
+Validación local: compilación, 78 pruebas unitarias, 70 comprobaciones matemáticas y ocho recorridos de navegador de las urnas y los dados. Se comprobó el cambio de mejor urna tras una extracción real y la recarga antes de la segunda elección.
+
 El duelo de Doble ahora tiene ocho partidas. En las primeras cuatro, Seguro paga 2 siempre, Apostador paga 10 con suma 5, 6 u 8 y Arriesgado paga 24 con suma 7. Estos dos últimos dan cero si fallan. En las últimas cuatro, Suma baja paga 5 con 9 o menos y pierde 1 en otro caso. Suma alta paga 6 con 9 o más y pierde 2 en otro caso. Dados iguales paga 15 si coinciden y pierde 3 en otro caso. El 9 cuenta para las dos ofertas de suma. El jugador y Doble eligen por separado y usan el mismo par. En las partidas 4 y 8 se guarda el primer dado antes de elegir y sólo se lanza el segundo al confirmar. Ganar por puntos da el sello. Empate o derrota ofrecen tutorial y revancha.
 
 Doble alterna las ofertas con una política fija que puede usar el primer dado público de la octava partida. La enumeración con dados justos e independientes da un 75,9 % de victorias para la estrategia de jugar siempre Seguro y luego Suma baja. Es un cálculo del diseño, sin prueba con jugadores.

@@ -7,7 +7,7 @@ export type FinaleChoice = HandCategory | 'U' | 'V' | ContractId | 'archive' | '
 export interface FinaleCommand {commandId:string;expectedRevision:number;type:'choose'|'next'|'begin'|'assist'|'roll-first';choice?:FinaleChoice}
 export interface FinaleDecision {round:number;step:number;choice:FinaleChoice;optimal:FinaleChoice[];correct:boolean;assisted:boolean;outcome:string}
 export interface FinaleState {
-  experience?:'boss-v1'|'boss-v2';boss?:BossState;
+  experience?:'boss-v1'|'boss-v2'|'boss-v3';boss?:BossState;
   seed:number;rng:GameState['rng'];phase:'choose'|'feedback'|'complete';round:number;step:number;
   assisted:boolean;merit:number;tokens:number;balance:number;urns:[Urn,Urn];pair:DicePair|null;
   lastColor:Color|null;history:FinaleDecision[];revision:number;journal:FinaleCommand[];
@@ -51,6 +51,6 @@ export function applyFinaleCommand(s:FinaleState,c:FinaleCommand):FinaleState {
 export function validFinaleState(value:unknown):value is FinaleState {
   if(!value||typeof value!=='object')return false;const s=value as FinaleState;
   if(!Number.isInteger(s.seed)||s.seed<1||s.seed>0xffffffff||!Array.isArray(s.journal)||s.journal.length>(s.experience?64:20))return false;
-  if(s.experience!==undefined&&s.experience!=='boss-v1'&&s.experience!=='boss-v2')return false;
+  if(s.experience!==undefined&&s.experience!=='boss-v1'&&s.experience!=='boss-v2'&&s.experience!=='boss-v3')return false;
   try{let replay=createFinale(s.seed,s.experience);for(const c of s.journal){const next=applyFinaleCommand(replay,c);if(next===replay)return false;replay=next;}return JSON.stringify(replay)===JSON.stringify(s);}catch{return false;}
 }

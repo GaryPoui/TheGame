@@ -375,7 +375,7 @@ function enterRecords():void {
 function finaleFocus(s:Parameters<typeof finaleChoices>[0]):string {return s.phase==='complete'?'exit-house':s.phase==='feedback'?'finale-next':s.boss&&!s.boss.started?'finale-begin':s.boss?.needsHelp?'finale-assist':bossNeedsFirstDie(s)?'finale-roll-first':'finale-'+finaleChoices(s)[0];}
 function enterFinale():void {
  if(!tableUnlocked(state,'finale'))return;
- if(!state.finale)state.finale=createFinale(Date.now(),'boss-v2');
+ if(!state.finale)state.finale=createFinale(Date.now(),'boss-v3');
  state.activeTable='finale';persist();setScreen('finale',finaleFocus(state.finale));
 }
 function handleCampaignClick(target:HTMLElement):boolean {
@@ -386,7 +386,7 @@ function handleCampaignClick(target:HTMLElement):boolean {
  if(id==='transfer-a'||id==='transfer-b'){const el=app.querySelector('[data-testid="transfer-feedback"]');if(el)el.textContent=id==='transfer-a'?'✓ 4 de 5 es 80 %, más que 2 de 4 (50 %).':'Revisá: 4 de 5 es 80 % y 2 de 4 es 50 %.';return true;}
  if(id==='transfer-safe'||id==='transfer-risk'){const el=app.querySelector('[data-testid="transfer-risk-feedback"]');if(el)el.textContent=id==='transfer-safe'?'✓ El pago fijo garantiza al menos 1.':'Un promedio de 3 puede incluir pérdidas. Para una garantía, elegí el pago fijo.';return true;}
  if((id==='records-replay'||id==='records-upgrade')&&state.records){adaTutorialStep=0;state.records=createRecords(Date.now(),true);selectedRecord=null;enterRecords();return true;}
- if(id==='finale-replay'&&state.finale){state.finale=createFinale(Date.now(),'boss-v2');persist();setScreen('finale',finaleFocus(state.finale));return true;}
+ if(id==='finale-replay'&&state.finale){state.finale=createFinale(Date.now(),'boss-v3');persist();setScreen('finale',finaleFocus(state.finale));return true;}
  if(screen==='records'&&state.records){
    const current=state.records;
    if(current.phase==='tutorial'&&current.experience==='cards-v1'&&(id==='records-tutorial-next'||id==='records-tutorial-back')){adaTutorialStep=Math.max(0,Math.min(2,adaTutorialStep+(id==='records-tutorial-next'?1:-1)));render(adaTutorialStep===2?'records-begin':'records-tutorial-next');return true;}

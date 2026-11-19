@@ -95,7 +95,7 @@ test('the new boss keeps the first die on reload and presents the second set of 
   game.settings.volume=0;
   game.seals={urns:true,contracts:true,records:true};
   game.activeTable='finale';
-  let finale=createFinale(3,'boss-v2');
+  let finale=createFinale(3,'boss-v3');
   const send=(type:FinaleCommand['type'],choice?:FinaleCommand['choice'])=>
     applyFinaleCommand(finale,{type,expectedRevision:finale.revision,commandId:`prep-${finale.revision}`,...(choice?{choice}:{})});
   finale=send('begin');

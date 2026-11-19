@@ -4,7 +4,7 @@ import {reviewButton} from './learning';
 import {guideButton,pokerHandGuide} from './game-guides';
 import {urnChoiceCard} from './urn-choice';
 import './boss.css';
-import {bossDiceRule,bossMechanic,bossNeedsFirstDie,type BossMechanic} from '../core/tables/boss';
+import {bossDiceRule,bossMechanic,bossNeedsFirstDie,bossUsesDuelDice,type BossMechanic} from '../core/tables/boss';
 import {diceDuelOffers} from '../core/tables/dice-duel';
 import {finaleChoices,bestFinale,type FinaleState,type FinaleChoice} from '../core/tables/finale';
 import {CONTRACTS,OBJECTIVES,objectiveUtility,type ContractId} from '../core/math/dice';
@@ -19,7 +19,7 @@ export function bossView(s:FinaleState,selected:FinaleChoice|null,freed:boolean)
  const b=s.boss!,kind=bossMechanic(s),review=s.phase==='feedback',last=s.history.at(-1),best=review?last!.optimal:bestFinale(s);
  if(s.phase==='complete')return `<main class="completion-layout"><section class="completion-card" data-testid="finale-completion"><div class="seal">IV</div><h1 class="golden-win">Ganaste</h1><p>${s.assisted?'Completaste las tres mecánicas con ayuda.':'Rompiste la resistencia del anfitrión.'} La puerta está abierta.</p><p class="completion-quote">«Tres maestros. Un solo rival. Esta partida es tuya».</p>${btn('exit-house','Cruzar la puerta',s)}${btn('finale-replay','Repetir el duelo',s)}<button class="text-button full" data-testid="back-room">Volver a la sala</button></section></main>`;
  const urns=`<div class="boss-urns boss-urn-fallback" aria-label="Contenido actual de las urnas">${s.urns.map((u,i)=>`<section class="boss-urn"><h2>Urna ${i+1}</h2><div class="boss-tokens" aria-hidden="true">${Array.from({length:u.red},()=>'<span class="red-token">▲</span>').join('')}${Array.from({length:u.blue},()=>'<span class="blue-token">●</span>').join('')}</div><p>${u.red} rojas · ${u.blue} azules</p></section>`).join('')}</div>`;
- const diceRule=kind==='dice'&&s.experience==='boss-v2'?bossDiceRule(s):null;
+ const diceRule=kind==='dice'&&bossUsesDuelDice(s)?bossDiceRule(s):null;
  const waiting=!!diceRule&&bossNeedsFirstDie(s),first=diceRule?.first??null;
  const newOffers=diceRule?diceDuelOffers(diceRule.set):[];
  const diceName=(id:ContractId)=>newOffers.find(o=>o.id===id)?.name??CONTRACTS[id].name;
